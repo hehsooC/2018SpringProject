@@ -1,14 +1,14 @@
 # 2018Spring: Web Programming Project
 ## Exercise Project: Fitness Tracker App
-<br />
+<br/>
 **Features Required**
-<br />
+<br/>
 1) Profile Management
-<br />
+<br/>
 2) Exercise Log
-<br />
+<br/>
 3) Sharing with Friends
-<br />
+<br/>
 
 ## Project Description (Subject to change - I will keep adding and editing ideas/plans.)
 <br />
