@@ -1,7 +1,7 @@
 # 2018Spring: Web Programming Project
 ## Exercise Project: Fitness Tracker App
 <br/>
-**Features Required**
+## Features Required
 <br/>
 1) Profile Management
 <br/>
