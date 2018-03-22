@@ -7,6 +7,8 @@ import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ExerciseComponent } from './exercise/exercise.component';
+import { BmiComponent } from './bmi/bmi.component';
+import { TipsComponent } from './tips/tips.component';
 
 
 
@@ -17,14 +19,18 @@ import { ExerciseComponent } from './exercise/exercise.component';
     NavComponent,
     HomeComponent,
     MessagesComponent,
-    ExerciseComponent
+    ExerciseComponent,
+    BmiComponent,
+    TipsComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent},
       { path: 'exercise', component: ExerciseComponent},
-      { path: '', redirectTo: '/home', pathMatch: 'full'}
+      { path: '', redirectTo: '/home', pathMatch: 'full'},
+      { path: 'bmi', component: BmiComponent},
+      {path: 'tips', component: TipsComponent}
     ])
   ],
   providers: [],
