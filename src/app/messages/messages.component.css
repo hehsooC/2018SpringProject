@@ -16,6 +16,7 @@
 
 .button:hover {
     color: black;
+    cursor: pointer;
 }
 
 .alert{
