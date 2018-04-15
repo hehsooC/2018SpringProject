@@ -1,3 +1,37 @@
 #messages {
     padding-top: 0.5rem;
+    padding-left: 0.2rem;
+}
+
+.button {
+    margin-left: 5px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.button:hover {
+    color: black;
+}
+
+.alert{
+    padding: 10px;
+    background-color: lightseagreen;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.msg{
+    list-style-type: none;
+    padding-top: 0.2rem;
+    padding-left: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
+h3{
+    text-align: center;
 }

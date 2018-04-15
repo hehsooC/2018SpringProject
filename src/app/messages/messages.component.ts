@@ -9,10 +9,12 @@ export class MessagesComponent implements OnInit {
 
     Messages: string[];
   constructor() { 
-    this.Messages = ['Record Your Daily Exercise!'];
+    this.Messages = ['Complete your Profile before you begin to plan your workout.', 'You can choose your workout plan.'];
   }
 
   ngOnInit() {
   }
+
+
 
 }

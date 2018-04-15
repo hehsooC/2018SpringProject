@@ -1,6 +1,15 @@
 <div id="messages">
   <div class="alert alert-success">
     <!-- Binding-->
-    {{Messages[0]}}
+    <span class="button" onclick="this.parentElement.style.display='none';"> <!-- javascript-->
+      &times;
+    </span>
+    <h3>Record your Exercise!</h3>
+    
+    <ul class = "msg">
+      <li *ngFor ="let msg of Messages">{{msg}}</li>
+    </ul>
   </div><!-- Alert -->
 </div><!--messages-->
+
+

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Http } from "@angular/http";
 
+import { Fit } from "../models/exercise";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  //Model = new Fit();
+  //private _api = "http://localhost:8080/home"
 
-  ngOnInit() {
+
+  name: string;
+  age: number;
+  weight: number;
+  height: number;
+  goalWeight: number;
+
+
+  constructor() {
   }
 
+  ngOnInit() {
+
+
+  }
+
+  
 }
