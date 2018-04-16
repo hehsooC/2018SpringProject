@@ -9,16 +9,15 @@ import { Fit } from "../models/exercise";
 })
 export class HomeComponent implements OnInit {
 
-  //Model = new Fit();
+  Model = new Fit();
   //private _api = "http://localhost:8080/home"
-
-
-  name: string;
-  age: number;
-  weight: number;
-  height: number;
-  goalWeight: number;
-
+  alreadyUser: boolean = false;
+  signUp: boolean = false;
+  hideLogin: boolean = true;
+  hide: boolean = false;
+  finishProfile: boolean = false;
+  login: boolean = false;
+  hideSignIn: boolean = false;
 
   constructor() {
   }
@@ -28,5 +27,28 @@ export class HomeComponent implements OnInit {
 
   }
 
+  hasId(){
+    this.alreadyUser = !this.alreadyUser;
+    this.hideSignIn = !this.hideSignIn;
+    
+
+    
+  }
   
+  saveProfile(){
+    this.signUp = !this.signUp;
+    this.hideLogin = !this.hideLogin;
+    this.hide = !this.hide;
+  }
+
+  isLogin(){
+    this.login = !this.login;
+  }
+
+  doneProfile(){
+    this.finishProfile = !this.finishProfile;
+  }
+
+
+ 
 }
