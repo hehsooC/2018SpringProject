@@ -4,18 +4,18 @@
     <button (click) = "hasId()">Sign In Here</button>
   </div>
 
-  <div *ngIf= "alreadyUser">
-    <!-- Here Login Form-->
+  <div *ngIf= "alreadyUser && !hide">
+    <!-- Login Form-->
     <div>
-      <input #Name /><button (click)="isLogin()"> Login</button>
+      <input #Name placeholder="User Name" /><button (click)="isLogin()"> Login</button>
     </div>
     <button class="btn btn-primary">Back</button> <!-- ? How to go back to previous?-->
-    <!-- need to bind login property-->
+    <!-- ** need to bind login property **-->
   </div> <!-- Log in Form Ends-->
 
   <div *ngIf="!hideSignIn">
     <!-- Profile Form -->
-    <!--ngif: if profile is done, disappear-->
+    <!--if profile is saved, disappear-->
     <p>Are you a new user?</p>
     <button (click) = "saveProfile()">
       Create New Profile
@@ -23,7 +23,7 @@
   </div>
 </div><!-- Sign in form ends-->
 
-<div class="card" *ngIf= "signUp">
+<div class="card" *ngIf= "signUp && !hideSignUpForm">
 
   <form>
     <div class="form-row">
@@ -54,35 +54,53 @@
         <input type="number" class="form-control" id="inputGoalWeight" placeholder="kg">
       </div>
     
-    <button class="btn btn-primary" (click)="doneProfile()">Save</button>
-    <button class="btn btn-primary">Back</button>
 
   </form>
+  <div>
+    <button class="btn btn-primary btn-sm" (click)="doneProfile()">Save</button>
+    <button class="btn btn-primary btn-sm">Back</button>
+  </div>
 </div> <!-- Profile Form ends-->
 
-<!-- ngif: if profile is saved, display new card-->
+<!-- if profile is saved, display Workout Plan-->
 
 <!-- Saved Profile display-->
-<div class="card" *ngIf = "finishProfile">
+<div class="card" *ngIf = "finishProfile || login">
   <div class="card-header">
     Your Profile
   </div>
   <ul class="list-group list-group-flush">
-    <!-- ngfor: display profile here-->
+    <!-- **ngfor: display profile here** -->
   </ul>
 
 </div> <!-- Saved Profile display ends-->
 
-<!-- ngif: if profile is saved and disappear, display plan-->
+<!-- if profile is saved and disappear, display plan to choose-->
 <!-- Exercise Plan-->
 <div class="card" *ngIf="finishProfile || login">
   <div class="card-header">
     Your Workout Plan
   </div>
+
   <ul class="list-group list-group-flush">
-    <!-- ngfor: display plan here-->
+    <form>
+      <div class="form-group">
+        <select  multiple class="form-control" id="exampleFormControlSelect2" >
+          <option *ngFor= "let list of Model.ExerciseList" >{{list}}</option>
+        </select>
+      </div>
+    </form>
+    <div class="center">
+      <button class="add-button" (click)="addPlan()">Add Plan</button>
+    </div>
+
   </ul>
-  <div class="center">
-    <button class="add-button">Add Plan</button>
-  </div>
+
 </div><!-- Exercise Plan end-->
+
+<!-- Exercise Info-->
+<div class ="card" *ngIf = "planAdded">
+  <!-- ** Added Plan Display Here-->
+
+
+</div>

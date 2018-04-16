@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
   finishProfile: boolean = false;
   login: boolean = false;
   hideSignIn: boolean = false;
+  hideSignUpForm: boolean = false;
+  planAdded: boolean = false;
 
   constructor() {
   }
@@ -30,9 +32,6 @@ export class HomeComponent implements OnInit {
   hasId(){
     this.alreadyUser = !this.alreadyUser;
     this.hideSignIn = !this.hideSignIn;
-    
-
-    
   }
   
   saveProfile(){
@@ -43,12 +42,18 @@ export class HomeComponent implements OnInit {
 
   isLogin(){
     this.login = !this.login;
+    this.hide = !this.hide;
   }
 
   doneProfile(){
     this.finishProfile = !this.finishProfile;
+    this.hideSignUpForm = !this.hideSignUpForm;
+
   }
 
-
+  addPlan(){
+    this.planAdded=!this.planAdded;
+    this.finishProfile =!this.finishProfile;
+  }
  
 }
