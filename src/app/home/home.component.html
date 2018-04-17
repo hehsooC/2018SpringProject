@@ -7,7 +7,7 @@
   <div *ngIf= "alreadyUser && !hide">
     <!-- Login Form-->
     <div>
-      <input #Name placeholder="User Name" /><button (click)="isLogin()"> Login</button>
+      <input #Name placeholder="User Name" /><button (click)="isLogin(Name.value)"> Login</button>
     </div>
     <button class="btn btn-primary">Back</button> <!-- ? How to go back to previous?-->
     <!-- ** need to bind login property **-->
@@ -86,22 +86,31 @@
     <form>
       <div class="form-group">
         <select multiple class="form-control" id="exampleFormControlSelect2" >
-          <option *ngFor= "let list of Model.ExerciseList" >{{list}}</option>
+          <option *ngFor= "let list of Model.ExerciseList" (click)="addPlan($event, list)">{{list}}</option>
         </select>
       </div>
     </form>
-    <div class="center">
-      <!--**Need to add exercise lists to plans array**-->
-      <button class="add-button" (click)="addPlan(plan)">Track</button>
-    </div>
-
+   
   </ul>
 
 </div><!-- Exercise Plan end-->
 
 <!-- Exercise Info-->
 <div class ="card" *ngIf = "planAdded">
+  <div class="card-header">
+    Your Record
+  </div>
   <!-- ** Added Plan Display Here-->
-
+  <ul class="list-group list-group-flush">
+      <li *ngFor="let list of Model.Track" class="list-group-item" > <!-- if in ngClass MyPlayedQuote is enabled, execute not-allowed pointer -->
+          {{list}}
+      </li>
+    </ul>
 
 </div>
+
+
+<!--
+<div class="center">
+    <button class="add-button" >Track</button>
+  </div> -->

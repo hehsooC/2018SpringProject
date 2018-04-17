@@ -43,19 +43,25 @@ export class HomeComponent implements OnInit {
   isLogin(){
     this.login = !this.login;
     this.hide = !this.hide;
+    this.planAdded = !this.planAdded;
+    
   }
 
   doneProfile(){
     this.finishProfile = !this.finishProfile;
     this.hideSignUpForm = !this.hideSignUpForm;
+    this.planAdded = !this.planAdded;
 
   }
 
-  addPlan(plan){
+  addPlan(e: MouseEvent, plan: string){
+    e.preventDefault();
     console.log(plan);
     this.Model.Track.push(plan);
-    this.planAdded=!this.planAdded;
-    this.finishProfile =!this.finishProfile;
+   
+    console.log(this.Model.Track);
   }
+
+  
  
 }
