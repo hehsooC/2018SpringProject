@@ -24,7 +24,9 @@
 </div><!-- Sign in form ends-->
 
 <div class="card" *ngIf= "signUp && !hideSignUpForm">
-
+<div class="card-header">
+ Create Your Profile
+</div>
   <form>
     <div class="form-row">
 
@@ -58,8 +60,10 @@
   </form>
   <div>
     <button class="btn btn-primary btn-sm" (click)="doneProfile()">Save</button>
-    <button class="btn btn-primary btn-sm">Back</button>
+    <button class="btn btn-primary btn-sm">Sign in</button>
+   <!--??--> <p class="already">already a user?</p>
   </div>
+
 </div> <!-- Profile Form ends-->
 
 <!-- if profile is saved, display Workout Plan-->
@@ -79,7 +83,7 @@
 <!-- Exercise Plan-->
 <div class="card" *ngIf="finishProfile || login">
   <div class="card-header">
-    Workout List
+    Choose your Workout
   </div>
 
   <ul class="list-group list-group-flush">
@@ -98,7 +102,7 @@
 <!-- Exercise Info-->
 <div class ="card" *ngIf = "planAdded">
   <div class="card-header">
-    Your Record
+    Today you achieved
   </div>
   <!-- ** Added Plan Display Here-->
   <ul class="list-group list-group-flush">

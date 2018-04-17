@@ -5,5 +5,5 @@ var app = express.Router();
 
 var fit = new Fit();
 // actions
-module.exports = app
-    .get('/profile', (req, res) => res.send( game.GetProfile() ));
+// module.exports = app
+//     .get('/profile', (req, res) => res.send( game.GetProfile() ));
