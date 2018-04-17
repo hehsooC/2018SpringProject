@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   hideSignIn: boolean = false;
   hideSignUpForm: boolean = false;
   planAdded: boolean = false;
+  plans: string[];
 
   constructor() {
   }
@@ -51,7 +52,9 @@ export class HomeComponent implements OnInit {
 
   }
 
-  addPlan(){
+  addPlan(plan){
+    console.log(plan);
+    this.plans.push(plan);
     this.planAdded=!this.planAdded;
     this.finishProfile =!this.finishProfile;
   }
