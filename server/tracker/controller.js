@@ -1,16 +1,11 @@
 
 var express = require('express'); 
-var app = express.Router(); 
- 
-var Game = require('./model'); 
-
-
-/**var express = require('express');
 var Fit = require('./model');
 
-var app = express.Router();
+
+var app = express.Router(); 
 
 var fit = new Fit();
-// actions
-// module.exports = app
-//     .get('/profile', (req, res) => res.send( game.GetProfile() )); */
+
+module.exports = app   
+    .get('/exercise', (req, res) => res.send())

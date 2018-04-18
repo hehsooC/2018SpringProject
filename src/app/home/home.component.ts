@@ -12,14 +12,11 @@ export class HomeComponent implements OnInit {
   Model = new Fit();
   //private _api = "http://localhost:8080/home"
   alreadyUser: boolean = false;
-  signUp: boolean = false;
-  hideLogin: boolean = true;
+  hideWelcome: boolean = false;
   hide: boolean = false;
-  finishProfile: boolean = false;
   login: boolean = false;
-  hideSignIn: boolean = false;
-  hideSignUpForm: boolean = false;
-  planAdded: boolean = false;
+  finishProfile: boolean = false;
+
 
   constructor() {
   }
@@ -30,38 +27,35 @@ export class HomeComponent implements OnInit {
   }
 
   hasId(){
-    this.alreadyUser = !this.alreadyUser;
-    this.hideSignIn = !this.hideSignIn;
-  }
-  
-  saveProfile(){
-    this.signUp = !this.signUp;
-    this.hideLogin = !this.hideLogin;
     this.hide = !this.hide;
   }
 
-  isLogin(){
+  isLogin(name: string){
     this.login = !this.login;
-    this.hide = !this.hide;
-    this.planAdded = !this.planAdded;
+    this.hideWelcome = !this.hideWelcome;
     
   }
 
-  doneProfile(){
+  doneProfile(name: string, age: number, height: number, weight: number, goalWeight: number ){
     this.finishProfile = !this.finishProfile;
-    this.hideSignUpForm = !this.hideSignUpForm;
-    this.planAdded = !this.planAdded;
+    this.Model.User.push({Name: name, Age: age, Height: height, Weight: weight, GoalWeight: goalWeight });
+    console.log('name is ' + name);
+    console.log(this.Model.User);
 
   }
 
   addPlan(e: MouseEvent, plan: string){
     e.preventDefault();
-    console.log(plan);
+    console.log('adding: ' + plan);
     this.Model.Track.push(plan);
    
     console.log(this.Model.Track);
   }
 
-  
+  removeList(e: MouseEvent, list: string){
+    console.log('removing: ' + list);
+    this.Model.Track.splice( this.Model.Track.indexOf(list), 1 );
+
+  }
  
 }

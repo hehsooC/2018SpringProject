@@ -39,4 +39,15 @@
 .already{
     font-size: 10px;
     color: chocolate;
+
+}
+
+.tracking{
+    margin-left: 5px;
+    margin-right: 5px;
+  
+}
+
+.list{
+    list-style-type: none;
 }

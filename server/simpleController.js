@@ -7,7 +7,7 @@ module.exports = app
         res.write('This is provided by Heh-Soo Choi at newpaltz.edu\r\n');
         next();
     })
-// respond widdth "hello world" when a GET request is made to the homepage
+// respond with "hello world" when a GET request is made to the homepage
 // Routing: attach the path to get each message
     .get('/hello', function (req, res) {
         res.write('World');
