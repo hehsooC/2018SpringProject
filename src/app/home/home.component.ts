@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   hide: boolean = false;
   login: boolean = false;
   finishProfile: boolean = false;
-
+  logInName: string;
 
   constructor() {
   }
@@ -33,12 +33,13 @@ export class HomeComponent implements OnInit {
   isLogin(name: string){
     this.login = !this.login;
     this.hideWelcome = !this.hideWelcome;
+    this.logInName = name;
     
   }
 
-  doneProfile(name: string, age: number, height: number, weight: number, goalWeight: number ){
+  doneProfile(logInName: string, age: number, height: number, weight: number, goalWeight: number ){
     this.finishProfile = !this.finishProfile;
-    this.Model.User.push({Name: name, Age: age, Height: height, Weight: weight, GoalWeight: goalWeight });
+    this.Model.User.push({Name: logInName, Age: age, Height: height, Weight: weight, GoalWeight: goalWeight });
     console.log('name is ' + name);
     console.log(this.Model.User);
 

@@ -10,7 +10,7 @@
   <div class="card-header">Please Sign in</div>
   <!-- Login Form-->
   <div>
-    <input #Name placeholder="User Name" /><button (click)="isLogin(Name.value)"> Login</button>
+    <input #Name placeholder="Name" /><button (click)="isLogin(Name.value)"> Login</button>
   </div>
   <div>
     <button class="btn btn-primary">Back</button> <!-- ? How to go back to previous?-->
@@ -37,7 +37,7 @@
 
       <div class="form-group col-md-4">
         <label for="inputName">Name</label>
-        <input #name type="text" class="form-control" id="inputName" placeholder="Name">
+        <input #name type="text" class="form-control" id="inputName" [value]="logInName">
       </div>
 
       <div class="form-group col-md-4">
