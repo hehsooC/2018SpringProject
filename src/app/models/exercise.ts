@@ -1,9 +1,9 @@
  export class Fit{
      User: Person[] = []; 
      ExerciseList: Workout[] = [
-        {List:"push ups", Time: 10, Set: 3}
+         //{List:"push ups", Time: 10, Set: 3}
         
-     ];
+      ];
      
      Track: string[] = [];
 
@@ -20,8 +20,8 @@
      //GoalBMI: number;
  }
 
- export class Workout{
-    List: string;
-    Time: number;
-    Set: number;
- }
+export class Workout{
+     List: string;
+     //Time: number;
+     //Set: number;
+  }

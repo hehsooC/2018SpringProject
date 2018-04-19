@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from "@angular/http";
 
-import { Fit } from "../models/exercise";
+import { Fit, Person, Workout } from "../models/exercise";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -10,15 +10,19 @@ import { Fit } from "../models/exercise";
 export class HomeComponent implements OnInit {
 
   Model = new Fit();
-  //private _api = "http://localhost:8080/home"
+  Profile: Person;
+  Work: Workout; 
+
+  private _api = "http://localhost:8080/fit";
+
   alreadyUser: boolean = false;
   hideWelcome: boolean = false;
   hide: boolean = false;
   login: boolean = false;
   finishProfile: boolean = false;
   logInName: string;
-
-  constructor() {
+  constructor(private http: Http) {
+    //setInterval(() => this.refresh(), 1000) 
   }
 
   ngOnInit() {
@@ -26,6 +30,10 @@ export class HomeComponent implements OnInit {
 
   }
 
+  refresh() {
+    this.http.get(this._api + "/state")
+    .subscribe (data => this.Model = data.json());
+  }
   hasId(){
     this.hide = !this.hide;
   }
@@ -34,8 +42,11 @@ export class HomeComponent implements OnInit {
     this.login = !this.login;
     this.hideWelcome = !this.hideWelcome;
     this.logInName = name;
+    this.http.get(this._api + "/exercise", { params : { Name: name }});
+    
     
   }
+
 
   doneProfile(logInName: string, age: number, height: number, weight: number, goalWeight: number ){
     this.finishProfile = !this.finishProfile;
@@ -48,7 +59,7 @@ export class HomeComponent implements OnInit {
   addPlan(e: MouseEvent, plan: string){
     e.preventDefault();
     console.log('adding: ' + plan);
-    this.Model.Track.push(plan);
+    this.Model.ExerciseList.push({List: plan});
    
     console.log(this.Model.Track);
   }

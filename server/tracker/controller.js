@@ -8,4 +8,5 @@ var app = express.Router();
 var fit = new Fit();
 
 module.exports = app   
-    .get('/exercise', (req, res) => res.send())
+    .get('/exercise', (req, res) => res.send( fit.GetExerciseList() ))
+    .get('/state', (req, res) => res.send(fit));
