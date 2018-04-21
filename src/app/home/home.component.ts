@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   finishProfile: boolean = false;
   logInName: string;
   constructor(private http: Http) {
-    //setInterval(() => this.refresh(), 1000) 
+    setInterval(() => this.refresh(), 1000) 
   }
 
   ngOnInit() {
@@ -47,13 +47,20 @@ export class HomeComponent implements OnInit {
     
   }
 
+ 
+
 
   doneProfile(logInName: string, age: number, height: number, weight: number, goalWeight: number ){
     this.finishProfile = !this.finishProfile;
-    this.Model.User.push({Name: logInName, Age: age, Height: height, Weight: weight, GoalWeight: goalWeight });
+    this.Model.User.push({Name: logInName, Age: age, Height: height, Weight: weight, GoalWeight: goalWeight, 
+      BMI: this.calculateBMI(weight, height), GoalBMI: this.calculateBMI(goalWeight, height) });
     console.log('name is ' + name);
     console.log(this.Model.User);
 
+  }
+
+  calculateBMI(weight: number, height: number){
+    return Math.round((weight / height / height * 10000) * 100) / 100;
   }
 
   addPlan(e: MouseEvent, plan: string){

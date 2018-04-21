@@ -17,11 +17,11 @@ app
     res.header("Access-Control-Allow-Headers", "*");
     next();
   })
-  //.use('/', express.static(path.join(__dirname,"../dist/"))) 
- // .use('/fit', fit)
-  // .use('/', (req, res, next) => {
-  //   res.sendFile(path.join(__dirname,"../dist/index.html"));
-  // })
+  .use('/', express.static(path.join(__dirname,"../dist/"))) 
+  .use('/fit', fit)
+  .use('/', (req, res, next) => {
+  res.sendFile(path.join(__dirname,"../dist/index.html"));
+   })
   .listen(port);
 
   /**

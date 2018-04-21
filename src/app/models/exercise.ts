@@ -15,9 +15,8 @@
      Height: number;
      Weight: number;
      GoalWeight: number;
-
-     //BMI: number;
-     //GoalBMI: number;
+     BMI: number;
+     GoalBMI: number;
  }
 
 export class Workout{
