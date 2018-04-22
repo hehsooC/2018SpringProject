@@ -14,7 +14,7 @@ const ExerciseStack =  [
     "Push Up"
     ];
  
-function Fit() { 
+function Fit() {  
         this.Person = [];
         this.PlanExercise = [];
         this.Profile = [];
@@ -39,7 +39,7 @@ function Fit() {
         } 
 
         this.ProfileAdd = (profile) =>{
-            this.Profile.push( {Age: profile.age});
+            this.Profile.push( {Age: profile});
 //, Weight: profile.weight, Height: profile.height, GoalWeight: profile.goalWeight, BMI: profile.bmi, GoalBMI: profile.goalBmi
         }
 

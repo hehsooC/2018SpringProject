@@ -47,44 +47,44 @@
 </div> <!-- Profile Form ends-->
 
 
- <!-- if profile is saved, display Workout Plan-->
- <div class="row justify-content-md-center">
-    <!-- Saved Profile display-->
-    <div class="col-md-3">
-    <div class="card tracking" *ngIf = "finishProfile">
-        <div class="card-header">
-        Your Profile
-        </div>
-        <ul class="list-group list-group-flush list" *ngFor ="let user of Profile">
-        <!-- **ngfor: display profile here** -->
-        <li>Name: {{user.Name}}</li>
-        <li>Age: {{user.Age}}</li>
-        <li>Weight: {{user.Weight}}</li>
-        <li>BMI: {{user.BMI}}</li>
-        <li>Goal Weight: {{user.GoalWeight}}</li>
-        <li>Goal BMI: {{user.GoalBMI}}</li>
-        </ul>
-    </div> <!-- Saved Profile display ends-->
-</div>  
+
 
 <div class="row" *ngIf="Me">
-    <div class="col-md-4">
+    <!-- Saved Profile display-->
+    <div class="col-md-6">
+        <div class="card tracking" *ngIf = "finishProfile">
+            <div class="card-header">
+            Your Profile
+            </div>
+            <ul class="list-group list-group-flush list" *ngFor ="let user of Profile">
+            <!-- **ngfor: display profile here** -->
+            <li>Name: {{user.Name}}</li>
+            <li>Age: {{user.Age}}</li>
+            <li>Weight: {{user.Weight}}</li>
+            <li>BMI: {{user.BMI}}</li>
+            <li>Goal Weight: {{user.GoalWeight}}</li>
+            <li>Goal BMI: {{user.GoalBMI}}</li>
+            </ul>
+        </div> <!-- Saved Profile display ends-->
+    </div>
+
+    <div class="col-md-6  mb-3">
         
         <div class="card" >
             <div class="card-header">Workout List({{Me.Name}}) </div>
-            <ul class="list-group list-group-flush my-quotes">
-                <li *ngFor="let list of Me.ExerciseList" 
-                    (click)="submitWorkout($event, list)"
-                    [ngClass]="{ enabled: !MyPlanExercise() }"
-                    class="list-group-item" >
-                    {{list}}
-                </li>
-            </ul>
+            <form>
+                <div class="form-group">
+                  <select multiple class="form-control" id="exampleFormControlSelect2" >
+                    <option *ngFor="let list of Me.ExerciseList"  (click)="submitWorkout($event, list)">{{list}}</option>
+                  </select>
+                </div>
+              </form>
+  
           </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-6">
         <div class="card bg-success mb-3" >
-            <div class="card-header text-white">Workout Plan</div>
+            <div class="card-header text-white">Which Workout did you do today?</div>
                 <ul class="list-group list-group-flush ">
                     <li *ngFor="let list of Model.PlanExercise"
                         [ngClass]="{ 'list-group-item-success': list.Chosen }"
@@ -101,24 +101,21 @@
     </div>
 
 
-</div>
+
 
 <!-- if profile is saved and disappear, display plan to choose-->
-<div class="col-md-3">
+    <div class="col-md-6">
         <!-- Exercise Plan-->
         <div class="card tracking" *ngIf="finishProfile">
-          <div class="card-header">
-            Which Workout did you do today?
-          </div>
-    
-          <ul class="list-group list-group-flush">
-            <form>
-              <div class="form-group">
-                <select multiple class="form-control" id="exampleFormControlSelect2" >
-                  <option *ngFor= "let choice of Model.PlanExercise" (click)="submitWorkout($event, choice.Text)">{{choice.Text}}</option>
-                </select>
-              </div>
-            </form>
-          </ul>
+            <div class="card-header">
+            You achieved..
+            </div>
+            <ul class="list-group list-group-flush ">
+                <li *ngFor= "let choice of Model.PlanExercise" (click)="submitWorkout($event, choice.Text)"
+                    class="list-group-item d-flex justify-content-between align-items-center ">
+                    {{choice.Text}}
+                </li>
+            </ul>
         </div><!-- Exercise Plan end-->
-      </div>
+    </div>
+</div><!-- row end -->

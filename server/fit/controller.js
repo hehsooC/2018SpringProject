@@ -18,17 +18,20 @@ module.exports = app
             fit.SubmitWorkout(req.body.Text, req.body.UserId);
             res.send( { success: true } );            
         } catch (error) {
-            res.status(403).send({ success: false, message: error.message });
+            res.status(403).send({ success: false, message: error.message }); 
         }
     })
+
+    // need to work on this
     .post('/exercise/choose', (req, res) => { 
     
         fit.DoneExercise(req.body.Text);
         res.send( { success: true } );
         
     })
+    // need to work on this
     .post('/exercise/profile', (req, res) =>{
-        fit.ProfileAdd(req.body);
+        fit.ProfileAdd(req.body.Age);
     });
  
  

@@ -1,6 +1,3 @@
-
-
-
 export class Fit {
 
     Person: User[] = [];
