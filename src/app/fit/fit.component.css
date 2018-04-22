@@ -1,0 +1,13 @@
+.login-form{
+    margin: 10px;
+}
+
+.btn{
+    margin: 5px;
+}
+
+.card-header{
+    background-color: rgb(58, 141, 141);
+    color: white;
+    font-size: 25px;
+}

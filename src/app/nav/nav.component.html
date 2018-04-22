@@ -1,24 +1,18 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-color">
-  <div class = "container">
-      <a class="navbar-brand" routerLink = "/home">Fitness Tracker</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-sm navbar-dark nav-back">
+  <div class="container">
+    <a class="navbar-brand" href="#">Fitness Tracker</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" routerLink = "/home" routerLinkActive="active">Exercise <span class="sr-only">(current)</span></a>
-            <!-- ?? how to refresh the page when a user hits navbar ??-->
+          <a class="nav-link" routerLink="/home" routerLinkActive="active" >Home <span class="sr-only">(current)</span></a>
           </li>
-          <!--
           <li class="nav-item">
-            <a class="nav-link disabled" routerLink = "/tips" routerLinkActive="active">Tips</a>
+          <a class="nav-link" routerLink="/fit" routerLinkActive="active" >Fitness</a>
           </li>
-        -->
-        
-        </ul>
-      </div>
- 
+      </ul>
+    </div>
   </div><!-- navbar container -->
-</nav> <!-- nav bar -->
+</nav><!-- nav bar -->

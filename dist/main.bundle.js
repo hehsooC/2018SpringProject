@@ -80,8 +80,9 @@ var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.j
 var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 var app_component_1 = __webpack_require__("./src/app/app.component.ts");
 var nav_component_1 = __webpack_require__("./src/app/nav/nav.component.ts");
-var home_component_1 = __webpack_require__("./src/app/home/home.component.ts");
 var messages_component_1 = __webpack_require__("./src/app/messages/messages.component.ts");
+var home_component_1 = __webpack_require__("./src/app/home/home.component.ts");
+var fit_component_1 = __webpack_require__("./src/app/fit/fit.component.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -90,15 +91,17 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 app_component_1.AppComponent,
                 nav_component_1.NavComponent,
-                home_component_1.HomeComponent,
                 messages_component_1.MessagesComponent,
+                home_component_1.HomeComponent,
+                fit_component_1.FitComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 http_1.HttpModule,
                 router_1.RouterModule.forRoot([
                     { path: 'home', component: home_component_1.HomeComponent },
-                    { path: '', redirectTo: '/home', pathMatch: 'full' },
+                    { path: 'fit', component: fit_component_1.FitComponent },
+                    { path: '', redirectTo: '/home', pathMatch: 'full' }
                 ])
             ],
             providers: [],
@@ -108,6 +111,110 @@ var AppModule = /** @class */ (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
+
+
+/***/ }),
+
+/***/ "./src/app/fit/fit.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn{\n    margin: 5px;\n}\n\n.card-header{\n    background-color: rgb(58, 141, 141);\n    color: white;\n    font-size: 25px;\n}"
+
+/***/ }),
+
+/***/ "./src/app/fit/fit.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card\" *ngIf=\"!Me\">\n    <div class=\"card-header\">Please Sign In</div>\n    <!-- Login Form-->\n    <div class=\"login-form\" >\n        <input #Name /><button class=\"btn btn-primary\" (click)=\"login(Name.value)\" >Sign In</button>\n    </div>\n\n</div> <!-- Log in Form Ends-->\n\n\n<div class=\"card\" *ngIf= \"signIn && !finishProfile\">\n    <div class=\"card-header\">\n    Please Create Your Profile Before Tracking Your Workout!\n    </div>\n    <form>\n        <div class=\"form-row\">\n    \n        <div class=\"form-group col-md-4\">\n            <label for=\"inputName\">Name</label>\n            <input #name type=\"text\" class=\"form-control\" id=\"inputName\" [value]=\"logInName\">\n        </div>\n    \n        <div class=\"form-group col-md-4\">\n            <label for=\"inputAge\">Age</label>\n            <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" placeholder=\"Age\" >\n        </div>\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputWeight\">Weight</label>\n            <input #weight type=\"number\" class=\"form-control\" id=\"inputWeight\" placeholder=\"kg\">\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputHeight\">Height</label>\n            <input #height type=\"number\" class=\"form-control\" id=\"inputHeight\" placeholder=\"cm\">\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputGoalWeight\">Goal Weight</label>\n            <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" placeholder=\"kg\">\n        </div>\n        </form>\n    <div>\n        <button class=\"btn btn-primary btn-sm\" (click)=\"doneProfile(age.value)\">Save</button>\n    </div> \n</div> <!-- Profile Form ends-->\n\n\n <!-- if profile is saved, display Workout Plan-->\n <div class=\"row justify-content-md-center\">\n    <!-- Saved Profile display-->\n    <div class=\"col-md-3\">\n    <div class=\"card tracking\" *ngIf = \"finishProfile\">\n        <div class=\"card-header\">\n        Your Profile\n        </div>\n        <ul class=\"list-group list-group-flush list\" *ngFor =\"let user of Profile\">\n        <!-- **ngfor: display profile here** -->\n        <li>Name: {{user.Name}}</li>\n        <li>Age: {{user.Age}}</li>\n        <li>Weight: {{user.Weight}}</li>\n        <li>BMI: {{user.BMI}}</li>\n        <li>Goal Weight: {{user.GoalWeight}}</li>\n        <li>Goal BMI: {{user.GoalBMI}}</li>\n        </ul>\n    </div> <!-- Saved Profile display ends-->\n</div>  \n\n<div class=\"row\" *ngIf=\"Me\">\n    <div class=\"col-md-4\">\n        \n        <div class=\"card\" >\n            <div class=\"card-header\">Workout List({{Me.Name}}) </div>\n            <ul class=\"list-group list-group-flush my-quotes\">\n                <li *ngFor=\"let list of Me.ExerciseList\" \n                    (click)=\"submitWorkout($event, list)\"\n                    [ngClass]=\"{ enabled: !MyPlanExercise() }\"\n                    class=\"list-group-item\" >\n                    {{list}}\n                </li>\n            </ul>\n          </div>\n    </div>\n    <div class=\"col-md-8\">\n        <div class=\"card bg-success mb-3\" >\n            <div class=\"card-header text-white\">Workout Plan</div>\n                <ul class=\"list-group list-group-flush \">\n                    <li *ngFor=\"let list of Model.PlanExercise\"\n                        [ngClass]=\"{ 'list-group-item-success': list.Chosen }\"\n                        class=\"list-group-item d-flex justify-content-between align-items-center \">\n                        {{list.Text}}\n                        <button (click)=\"chooseQuote($event, list)\"\n                                class=\"btn btn-sm btn-primary\">\n                                Done\n                        </button>\n                    </li>\n                </ul>\n            </div>\n            \n    </div>\n\n\n</div>\n\n<!-- if profile is saved and disappear, display plan to choose-->\n<div class=\"col-md-3\">\n        <!-- Exercise Plan-->\n        <div class=\"card tracking\" *ngIf=\"finishProfile\">\n          <div class=\"card-header\">\n            Which Workout did you do today?\n          </div>\n    \n          <ul class=\"list-group list-group-flush\">\n            <form>\n              <div class=\"form-group\">\n                <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                  <option *ngFor= \"let choice of Model.PlanExercise\" (click)=\"submitWorkout($event, choice.Text)\">{{choice.Text}}</option>\n                </select>\n              </div>\n            </form>\n          </ul>\n        </div><!-- Exercise Plan end-->\n      </div>"
+
+/***/ }),
+
+/***/ "./src/app/fit/fit.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var exercise_1 = __webpack_require__("./src/app/models/exercise.ts");
+var FitComponent = /** @class */ (function () {
+    function FitComponent(http) {
+        var _this = this;
+        this.http = http;
+        this.Model = new exercise_1.Fit();
+        this.signIn = false;
+        this.finishProfile = false;
+        this._api = "http://localhost:8080/fit";
+        this.MyPlanExercise = function () { return _this.Model.PlanExercise.find(function (x) { return x.UserId == _this.Me.Name; }); };
+        this.ChosenExercise = function () { return _this.Model.PlanExercise.find(function (x) { return x.Chosen; }); };
+        setInterval(function () { return _this.refresh(); }, 1000);
+    }
+    FitComponent.prototype.ngOnInit = function () {
+    };
+    FitComponent.prototype.refresh = function () {
+        var _this = this;
+        this.http.get(this._api + "/state")
+            .subscribe(function (data) { return _this.Model = data.json(); });
+    };
+    FitComponent.prototype.submitWorkout = function (e, text) {
+        var _this = this;
+        e.preventDefault();
+        this.http.post(this._api + "/exercise", { Text: text, UserId: this.Me.Name })
+            .subscribe(function (data) {
+            if (data.json().success) {
+                _this.Me.ExerciseList.splice(_this.Me.ExerciseList.indexOf(text), 1);
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    FitComponent.prototype.doneExercise = function (e, plan) {
+        e.preventDefault();
+        this.http.post(this._api + "/exercise/choose", { Text: plan.Text, UserId: this.Me.Name })
+            .subscribe(function (data) {
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    FitComponent.prototype.login = function (name) {
+        var _this = this;
+        this.http.get(this._api + "/exercise", { params: { userId: name } })
+            .subscribe(function (data) { return _this.Me = { Name: name, ExerciseList: data.json() }; });
+        this.logInName = name;
+        this.signIn = !this.signIn;
+    };
+    FitComponent.prototype.doneProfile = function (age) {
+        var _this = this;
+        this.finishProfile = !this.finishProfile;
+        this.http.post(this._api + "/exercise/profile", { Age: age })
+            .subscribe(function (data) { return _this.Profile = { Age: age }; });
+    };
+    //Weight: weight, Height: height,  GoalWeight: goalWeight, 
+    //BMI: this.calculateBMI(weight, height), GoalBMI: this.calculateBMI(goalWeight, height)
+    FitComponent.prototype.calculateBMI = function (weight, height) {
+        return Math.round((weight / height / height * 10000) * 100) / 100;
+    };
+    FitComponent = __decorate([
+        core_1.Component({
+            selector: 'app-fit',
+            template: __webpack_require__("./src/app/fit/fit.component.html"),
+            styles: [__webpack_require__("./src/app/fit/fit.component.css")]
+        }),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], FitComponent);
+    return FitComponent;
+}());
+exports.FitComponent = FitComponent;
 
 
 /***/ }),
@@ -122,7 +229,7 @@ module.exports = ".btn{\n    margin-top: 10px;\n}\n\n.card {\n    padding: 0.5re
 /***/ "./src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card\" *ngIf = \"!hide\">\n  <div class=\"card-header\">Welcome to Fit Tracker!</div>\n  <div>\n    <p>Please Sign in Here with Your User Name</p>\n    <button (click) = \"hasId()\">Sign In Here</button>\n  </div>\n</div><!-- Sign in button ends-->\n\n<div class=\"card\" *ngIf= \"hide && !hideWelcome\">\n  <div class=\"card-header\">Please Sign in</div>\n  <!-- Login Form-->\n  <div>\n    <input #Name placeholder=\"Name\" /><button (click)=\"isLogin(Name.value)\"> Login</button>\n  </div>\n  <div>\n    <button class=\"btn btn-primary\">Back</button> <!-- ? How to go back to previous?-->\n    <!-- ** need to bind login property **-->\n  </div>\n</div> <!-- Log in Form Ends-->\n\n  <!--\n  <div *ngIf=\"!hideSignIn\">\n\n    <p>Are you a new user?</p>\n    <button (click) = \"saveProfile()\">\n      Create New Profile\n    </button>\n  </div>\n-->\n\n<div class=\"card\" *ngIf= \"login && !finishProfile\">\n  <div class=\"card-header\">\n  Please Create Your Profile Before Tracking Your Workout!\n  </div>\n  <form>\n    <div class=\"form-row\">\n\n      <div class=\"form-group col-md-4\">\n        <label for=\"inputName\">Name</label>\n        <input #name type=\"text\" class=\"form-control\" id=\"inputName\" [value]=\"logInName\">\n      </div>\n\n      <div class=\"form-group col-md-4\">\n        <label for=\"inputAge\">Age</label>\n        <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" placeholder=\"Age\" >\n      </div>\n    </div>\n\n      <div class=\"form-group\">\n        <label for=\"inputWeight\">Weight</label>\n        <input #weight type=\"number\" class=\"form-control\" id=\"inputWeight\" placeholder=\"kg\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"inputHeight\">Height</label>\n        <input #height type=\"number\" class=\"form-control\" id=\"inputHeight\" placeholder=\"cm\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"inputGoalWeight\">Goal Weight</label>\n        <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" placeholder=\"kg\">\n      </div>\n    </form>\n  <div>\n    <button class=\"btn btn-primary btn-sm\" (click)=\"doneProfile(name.value, age.value, height.value, weight.value, goalWeight.value)\">Save</button>\n  </div> \n</div> <!-- Profile Form ends-->\n\n  <!-- if profile is saved, display Workout Plan-->\n<div class=\"row justify-content-md-center\">\n    <!-- Saved Profile display-->\n  <div class=\"col-md-3\">\n    <div class=\"card tracking\" *ngIf = \"finishProfile\">\n      <div class=\"card-header\">\n        Your Profile\n      </div>\n      <ul class=\"list-group list-group-flush list\" *ngFor =\"let user of Model.User\">\n        <!-- **ngfor: display profile here** -->\n        <li>Name: {{user.Name}}</li>\n        <li>Age: {{user.Age}}</li>\n        <li>Weight: {{user.Weight}}</li>\n        <li>BMI: {{user.BMI}}</li>\n        <li>Goal Weight: {{user.GoalWeight}}</li>\n        <li>Goal BMI: {{user.GoalBMI}}</li>\n      </ul>\n    </div> <!-- Saved Profile display ends-->\n  </div>  \n  <!-- if profile is saved and disappear, display plan to choose-->\n  <div class=\"col-md-3\">\n    <!-- Exercise Plan-->\n    <div class=\"card tracking\" *ngIf=\"finishProfile\">\n      <div class=\"card-header\">\n        Which Workout did you do today?\n      </div>\n\n      <ul class=\"list-group list-group-flush\">\n        <form>\n          <div class=\"form-group\">\n            <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n              <option *ngFor= \"let list of Model.ExerciseList\" (click)=\"addPlan($event, list.List)\">{{list.List}}</option>\n            </select>\n          </div>\n        </form>\n      </ul>\n    </div><!-- Exercise Plan end-->\n  </div>\n  <div class=\"col-md-3\">\n    <!-- Exercise Info-->\n    <div class =\"card tracking\" *ngIf = \"finishProfile\">\n      <div class=\"card-header\">\n        Today you achieved\n      </div>\n      <!-- ** Added Plan Display Here-->\n      <ul class=\"list-group list-group-flush\">\n        <li *ngFor=\"let list of Model.Track\" class=\"list-group-item d-flex justify-content-between align-items-center\" (click) =\"removeList($event, list)\" > <!-- if in ngClass MyPlayedQuote is enabled, execute not-allowed pointer -->\n          {{list}}\n        </li>\n      </ul>\n    </div>\n  </div>\n</div>\n\n<!--\n<div class=\"center\">\n    <button class=\"add-button\" >Track</button>\n  </div> -->"
+module.exports = "<div>Welcome to Fitness Tracker!</div>"
 
 /***/ }),
 
@@ -142,56 +249,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
-var exercise_1 = __webpack_require__("./src/app/models/exercise.ts");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(http) {
-        var _this = this;
-        this.http = http;
-        this.Model = new exercise_1.Fit();
-        this._api = "http://localhost:8080/fit";
-        this.alreadyUser = false;
-        this.hideWelcome = false;
-        this.hide = false;
-        this.login = false;
-        this.finishProfile = false;
-        setInterval(function () { return _this.refresh(); }, 1000);
+    function HomeComponent() {
     }
     HomeComponent.prototype.ngOnInit = function () {
-    };
-    HomeComponent.prototype.refresh = function () {
-        var _this = this;
-        this.http.get(this._api + "/state")
-            .subscribe(function (data) { return _this.Model = data.json(); });
-    };
-    HomeComponent.prototype.hasId = function () {
-        this.hide = !this.hide;
-    };
-    HomeComponent.prototype.isLogin = function (name) {
-        this.login = !this.login;
-        this.hideWelcome = !this.hideWelcome;
-        this.logInName = name;
-        this.http.get(this._api + "/exercise", { params: { Name: name } });
-    };
-    HomeComponent.prototype.doneProfile = function (logInName, age, height, weight, goalWeight) {
-        this.finishProfile = !this.finishProfile;
-        this.Model.User.push({ Name: logInName, Age: age, Height: height, Weight: weight, GoalWeight: goalWeight,
-            BMI: this.calculateBMI(weight, height), GoalBMI: this.calculateBMI(goalWeight, height) });
-        console.log('name is ' + name);
-        console.log(this.Model.User);
-    };
-    HomeComponent.prototype.calculateBMI = function (weight, height) {
-        return Math.round((weight / height / height * 10000) * 100) / 100;
-    };
-    HomeComponent.prototype.addPlan = function (e, plan) {
-        e.preventDefault();
-        console.log('adding: ' + plan);
-        this.Model.ExerciseList.push({ List: plan });
-        console.log(this.Model.Track);
-    };
-    HomeComponent.prototype.removeList = function (e, list) {
-        console.log('removing: ' + list);
-        this.Model.Track.splice(this.Model.Track.indexOf(list), 1);
     };
     HomeComponent = __decorate([
         core_1.Component({
@@ -199,7 +260,7 @@ var HomeComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/home/home.component.html"),
             styles: [__webpack_require__("./src/app/home/home.component.css")]
         }),
-        __metadata("design:paramtypes", [http_1.Http])
+        __metadata("design:paramtypes", [])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -267,25 +328,32 @@ exports.MessagesComponent = MessagesComponent;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Fit = /** @class */ (function () {
     function Fit() {
-        this.User = [];
-        this.ExerciseList = [];
-        this.Track = [];
+        this.Person = [];
+        this.PlanExercise = [];
+        this.Profile = [];
     }
     return Fit;
 }());
 exports.Fit = Fit;
-var Person = /** @class */ (function () {
-    function Person() {
+var User = /** @class */ (function () {
+    function User() {
     }
-    return Person;
+    return User;
 }());
-exports.Person = Person;
-var Workout = /** @class */ (function () {
-    function Workout() {
+exports.User = User;
+var Exercise = /** @class */ (function () {
+    function Exercise() {
+        this.Chosen = false;
     }
-    return Workout;
+    return Exercise;
 }());
-exports.Workout = Workout;
+exports.Exercise = Exercise;
+var Info = /** @class */ (function () {
+    function Info() {
+    }
+    return Info;
+}());
+exports.Info = Info;
 
 
 /***/ }),
@@ -293,14 +361,14 @@ exports.Workout = Workout;
 /***/ "./src/app/nav/nav.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".navbar {\n    padding: 0 1rem;\n  }\n  \n  .bg-color {\n      background-color: darkcyan;\n  }"
+module.exports = ".navbar {\n    padding: 0 1rem;\n  }\n  \n  .nav-back{\n    background-color: teal;\n}"
 
 /***/ }),
 
 /***/ "./src/app/nav/nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark bg-color\">\n  <div class = \"container\">\n      <a class=\"navbar-brand\" routerLink = \"/home\">Fitness Tracker</a>\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n\n      <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n        <ul class=\"navbar-nav\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" routerLink = \"/home\" routerLinkActive=\"active\">Exercise <span class=\"sr-only\">(current)</span></a>\n            <!-- ?? how to refresh the page when a user hits navbar ??-->\n          </li>\n          <!--\n          <li class=\"nav-item\">\n            <a class=\"nav-link disabled\" routerLink = \"/tips\" routerLinkActive=\"active\">Tips</a>\n          </li>\n        -->\n        \n        </ul>\n      </div>\n \n  </div><!-- navbar container -->\n</nav> <!-- nav bar -->"
+module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark nav-back\">\n  <div class=\"container\">\n    <a class=\"navbar-brand\" href=\"#\">Fitness Tracker</a>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n      <ul class=\"navbar-nav\">\n          <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\" >Home <span class=\"sr-only\">(current)</span></a>\n          </li>\n          <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\" >Fitness</a>\n          </li>\n      </ul>\n    </div>\n  </div><!-- navbar container -->\n</nav><!-- nav bar -->\n"
 
 /***/ }),
 

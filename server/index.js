@@ -1,40 +1,29 @@
-const express = require('express');
-
-const simple = require('./simpleController');
-const fit = require('./tracker/controller');
+const express = require('express')
 const path = require('path');
+const bodyParser = require('body-parser');
 
-var app = express();
+const fit = require('./fit/controller');
+
+var app = express()
 
 const servername = "localhost";
 const port = 8080;
 
-
+ 
+ 
 app
-  .use('/fit', fit)
-  .use('/', (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-    next();
-  })
-  .use('/', express.static(path.join(__dirname,"../dist/"))) 
-  .use('/fit', fit)
-  .use('/', (req, res, next) => {
-  res.sendFile(path.join(__dirname,"../dist/index.html"));
-   })
-  .listen(port);
+    .use(bodyParser.json()) 
+    .use(bodyParser.urlencoded({ extended: false }))
+    .use('/', (req, res, next) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "*");
+        next();      
+    })
+    .use('/', express.static(path.join(__dirname, "../dist/")))
+    .use('/fit', fit)
+    .use('/', (req, res, next) => {
+        res.sendFile(path.join(__dirname, "../dist/index.html"));
+    })
+    .listen(port);
 
-  /**
-app.get('/goodbye', function (req, res) {
-    res.write('New Paltz');
-    res.end();
-
-  });
-
-app.get('/hello', function(req,res){
-    res.write('World');
-    res.end();
-});
-app.use('./simpleController', simple).listen(port); 
- */
-  console.log("running on http://" + servername + ":" + port);
+console.log("running on http://" + servername + ":" + port); 
