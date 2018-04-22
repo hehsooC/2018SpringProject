@@ -3,6 +3,7 @@ export class Fit {
     Person: User[] = [];
     PlanExercise: Exercise[] = [];
     Profile: Info[] =[];
+    DoneExerciseList: Exercise[] = [];
 }
 
 export class User {

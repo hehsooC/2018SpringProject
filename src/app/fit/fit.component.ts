@@ -11,10 +11,13 @@ export class FitComponent implements OnInit {
 
     Model = new Fit();
     Me: User;
+    Workout: Exercise;
+    Profile:Info;   
+    
     logInName: string;
     signIn: boolean = false;
     finishProfile: boolean = false;
-    Profile:Info;
+
     private _api = "http://localhost:8080/fit";
 
   constructor(private http: Http) {
@@ -33,22 +36,13 @@ export class FitComponent implements OnInit {
     e.preventDefault();
 
     this.http.post(this._api + "/exercise", { Text: text, UserId: this.Me.Name })
-        .subscribe(data=> {
-            if(data.json().success){
-                this.Me.ExerciseList.splice( this.Me.ExerciseList.indexOf(text), 1 );
-            }
-        }, err=> {
-            console.log(err);
-        });
+        .subscribe();
   }
 
   doneExercise(e: MouseEvent, plan: Exercise){
     e.preventDefault();
     this.http.post(this._api + "/exercise/choose", { Text: plan.Text, UserId: this.Me.Name })
-        .subscribe(data=> {
-        }, err=> {
-            console.log(err);
-        });
+        .subscribe(data => this.Workout = {Text: plan.Text, UserId: this.Me.Name, Chosen: true});
   }
 
   login(name: string){

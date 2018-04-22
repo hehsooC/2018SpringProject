@@ -21,13 +21,13 @@ module.exports = app
             res.status(403).send({ success: false, message: error.message }); 
         }
     })
-
+ 
     // need to work on this
     .post('/exercise/choose', (req, res) => { 
     
         fit.DoneExercise(req.body.Text);
         res.send( { success: true } );
-        
+         
     })
     // need to work on this
     .post('/exercise/profile', (req, res) =>{
