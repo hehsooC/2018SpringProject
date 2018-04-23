@@ -10,6 +10,12 @@ module.exports = app
     .get('/exercise', (req, res) =>{
      res.send( fit.GetExerciseList(req.query.userId) ) 
     })
+    .get('/exercise/share', (req, res) =>{
+        console.log('different user: ' + req.query.userId);
+        // need to send different approach for different user
+        res.send(fit.SharingOthers(req.query.userId));
+       })
+       
     .get('/state', (req, res) => res.send(fit))
     // this works but couldn't find api database for workout
     //.post('/exercise/info', (req, res) => res.send( fit.GetHealthInfo()))
@@ -28,7 +34,7 @@ module.exports = app
     
         fit.DoneExercise(req.body.Text);
         res.send( { success: true } );
-         
+          
     })
     // need to work on this
     .post('/exercise/profile', (req, res) =>{

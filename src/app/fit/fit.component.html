@@ -1,14 +1,24 @@
+<!-- For First User, this user will be the person who tracks the workout-->
 <div class="card" *ngIf="!Me">
-    <div class="card-header">Please Sign In</div>
-    <!-- Login Form-->
+    <div class="card-header">Please Sign Up</div>
+    <!-- Sign Up Form-->
     <div class="login-form" >
-        <input #Name /><button class="btn btn-primary" (click)="login(Name.value)" >Sign In</button>
+        <input #Name /><button class="btn btn-primary" (click)="login(Name.value)" >Sign Up</button>
     </div>
 
 </div> <!-- Log in Form Ends-->
 
 
-<div class="card" *ngIf= "signIn && !finishProfile">
+<div class="card" *ngIf="Me">
+    <div class="card-header">Please Sign In</div>
+    <!-- Login Form-->
+    <div class="login-form" >
+        <input #user /><button class="btn btn-primary" (click)="differentUser(user.value)" >Sign In</button>
+    </div>
+
+</div> <!-- Log in Form Ends-->
+
+<div class="card" *ngIf= "this.Model.FirstUser && signIn && !finishProfile">
     <div class="card-header">
     Please Create Your Profile Before Tracking Your Workout!
     </div>
@@ -27,13 +37,13 @@
         </div>
     
         <div class="form-group">
-            <label for="inputWeight">Weight</label>
-            <input #weight type="number" class="form-control" id="inputWeight" placeholder="kg">
-        </div>
-    
-        <div class="form-group">
             <label for="inputHeight">Height</label>
             <input #height type="number" class="form-control" id="inputHeight" placeholder="cm">
+        </div>
+
+        <div class="form-group">
+            <label for="inputWeight">Weight</label>
+            <input #weight type="number" class="form-control" id="inputWeight" placeholder="kg">
         </div>
     
         <div class="form-group">
@@ -69,26 +79,40 @@
         </div> <!-- Saved Profile display ends-->
     </div>
 
+    <!-- who do you want to share?-->
+    <div class="col">
+        <div class="card tracking" >
+            <div class="card-header">
+            Choose which user to share your workout
+            </div>
+            <ul class="list-group list-group-flush list">
+                <li>UserName:
+                    <button 
+                    class="btn btn-sm btn-warning">
+                        Share
+                    </button>
+                </li>
+
+            </ul>
+        </div> 
+    </div>
+
+    <!-- You're sharing with.. -->
     <div class="col">
         <div class="card tracking" >
             <div class="card-header">
             You're Sharing With
             </div>
             <ul class="list-group list-group-flush list">
-            <!-- **ngfor: display profile here** -->
                 <li>UserName:</li>
-                <!-- ** Age or Info is undefined why??
-                <li>Age: {{profile}}</li> -->
-            <!--
-            <li>Weight: {{user.Weight}}</li>
-            <li>BMI: {{user.BMI}}</li>
-            <li>Goal Weight: {{user.GoalWeight}}</li>
-            <li>Goal BMI: {{user.GoalBMI}}</li>
-            -->
+
             </ul>
-        </div> <!-- Saved Profile display ends-->
+        </div> 
     </div>
+
 </div>
+
+
 <div class="row justify-content-md-center" *ngIf="finishProfile">
     <div class="col  mb-3">
         

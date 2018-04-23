@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from "@angular/http";
-import {Fit, User, Exercise, Info } from '../models/exercise';
+import {Fit, User, Exercise, Info, Different } from '../models/exercise';
 
 @Component({
   selector: 'app-fit',
@@ -12,7 +12,8 @@ export class FitComponent implements OnInit {
     Model = new Fit();
     Me: User;
     Workout: Exercise;
-    DisplayProfile: Info;   
+    DisplayProfile: Info;
+    Others: Different;   
     
     logInName: string;
     signIn: boolean = false;
@@ -53,6 +54,11 @@ export class FitComponent implements OnInit {
     this.signIn = !this.signIn;
   }
 
+  differentUser(name: string){
+    this.http.get(this._api + "/exercise/share", { params : { userId: name } })
+    .subscribe(data=> this.Others =  {Name: name} )
+  }
+
   doneProfile(age: number, weight: number, height: number, goalWeight: number ){
     this.finishProfile = !this.finishProfile;
     const goalBmiCalculate = this.calculateBMI(goalWeight, height);
@@ -68,6 +74,10 @@ export class FitComponent implements OnInit {
     return Math.round((weight / height / height * 10000) * 100) / 100;
     }
     
+
+    
+  IAmWorkingOut = () => this.Me.Name == this.Model.FirstUser;
   MyPlanExercise = () => this.Model.PlanExercise.find( x => x.UserId == this.Me.Name );
   ChosenExercise = () => this.Model.PlanExercise.find( x => x.Chosen );
+  IAmDifferentUser = () => this.Me.Name != this.Model.FirstUser;
 }
