@@ -1,5 +1,4 @@
 
-
 const ExerciseStack =  [
     "Squat",
     "Plank",
@@ -44,7 +43,7 @@ function Fit() {
                 this.Person.push({ UserId: userId, Name: userId, TotalWorkout: 0 });
             }
                 return ExerciseStack.slice(0, ExerciseStack.length-1);   
-        }
+        } 
         
         this.SubmitWorkout = (text, userId) => {
             console.log('text is ' + text);
@@ -63,11 +62,12 @@ function Fit() {
         }
          */
 
-        this.ProfileAdd = (profile) =>{
-            this.Profile.push( {Age: profile.Age} );
+        this.ProfileAdd = (age, weight, height, goalWeight, bmi, goalBmi, userId) =>{
+            this.Profile.push( {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight, BMI: bmi, GoalBMI: goalBmi, UserId: userId} );
+            console.log('received ' + age + ", " + userId )
 //, Weight: profile.weight, Height: profile.height, GoalWeight: profile.goalWeight, BMI: profile.bmi, GoalBMI: profile.goalBmi
         } 
-
+  
 }   
  
 module.exports = Fit; 

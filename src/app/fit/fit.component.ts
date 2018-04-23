@@ -12,7 +12,7 @@ export class FitComponent implements OnInit {
     Model = new Fit();
     Me: User;
     Workout: Exercise;
-    Profile:Info;   
+    DisplayProfile: Info;   
     
     logInName: string;
     signIn: boolean = false;
@@ -53,10 +53,14 @@ export class FitComponent implements OnInit {
     this.signIn = !this.signIn;
   }
 
-  doneProfile(age: number ){
+  doneProfile(age: number, weight: number, height: number, goalWeight: number ){
     this.finishProfile = !this.finishProfile;
-    this.http.post(this._api + "/exercise/profile", {UserId: this.Me.Name})
-    .subscribe(data => this.Profile = {Age: age});
+    const goalBmiCalculate = this.calculateBMI(goalWeight, height);
+    const bmiCalculate = this.calculateBMI(weight, height);
+    this.http.post(this._api + "/exercise/profile", {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight,
+      BMI: bmiCalculate, GoalBMI: goalBmiCalculate , UserId: this.Me.Name})
+    .subscribe(data => this.DisplayProfile = {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight,
+      BMI: bmiCalculate, GoalBMI: goalBmiCalculate});
     }
 //Weight: weight, Height: height,  GoalWeight: goalWeight, 
 //BMI: this.calculateBMI(weight, height), GoalBMI: this.calculateBMI(goalWeight, height)

@@ -42,7 +42,7 @@
         </div>
         </form>
     <div>
-        <button class="btn btn-primary btn-sm" (click)="doneProfile(age.value)">Save</button>
+        <button class="btn btn-primary btn-sm" (click)="doneProfile(age.value, weight.value, height.value, goalWeight.value)">Save</button>
     </div> 
 </div> <!-- Profile Form ends-->
 
@@ -56,9 +56,27 @@
             <div class="card-header">
             Your Profile
             </div>
-            <ul class="list-group list-group-flush list">
+            <ul class="list-group list-group-flush list" *ngFor="let profile of Model.Profile">
             <!-- **ngfor: display profile here** -->
                 <li>Name: {{Me.Name}}</li>
+                <li>Age: {{profile.Age}}</li>
+                <li>Weight: {{profile.Weight}}</li>
+                <li>BMI: {{profile.BMI}}</li>
+                <li>Goal Weight: {{profile.GoalWeight}}</li>
+                <li>Goal BMI: {{profile.GoalBMI}}</li>
+                
+            </ul>
+        </div> <!-- Saved Profile display ends-->
+    </div>
+
+    <div class="col">
+        <div class="card tracking" >
+            <div class="card-header">
+            You're Sharing With
+            </div>
+            <ul class="list-group list-group-flush list">
+            <!-- **ngfor: display profile here** -->
+                <li>UserName:</li>
                 <!-- ** Age or Info is undefined why??
                 <li>Age: {{profile}}</li> -->
             <!--
@@ -75,7 +93,7 @@
     <div class="col  mb-3">
         
         <div class="card" >
-            <div class="card-header">Workout List({{Me.Name}}) </div>
+            <div class="card-header">Workout List </div>
             <form>
                 <div class="form-group">
                   <select multiple class="form-control" id="exampleFormControlSelect2" >

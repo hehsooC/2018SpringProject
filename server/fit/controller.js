@@ -22,7 +22,7 @@ module.exports = app
             res.status(403).send({ success: false, message: error.message }); 
         }
     })
- 
+  
     // need to work on this
     .post('/exercise/choose', (req, res) => { 
     
@@ -33,7 +33,8 @@ module.exports = app
     // need to work on this
     .post('/exercise/profile', (req, res) =>{
         console.log(req.body);
-        fit.ProfileAdd(req.body);
+        fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, req.body.GoalWeight, 
+            req.body.BMI, req.body.GoalBMI, req.body.UserId);
     });
   
  

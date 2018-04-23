@@ -16,6 +16,7 @@ export class User {
     ExerciseList: string[];      
 }
 
+
 export class Exercise {
     Text: string;
     UserId: string;
@@ -25,10 +26,10 @@ export class Exercise {
 
 export class Info {
     Age: number;
-    // Weight: number;
-    // Height: number;
-    // GoalWeight: number;
-    // BMI: number;
-    // GoalBMI: number;
+    Weight: number;
+    Height: number;
+    GoalWeight: number;
+    BMI: number;
+    GoalBMI: number;
     
 }
