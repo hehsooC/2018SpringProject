@@ -49,21 +49,24 @@
 
 
 
-<div class="row justify-content-md-center" *ngIf="Me">
+<div class="row justify-content-md-center" *ngIf = "finishProfile">
     <!-- Saved Profile display-->
     <div class="col">
-        <div class="card tracking" *ngIf = "finishProfile">
+        <div class="card tracking" >
             <div class="card-header">
             Your Profile
             </div>
-            <ul class="list-group list-group-flush list" *ngFor ="let user of Profile">
+            <ul class="list-group list-group-flush list">
             <!-- **ngfor: display profile here** -->
-            <li>Name: {{user.Name}}</li>
-            <li>Age: {{user.Age}}</li>
+                <li>Name: {{Me.Name}}</li>
+                <!-- ** Age or Info is undefined why??
+                <li>Age: {{profile}}</li> -->
+            <!--
             <li>Weight: {{user.Weight}}</li>
             <li>BMI: {{user.BMI}}</li>
             <li>Goal Weight: {{user.GoalWeight}}</li>
             <li>Goal BMI: {{user.GoalBMI}}</li>
+            -->
             </ul>
         </div> <!-- Saved Profile display ends-->
     </div>
@@ -86,7 +89,7 @@
 </div>
 <div class="row" *ngIf="finishProfile">
     <div class="col-md-6">
-        <div class="card bg-success mb-3" >
+        <div class="card mb-3" >
             <div class="card-header text-white">Which Workout did you do today?</div>
                 <ul class="list-group list-group-flush ">
                     <li *ngFor="let list of Model.PlanExercise"
@@ -123,11 +126,3 @@
     </div>
 </div><!-- row end -->
 
-<div class="card">
-    <img class="card-img-top card-img-bottom" *ngIf="Model.Info" [src]="Model.Info.url" /> 
-    <div class = "card-img-overlay" style="text-align: center">
-      <button class="btn btn-success btn-lg" (click)="getHealthInfo($event)">
-              Get Health Information
-      </button>
-    </div>
-</div> <!-- Info -->

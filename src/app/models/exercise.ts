@@ -1,17 +1,19 @@
 export class Fit {
-
+    
     Person: User[] = [];
     PlanExercise: Exercise[] = [];
     Profile: Info[] =[];
     DoneExerciseList: Exercise[] = [];
-    Info: {
+    /** Need to find health info database api
+    HealthInfo: {
         url: string;
     }
+    */
 }
 
 export class User {
     Name: string;
-    ExerciseList: string[];
+    ExerciseList: string[];      
 }
 
 export class Exercise {
@@ -28,5 +30,5 @@ export class Info {
     // GoalWeight: number;
     // BMI: number;
     // GoalBMI: number;
-
+    
 }

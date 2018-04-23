@@ -55,7 +55,7 @@ export class FitComponent implements OnInit {
 
   doneProfile(age: number ){
     this.finishProfile = !this.finishProfile;
-    this.http.post(this._api + "/exercise/profile", {Age: age })
+    this.http.post(this._api + "/exercise/profile", {UserId: this.Me.Name})
     .subscribe(data => this.Profile = {Age: age});
     }
 //Weight: weight, Height: height,  GoalWeight: goalWeight, 
@@ -64,11 +64,6 @@ export class FitComponent implements OnInit {
     return Math.round((weight / height / height * 10000) * 100) / 100;
     }
     
-    getHealthInfo(e: MouseEvent){
-      this.http.post(this._api + "/exercise/info", {})
-      .subscribe();
-    }
-
   MyPlanExercise = () => this.Model.PlanExercise.find( x => x.UserId == this.Me.Name );
   ChosenExercise = () => this.Model.PlanExercise.find( x => x.Chosen );
 }

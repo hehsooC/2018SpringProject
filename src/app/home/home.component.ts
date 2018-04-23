@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   Model = new Fit();
 
-  private _api = "http://localhost:8080/home";
+  private _api = "http://localhost:8080/fit";
 
   constructor(private http: Http) {
     setInterval(()=> this.refresh(), 1000)
@@ -25,10 +25,10 @@ export class HomeComponent implements OnInit {
     this.http.get(this._api + "/state")
         .subscribe(data=> this.Model = data.json())
   }
-
-  // getHealthInfo(e: MouseEvent){
-  //   this.http.post(this._api + "/exercise/info", {})
-  //   .subscribe();
-  // }
-
+  /** Need to find health info database api
+   getHealthInfo(e: MouseEvent){
+     this.http.post(this._api + "/exercise/info", {})
+     .subscribe();
+   }
+*/
 }

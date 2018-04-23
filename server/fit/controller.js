@@ -11,9 +11,9 @@ module.exports = app
      res.send( fit.GetExerciseList(req.query.userId) ) 
     })
     .get('/state', (req, res) => res.send(fit))
-    .post('/exercise/info', (req, res) => res.send( fit.GetHealthInfo()))
+    // this works but couldn't find api database for workout
+    //.post('/exercise/info', (req, res) => res.send( fit.GetHealthInfo()))
     .post('/exercise', (req, res) => {
-        console.log('req.body is ' + req.body);
         
         try {
             fit.SubmitWorkout(req.body.Text, req.body.UserId);
@@ -32,8 +32,9 @@ module.exports = app
     })
     // need to work on this
     .post('/exercise/profile', (req, res) =>{
-        fit.ProfileAdd(req.body.Age);
+        console.log(req.body);
+        fit.ProfileAdd(req.body);
     });
- 
+  
  
  

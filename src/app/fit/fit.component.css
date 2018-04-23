@@ -11,3 +11,14 @@
     color: white;
     font-size: 25px;
 }
+ul{
+    list-style-type: none;
+    margin: 10px;
+}
+
+.card{
+    margin: 10px;
+}
+form{
+    padding: 1rem;
+}
