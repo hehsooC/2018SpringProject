@@ -45,6 +45,7 @@ export class FitComponent implements OnInit {
         .subscribe(data => this.Workout = {Text: plan.Text, UserId: this.Me.Name, Chosen: true});
   }
 
+
   login(name: string){
     this.http.get(this._api + "/exercise", { params : { userId: name } })
     .subscribe(data=> this.Me =  {Name: name, ExerciseList: data.json() } )
@@ -63,6 +64,10 @@ export class FitComponent implements OnInit {
     return Math.round((weight / height / height * 10000) * 100) / 100;
     }
     
+    getHealthInfo(e: MouseEvent){
+      this.http.post(this._api + "/exercise/info", {})
+      .subscribe();
+    }
 
   MyPlanExercise = () => this.Model.PlanExercise.find( x => x.UserId == this.Me.Name );
   ChosenExercise = () => this.Model.PlanExercise.find( x => x.Chosen );

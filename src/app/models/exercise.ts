@@ -4,6 +4,9 @@ export class Fit {
     PlanExercise: Exercise[] = [];
     Profile: Info[] =[];
     DoneExerciseList: Exercise[] = [];
+    Info: {
+        url: string;
+    }
 }
 
 export class User {

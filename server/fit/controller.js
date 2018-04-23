@@ -11,6 +11,7 @@ module.exports = app
      res.send( fit.GetExerciseList(req.query.userId) ) 
     })
     .get('/state', (req, res) => res.send(fit))
+    .post('/exercise/info', (req, res) => res.send( fit.GetHealthInfo()))
     .post('/exercise', (req, res) => {
         console.log('req.body is ' + req.body);
         

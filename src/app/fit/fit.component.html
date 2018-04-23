@@ -49,9 +49,9 @@
 
 
 
-<div class="row" *ngIf="Me">
+<div class="row justify-content-md-center" *ngIf="Me">
     <!-- Saved Profile display-->
-    <div class="col-md-6">
+    <div class="col">
         <div class="card tracking" *ngIf = "finishProfile">
             <div class="card-header">
             Your Profile
@@ -67,8 +67,9 @@
             </ul>
         </div> <!-- Saved Profile display ends-->
     </div>
-
-    <div class="col-md-6  mb-3">
+</div>
+<div class="row justify-content-md-center" *ngIf="finishProfile">
+    <div class="col  mb-3">
         
         <div class="card" >
             <div class="card-header">Workout List({{Me.Name}}) </div>
@@ -82,6 +83,8 @@
   
           </div>
     </div>
+</div>
+<div class="row" *ngIf="finishProfile">
     <div class="col-md-6">
         <div class="card bg-success mb-3" >
             <div class="card-header text-white">Which Workout did you do today?</div>
@@ -119,3 +122,12 @@
         </div><!-- Exercise Plan end-->
     </div>
 </div><!-- row end -->
+
+<div class="card">
+    <img class="card-img-top card-img-bottom" *ngIf="Model.Info" [src]="Model.Info.url" /> 
+    <div class = "card-img-overlay" style="text-align: center">
+      <button class="btn btn-success btn-lg" (click)="getHealthInfo($event)">
+              Get Health Information
+      </button>
+    </div>
+</div> <!-- Info -->
