@@ -4,18 +4,22 @@ var Fit = require('./model');
 var app = express.Router();
 
 var fit = new Fit(); 
- 
+  
 
 module.exports = app
     .get('/exercise', (req, res) =>{
      res.send( fit.GetExerciseList(req.query.userId) ) 
     })
-    .get('/exercise/share', (req, res) =>{
-        console.log('different user: ' + req.query.userId);
+  /*   .get('/exercise/share', (req, res) =>{
+        console.log('different user: ' + req.query)
         // need to send different approach for different user
         res.send(fit.SharingOthers(req.query.userId));
-       })
-       
+       }) */
+    .get('/exercise/getList', (req, res) => {
+        console.log('does it really get the list?');
+        res.send( fit.GiveExerciseList(req.body.userId));
+    })
+        
     .get('/state', (req, res) => res.send(fit))
     // this works but couldn't find api database for workout
     //.post('/exercise/info', (req, res) => res.send( fit.GetHealthInfo()))

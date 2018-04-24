@@ -8,17 +8,17 @@
 
 </div> <!-- Log in Form Ends-->
 
-
+<!-- 
 <div class="card" *ngIf="Me">
     <div class="card-header">Please Sign In</div>
-    <!-- Login Form-->
+    
     <div class="login-form" >
         <input #user /><button class="btn btn-primary" (click)="differentUser(user.value)" >Sign In</button>
     </div>
 
-</div> <!-- Log in Form Ends-->
+</div>  -->
 
-<div class="card" *ngIf= "this.Model.FirstUser && signIn && !finishProfile">
+<div class="card" *ngIf= " signIn && !finishProfile">
     <div class="card-header">
     Please Create Your Profile Before Tracking Your Workout!
     </div>
@@ -52,7 +52,7 @@
         </div>
         </form>
     <div>
-        <button class="btn btn-primary btn-sm" (click)="doneProfile(age.value, weight.value, height.value, goalWeight.value)">Save</button>
+        <button class="btn btn-primary btn-sm" (click)="profileAdd(age.value, weight.value, height.value, goalWeight.value)">Save</button>
     </div> 
 </div> <!-- Profile Form ends-->
 
@@ -83,7 +83,7 @@
     <div class="col">
         <div class="card tracking" >
             <div class="card-header">
-            Choose which user to share your workout
+            User List
             </div>
             <ul class="list-group list-group-flush list">
                 <li>UserName:
@@ -101,7 +101,7 @@
     <div class="col">
         <div class="card tracking" >
             <div class="card-header">
-            You're Sharing With
+            (User's) Workout Achievement
             </div>
             <ul class="list-group list-group-flush list">
                 <li>UserName:</li>
@@ -121,7 +121,9 @@
             <form>
                 <div class="form-group">
                   <select multiple class="form-control" id="exampleFormControlSelect2" >
-                    <option *ngFor="let list of Me.ExerciseList"  (click)="submitWorkout($event, list)">{{list}}</option>
+                    <option *ngFor="let list of GetExercise.List"  (click)="submitWorkout($event, list)">
+                        {{list}}
+                    </option>
                   </select>
                 </div>
               </form>
@@ -134,7 +136,7 @@
         <div class="card mb-3" >
             <div class="card-header text-white">Which Workout did you do today?</div>
                 <ul class="list-group list-group-flush ">
-                    <li *ngFor="let list of Model.PlanExercise"
+                    <li *ngFor="let list of Me.PlanExercise"
                         [ngClass]="{ 'list-group-item-success': list.Chosen }"
                         class="list-group-item d-flex justify-content-between align-items-center ">
                         {{list.Text}}

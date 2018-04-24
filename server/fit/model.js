@@ -35,26 +35,33 @@ function Fit() {
         this.Profile = [];
         this.DoneExerciseList = [];
         this.HealthInfo = null;
-        this.FirstUser=null;
+        //this.FirstUser=null;
         this.OtherUser = [];
- 
+        this.ExerciseList = [];  
+
+        this.GiveExerciseList = (userId) =>{
+            console.log('give the global exercise list');
+            return ExerciseStack;   
+
+        }
         this.GetExerciseList = (userId) => {
-            if(!this.FirstUser )
-                {this.FirstUser = userId }
+            /* if(!this.FirstUser )
+                {this.FirstUser = userId } */
             if(this.Person.some(x=> x.UserId == userId)){
                 
             }else{
                 this.Person.push({ UserId: userId, Name: userId, TotalWorkout: 0 });
             }
 
-                return ExerciseStack.slice(0, ExerciseStack.length-1);   
-        }  
-
+               // return ExerciseStack.slice(0, ExerciseStack.length-1);  
+               return this.PlanExercise; 
+        }   
+  
         this.SharingOthers = (userId) => {
             console.log('sharing?');
             //if(this.FirstUser != userId)
                 this.OtherUser.push({Name: userId});
-        }
+        } 
           
         this.SubmitWorkout = (text, userId) => {
             console.log('text is ' + text);

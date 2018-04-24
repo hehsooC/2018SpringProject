@@ -125,7 +125,7 @@ module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn{\n    margin: 5px;\
 /***/ "./src/app/fit/fit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- For First User, this user will be the person who tracks the workout-->\n<div class=\"card\" *ngIf=\"!Me\">\n    <div class=\"card-header\">Please Sign Up</div>\n    <!-- Sign Up Form-->\n    <div class=\"login-form\" >\n        <input #Name /><button class=\"btn btn-primary\" (click)=\"login(Name.value)\" >Sign Up</button>\n    </div>\n\n</div> <!-- Log in Form Ends-->\n\n\n<div class=\"card\" *ngIf=\"Me\">\n    <div class=\"card-header\">Please Sign In</div>\n    <!-- Login Form-->\n    <div class=\"login-form\" >\n        <input #user /><button class=\"btn btn-primary\" (click)=\"differentUser(user.value)\" >Sign In</button>\n    </div>\n\n</div> <!-- Log in Form Ends-->\n\n<div class=\"card\" *ngIf= \"this.Model.FirstUser && signIn && !finishProfile\">\n    <div class=\"card-header\">\n    Please Create Your Profile Before Tracking Your Workout!\n    </div>\n    <form>\n        <div class=\"form-row\">\n    \n        <div class=\"form-group col-md-4\">\n            <label for=\"inputName\">Name</label>\n            <input #name type=\"text\" class=\"form-control\" id=\"inputName\" [value]=\"logInName\">\n        </div>\n    \n        <div class=\"form-group col-md-4\">\n            <label for=\"inputAge\">Age</label>\n            <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" placeholder=\"Age\" >\n        </div>\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputHeight\">Height</label>\n            <input #height type=\"number\" class=\"form-control\" id=\"inputHeight\" placeholder=\"cm\">\n        </div>\n\n        <div class=\"form-group\">\n            <label for=\"inputWeight\">Weight</label>\n            <input #weight type=\"number\" class=\"form-control\" id=\"inputWeight\" placeholder=\"kg\">\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputGoalWeight\">Goal Weight</label>\n            <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" placeholder=\"kg\">\n        </div>\n        </form>\n    <div>\n        <button class=\"btn btn-primary btn-sm\" (click)=\"doneProfile(age.value, weight.value, height.value, goalWeight.value)\">Save</button>\n    </div> \n</div> <!-- Profile Form ends-->\n\n\n\n\n<div class=\"row justify-content-md-center\" *ngIf = \"finishProfile\">\n    <!-- Saved Profile display-->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            Your Profile\n            </div>\n            <ul class=\"list-group list-group-flush list\" *ngFor=\"let profile of Model.Profile\">\n            <!-- **ngfor: display profile here** -->\n                <li>Name: {{Me.Name}}</li>\n                <li>Age: {{profile.Age}}</li>\n                <li>Weight: {{profile.Weight}}</li>\n                <li>BMI: {{profile.BMI}}</li>\n                <li>Goal Weight: {{profile.GoalWeight}}</li>\n                <li>Goal BMI: {{profile.GoalBMI}}</li>\n                \n            </ul>\n        </div> <!-- Saved Profile display ends-->\n    </div>\n\n    <!-- who do you want to share?-->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            Choose which user to share your workout\n            </div>\n            <ul class=\"list-group list-group-flush list\">\n                <li>UserName:\n                    <button \n                    class=\"btn btn-sm btn-warning\">\n                        Share\n                    </button>\n                </li>\n\n            </ul>\n        </div> \n    </div>\n\n    <!-- You're sharing with.. -->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            You're Sharing With\n            </div>\n            <ul class=\"list-group list-group-flush list\">\n                <li>UserName:</li>\n\n            </ul>\n        </div> \n    </div>\n\n</div>\n\n\n<div class=\"row justify-content-md-center\" *ngIf=\"finishProfile\">\n    <div class=\"col  mb-3\">\n        \n        <div class=\"card\" >\n            <div class=\"card-header\">Workout List </div>\n            <form>\n                <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                    <option *ngFor=\"let list of Me.ExerciseList\"  (click)=\"submitWorkout($event, list)\">{{list}}</option>\n                  </select>\n                </div>\n              </form>\n  \n          </div>\n    </div>\n</div>\n<div class=\"row\" *ngIf=\"finishProfile\">\n    <div class=\"col-md-6\">\n        <div class=\"card mb-3\" >\n            <div class=\"card-header text-white\">Which Workout did you do today?</div>\n                <ul class=\"list-group list-group-flush \">\n                    <li *ngFor=\"let list of Model.PlanExercise\"\n                        [ngClass]=\"{ 'list-group-item-success': list.Chosen }\"\n                        class=\"list-group-item d-flex justify-content-between align-items-center \">\n                        {{list.Text}}\n                        <button (click)=\"doneExercise($event, list)\"\n                                class=\"btn btn-sm btn-primary\">\n                                Done\n                        </button>\n                    </li>\n                </ul>\n            </div>\n            \n    </div>\n\n\n\n\n<!-- if profile is saved and disappear, display plan to choose-->\n    <div class=\"col-md-6\">\n        <!-- Exercise Plan-->\n        <div class=\"card tracking\" *ngIf=\"finishProfile\">\n            <div class=\"card-header\">\n            You achieved..\n            </div>\n            <ul class=\"list-group list-group-flush \">\n                <li *ngFor= \"let choice of Model.DoneExerciseList\" (click)=\"submitWorkout($event, choice.Text)\"\n                    class=\"list-group-item d-flex justify-content-between align-items-center \">\n                    {{choice.Text}}\n                </li>\n            </ul>\n        </div><!-- Exercise Plan end-->\n    </div>\n</div><!-- row end -->\n\n"
+module.exports = "<!-- For First User, this user will be the person who tracks the workout-->\n<div class=\"card\" *ngIf=\"!Me\">\n    <div class=\"card-header\">Please Sign Up</div>\n    <!-- Sign Up Form-->\n    <div class=\"login-form\" >\n        <input #Name /><button class=\"btn btn-primary\" (click)=\"login(Name.value)\" >Sign Up</button>\n    </div>\n\n</div> <!-- Log in Form Ends-->\n\n<!-- \n<div class=\"card\" *ngIf=\"Me\">\n    <div class=\"card-header\">Please Sign In</div>\n    \n    <div class=\"login-form\" >\n        <input #user /><button class=\"btn btn-primary\" (click)=\"differentUser(user.value)\" >Sign In</button>\n    </div>\n\n</div>  -->\n\n<div class=\"card\" *ngIf= \" signIn && !finishProfile\">\n    <div class=\"card-header\">\n    Please Create Your Profile Before Tracking Your Workout!\n    </div>\n    <form>\n        <div class=\"form-row\">\n    \n        <div class=\"form-group col-md-4\">\n            <label for=\"inputName\">Name</label>\n            <input #name type=\"text\" class=\"form-control\" id=\"inputName\" [value]=\"logInName\">\n        </div>\n    \n        <div class=\"form-group col-md-4\">\n            <label for=\"inputAge\">Age</label>\n            <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" placeholder=\"Age\" >\n        </div>\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputHeight\">Height</label>\n            <input #height type=\"number\" class=\"form-control\" id=\"inputHeight\" placeholder=\"cm\">\n        </div>\n\n        <div class=\"form-group\">\n            <label for=\"inputWeight\">Weight</label>\n            <input #weight type=\"number\" class=\"form-control\" id=\"inputWeight\" placeholder=\"kg\">\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputGoalWeight\">Goal Weight</label>\n            <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" placeholder=\"kg\">\n        </div>\n        </form>\n    <div>\n        <button class=\"btn btn-primary btn-sm\" (click)=\"profileAdd(age.value, weight.value, height.value, goalWeight.value)\">Save</button>\n    </div> \n</div> <!-- Profile Form ends-->\n\n\n\n\n<div class=\"row justify-content-md-center\" *ngIf = \"finishProfile\">\n    <!-- Saved Profile display-->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            Your Profile\n            </div>\n            <ul class=\"list-group list-group-flush list\" *ngFor=\"let profile of Model.Profile\">\n            <!-- **ngfor: display profile here** -->\n                <li>Name: {{Me.Name}}</li>\n                <li>Age: {{profile.Age}}</li>\n                <li>Weight: {{profile.Weight}}</li>\n                <li>BMI: {{profile.BMI}}</li>\n                <li>Goal Weight: {{profile.GoalWeight}}</li>\n                <li>Goal BMI: {{profile.GoalBMI}}</li>\n                \n            </ul>\n        </div> <!-- Saved Profile display ends-->\n    </div>\n\n    <!-- who do you want to share?-->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            User List\n            </div>\n            <ul class=\"list-group list-group-flush list\">\n                <li>UserName:\n                    <button \n                    class=\"btn btn-sm btn-warning\">\n                        Share\n                    </button>\n                </li>\n\n            </ul>\n        </div> \n    </div>\n\n    <!-- You're sharing with.. -->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            (User's) Workout Achievement\n            </div>\n            <ul class=\"list-group list-group-flush list\">\n                <li>UserName:</li>\n\n            </ul>\n        </div> \n    </div>\n\n</div>\n\n\n<div class=\"row justify-content-md-center\" *ngIf=\"finishProfile\">\n    <div class=\"col  mb-3\">\n        \n        <div class=\"card\" >\n            <div class=\"card-header\">Workout List </div>\n            <form>\n                <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                    <option *ngFor=\"let list of GetExercise.List\"  (click)=\"submitWorkout($event, list)\">\n                        {{list}}\n                    </option>\n                  </select>\n                </div>\n              </form>\n  \n          </div>\n    </div>\n</div>\n<div class=\"row\" *ngIf=\"finishProfile\">\n    <div class=\"col-md-6\">\n        <div class=\"card mb-3\" >\n            <div class=\"card-header text-white\">Which Workout did you do today?</div>\n                <ul class=\"list-group list-group-flush \">\n                    <li *ngFor=\"let list of Me.PlanExercise\"\n                        [ngClass]=\"{ 'list-group-item-success': list.Chosen }\"\n                        class=\"list-group-item d-flex justify-content-between align-items-center \">\n                        {{list.Text}}\n                        <button (click)=\"doneExercise($event, list)\"\n                                class=\"btn btn-sm btn-primary\">\n                                Done\n                        </button>\n                    </li>\n                </ul>\n            </div>\n            \n    </div>\n\n\n\n\n<!-- if profile is saved and disappear, display plan to choose-->\n    <div class=\"col-md-6\">\n        <!-- Exercise Plan-->\n        <div class=\"card tracking\" *ngIf=\"finishProfile\">\n            <div class=\"card-header\">\n            You achieved..\n            </div>\n            <ul class=\"list-group list-group-flush \">\n                <li *ngFor= \"let choice of Model.DoneExerciseList\" (click)=\"submitWorkout($event, choice.Text)\"\n                    class=\"list-group-item d-flex justify-content-between align-items-center \">\n                    {{choice.Text}}\n                </li>\n            </ul>\n        </div><!-- Exercise Plan end-->\n    </div>\n</div><!-- row end -->\n\n"
 
 /***/ }),
 
@@ -155,10 +155,8 @@ var FitComponent = /** @class */ (function () {
         this.signIn = false;
         this.finishProfile = false;
         this._api = "http://localhost:8080/fit";
-        this.IAmWorkingOut = function () { return _this.Me.Name == _this.Model.FirstUser; };
-        this.MyPlanExercise = function () { return _this.Model.PlanExercise.find(function (x) { return x.UserId == _this.Me.Name; }); };
-        this.ChosenExercise = function () { return _this.Model.PlanExercise.find(function (x) { return x.Chosen; }); };
-        this.IAmDifferentUser = function () { return _this.Me.Name != _this.Model.FirstUser; };
+        this.MyPlanExercise = function () { return _this.Me.PlanExercise.find(function (x) { return x.UserId == _this.Me.Name; }); };
+        this.ChosenExercise = function () { return _this.Me.PlanExercise.find(function (x) { return x.Chosen; }); };
         setInterval(function () { return _this.refresh(); }, 1000);
     }
     FitComponent.prototype.ngOnInit = function () {
@@ -169,29 +167,40 @@ var FitComponent = /** @class */ (function () {
             .subscribe(function (data) { return _this.Model = data.json(); });
     };
     FitComponent.prototype.submitWorkout = function (e, text) {
+        console.log('submitting workout list');
         e.preventDefault();
         this.http.post(this._api + "/exercise", { Text: text, UserId: this.Me.Name })
             .subscribe();
     };
     FitComponent.prototype.doneExercise = function (e, plan) {
         var _this = this;
+        console.log('done exercise');
         e.preventDefault();
         this.http.post(this._api + "/exercise/choose", { Text: plan.Text, UserId: this.Me.Name })
             .subscribe(function (data) { return _this.Workout = { Text: plan.Text, UserId: _this.Me.Name, Chosen: true }; });
     };
     FitComponent.prototype.login = function (name) {
         var _this = this;
+        console.log('log in successful');
         this.http.get(this._api + "/exercise", { params: { userId: name } })
-            .subscribe(function (data) { return _this.Me = { Name: name, ExerciseList: data.json() }; });
+            .subscribe(function (data) { return _this.Me = { Name: name, PlanExercise: data.json() }; });
         this.logInName = name;
         this.signIn = !this.signIn;
+        this.giveExerciseList(name);
     };
-    FitComponent.prototype.differentUser = function (name) {
+    FitComponent.prototype.giveExerciseList = function (name) {
         var _this = this;
-        this.http.get(this._api + "/exercise/share", { params: { userId: name } })
-            .subscribe(function (data) { return _this.Others = { Name: name }; });
+        console.log('giveExerciseList executed');
+        this.http.get(this._api + "/exercise/getList", { params: { userId: name } })
+            .subscribe(function (data) { return _this.GetExercise = { List: data.json() }; });
     };
-    FitComponent.prototype.doneProfile = function (age, weight, height, goalWeight) {
+    /*
+    differentUser(name: string){
+      this.http.get(this._api + "/exercise/share", { params : { userId: name } })
+      .subscribe(data=> this.Others =  {Name: name} )
+    }
+  */
+    FitComponent.prototype.profileAdd = function (age, weight, height, goalWeight) {
         var _this = this;
         this.finishProfile = !this.finishProfile;
         var goalBmiCalculate = this.calculateBMI(goalWeight, height);
@@ -201,8 +210,6 @@ var FitComponent = /** @class */ (function () {
             .subscribe(function (data) { return _this.DisplayProfile = { Age: age, Weight: weight, Height: height, GoalWeight: goalWeight,
             BMI: bmiCalculate, GoalBMI: goalBmiCalculate }; });
     };
-    //Weight: weight, Height: height,  GoalWeight: goalWeight, 
-    //BMI: this.calculateBMI(weight, height), GoalBMI: this.calculateBMI(goalWeight, height)
     FitComponent.prototype.calculateBMI = function (weight, height) {
         return Math.round((weight / height / height * 10000) * 100) / 100;
     };
@@ -343,9 +350,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Fit = /** @class */ (function () {
     function Fit() {
         this.Person = [];
-        this.PlanExercise = [];
+        //PlanExercise: Exercise[] = [];
         this.Profile = [];
         this.DoneExerciseList = [];
+        //FirstUser: string;
         this.OtherUser = [];
         /** Need to find health info database api
         HealthInfo: {
@@ -356,6 +364,12 @@ var Fit = /** @class */ (function () {
     return Fit;
 }());
 exports.Fit = Fit;
+var WorkoutList = /** @class */ (function () {
+    function WorkoutList() {
+    }
+    return WorkoutList;
+}());
+exports.WorkoutList = WorkoutList;
 var Different = /** @class */ (function () {
     function Different() {
     }
