@@ -6,11 +6,6 @@
     margin: 5px;
 }
 
-.card-header{
-    background-color: rgb(58, 141, 141);
-    color: white;
-    font-size: 25px;
-}
 ul{
     list-style-type: none;
     margin: 10px;
@@ -18,23 +13,51 @@ ul{
 
 .card{
     margin: 10px;
+    color: #1C5F93;
+}
+.card-header{
+    background-color: #7CACEA;
+    height: 120px;
+    text-align: center;
+    border: none;
+    padding: 2.2rem 0;
+    font-size: 30px;
+    color: white;
+    
 }
 form{
     padding: 1rem;
 }
-.card-header{
-    text-align: center;
-}
+
 .title{
     font-size: 35px;
+    padding: 1px;
+    margin: 1px;
+ 
     
     
+}
+.btn{
+    background-color: #F4C3D8;
+    border: none;
 }
 .subtitle{
     font-size: 22px;
-    
+    margin: 1px;
+    font-weight: 300;
     
 }
 .explain{
     font-size: 15px;
+    font-weight: 200;
+    margin-bottom: 2px;
+}
+
+.text-uppercase{
+    font-size: 12px;
+    color: white;
+}
+
+.selected{
+    background-color:#FBE9C1;
 }

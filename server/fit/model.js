@@ -58,7 +58,7 @@ function Fit() {
             console.log('sharing?');
             //if(this.FirstUser != userId)
                 this.OtherUser.push({Name: userId});
-        } 
+        }  
            */  
         this.SubmitWorkout = (text, userId) => {
             console.log('text is ' + text);

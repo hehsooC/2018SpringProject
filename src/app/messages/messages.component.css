@@ -1,11 +1,12 @@
 #messages {
     padding-top: 0.5rem;
     padding-left: 0.2rem;
+    
 }
 
 .button {
     margin-left: 5px;
-    color: white;
+    color: #1C5F93;
     font-weight: bold;
     float: right;
     font-size: 22px;
@@ -21,8 +22,8 @@
 
 .alert{
     padding: 10px;
-    background-color: lightseagreen;
-    color: white;
+    border: 2px solid #CFD5E1;
+    color: #1C5F93;
     margin-bottom: 15px;
 }
 

@@ -1,9 +1,9 @@
 <!-- For First User, this user will be the person who tracks the workout-->
 <div class="card" *ngIf="!Me">
-    <div class="card-header">Please Sign Up</div>
+    <div class="card-header">Please Sign In</div>
     <!-- Sign Up Form-->
     <div class="login-form" >
-        <input #Name /><button class="btn btn-primary" (click)="login(Name.value)" >Sign Up</button>
+        <input #Name /><button class="btn btn-primary" (click)="login(Name.value)" >Sign In</button>
     </div>
 
 </div> <!-- Log in Form Ends-->
@@ -20,7 +20,8 @@
 
 <div class="card" *ngIf= " signIn && !finishProfile">
     <div class="card-header">
-    Please Create Your Profile Before Tracking Your Workout!
+    <div class="text-uppercase">Please Create Your Profile Before Tracking Your Workout!</div> 
+    Create Profile
     </div>
     <form>
         <div class="form-row">
@@ -135,15 +136,13 @@
     <div class="col-md-6">
         <div class="card mb-3" >
             <div class="card-header">
-                <div>
-                    <div class="title">Workout Plan</div> <br />
-                    <div class="subtitle">Choose Completed Workout<br /></div>
-                    <div class="explain">Each workout corresponds to 3 min. workout time</div> 
-                </div>
+                <div class="title">Workout Plan</div> 
+                <div class="subtitle">Choose Completed Workout</div>
+                <div class="text-uppercase">Each workout corresponds to 3 minutes workout time</div> 
             </div>
                 <ul class="list-group list-group-flush ">
                     <li *ngFor="let list of Model.PlanExercise"
-                        [ngClass]="{ 'list-group-item-success': list.Chosen }"
+                        [ngClass]="{ 'selected': list.Chosen }"
                         class="list-group-item d-flex justify-content-between align-items-center ">
                         {{list.Text}}
                         <button (click)="doneExercise($event, list)"

@@ -23,7 +23,7 @@ export class FitComponent implements OnInit {
 
   constructor(private http: Http) {
     setInterval(()=> this.refresh(), 1000)
-  }
+  } 
 
   ngOnInit() {
   }
