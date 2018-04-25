@@ -1,11 +1,9 @@
 export class Fit {
     
     Person: User[] = [];
-   //PlanExercise: Exercise[] = [];
+    PlanExercise: Exercise[] = [];
     Profile: Info[] =[];
     DoneExerciseList: Exercise[] = [];
-    //FirstUser: string;
-    OtherUser: Different[] = [];
     ExerciseList: WorkoutList[];  
     /** Need to find health info database api
     HealthInfo: {
@@ -25,7 +23,7 @@ export class Different{
 
 export class User {
     Name: string;
-    PlanExercise: Exercise[];   
+    //PlanExercise: Exercise[];   
 }
 
 

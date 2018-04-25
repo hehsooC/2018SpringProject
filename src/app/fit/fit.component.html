@@ -64,7 +64,7 @@
     <div class="col">
         <div class="card tracking" >
             <div class="card-header">
-            Your Profile
+            {{Me.Name}} Profile
             </div>
             <ul class="list-group list-group-flush list" *ngFor="let profile of Model.Profile">
             <!-- **ngfor: display profile here** -->
@@ -134,9 +134,15 @@
 <div class="row" *ngIf="finishProfile">
     <div class="col-md-6">
         <div class="card mb-3" >
-            <div class="card-header text-white">Which Workout did you do today?</div>
+            <div class="card-header">
+                <div>
+                    <div class="title">Workout Plan</div> <br />
+                    <div class="subtitle">Choose Completed Workout<br /></div>
+                    <div class="explain">Each workout corresponds to 3 min. workout time</div> 
+                </div>
+            </div>
                 <ul class="list-group list-group-flush ">
-                    <li *ngFor="let list of Me.PlanExercise"
+                    <li *ngFor="let list of Model.PlanExercise"
                         [ngClass]="{ 'list-group-item-success': list.Chosen }"
                         class="list-group-item d-flex justify-content-between align-items-center ">
                         {{list.Text}}
@@ -164,9 +170,19 @@
                 <li *ngFor= "let choice of Model.DoneExerciseList" (click)="submitWorkout($event, choice.Text)"
                     class="list-group-item d-flex justify-content-between align-items-center ">
                     {{choice.Text}}
+                    <i *ngFor= "let time of Model.DoneExerciseList" class="badge float-right" class ="badge-info">
+                        {{time.WorkoutMinute}}
+                    </i>
                 </li>
             </ul>
+            <div class="card-body">
+                <i *ngFor= "let time of Model.Person">
+                    Your Total Workout Time: {{time.TotalWorkout}} minutes
+                </i>
+            </div>
         </div><!-- Exercise Plan end-->
     </div>
 </div><!-- row end -->
+
+
 

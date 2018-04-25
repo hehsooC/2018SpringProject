@@ -13,7 +13,6 @@ export class FitComponent implements OnInit {
     Me: User;
     Workout: Exercise;
     DisplayProfile: Info;
-    Others: Different; 
     GetExercise: WorkoutList;  
     
     logInName: string;
@@ -53,12 +52,12 @@ export class FitComponent implements OnInit {
   login(name: string){
     console.log('log in successful');
     this.http.get(this._api + "/exercise", { params : { userId: name } })
-    .subscribe(data=> this.Me =  {Name: name, PlanExercise: data.json()} )
+    .subscribe(data=> this.Me =  {Name: name} )
     this.logInName = name;
     this.signIn = !this.signIn;
     this.giveExerciseList(name);
   }
-
+ 
   giveExerciseList(name: string){
     console.log('giveExerciseList executed');
     this.http.get(this._api + "/exercise/getList", { params: { userId: name }})
@@ -87,6 +86,7 @@ export class FitComponent implements OnInit {
     
 
     
-  MyPlanExercise = () => this.Me.PlanExercise.find( x => x.UserId == this.Me.Name );
-  ChosenExercise = () => this.Me.PlanExercise.find( x => x.Chosen );
+    
+  MyPlanExercise = () => this.Model.PlanExercise.find( x => x.UserId == this.Me.Name );
+  ChosenExercise = () => this.Model.PlanExercise.find( x => x.Chosen );
 }

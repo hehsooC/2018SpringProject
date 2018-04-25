@@ -1,7 +1,7 @@
 
 const ExerciseStack =  [
-    "Squat",
-    "Plank",
+   "Squat",
+   "Plank", 
     "Running",
     "Jump Rope",
     "Swimming",
@@ -19,7 +19,7 @@ const ExerciseStack =  [
 var axios = require("axios");
 var HealthInfoStack = [];
 
-axios.get('https://pixabay.com/api/')
+axios.get('https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=best&phrase=fitness')
     .then(
         response => HealthInfoStack = response.data,
         err => console.log(err)
@@ -35,8 +35,6 @@ function Fit() {
         this.Profile = [];
         this.DoneExerciseList = [];
         this.HealthInfo = null;
-        //this.FirstUser=null;
-        this.OtherUser = [];
         this.ExerciseList = [];  
 
         this.GiveExerciseList = (userId) =>{
@@ -52,27 +50,39 @@ function Fit() {
             }else{
                 this.Person.push({ UserId: userId, Name: userId, TotalWorkout: 0 });
             }
-
+ 
                // return ExerciseStack.slice(0, ExerciseStack.length-1);  
-               return this.PlanExercise; 
         }   
   
-        this.SharingOthers = (userId) => {
+    /*     this.SharingOthers = (userId) => {
             console.log('sharing?');
             //if(this.FirstUser != userId)
                 this.OtherUser.push({Name: userId});
         } 
-          
+           */  
         this.SubmitWorkout = (text, userId) => {
             console.log('text is ' + text);
-            this.PlanExercise.push({ Text: text, UserId: userId });
-        }   
+            if(!this.PlanExercise.find(x => x.Text == text)){
+                this.PlanExercise.push({ Text: text, UserId: userId });
+                
+            }
+
+        }    
         this.DoneExercise = text => {
             const chosenWorkout = this.PlanExercise.find(x=> x.Text == text)
             chosenWorkout.Chosen = true;
-            this.Person.find(x=> x.UserId == chosenWorkout.UserId).TotalWorkout++;
-            this.DoneExerciseList.push({Text: text});
-        } 
+            this.Person.find(x=> x.UserId == chosenWorkout.UserId).TotalWorkout+=3;
+            //this.DoneExerciseList.push({ Text: text, WorkoutMinute: 0});
+            //this.DoneExerciseList.find(x => x.Text = text).WorkoutMinute +=3;
+            if(!this.DoneExerciseList.find(x => x.Text == text)){
+                console.log('pushing exercise');
+                this.DoneExerciseList.push({Text: text});
+            } 
+         
+             
+        }  
+
+ 
   /** Couldn't find the health information database yet. 
          // at Home, Give a user to a health information.
         this.GetHealthInfo = () => {

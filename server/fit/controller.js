@@ -4,7 +4,7 @@ var Fit = require('./model');
 var app = express.Router();
 
 var fit = new Fit(); 
-  
+   
 
 module.exports = app
     .get('/exercise', (req, res) =>{
@@ -26,6 +26,7 @@ module.exports = app
     .post('/exercise', (req, res) => {
         
         try {
+            console.log('text body is ' + req.body.Text);
             fit.SubmitWorkout(req.body.Text, req.body.UserId);
             res.send( { success: true } );            
         } catch (error) {
