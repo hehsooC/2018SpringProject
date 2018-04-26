@@ -56,13 +56,9 @@ function Fit() {
         }       
   
         this.GetData = (userId) => {
-<<<<<<< HEAD
             console.log('user Id is ' + userId);
             if(this.Person.find(x=> x.UserId == userId))
                 console.log('return ' + userId +' Profile');
-=======
-            if(this.Person.some(x=> x.UserId == userId))
->>>>>>> master
                 return this.Profile;
         }
     /*     this.SharingOthers = (userId) => {

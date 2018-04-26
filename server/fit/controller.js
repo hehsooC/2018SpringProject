@@ -11,14 +11,9 @@ module.exports = app
      res.send( fit.SignUp(req.query.userId) ) 
     })
     .get('/exercise/login', (req, res) =>{
-<<<<<<< HEAD
         console.log('log in successful!');
         res.send( fit.GetData(req.query.userId))
     }) 
-=======
-        res.send( fit.GetData(req.query.userId))
-    })
->>>>>>> master
   /*   .get('/exercise/share', (req, res) =>{
         console.log('different user: ' + req.query)
         // need to send different approach for different user
@@ -55,7 +50,7 @@ module.exports = app
         console.log(req.body);
         fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, req.body.GoalWeight, 
             req.body.BMI, req.body.GoalBMI, req.body.UserId);
-    });
+    }); 
   
  
  
