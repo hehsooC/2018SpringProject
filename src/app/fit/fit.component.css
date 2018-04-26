@@ -20,37 +20,30 @@ ul{
     height: 120px;
     text-align: center;
     border: none;
-    padding: 2.2rem 0;
+    padding: 1.7rem 0;
     font-size: 30px;
     color: white;
     
+    
+}
+.textWrap{
+    height: 150px;
+   padding: 1.2rem;
 }
 form{
     padding: 1rem;
 }
 
-.title{
-    font-size: 35px;
-    padding: 1px;
-    margin: 1px;
- 
-    
-    
-}
+
 .btn{
     background-color: #F4C3D8;
     border: none;
 }
 .subtitle{
-    font-size: 22px;
+    font-size: 15px;
     margin: 1px;
     font-weight: 300;
     
-}
-.explain{
-    font-size: 15px;
-    font-weight: 200;
-    margin-bottom: 2px;
 }
 
 .text-uppercase{

@@ -1,6 +1,9 @@
 <!-- For First User, this user will be the person who tracks the workout-->
 <div class="card" *ngIf="!Me">
-    <div class="card-header">Please Sign In</div>
+    <div class="card-header">
+        <div class="text-uppercase">Welcome to Fitness Tracker!</div>
+        Please Sign In
+    </div>
     <!-- Sign Up Form-->
     <div class="login-form" >
         <input #Name /><button class="btn btn-primary" (click)="login(Name.value)" >Sign In</button>
@@ -65,7 +68,7 @@
     <div class="col">
         <div class="card tracking" >
             <div class="card-header">
-            {{Me.Name}} Profile
+            {{Me.Name}}'s Profile
             </div>
             <ul class="list-group list-group-flush list" *ngFor="let profile of Model.Profile">
             <!-- **ngfor: display profile here** -->
@@ -136,7 +139,7 @@
     <div class="col-md-6">
         <div class="card mb-3" >
             <div class="card-header">
-                <div class="title">Workout Plan</div> 
+                Workout Plan
                 <div class="subtitle">Choose Completed Workout</div>
                 <div class="text-uppercase">Each workout corresponds to 3 minutes workout time</div> 
             </div>
