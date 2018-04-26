@@ -2,11 +2,24 @@
 <div class="card" *ngIf="!Me">
     <div class="card-header">
         <div class="text-uppercase">Welcome to Fitness Tracker!</div>
-        Please Sign In
     </div>
+    <div class="text-uppercase black">New to Here?</div>
+    <div class="font-margin">
+        Please Sign Up
+    </div>  
     <!-- Sign Up Form-->
     <div class="login-form" >
-        <input #Name /><button class="btn btn-primary" (click)="login(Name.value)" >Sign In</button>
+        <input #Name /><button class="btn" (click)="signUp(Name.value)" >Sign Up</button>
+    </div>
+    <div class ="text-uppercase black">
+        Already a user? 
+    </div>
+    <div class="font-margin">
+        Please Sign In
+        </div> 
+    <!-- Sign in Form-->
+    <div class="login-form" >
+        <input #Name2 /><button class="btn" (click)="login(Name2.value)" >Sign In</button>
     </div>
 
 </div> <!-- Log in Form Ends-->
@@ -61,10 +74,33 @@
 </div> <!-- Profile Form ends-->
 
 
+<!-- Return Profile-->
+<div class="row justify-content-md-center" *ngIf = "alreadyuser">
+        <!-- Saved Profile display-->
+    <div class="col">
+        <div class="card tracking" >
+            <div class="card-header">
+            {{Me.Name}}'s Profile
+            </div>
+            <ul class="list-group list-group-flush list" *ngFor="let profile of Model.Profile">
+            <!-- **ngfor: display profile here** -->
+                <li>Name: {{Me.Name}}</li>
+                <li>Age: {{profile.Age}}</li>
+                <li>Weight: {{profile.Weight}}</li>
+                <li>BMI: {{profile.BMI}}</li>
+                <li>Goal Weight: {{profile.GoalWeight}}</li>
+                <li>Goal BMI: {{profile.GoalBMI}}</li>
+                
+            </ul>
+        </div> <!-- Saved Profile display ends-->
+    </div>
+
+</div>
+
 
 
 <div class="row justify-content-md-center" *ngIf = "finishProfile">
-    <!-- Saved Profile display-->
+    <!-- Create Profile display-->
     <div class="col">
         <div class="card tracking" >
             <div class="card-header">

@@ -4,6 +4,7 @@
 
 .btn{
     margin: 5px;
+    color: white;
 }
 
 ul{
@@ -51,6 +52,16 @@ form{
     color: white;
 }
 
+.black{
+    margin-top: 10px;
+    margin-bottom: 2px;
+    margin-left: 10px;
+    color: #7CACEA;
+}
 .selected{
     background-color:#FBE9C1;
+}
+.font-margin{
+    margin-bottom: 5px;
+    margin-left: 10px;
 }

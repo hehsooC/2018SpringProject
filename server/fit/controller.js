@@ -10,6 +10,9 @@ module.exports = app
     .get('/exercise', (req, res) =>{
      res.send( fit.GetExerciseList(req.query.userId) ) 
     })
+    .get('/exercise/login', (req, res) =>{
+        res.send( fit.GetData(req.query.userId))
+    })
   /*   .get('/exercise/share', (req, res) =>{
         console.log('different user: ' + req.query)
         // need to send different approach for different user

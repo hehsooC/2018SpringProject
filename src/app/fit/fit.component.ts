@@ -18,6 +18,7 @@ export class FitComponent implements OnInit {
     logInName: string;
     signIn: boolean = false;
     finishProfile: boolean = false;
+    alreadyuser: boolean = false;
 
     private _api = "http://localhost:8080/fit";
 
@@ -49,13 +50,20 @@ export class FitComponent implements OnInit {
   }
 
 
-  login(name: string){
-    console.log('log in successful');
+  signUp(name: string){
+    console.log('Sign Up successful');
     this.http.get(this._api + "/exercise", { params : { userId: name } })
     .subscribe(data=> this.Me =  {Name: name} )
     this.logInName = name;
     this.signIn = !this.signIn;
     this.giveExerciseList(name);
+  }
+ 
+  login(name: string){
+    console.log('log in successful');
+    this.http.get(this._api + "/exercise/login", { params : { userId: name } })
+    .subscribe(data=> this.Me =  {Name: name} )
+    this.alreadyuser = !this.alreadyuser;
   }
  
   giveExerciseList(name: string){

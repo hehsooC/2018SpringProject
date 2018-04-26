@@ -54,6 +54,10 @@ function Fit() {
                // return ExerciseStack.slice(0, ExerciseStack.length-1);  
         }       
   
+        this.GetData = (userId) => {
+            if(this.Person.some(x=> x.UserId == userId))
+                return this.Profile;
+        }
     /*     this.SharingOthers = (userId) => {
             console.log('sharing?');
             //if(this.FirstUser != userId)
