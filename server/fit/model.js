@@ -36,17 +36,18 @@ function Fit() {
         this.DoneExerciseList = [];
         this.HealthInfo = null;
         this.ExerciseList = [];  
-
+ 
         this.GiveExerciseList = (userId) =>{
             console.log('give the global exercise list');
             return ExerciseStack;   
 
-        }
-        this.GetExerciseList = (userId) => {
+        } 
+        this.SignUp = (userId) => {
             /* if(!this.FirstUser )
                 {this.FirstUser = userId } */
-            if(this.Person.some(x=> x.UserId == userId)){
-                
+            if(this.Person.includes(x => x.Name == userId)){
+                console.log('user already exist');
+                return;
             }else{
                 this.Person.push({ UserId: userId, Name: userId, TotalWorkout: 0 });
             }
@@ -55,7 +56,13 @@ function Fit() {
         }       
   
         this.GetData = (userId) => {
+<<<<<<< HEAD
+            console.log('user Id is ' + userId);
+            if(this.Person.find(x=> x.UserId == userId))
+                console.log('return ' + userId +' Profile');
+=======
             if(this.Person.some(x=> x.UserId == userId))
+>>>>>>> master
                 return this.Profile;
         }
     /*     this.SharingOthers = (userId) => {

@@ -69,7 +69,7 @@
         </div>
         </form>
     <div>
-        <button class="btn btn-primary btn-sm" (click)="profileAdd(age.value, weight.value, height.value, goalWeight.value)">Save</button>
+        <button class="btn btn-primary btn-sm" (click)="profileAdd(age.value, weight.value, height.value, goalWeight.value, name.value)">Save</button>
     </div> 
 </div> <!-- Profile Form ends-->
 
@@ -99,7 +99,12 @@
 
 
 
+<<<<<<< HEAD
+
+<div class="row justify-content-md-center" *ngIf = "finishProfile || alreadyuser">
+=======
 <div class="row justify-content-md-center" *ngIf = "finishProfile">
+>>>>>>> master
     <!-- Create Profile display-->
     <div class="col">
         <div class="card tracking" >
@@ -153,7 +158,7 @@
 </div>
 
 
-<div class="row justify-content-md-center" *ngIf="finishProfile">
+<div class="row justify-content-md-center" *ngIf="finishProfile || alreadyuser">
     <div class="col  mb-3">
         
         <div class="card" >
@@ -200,7 +205,7 @@
 <!-- if profile is saved and disappear, display plan to choose-->
     <div class="col-md-6">
         <!-- Exercise Plan-->
-        <div class="card tracking" *ngIf="finishProfile">
+        <div class="card tracking" *ngIf="finishProfile || alreadyuser">
             <div class="card-header">
             You achieved..
             </div>

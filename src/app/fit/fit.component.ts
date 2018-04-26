@@ -49,7 +49,11 @@ export class FitComponent implements OnInit {
         .subscribe(data => this.Workout = {Text: plan.Text, UserId: this.Me.Name, Chosen: true});
   }
 
+<<<<<<< HEAD
+// need to prevent sign up same userid here?
+=======
 
+>>>>>>> master
   signUp(name: string){
     console.log('Sign Up successful');
     this.http.get(this._api + "/exercise", { params : { userId: name } })
@@ -78,14 +82,14 @@ export class FitComponent implements OnInit {
     .subscribe(data=> this.Others =  {Name: name} )
   }
 */
-  profileAdd(age: number, weight: number, height: number, goalWeight: number ){
+  profileAdd(age: number, weight: number, height: number, goalWeight: number, name: string ){
     this.finishProfile = !this.finishProfile;
     const goalBmiCalculate = this.calculateBMI(goalWeight, height);
     const bmiCalculate = this.calculateBMI(weight, height);
     this.http.post(this._api + "/exercise/profile", {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight,
       BMI: bmiCalculate, GoalBMI: goalBmiCalculate , UserId: this.Me.Name})
     .subscribe(data => this.DisplayProfile = {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight,
-      BMI: bmiCalculate, GoalBMI: goalBmiCalculate});
+      BMI: bmiCalculate, GoalBMI: goalBmiCalculate, UserId: name });
     }
     
   calculateBMI(weight: number, height: number){
@@ -94,7 +98,7 @@ export class FitComponent implements OnInit {
     
 
     
-    
+  AlreadyUser = () => this.Model.Profile.find( x => x.UserId == this.Me.Name);
   MyPlanExercise = () => this.Model.PlanExercise.find( x => x.UserId == this.Me.Name );
   ChosenExercise = () => this.Model.PlanExercise.find( x => x.Chosen );
 }

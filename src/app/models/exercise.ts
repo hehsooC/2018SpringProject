@@ -41,5 +41,6 @@ export class Info {
     GoalWeight: number;
     BMI: number;
     GoalBMI: number;
+    UserId: string;
     
 }
