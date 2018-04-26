@@ -52,7 +52,7 @@ function Fit() {
             }
  
                // return ExerciseStack.slice(0, ExerciseStack.length-1);  
-        }    
+        }       
   
     /*     this.SharingOthers = (userId) => {
             console.log('sharing?');
