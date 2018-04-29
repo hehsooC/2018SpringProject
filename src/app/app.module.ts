@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { FitComponent } from './fit/fit.component';
 import { MessagesService } from './services/messages.service';
 import { FitService } from './services/fit.service';
+import { ShareComponent } from './share/share.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -19,7 +21,9 @@ import { FitService } from './services/fit.service';
     NavComponent,
     MessagesComponent,
     HomeComponent,
-    FitComponent
+    FitComponent,
+    ShareComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +31,8 @@ import { FitService } from './services/fit.service';
     RouterModule.forRoot([
         { path: 'home', component: HomeComponent },
         { path: 'fit', component: FitComponent },
+        { path: 'share', component: ShareComponent },
+        { path: 'login', component: LoginComponent },
         { path: '', redirectTo: '/home', pathMatch: 'full'}
     ])
   ],

@@ -27,7 +27,7 @@ axios.get('https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,re
  
 var currentInfo = 0;
 
- */
+ */ 
 
 function Fit() {  
         this.Person = [];

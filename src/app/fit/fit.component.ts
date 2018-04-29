@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from "@angular/http";
 import {Fit, User, Exercise, Info, Different, WorkoutList } from '../models/exercise';
+import { MessagesService } from '../services/messages.service';
+import { FitService } from '../services/fit.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fit',
@@ -22,7 +25,16 @@ export class FitComponent implements OnInit {
 
     private _api = "http://localhost:8080/fit";
 
-  constructor(private http: Http) {
+  constructor(private http: Http,
+              private _Messages: MessagesService,
+              private _Fit: FitService,
+              private _Router: Router
+) {
+    this.Me = _Fit.Me;
+    if(!this.Me){
+      _Router.navigate(['/login']);
+    }
+    this.join(this.Me.Name);
     setInterval(()=> this.refresh(), 1000)
   } 
 
@@ -59,13 +71,19 @@ export class FitComponent implements OnInit {
     this.giveExerciseList(name);
   }
  
-  login(name: string){
+/*   login(name: string){
     console.log('log in successful');
     this.http.get(this._api + "/exercise/login", { params : { userId: name } })
     .subscribe(data=> this.Me =  {Name: name} )
     this.alreadyuser = !this.alreadyuser;
   }
- 
+  */
+
+  join(name: string){
+    this._Messages.Messages.push('Successfully Signed Up. Welcome!');
+    this.http.get(this._api + "/exercise/login", {params: { userId: name}})
+    .subscribe()
+  }
   giveExerciseList(name: string){
     console.log('giveExerciseList executed');
     this.http.get(this._api + "/exercise/getList", { params: { userId: name }})

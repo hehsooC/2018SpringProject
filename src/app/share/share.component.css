@@ -1,0 +1,20 @@
+ul{
+    list-style-type: none;
+    margin: 10px;
+}
+
+.card{
+    margin: 10px;
+    color: #1C5F93;
+}
+.card-header{
+    background-color: #7CACEA;
+    height: 120px;
+    text-align: center;
+    border: none;
+    padding: 1.7rem 0;
+    font-size: 30px;
+    color: white;
+    
+    
+}
