@@ -1,14 +1,13 @@
 <div id="messages">
-  <div class="alert">
+  <div class="alert" *ngFor="let msg of Messages.Messages; let i = index;">
     <!-- Binding-->
-    <span class="button" onclick="this.parentElement.style.display='none';"> <!-- javascript-->
+    <button class="close" (click) = "delete(i)"> <!-- javascript-->
       &times;
-    </span>
-    <h3>Track your Exercise!</h3>
+    </button>
+
+    {{msg}}
     
-    <ul class = "msg">
-      <li *ngFor ="let msg of Messages">{{msg}}</li>
-    </ul>
+    
   </div><!-- Alert -->
 </div><!--messages-->
 

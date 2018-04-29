@@ -52,6 +52,11 @@ form{
     color: white;
 }
 
+.title{
+    font-size: 20px;
+    padding: 0.4rem 0rem;
+}
+
 .black{
     margin-top: 10px;
     margin-bottom: 2px;

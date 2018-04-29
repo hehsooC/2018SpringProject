@@ -8,6 +8,8 @@ import { NavComponent } from './nav/nav.component';
 import { MessagesComponent } from './messages/messages.component';
 import { HomeComponent } from './home/home.component';
 import { FitComponent } from './fit/fit.component';
+import { MessagesService } from './services/messages.service';
+import { FitService } from './services/fit.service';
 
 
 
@@ -28,7 +30,7 @@ import { FitComponent } from './fit/fit.component';
         { path: '', redirectTo: '/home', pathMatch: 'full'}
     ])
   ],
-  providers: [],
+  providers: [MessagesService, FitService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

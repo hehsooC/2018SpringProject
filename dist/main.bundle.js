@@ -83,6 +83,8 @@ var nav_component_1 = __webpack_require__("./src/app/nav/nav.component.ts");
 var messages_component_1 = __webpack_require__("./src/app/messages/messages.component.ts");
 var home_component_1 = __webpack_require__("./src/app/home/home.component.ts");
 var fit_component_1 = __webpack_require__("./src/app/fit/fit.component.ts");
+var messages_service_1 = __webpack_require__("./src/app/services/messages.service.ts");
+var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -104,7 +106,7 @@ var AppModule = /** @class */ (function () {
                     { path: '', redirectTo: '/home', pathMatch: 'full' }
                 ])
             ],
-            providers: [],
+            providers: [messages_service_1.MessagesService, fit_service_1.FitService],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);
@@ -118,14 +120,14 @@ exports.AppModule = AppModule;
 /***/ "./src/app/fit/fit.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn{\n    margin: 5px;\n    color: white;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.textWrap{\n    height: 150px;\n   padding: 1.2rem;\n}\n\nform{\n    padding: 1rem;\n}\n\n.btn{\n    background-color: #F4C3D8;\n    border: none;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    font-weight: 300;\n    \n}\n\n.text-uppercase{\n    font-size: 12px;\n    color: white;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    color: #7CACEA;\n}\n\n.selected{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}"
+module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn{\n    margin: 5px;\n    color: white;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.textWrap{\n    height: 150px;\n   padding: 1.2rem;\n}\n\nform{\n    padding: 1rem;\n}\n\n.btn{\n    background-color: #F4C3D8;\n    border: none;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    font-weight: 300;\n    \n}\n\n.text-uppercase{\n    font-size: 12px;\n    color: white;\n}\n\n.title{\n    font-size: 20px;\n    padding: 0.4rem 0rem;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    color: #7CACEA;\n}\n\n.selected{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}"
 
 /***/ }),
 
 /***/ "./src/app/fit/fit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- For First User, this user will be the person who tracks the workout-->\n<div class=\"card\" *ngIf=\"!Me\">\n    <div class=\"card-header\">\n        <div class=\"text-uppercase\">Welcome to Fitness Tracker!</div>\n    </div>\n    <div class=\"text-uppercase black\">New to Here?</div>\n    <div class=\"font-margin\">\n        Please Sign Up\n    </div>  \n    <!-- Sign Up Form-->\n    <div class=\"login-form\" >\n        <input #Name /><button class=\"btn\" (click)=\"signUp(Name.value)\" >Sign Up</button>\n    </div>\n    <div class =\"text-uppercase black\">\n        Already a user? \n    </div>\n    <div class=\"font-margin\">\n        Please Sign In\n        </div> \n    <!-- Sign in Form-->\n    <div class=\"login-form\" >\n        <input #Name2 /><button class=\"btn\" (click)=\"login(Name2.value)\" >Sign In</button>\n    </div>\n\n</div> <!-- Log in Form Ends-->\n\n<!-- \n<div class=\"card\" *ngIf=\"Me\">\n    <div class=\"card-header\">Please Sign In</div>\n    \n    <div class=\"login-form\" >\n        <input #user /><button class=\"btn btn-primary\" (click)=\"differentUser(user.value)\" >Sign In</button>\n    </div>\n\n</div>  -->\n\n<div class=\"card\" *ngIf= \" signIn && !finishProfile\">\n    <div class=\"card-header\">\n    <div class=\"text-uppercase\">Please Create Your Profile Before Tracking Your Workout!</div> \n    Create Profile\n    </div>\n    <form>\n        <div class=\"form-row\">\n    \n        <div class=\"form-group col-md-4\">\n            <label for=\"inputName\">Name</label>\n            <input #name type=\"text\" class=\"form-control\" id=\"inputName\" [value]=\"logInName\">\n        </div>\n    \n        <div class=\"form-group col-md-4\">\n            <label for=\"inputAge\">Age</label>\n            <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" placeholder=\"Age\" >\n        </div>\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputHeight\">Height</label>\n            <input #height type=\"number\" class=\"form-control\" id=\"inputHeight\" placeholder=\"cm\">\n        </div>\n\n        <div class=\"form-group\">\n            <label for=\"inputWeight\">Weight</label>\n            <input #weight type=\"number\" class=\"form-control\" id=\"inputWeight\" placeholder=\"kg\">\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputGoalWeight\">Goal Weight</label>\n            <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" placeholder=\"kg\">\n        </div>\n        </form>\n    <div>\n        <button class=\"btn btn-primary btn-sm\" (click)=\"profileAdd(age.value, weight.value, height.value, goalWeight.value, name.value)\">Save</button>\n    </div> \n</div> <!-- Profile Form ends-->\n\n\n<!-- Return Profile-->\n<div class=\"row justify-content-md-center\" *ngIf = \"alreadyuser\">\n        <!-- Saved Profile display-->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            {{Me.Name}}'s Profile\n            </div>\n            <ul class=\"list-group list-group-flush list\" *ngFor=\"let profile of Model.Profile\">\n            <!-- **ngfor: display profile here** -->\n                <li>Name: {{Me.Name}}</li>\n                <li>Age: {{profile.Age}}</li>\n                <li>Weight: {{profile.Weight}}</li>\n                <li>BMI: {{profile.BMI}}</li>\n                <li>Goal Weight: {{profile.GoalWeight}}</li>\n                <li>Goal BMI: {{profile.GoalBMI}}</li>\n                \n            </ul>\n        </div> <!-- Saved Profile display ends-->\n    </div>\n\n</div>\n\n\n\n\n<div class=\"row justify-content-md-center\" *ngIf = \"finishProfile || alreadyuser\">\n    <!-- Create Profile display-->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            {{Me.Name}}'s Profile\n            </div>\n            <ul class=\"list-group list-group-flush list\" *ngFor=\"let profile of Model.Profile\">\n            <!-- **ngfor: display profile here** -->\n                <li>Name: {{Me.Name}}</li>\n                <li>Age: {{profile.Age}}</li>\n                <li>Weight: {{profile.Weight}}</li>\n                <li>BMI: {{profile.BMI}}</li>\n                <li>Goal Weight: {{profile.GoalWeight}}</li>\n                <li>Goal BMI: {{profile.GoalBMI}}</li>\n                \n            </ul>\n        </div> <!-- Saved Profile display ends-->\n    </div>\n\n    <!-- who do you want to share?-->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            User List\n            </div>\n            <ul class=\"list-group list-group-flush list\">\n                <li>UserName:\n                    <button \n                    class=\"btn btn-sm btn-warning\">\n                        Share\n                    </button>\n                </li>\n\n            </ul>\n        </div> \n    </div>\n\n    <!-- You're sharing with.. -->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            (User's) Workout Achievement\n            </div>\n            <ul class=\"list-group list-group-flush list\">\n                <li>UserName:</li>\n\n            </ul>\n        </div> \n    </div>\n\n</div>\n\n\n<div class=\"row justify-content-md-center\" *ngIf=\"finishProfile || alreadyuser\">\n    <div class=\"col  mb-3\">\n        \n        <div class=\"card\" >\n            <div class=\"card-header\">Workout List </div>\n            <form>\n                <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                    <option *ngFor=\"let list of GetExercise.List\"  (click)=\"submitWorkout($event, list)\">\n                        {{list}}\n                    </option>\n                  </select>\n                </div>\n              </form>\n  \n          </div>\n    </div>\n</div>\n<div class=\"row\" *ngIf=\"finishProfile\">\n    <div class=\"col-md-6\">\n        <div class=\"card mb-3\" >\n            <div class=\"card-header textWrap\">\n                Workout Plan\n                <div class=\"subtitle\">Choose Completed Workout</div>\n                <div class=\"text-uppercase\">Each workout corresponds to 3 minutes workout time</div> \n            </div>\n                <ul class=\"list-group list-group-flush \">\n                    <li *ngFor=\"let list of Model.PlanExercise\"\n                        [ngClass]=\"{ 'selected': list.Chosen }\"\n                        class=\"list-group-item d-flex justify-content-between align-items-center \">\n                        {{list.Text}}\n                        <button (click)=\"doneExercise($event, list)\"\n                                class=\"btn btn-sm btn-primary\">\n                                Done\n                        </button>\n                    </li>\n                </ul>\n            </div>\n            \n    </div>\n\n\n\n\n<!-- if profile is saved and disappear, display plan to choose-->\n    <div class=\"col-md-6\">\n        <!-- Exercise Plan-->\n        <div class=\"card tracking\" *ngIf=\"finishProfile || alreadyuser\">\n            <div class=\"card-header\">\n            You achieved..\n            </div>\n            <ul class=\"list-group list-group-flush \">\n                <li *ngFor= \"let choice of Model.DoneExerciseList\" (click)=\"submitWorkout($event, choice.Text)\"\n                    class=\"list-group-item d-flex justify-content-between align-items-center \">\n                    {{choice.Text}}\n                    <i *ngFor= \"let time of Model.DoneExerciseList\" class=\"badge float-right\" class =\"badge-info\">\n                        {{time.WorkoutMinute}}\n                    </i>\n                </li>\n            </ul>\n            <div class=\"card-body\">\n                <i *ngFor= \"let time of Model.Person\">\n                    Your Total Workout Time: {{time.TotalWorkout}} minutes\n                </i>\n            </div>\n        </div><!-- Exercise Plan end-->\n    </div>\n</div><!-- row end -->\n\n\n\n"
+module.exports = "<!-- For First User, this user will be the person who tracks the workout-->\n<div class=\"card\" *ngIf=\"!Me\">\n    <div class=\"card-header\">\n        <div class=\"text-uppercase title\">Welcome to Fitness Tracker</div>\n    </div>\n    <div class=\"text-uppercase black\">New to Here?</div>\n    <div class=\"font-margin\">\n        Please Sign Up\n    </div>  \n    <!-- Sign Up Form-->\n    <div class=\"login-form\" >\n        <input #Name /><button class=\"btn\" (click)=\"signUp(Name.value)\" >Sign Up</button>\n    </div>\n    <div class =\"text-uppercase black\">\n        Already a user? \n    </div>\n    <div class=\"font-margin\">\n        Please Sign In\n        </div> \n    <!-- Sign in Form-->\n    <div class=\"login-form\" >\n        <input #Name2 /><button class=\"btn\" (click)=\"login(Name2.value)\" >Sign In</button>\n    </div>\n\n</div> <!-- Log in Form Ends-->\n\n<!-- \n<div class=\"card\" *ngIf=\"Me\">\n    <div class=\"card-header\">Please Sign In</div>\n    \n    <div class=\"login-form\" >\n        <input #user /><button class=\"btn btn-primary\" (click)=\"differentUser(user.value)\" >Sign In</button>\n    </div>\n\n</div>  -->\n\n<div class=\"card\" *ngIf= \" signIn && !finishProfile\">\n    <div class=\"card-header\">\n    <div class=\"text-uppercase\">Please Create Your Profile Before Tracking Your Workout!</div> \n    Create Profile\n    </div>\n    <form>\n        <div class=\"form-row\">\n    \n        <div class=\"form-group col-md-4\">\n            <label for=\"inputName\">Name</label>\n            <input #name type=\"text\" class=\"form-control\" id=\"inputName\" [value]=\"logInName\">\n        </div>\n    \n        <div class=\"form-group col-md-4\">\n            <label for=\"inputAge\">Age</label>\n            <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" placeholder=\"Age\" >\n        </div>\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputHeight\">Height</label>\n            <input #height type=\"number\" class=\"form-control\" id=\"inputHeight\" placeholder=\"cm\">\n        </div>\n\n        <div class=\"form-group\">\n            <label for=\"inputWeight\">Weight</label>\n            <input #weight type=\"number\" class=\"form-control\" id=\"inputWeight\" placeholder=\"kg\">\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputGoalWeight\">Goal Weight</label>\n            <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" placeholder=\"kg\">\n        </div>\n        </form>\n    <div>\n        <button class=\"btn btn-primary btn-sm\" (click)=\"profileAdd(age.value, weight.value, height.value, goalWeight.value, name.value)\">Save</button>\n    </div> \n</div> <!-- Profile Form ends-->\n\n\n<!-- Return Profile-->\n<div class=\"row justify-content-md-center\" *ngIf = \"alreadyuser\">\n        <!-- Saved Profile display-->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            {{Me.Name}}'s Profile\n            </div>\n            <ul class=\"list-group list-group-flush list\" *ngFor=\"let profile of Model.Profile\">\n            <!-- **ngfor: display profile here** -->\n                <li>Name: {{Me.Name}}</li>\n                <li>Age: {{profile.Age}}</li>\n                <li>Weight: {{profile.Weight}}</li>\n                <li>BMI: {{profile.BMI}}</li>\n                <li>Goal Weight: {{profile.GoalWeight}}</li>\n                <li>Goal BMI: {{profile.GoalBMI}}</li>\n                \n            </ul>\n        </div> <!-- Saved Profile display ends-->\n    </div>\n\n</div>\n\n\n\n\n<div class=\"row justify-content-md-center\" *ngIf = \"finishProfile || alreadyuser\">\n    <!-- Create Profile display-->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            {{Me.Name}}'s Profile\n            </div>\n            <ul class=\"list-group list-group-flush list\" *ngFor=\"let profile of Model.Profile\">\n            <!-- **ngfor: display profile here** -->\n                <li>Name: {{Me.Name}}</li>\n                <li>Age: {{profile.Age}}</li>\n                <li>Weight: {{profile.Weight}}</li>\n                <li>BMI: {{profile.BMI}}</li>\n                <li>Goal Weight: {{profile.GoalWeight}}</li>\n                <li>Goal BMI: {{profile.GoalBMI}}</li>\n                \n            </ul>\n        </div> <!-- Saved Profile display ends-->\n    </div>\n\n    <!-- who do you want to share?-->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            User List\n            </div>\n            <ul class=\"list-group list-group-flush list\">\n                <li>UserName:\n                    <button \n                    class=\"btn btn-sm btn-warning\">\n                        Share\n                    </button>\n                </li>\n\n            </ul>\n        </div> \n    </div>\n\n    <!-- You're sharing with.. -->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            (User's) Workout Achievement\n            </div>\n            <ul class=\"list-group list-group-flush list\">\n                <li>UserName:</li>\n\n            </ul>\n        </div> \n    </div>\n\n</div>\n\n\n<div class=\"row justify-content-md-center\" *ngIf=\"finishProfile || alreadyuser\">\n    <div class=\"col  mb-3\">\n        \n        <div class=\"card\" >\n            <div class=\"card-header\">Workout List </div>\n            <form>\n                <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                    <option *ngFor=\"let list of GetExercise.List\"  (click)=\"submitWorkout($event, list)\">\n                        {{list}}\n                    </option>\n                  </select>\n                </div>\n              </form>\n  \n          </div>\n    </div>\n</div>\n<div class=\"row\" *ngIf=\"finishProfile\">\n    <div class=\"col-md-6\">\n        <div class=\"card mb-3\" >\n            <div class=\"card-header textWrap\">\n                Workout Plan\n                <div class=\"subtitle\">Choose Completed Workout</div>\n                <div class=\"text-uppercase\">Each workout corresponds to 3 minutes workout time</div> \n            </div>\n                <ul class=\"list-group list-group-flush \">\n                    <li *ngFor=\"let list of Model.PlanExercise\"\n                        [ngClass]=\"{ 'selected': list.Chosen }\"\n                        class=\"list-group-item d-flex justify-content-between align-items-center \">\n                        {{list.Text}}\n                        <button (click)=\"doneExercise($event, list)\"\n                                class=\"btn btn-sm btn-primary\">\n                                Done\n                        </button>\n                    </li>\n                </ul>\n            </div>\n            \n    </div>\n\n\n\n\n<!-- if profile is saved and disappear, display plan to choose-->\n    <div class=\"col-md-6\">\n        <!-- Exercise Plan-->\n        <div class=\"card tracking\" *ngIf=\"finishProfile || alreadyuser\">\n            <div class=\"card-header\">\n            You achieved..\n            </div>\n            <ul class=\"list-group list-group-flush \">\n                <li *ngFor= \"let choice of Model.DoneExerciseList\" (click)=\"submitWorkout($event, choice.Text)\"\n                    class=\"list-group-item d-flex justify-content-between align-items-center \">\n                    {{choice.Text}}\n                    <i *ngFor= \"let time of Model.DoneExerciseList\" class=\"badge float-right\" class =\"badge-info\">\n                        {{time.WorkoutMinute}}\n                    </i>\n                </li>\n            </ul>\n            <div class=\"card-body\">\n                <i *ngFor= \"let time of Model.Person\">\n                    Your Total Workout Time: {{time.TotalWorkout}} minutes\n                </i>\n            </div>\n        </div><!-- Exercise Plan end-->\n    </div>\n</div><!-- row end -->\n\n\n\n"
 
 /***/ }),
 
@@ -310,7 +312,7 @@ module.exports = "#messages {\n    padding-top: 0.5rem;\n    padding-left: 0.2re
 /***/ "./src/app/messages/messages.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"messages\">\n  <div class=\"alert\">\n    <!-- Binding-->\n    <span class=\"button\" onclick=\"this.parentElement.style.display='none';\"> <!-- javascript-->\n      &times;\n    </span>\n    <h3>Track your Exercise!</h3>\n    \n    <ul class = \"msg\">\n      <li *ngFor =\"let msg of Messages\">{{msg}}</li>\n    </ul>\n  </div><!-- Alert -->\n</div><!--messages-->\n\n\n"
+module.exports = "<div id=\"messages\">\n  <div class=\"alert\" *ngFor=\"let msg of Messages.Messages; let i = index;\">\n    <!-- Binding-->\n    <button class=\"close\" (click) = \"delete(i)\"> <!-- javascript-->\n      &times;\n    </button>\n\n    {{msg}}\n    \n    \n  </div><!-- Alert -->\n</div><!--messages-->\n\n\n"
 
 /***/ }),
 
@@ -330,11 +332,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var messages_service_1 = __webpack_require__("./src/app/services/messages.service.ts");
 var MessagesComponent = /** @class */ (function () {
-    function MessagesComponent() {
-        this.Messages = ['Complete your Profile before you begin to plan your workout.', 'You can choose your workout plan.'];
+    function MessagesComponent(Messages) {
+        this.Messages = Messages;
     }
     MessagesComponent.prototype.ngOnInit = function () {
+    };
+    MessagesComponent.prototype.delete = function (i) {
+        this.Messages.Messages.splice(i, 1);
     };
     MessagesComponent = __decorate([
         core_1.Component({
@@ -342,7 +348,7 @@ var MessagesComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/messages/messages.component.html"),
             styles: [__webpack_require__("./src/app/messages/messages.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [messages_service_1.MessagesService])
     ], MessagesComponent);
     return MessagesComponent;
 }());
@@ -453,6 +459,68 @@ var NavComponent = /** @class */ (function () {
     return NavComponent;
 }());
 exports.NavComponent = NavComponent;
+
+
+/***/ }),
+
+/***/ "./src/app/services/fit.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var FitService = /** @class */ (function () {
+    function FitService() {
+    }
+    FitService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [])
+    ], FitService);
+    return FitService;
+}());
+exports.FitService = FitService;
+
+
+/***/ }),
+
+/***/ "./src/app/services/messages.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var MessagesService = /** @class */ (function () {
+    function MessagesService() {
+        this.Messages = [];
+        this.Messages = ['Complete your Profile before you begin to plan your workout.', 'You can choose your workout plan.'];
+    }
+    MessagesService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [])
+    ], MessagesService);
+    return MessagesService;
+}());
+exports.MessagesService = MessagesService;
 
 
 /***/ }),
