@@ -12,6 +12,7 @@ import { MessagesService } from './services/messages.service';
 import { FitService } from './services/fit.service';
 import { ShareComponent } from './share/share.component';
 import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 
 
@@ -23,7 +24,8 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     FitComponent,
     ShareComponent,
-    LoginComponent
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,9 @@ import { LoginComponent } from './login/login.component';
         { path: 'fit', component: FitComponent },
         { path: 'share', component: ShareComponent },
         { path: 'login', component: LoginComponent },
+        { path: 'signup', component: SignUpComponent },
         { path: '', redirectTo: '/home', pathMatch: 'full'}
+
     ])
   ],
   providers: [MessagesService, FitService],

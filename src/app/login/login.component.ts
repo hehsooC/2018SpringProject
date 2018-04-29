@@ -17,4 +17,10 @@ export class LoginComponent implements OnInit {
     this._Fit.login(name);
   }
 
+// need to prevent sign up same userid here?
+  newUser(name: string){
+    this._Fit.signUp(name);
+    
+}
+
 }

@@ -87,6 +87,7 @@ var messages_service_1 = __webpack_require__("./src/app/services/messages.servic
 var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var share_component_1 = __webpack_require__("./src/app/share/share.component.ts");
 var login_component_1 = __webpack_require__("./src/app/login/login.component.ts");
+var sign_up_component_1 = __webpack_require__("./src/app/sign-up/sign-up.component.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -99,7 +100,8 @@ var AppModule = /** @class */ (function () {
                 home_component_1.HomeComponent,
                 fit_component_1.FitComponent,
                 share_component_1.ShareComponent,
-                login_component_1.LoginComponent
+                login_component_1.LoginComponent,
+                sign_up_component_1.SignUpComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -109,6 +111,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'fit', component: fit_component_1.FitComponent },
                     { path: 'share', component: share_component_1.ShareComponent },
                     { path: 'login', component: login_component_1.LoginComponent },
+                    { path: 'signup', component: sign_up_component_1.SignUpComponent },
                     { path: '', redirectTo: '/home', pathMatch: 'full' }
                 ])
             ],
@@ -133,7 +136,7 @@ module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn{\n    margin: 5px;\
 /***/ "./src/app/fit/fit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- \n<div class=\"card\" *ngIf=\"Me\">\n    <div class=\"card-header\">Please Sign In</div>\n    \n    <div class=\"login-form\" >\n        <input #user /><button class=\"btn btn-primary\" (click)=\"differentUser(user.value)\" >Sign In</button>\n    </div>\n\n</div>  -->\n\n<div class=\"card\" *ngIf= \" signIn && !finishProfile\">\n    <div class=\"card-header\">\n    <div class=\"text-uppercase\">Please Create Your Profile Before Tracking Your Workout!</div> \n    Create Profile\n    </div>\n    <form>\n        <div class=\"form-row\">\n    \n        <div class=\"form-group col-md-4\">\n            <label for=\"inputName\">Name</label>\n            <input #name type=\"text\" class=\"form-control\" id=\"inputName\" [value]=\"logInName\">\n        </div>\n    \n        <div class=\"form-group col-md-4\">\n            <label for=\"inputAge\">Age</label>\n            <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" placeholder=\"Age\" >\n        </div>\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputHeight\">Height</label>\n            <input #height type=\"number\" class=\"form-control\" id=\"inputHeight\" placeholder=\"cm\">\n        </div>\n\n        <div class=\"form-group\">\n            <label for=\"inputWeight\">Weight</label>\n            <input #weight type=\"number\" class=\"form-control\" id=\"inputWeight\" placeholder=\"kg\">\n        </div>\n    \n        <div class=\"form-group\">\n            <label for=\"inputGoalWeight\">Goal Weight</label>\n            <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" placeholder=\"kg\">\n        </div>\n        </form>\n    <div>\n        <button class=\"btn btn-primary btn-sm\" (click)=\"profileAdd(age.value, weight.value, height.value, goalWeight.value, name.value)\">Save</button>\n    </div> \n</div> <!-- Profile Form ends-->\n\n\n<!-- Return Profile-->\n<div class=\"row justify-content-md-center\" *ngIf = \"alreadyuser\">\n        <!-- Saved Profile display-->\n    <div class=\"col\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header\">\n            {{Me.Name}}'s Profile\n            </div>\n            <ul class=\"list-group list-group-flush list\" *ngFor=\"let profile of Model.Profile\">\n            <!-- **ngfor: display profile here** -->\n                <li>Name: {{Me.Name}}</li>\n                <li>Age: {{profile.Age}}</li>\n                <li>Weight: {{profile.Weight}}</li>\n                <li>BMI: {{profile.BMI}}</li>\n                <li>Goal Weight: {{profile.GoalWeight}}</li>\n                <li>Goal BMI: {{profile.GoalBMI}}</li>\n                \n            </ul>\n        </div> <!-- Saved Profile display ends-->\n    </div>\n\n</div>\n\n\n\n\n<div class=\"row justify-content-md-center\" *ngIf = \"finishProfile || alreadyuser\">\n    <!-- Create Profile display-->\n    <div class=\"col\">\n        <div class=\"card\" >\n            <div class=\"card-header\">\n            {{Me.Name}}'s Profile\n            </div>\n            <ul class=\"list-group list-group-flush list\" *ngFor=\"let profile of Model.Profile\">\n            <!-- **ngfor: display profile here** -->\n                <li>Name: {{Me.Name}}</li>\n                <li>Age: {{profile.Age}}</li>\n                <li>Weight: {{profile.Weight}}</li>\n                <li>BMI: {{profile.BMI}}</li>\n                <li>Goal Weight: {{profile.GoalWeight}}</li>\n                <li>Goal BMI: {{profile.GoalBMI}}</li>\n                \n            </ul>\n        </div> <!-- Saved Profile display ends-->\n    </div>\n\n    \n</div>\n\n\n\n<div class=\"row justify-content-md-center\" *ngIf=\"finishProfile || alreadyuser\">\n    <div class=\"col  mb-3\">\n        \n        <div class=\"card\" >\n            <div class=\"card-header\">Workout List </div>\n            <form>\n                <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                    <option *ngFor=\"let list of GetExercise.List\"  (click)=\"submitWorkout($event, list)\">\n                        {{list}}\n                    </option>\n                  </select>\n                </div>\n              </form>\n  \n          </div>\n    </div>\n</div>\n<div class=\"row\" *ngIf=\"finishProfile\">\n    <div class=\"col-md-6\">\n        <div class=\"card mb-3\" >\n            <div class=\"card-header textWrap\">\n                Workout Plan\n                <div class=\"subtitle\">Choose Completed Workout</div>\n                <div class=\"text-uppercase\">Each workout corresponds to 3 minutes workout time</div> \n            </div>\n                <ul class=\"list-group list-group-flush \">\n                    <li *ngFor=\"let list of Model.PlanExercise\"\n                        [ngClass]=\"{ 'selected': list.Chosen }\"\n                        class=\"list-group-item d-flex justify-content-between align-items-center \">\n                        {{list.Text}}\n                        <button (click)=\"doneExercise($event, list)\"\n                                class=\"btn btn-sm btn-primary\">\n                                Done\n                        </button>\n                    </li>\n                </ul>\n            </div>\n            \n    </div>\n\n\n\n\n<!-- if profile is saved and disappear, display plan to choose-->\n    <div class=\"col-md-6\">\n        <!-- Exercise Plan-->\n        <div class=\"card tracking\" *ngIf=\"finishProfile || alreadyuser\">\n            <div class=\"card-header\">\n            You achieved..\n            </div>\n            <ul class=\"list-group list-group-flush \">\n                <li *ngFor= \"let choice of Model.DoneExerciseList\" (click)=\"submitWorkout($event, choice.Text)\"\n                    class=\"list-group-item d-flex justify-content-between align-items-center \">\n                    {{choice.Text}}\n                    <i *ngFor= \"let time of Model.DoneExerciseList\" class=\"badge float-right\" class =\"badge-info\">\n                        {{time.WorkoutMinute}}\n                    </i>\n                </li>\n            </ul>\n            <div class=\"card-body\">\n                <i *ngFor= \"let time of Model.Person\">\n                    Your Total Workout Time: {{time.TotalWorkout}} minutes\n                </i>\n            </div>\n        </div><!-- Exercise Plan end-->\n    </div>\n</div><!-- row end -->\n\n\n\n"
+module.exports = "<!-- \n<div class=\"card\" *ngIf=\"Me\">\n    <div class=\"card-header\">Please Sign In</div>\n    \n    <div class=\"login-form\" >\n        <input #user /><button class=\"btn btn-primary\" (click)=\"differentUser(user.value)\" >Sign In</button>\n    </div>\n\n</div>  -->\n\n\n\n<div class=\"row justify-content-md-center\" >\n    <!-- Create Profile display-->\n    <div class=\"col\">\n        <div class=\"card\" >\n            <div class=\"card-header\">\n            {{Me.Name}}'s Profile\n            </div>\n            <ul class=\"list-group list-group-flush list\" *ngFor=\"let profile of Model.Profile\">\n            <!-- **ngfor: display profile here** -->\n                <li>Name: {{Me.Name}}</li>\n                <li>Age: {{profile.Age}}</li>\n                <li>Weight: {{profile.Weight}}</li>\n                <li>BMI: {{profile.BMI}}</li>\n                <li>Goal Weight: {{profile.GoalWeight}}</li>\n                <li>Goal BMI: {{profile.GoalBMI}}</li>\n                \n            </ul>\n        </div> <!-- Saved Profile display ends-->\n    </div>\n\n    \n</div>\n\n\n\n<div class=\"row justify-content-md-center\">\n    <div class=\"col  mb-3\">\n        \n        <div class=\"card\" >\n            <div class=\"card-header\">Workout List </div>\n            <form>\n                <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                    <option *ngFor=\"let list of GetExercise.List\"  (click)=\"submitWorkout($event, list)\">\n                        {{list}}\n                    </option>\n                  </select>\n                </div>\n              </form>\n  \n          </div>\n    </div>\n</div>\n<div class=\"row\" *ngIf=\"finishProfile\">\n    <div class=\"col-md-6\">\n        <div class=\"card mb-3\" >\n            <div class=\"card-header textWrap\">\n                Workout Plan\n                <div class=\"subtitle\">Choose Completed Workout</div>\n                <div class=\"text-uppercase\">Each workout corresponds to 3 minutes workout time</div> \n            </div>\n                <ul class=\"list-group list-group-flush \">\n                    <li *ngFor=\"let list of Model.PlanExercise\"\n                        [ngClass]=\"{ 'selected': list.Chosen }\"\n                        class=\"list-group-item d-flex justify-content-between align-items-center \">\n                        {{list.Text}}\n                        <button (click)=\"doneExercise($event, list)\"\n                                class=\"btn btn-sm btn-primary\">\n                                Done\n                        </button>\n                    </li>\n                </ul>\n            </div>\n            \n    </div>\n\n\n\n\n<!-- if profile is saved and disappear, display plan to choose-->\n    <div class=\"col-md-6\">\n        <!-- Exercise Plan-->\n        <div class=\"card tracking\" *ngIf=\"finishProfile || alreadyuser\">\n            <div class=\"card-header\">\n            You achieved..\n            </div>\n            <ul class=\"list-group list-group-flush \">\n                <li *ngFor= \"let choice of Model.DoneExerciseList\" (click)=\"submitWorkout($event, choice.Text)\"\n                    class=\"list-group-item d-flex justify-content-between align-items-center \">\n                    {{choice.Text}}\n                    <i *ngFor= \"let time of Model.DoneExerciseList\" class=\"badge float-right\" class =\"badge-info\">\n                        {{time.WorkoutMinute}}\n                    </i>\n                </li>\n            </ul>\n            <div class=\"card-body\">\n                <i *ngFor= \"let time of Model.Person\">\n                    Your Total Workout Time: {{time.TotalWorkout}} minutes\n                </i>\n            </div>\n        </div><!-- Exercise Plan end-->\n    </div>\n</div><!-- row end -->\n\n\n\n"
 
 /***/ }),
 
@@ -177,7 +180,8 @@ var FitComponent = /** @class */ (function () {
         if (!this.Me) {
             _Router.navigate(['/login']);
         }
-        this.join(this.Me.Name);
+        this.join(this.Me);
+        this.signUp(this.Me.Name);
         setInterval(function () { return _this.refresh(); }, 1000);
     }
     FitComponent.prototype.ngOnInit = function () {
@@ -204,6 +208,7 @@ var FitComponent = /** @class */ (function () {
     FitComponent.prototype.signUp = function (name) {
         var _this = this;
         console.log('Sign Up successful');
+        this._Messages.Messages.push('Successfully Signed Up! Welcome!');
         this.http.get(this._api + "/exercise", { params: { userId: name } })
             .subscribe(function (data) { return _this.Me = { Name: name }; });
         this.logInName = name;
@@ -218,9 +223,9 @@ var FitComponent = /** @class */ (function () {
       }
       */
     FitComponent.prototype.join = function (name) {
-        this._Messages.Messages.push('Successfully Signed Up. Welcome!');
-        this.http.get(this._api + "/exercise/login", { params: { userId: name } })
-            .subscribe();
+        var _this = this;
+        this.http.get(this._api + "/exercise/login", { params: { userId: name.Name } })
+            .subscribe(function (data) { return _this.Me.Name = name.Name; });
     };
     FitComponent.prototype.giveExerciseList = function (name) {
         var _this = this;
@@ -337,7 +342,7 @@ module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn{\n    margin: 5px;\
 /***/ "./src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card\" *ngIf=\"!Me\">\n<div class=\"card-header\">\n    <div class=\"text-uppercase title\">Welcome to Fitness Tracker</div>\n</div>\n<!-- \n<div class=\"text-uppercase black\">New to Here?</div>\n<div class=\"font-margin\">\n    Please Sign Up\n</div>  \n<div class=\"login-form\" >\n    <input #Name /><button class=\"btn\" (click)=\"signUp(Name.value)\" >Sign Up</button>\n</div> -->\n<div class =\"text-uppercase black\">\n    Already a user? \n</div>\n<div class=\"font-margin\">\n    Please Sign In\n    </div> \n<!-- Sign in Form-->\n<div class=\"login-form\" >\n    <input #Name2 /><button class=\"btn\" (click)=\"login(Name2.value)\" >Sign In</button>\n</div>\n\n</div> <!-- Log in Form Ends-->"
+module.exports = "<div class=\"card\" *ngIf=\"!Me\">\n<div class=\"card-header\">\n    <div class=\"text-uppercase title\">Welcome to Fitness Tracker</div>\n</div>\n\n<div class=\"text-uppercase black\">New to Here?</div>\n<div class=\"font-margin\">\n    Please Sign Up\n</div>  \n<div class=\"login-form\" >\n    <input #Name /><button class=\"btn\" (click)=\"newUser(Name.value)\" >Sign Up</button>\n</div>\n\n\n<div class =\"text-uppercase black\">\n    Already a user? \n</div>\n<div class=\"font-margin\">\n    Please Sign In\n    </div> \n<div class=\"login-form\" >\n    <input #Name2 /><button class=\"btn\" (click)=\"login(Name2.value)\" >Sign In</button>\n</div>\n\n</div> \n\n"
 
 /***/ }),
 
@@ -366,6 +371,10 @@ var LoginComponent = /** @class */ (function () {
     };
     LoginComponent.prototype.login = function (name) {
         this._Fit.login(name);
+    };
+    // need to prevent sign up same userid here?
+    LoginComponent.prototype.newUser = function (name) {
+        this._Fit.signUp(name);
     };
     LoginComponent = __decorate([
         core_1.Component({
@@ -572,6 +581,20 @@ var FitService = /** @class */ (function () {
         this.Me = { Name: name };
         this._Router.navigate(['/fit']);
     };
+    FitService.prototype.signUp = function (name) {
+        this.Me = { Name: name };
+        this._Router.navigate(['/signup']);
+    };
+    FitService.prototype.profileAdd = function (age, weight, height, goalWeight, name) {
+        var goalBmiCalculate = this.calculateBMI(goalWeight, height);
+        var bmiCalculate = this.calculateBMI(weight, height);
+        this.DisplayProfile = { Age: age, Weight: weight, Height: height, GoalWeight: goalWeight,
+            BMI: bmiCalculate, GoalBMI: goalBmiCalculate, UserId: this.Me.Name };
+        this._Router.navigate(['/fit']);
+    };
+    FitService.prototype.calculateBMI = function (weight, height) {
+        return Math.round((weight / height / height * 10000) * 100) / 100;
+    };
     FitService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http,
@@ -663,6 +686,62 @@ var ShareComponent = /** @class */ (function () {
     return ShareComponent;
 }());
 exports.ShareComponent = ShareComponent;
+
+
+/***/ }),
+
+/***/ "./src/app/sign-up/sign-up.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn{\n    margin: 5px;\n    color: white;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.textWrap{\n    height: 150px;\n   padding: 1.2rem;\n}\n\nform{\n    padding: 1rem;\n}\n\n.btn{\n    background-color: #F4C3D8;\n    border: none;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    font-weight: 300;\n    \n}\n\n.text-uppercase{\n    font-size: 12px;\n    color: white;\n}\n\n.title{\n    font-size: 20px;\n    padding: 0.4rem 0rem;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    color: #7CACEA;\n}\n\n.selected{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}"
+
+/***/ }),
+
+/***/ "./src/app/sign-up/sign-up.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\n<div class=\"card\">\n  <div class=\"card-header\">\n  <div class=\"text-uppercase\">Please Create Your Profile Before Tracking Your Workout!</div> \n  Create Profile\n  </div>\n  <form>\n      <div class=\"form-row\">\n  \n      <div class=\"form-group col-md-4\">\n          <label for=\"inputName\">Name</label>\n          <input #name type=\"text\" class=\"form-control\" id=\"inputName\" [value]=\"Name\">\n      </div>\n  \n      <div class=\"form-group col-md-4\">\n          <label for=\"inputAge\">Age</label>\n          <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" placeholder=\"Age\" >\n      </div>\n      </div>\n  \n      <div class=\"form-group\">\n          <label for=\"inputHeight\">Height</label>\n          <input #height type=\"number\" class=\"form-control\" id=\"inputHeight\" placeholder=\"cm\">\n      </div>\n\n      <div class=\"form-group\">\n          <label for=\"inputWeight\">Weight</label>\n          <input #weight type=\"number\" class=\"form-control\" id=\"inputWeight\" placeholder=\"kg\">\n      </div>\n  \n      <div class=\"form-group\">\n          <label for=\"inputGoalWeight\">Goal Weight</label>\n          <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" placeholder=\"kg\">\n      </div>\n      </form>\n  <div>\n      <button class=\"btn btn-primary btn-sm\" (click)=\"adding(age.value, weight.value, height.value, goalWeight.value, name.value)\">Save</button>\n  </div> \n</div> <!-- Profile Form ends-->"
+
+/***/ }),
+
+/***/ "./src/app/sign-up/sign-up.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
+var SignUpComponent = /** @class */ (function () {
+    function SignUpComponent(_Fit) {
+        this._Fit = _Fit;
+        this.Me = _Fit.Me;
+    }
+    SignUpComponent.prototype.ngOnInit = function () {
+    };
+    SignUpComponent.prototype.adding = function (age, weight, height, goalWeight, name) {
+        this._Fit.profileAdd(age, weight, height, goalWeight, name);
+    };
+    SignUpComponent = __decorate([
+        core_1.Component({
+            selector: 'app-sign-up',
+            template: __webpack_require__("./src/app/sign-up/sign-up.component.html"),
+            styles: [__webpack_require__("./src/app/sign-up/sign-up.component.css")]
+        }),
+        __metadata("design:paramtypes", [fit_service_1.FitService])
+    ], SignUpComponent);
+    return SignUpComponent;
+}());
+exports.SignUpComponent = SignUpComponent;
 
 
 /***/ }),

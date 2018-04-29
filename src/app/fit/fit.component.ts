@@ -34,7 +34,8 @@ export class FitComponent implements OnInit {
     if(!this.Me){
       _Router.navigate(['/login']);
     }
-    this.join(this.Me.Name);
+    this.join(this.Me);
+    this.signUp(this.Me.Name);
     setInterval(()=> this.refresh(), 1000)
   } 
 
@@ -63,7 +64,9 @@ export class FitComponent implements OnInit {
 
 // need to prevent sign up same userid here?
   signUp(name: string){
+    
     console.log('Sign Up successful');
+    this._Messages.Messages.push('Successfully Signed Up! Welcome!');
     this.http.get(this._api + "/exercise", { params : { userId: name } })
     .subscribe(data=> this.Me =  {Name: name} )
     this.logInName = name;
@@ -79,10 +82,9 @@ export class FitComponent implements OnInit {
   }
   */
 
-  join(name: string){
-    this._Messages.Messages.push('Successfully Signed Up. Welcome!');
-    this.http.get(this._api + "/exercise/login", {params: { userId: name}})
-    .subscribe()
+  join(name: User){
+    this.http.get(this._api + "/exercise/login", {params: { userId: name.Name}})
+    .subscribe(data => this.Me.Name = name.Name)
   }
   giveExerciseList(name: string){
     console.log('giveExerciseList executed');

@@ -8,73 +8,9 @@
 
 </div>  -->
 
-<div class="card" *ngIf= " signIn && !finishProfile">
-    <div class="card-header">
-    <div class="text-uppercase">Please Create Your Profile Before Tracking Your Workout!</div> 
-    Create Profile
-    </div>
-    <form>
-        <div class="form-row">
-    
-        <div class="form-group col-md-4">
-            <label for="inputName">Name</label>
-            <input #name type="text" class="form-control" id="inputName" [value]="logInName">
-        </div>
-    
-        <div class="form-group col-md-4">
-            <label for="inputAge">Age</label>
-            <input #age type="number" class="form-control" id="inputAge" placeholder="Age" >
-        </div>
-        </div>
-    
-        <div class="form-group">
-            <label for="inputHeight">Height</label>
-            <input #height type="number" class="form-control" id="inputHeight" placeholder="cm">
-        </div>
-
-        <div class="form-group">
-            <label for="inputWeight">Weight</label>
-            <input #weight type="number" class="form-control" id="inputWeight" placeholder="kg">
-        </div>
-    
-        <div class="form-group">
-            <label for="inputGoalWeight">Goal Weight</label>
-            <input #goalWeight type="number" class="form-control" id="inputGoalWeight" placeholder="kg">
-        </div>
-        </form>
-    <div>
-        <button class="btn btn-primary btn-sm" (click)="profileAdd(age.value, weight.value, height.value, goalWeight.value, name.value)">Save</button>
-    </div> 
-</div> <!-- Profile Form ends-->
 
 
-<!-- Return Profile-->
-<div class="row justify-content-md-center" *ngIf = "alreadyuser">
-        <!-- Saved Profile display-->
-    <div class="col">
-        <div class="card tracking" >
-            <div class="card-header">
-            {{Me.Name}}'s Profile
-            </div>
-            <ul class="list-group list-group-flush list" *ngFor="let profile of Model.Profile">
-            <!-- **ngfor: display profile here** -->
-                <li>Name: {{Me.Name}}</li>
-                <li>Age: {{profile.Age}}</li>
-                <li>Weight: {{profile.Weight}}</li>
-                <li>BMI: {{profile.BMI}}</li>
-                <li>Goal Weight: {{profile.GoalWeight}}</li>
-                <li>Goal BMI: {{profile.GoalBMI}}</li>
-                
-            </ul>
-        </div> <!-- Saved Profile display ends-->
-    </div>
-
-</div>
-
-
-
-
-<div class="row justify-content-md-center" *ngIf = "finishProfile || alreadyuser">
+<div class="row justify-content-md-center" >
     <!-- Create Profile display-->
     <div class="col">
         <div class="card" >
@@ -99,7 +35,7 @@
 
 
 
-<div class="row justify-content-md-center" *ngIf="finishProfile || alreadyuser">
+<div class="row justify-content-md-center">
     <div class="col  mb-3">
         
         <div class="card" >
