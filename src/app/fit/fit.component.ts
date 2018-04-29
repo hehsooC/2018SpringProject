@@ -36,6 +36,7 @@ export class FitComponent implements OnInit {
     }
     this.join(this.Me);
     this.signUp(this.Me.Name);
+    
     setInterval(()=> this.refresh(), 1000)
   } 
 

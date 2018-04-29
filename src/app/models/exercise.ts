@@ -5,6 +5,7 @@ export class Fit {
     Profile: Info[] =[];
     DoneExerciseList: Exercise[] = [];
     ExerciseList: WorkoutList[];  
+    
     /** Need to find health info database api
     HealthInfo: {
         url: string;

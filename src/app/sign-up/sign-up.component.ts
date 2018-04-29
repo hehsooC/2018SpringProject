@@ -8,10 +8,13 @@ import { User } from "../models/exercise";
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
+  loginName: string;
 
   Me: User;
   constructor( private _Fit: FitService) { 
     this.Me = _Fit.Me;
+    this.loginName = _Fit.Me.Name;
+    
   }
 
   ngOnInit() {
