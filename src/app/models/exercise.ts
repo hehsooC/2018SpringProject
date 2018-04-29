@@ -24,6 +24,7 @@ export class Different{
 
 export class User {
     Name: string;
+    Password: string;
     //PlanExercise: Exercise[];   
 }
 

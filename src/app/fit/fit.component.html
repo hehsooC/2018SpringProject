@@ -53,13 +53,17 @@
           </div>
     </div>
 </div>
-<div class="row" *ngIf="finishProfile">
+
+
+
+
+<div class="row" >
     <div class="col-md-6">
         <div class="card mb-3" >
             <div class="card-header textWrap">
                 Workout Plan
                 <div class="subtitle">Choose Completed Workout</div>
-                <div class="text-uppercase">Each workout corresponds to 3 minutes workout time</div> 
+                <!--<div class="text-uppercase">Each workout corresponds to 3 minutes workout time</div> -->
             </div>
                 <ul class="list-group list-group-flush ">
                     <li *ngFor="let list of Model.PlanExercise"
@@ -82,7 +86,7 @@
 <!-- if profile is saved and disappear, display plan to choose-->
     <div class="col-md-6">
         <!-- Exercise Plan-->
-        <div class="card tracking" *ngIf="finishProfile || alreadyuser">
+        <div class="card tracking" >
             <div class="card-header">
             You achieved..
             </div>
@@ -103,6 +107,5 @@
         </div><!-- Exercise Plan end-->
     </div>
 </div><!-- row end -->
-
 
 

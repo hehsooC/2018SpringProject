@@ -2,9 +2,11 @@
     margin: 10px;
 }
 
-.btn{
+.btn-own{
     margin: 5px;
     color: white;
+    background-color: #F4C3D8;
+    border: none;
 }
 
 ul{
@@ -16,7 +18,7 @@ ul{
     margin: 10px;
     color: #1C5F93;
 }
-.card-header{
+.card-header-own{
     background-color: #7CACEA;
     height: 120px;
     text-align: center;
@@ -36,10 +38,6 @@ form{
 }
 
 
-.btn{
-    background-color: #F4C3D8;
-    border: none;
-}
 .subtitle{
     font-size: 15px;
     margin: 1px;

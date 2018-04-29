@@ -9,19 +9,30 @@ export class FitService {
 
   Me: User;
   DisplayProfile: Info;
+  Model = new Fit();
   constructor(private http: Http, 
               private _Messages: MessagesService, 
               private _Router: Router) { 
 
   }
 
-  login(name: string){
-    this.Me = {Name: name};
+  login(name: string, password: string){
+    if(this.Model.Person.find(x => x.Name == name)){
+      var user = this.Model.Person.find( x => x.Name == name);
+      if(user.Password == password){
+        this.Me = user;
+      }
+    }
+    else{
+      console.log('login failed');
+      this._Router.navigate(['/login']);
+    }
+    
     this._Router.navigate(['/fit']);
   }
 
-  signUp(name: string){
-    this.Me = {Name: name};
+  signUp(name: string, password: string){
+    this.Me = {Name: name, Password: password};
     this._Router.navigate(['/signup']);
   }
 

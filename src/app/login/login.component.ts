@@ -13,13 +13,13 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login(name:string){
-    this._Fit.login(name);
+  login(name:string, password: string){
+    this._Fit.login(name, password);
   }
 
 // need to prevent sign up same userid here?
-  newUser(name: string){
-    this._Fit.signUp(name);
+  newUser(name: string, password: string){
+    this._Fit.signUp(name, password);
     
 }
 
