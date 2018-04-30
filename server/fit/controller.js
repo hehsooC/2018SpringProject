@@ -7,27 +7,27 @@ var fit = new Fit();
    
  
 module.exports = app
-    .get('/exercise', (req, res) =>{
+/*     .get('/exercise', (req, res) =>{
      res.send( fit.SignUp(req.query.userId, req.query.password) ) 
     })
     .get('/exercise/login', (req, res) =>{
         console.log('log in successful!');
         res.send( fit.GetData(req.query.userId))
-    }) 
+    })  */
   /*   .get('/exercise/share', (req, res) =>{
         console.log('different user: ' + req.query)
         // need to send different approach for different user
         res.send(fit.SharingOthers(req.query.userId));
        }) */
-    .get('/exercise/getList', (req, res) => {
+/*     .get('/exercise/getList', (req, res) => {
         console.log('does it really get the list?');
         res.send( fit.GiveExerciseList(req.body.userId));
     })
-        
+         */
     .get('/state', (req, res) => res.send(fit))
     // this works but couldn't find api database for workout
     //.post('/exercise/info', (req, res) => res.send( fit.GetHealthInfo()))
-    .post('/exercise', (req, res) => {
+/*     .post('/exercise', (req, res) => {
         
         try {
             console.log('text body is ' + req.body.Text);
@@ -37,9 +37,9 @@ module.exports = app
             res.status(403).send({ success: false, message: error.message }); 
         }
     })
-  
+   */
     // need to work on this
-    .post('/exercise/choose', (req, res) => { 
+/*     .post('/exercise/choose', (req, res) => { 
     
         fit.DoneExercise(req.body.Text);
         res.send( { success: true } );
@@ -50,7 +50,7 @@ module.exports = app
         console.log(req.body);
         fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, req.body.GoalWeight, 
             req.body.BMI, req.body.GoalBMI, req.body.UserId);
-    }); 
+    }) */; 
   
  
  

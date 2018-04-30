@@ -12,23 +12,21 @@ export class Fit {
  
 }
 
-export class Different{
+/* export class Different{
     Name: string;
 }
-
+ */
 export class User {
     Name: string;
     Password: string;
     Profile: Info;
     PlanExercise: Exercise[] = [];
     DoneExerciseList: Exercise[] = [];
-    //PlanExercise: Exercise[];   
 }
 
 
 export class Exercise {
     Text: string;
-    UserId: string;
     Chosen: boolean = false;
 }
 

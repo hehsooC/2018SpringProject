@@ -9,6 +9,7 @@
             <!-- **ngfor: display profile here** -->
                 <li>Name: {{Me.Name}} </li>
                 <li>Age: {{Me.Profile.Age}}</li>
+                <li>Height: {{Me.Profile.Height}} cm</li>
                 <li>Weight: {{Me.Profile.Weight}} kg</li>
                 <li>BMI: {{Me.Profile.BMI}}</li>
                 <li>Goal Weight: {{Me.Profile.GoalWeight}} kg</li>
@@ -43,19 +44,19 @@
 </div>
 
 
-<!-- 
+
 
 <div class="row" >
     <div class="col-md-6">
         <div class="card mb-3" >
             <div class="card-header-own textWrap">
                 Workout Plan
-                <div class="subtitle">Choose Completed Workout</div>
+                <div class="subtitle">Add your time and sets.<br/> When you are done, click Done button</div>
             </div>
                 <ul class="list-group list-group-flush ">
-                    <li *ngFor="let list of Model.PlanExercise"
+                    <li *ngFor="let list of Me.PlanExercise"
                         [ngClass]="{ 'selected': list.Chosen }"
-                        class="list-group-item d-flex justify-content-between align-items-center ">
+                        class="list-group-item ">
                         {{list.Text}}
                         <form>
                             <div class="row d-flex justify-content-end">
@@ -78,7 +79,7 @@
     </div>
 
 
-
+<!-- 
 
     <div class="col-md-6">
         <div class="card tracking" >

@@ -36,38 +36,27 @@ export class FitComponent implements OnInit {
 
   ngOnInit() {
   }
-
+/* 
   refresh(){
     this.http.get(this._api + "/state")
         .subscribe(data=> this.Model = data.json())
   }
-
-
-  getExerciseList(){
-    
-  }
+ */
   submitWorkout(e: MouseEvent, text: string){
     console.log('submitting workout list');
     e.preventDefault();
     this._Fit.chooseExercise(text);
     
   }
-/*
 
 
-  doneExercise(e: MouseEvent, plan: Exercise){
+
+ /*  doneExercise(e: MouseEvent, plan: Exercise){
     console.log('done exercise');
     e.preventDefault();
-    this.http.post(this._api + "/exercise/choose", { Text: plan.Text, UserId: this.Me.Name })
-        .subscribe(data => this.Workout = {Text: plan.Text, UserId: this.Me.Name, Chosen: true});
-  } */
+  } 
+ */
 
-// need to prevent sign up same userid here?
-  signUp(name: string, password: string){
-    console.log('Sign Up Yay');
-    this._Messages.Messages.push('Successfully Signed Up! Welcome, ' + name + '!');
-
-  }
 
  /*  giveExerciseList(name: string){
     console.log('giveExerciseList executed');
@@ -81,9 +70,6 @@ export class FitComponent implements OnInit {
     .subscribe(data=> this.Others =  {Name: name} )
   }
 */
-  profileAdd(age: number, weight: number, height: number, goalWeight: number, name: string ){
-
-    }
 
 /*     
   AlreadyUser = () => this.Model.Profile.find( x => x.UserId == this.Me.Name);

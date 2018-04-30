@@ -35,6 +35,23 @@ export class FitService {
 
   }
 
+  signUp(name: string, password: string){
+    if(this.Model.Person.find(x => x.Name == name)){
+      // alert user name taken
+      alert("User Name is taken, please try different name");
+      console.log('already taken')
+    }
+    else{
+      this.Me = {Name: name, Password: password, Profile: <Info>{}, 
+      PlanExercise: [], DoneExerciseList: <Exercise[]>{}};
+      this.Model.Person.push(this.Me);
+      console.log('sign up successful')
+      //this.signUp(name, password);
+      this._Router.navigate(['/profile']);
+      }
+      
+    }
+    
   login(name: string, password: string){
     if(this.Model.Person.find(x => x.Name == name)){
       var user = this.Model.Person.find( x => x.Name == name);
@@ -63,26 +80,16 @@ export class FitService {
     return Math.round((weight / height / height * 10000) * 100) / 100;
   }
 
-  signUp(name: string, password: string){
-    if(this.Model.Person.find(x => x.Name == name)){
-      // alert user name taken
-      alert("User Name is taken, please try different name");
-      console.log('already taken')
-    }
-    else{
-      this.Me = {Name: name, Password: password, Profile: <Info>{}, PlanExercise: <Exercise[]>{}, DoneExerciseList: <Exercise[]>{}}};
-      this.Model.Person.push(this.Me);
-      console.log('sign up successful')
-      //this.signUp(name, password);
-      this._Router.navigate(['/profile']);
-    }
+
 
     chooseExercise(text: string){
-
+      this.Me.PlanExercise.push({Text: text, Chosen: false});
     }
+  
     
   }
 
+  
 
   
   
