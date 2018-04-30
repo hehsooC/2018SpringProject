@@ -13,6 +13,7 @@ import { FitService } from './services/fit.service';
 import { ShareComponent } from './share/share.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -25,7 +26,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     FitComponent,
     ShareComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
         { path: 'fit', component: FitComponent },
         { path: 'share', component: ShareComponent },
         { path: 'login', component: LoginComponent },
-        { path: 'signup', component: SignUpComponent },
+        { path: 'sign-up', component: SignUpComponent },
+        { path: 'profile', component: ProfileComponent },
+
         { path: '', redirectTo: '/home', pathMatch: 'full'}
 
     ])

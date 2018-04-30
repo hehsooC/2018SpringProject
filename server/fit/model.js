@@ -23,11 +23,11 @@ axios.get('https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,re
     .then(
         response => HealthInfoStack = response.data,
         err => console.log(err)
-    );
+    ); 
  
 var currentInfo = 0;
-     
- */    
+      
+ */       
   
 function Fit() {  
         this.Person = [];
@@ -36,25 +36,25 @@ function Fit() {
         this.DoneExerciseList = [];
         this.HealthInfo = null;
         this.ExerciseList = [];  
- 
+   
         this.GiveExerciseList = (userId) =>{
             console.log('give the global exercise list');
             return ExerciseStack;   
 
         } 
-        this.SignUp = (userId) => {
-            /* if(!this.FirstUser )
-                {this.FirstUser = userId } */
+/*         this.SignUp = (userId, password) => {
+            // if(!this.FirstUser )
+             //   {this.FirstUser = userId } 
             if(this.Person.includes(x => x.Name == userId)){
                 console.log('user already exist');
                 return;
             }else{
-                this.Person.push({ UserId: userId, Name: userId, TotalWorkout: 0 });
+                this.Person.push({ UserId: userId, Name: userId, Password: password, TotalWorkout: 0 });
             }
  
                // return ExerciseStack.slice(0, ExerciseStack.length-1);  
         }       
-  
+   */
         this.GetData = (userId) => {
             console.log('user Id is ' + userId);
             if(this.Person.find(x=> x.UserId == userId))

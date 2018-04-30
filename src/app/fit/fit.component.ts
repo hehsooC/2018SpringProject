@@ -21,7 +21,6 @@ export class FitComponent implements OnInit {
     logInName: string;
     signIn: boolean = false;
     finishProfile: boolean = false;
-    alreadyuser: boolean = false;
 
     private _api = "http://localhost:8080/fit";
 
@@ -31,11 +30,11 @@ export class FitComponent implements OnInit {
               private _Router: Router
 ) {
     this.Me = _Fit.Me;
-    if(!this.Me){
+/*     if(!this.Me){
       _Router.navigate(['/login']);
-    }
+    } */
     //this.join(this.Me);
-    this.signUp(this.Me.Name, this.Me.Password);
+    //this.signUp(this.Me.Name, this.Me.Password);
     
     setInterval(()=> this.refresh(), 1000)
   } 
@@ -47,7 +46,7 @@ export class FitComponent implements OnInit {
     this.http.get(this._api + "/state")
         .subscribe(data=> this.Model = data.json())
   }
-
+/* 
   submitWorkout(e: MouseEvent, text: string){
     console.log('submitting workout list');
     e.preventDefault();
@@ -61,45 +60,45 @@ export class FitComponent implements OnInit {
     e.preventDefault();
     this.http.post(this._api + "/exercise/choose", { Text: plan.Text, UserId: this.Me.Name })
         .subscribe(data => this.Workout = {Text: plan.Text, UserId: this.Me.Name, Chosen: true});
-  }
+  } */
 
 // need to prevent sign up same userid here?
   signUp(name: string, password: string){
     
     console.log('Sign Up successful');
     this._Messages.Messages.push('Successfully Signed Up! Welcome!');
-    this.http.get(this._api + "/exercise", { params : { userId: name } })
-    .subscribe(data=> this.Me =  {Name: name, Password: password} )
+
     this.logInName = name;
     this.signIn = !this.signIn;
-    this.giveExerciseList(name);
+    //this.giveExerciseList(name);
+  }
+ /* 
+  this.http.get(this._api + "/exercise", { params : { userId: name } })
+  .subscribe(data=> this.Me =  {Name: name, Password: password} ) */
+  login(name: string){
+    console.log('log in successful');
+    //this.http.get(this._api + "/exercise/login", { params : { userId: name } })
+    //.subscribe(data=> this.Me =  {Name: name} )
   }
  
-/*   login(name: string){
-    console.log('log in successful');
-    this.http.get(this._api + "/exercise/login", { params : { userId: name } })
-    .subscribe(data=> this.Me =  {Name: name} )
-    this.alreadyuser = !this.alreadyuser;
-  }
-  */
 
 /*   join(name: User){
     this.http.get(this._api + "/exercise/login", {params: { userId: name.Name}})
     .subscribe(data => this.Me.Name = name.Name)
   } */
-  giveExerciseList(name: string){
+ /*  giveExerciseList(name: string){
     console.log('giveExerciseList executed');
     this.http.get(this._api + "/exercise/getList", { params: { userId: name }})
     .subscribe(data => this.GetExercise = { List: data.json()});
   }
-
+ */
   /*
   differentUser(name: string){
     this.http.get(this._api + "/exercise/share", { params : { userId: name } })
     .subscribe(data=> this.Others =  {Name: name} )
   }
 */
-  profileAdd(age: number, weight: number, height: number, goalWeight: number, name: string ){
+/*   profileAdd(age: number, weight: number, height: number, goalWeight: number, name: string ){
     this.finishProfile = !this.finishProfile;
     const goalBmiCalculate = this.calculateBMI(goalWeight, height);
     const bmiCalculate = this.calculateBMI(weight, height);
@@ -111,11 +110,11 @@ export class FitComponent implements OnInit {
     
   calculateBMI(weight: number, height: number){
     return Math.round((weight / height / height * 10000) * 100) / 100;
-    }
+    } */
     
 
-    
+/*     
   AlreadyUser = () => this.Model.Profile.find( x => x.UserId == this.Me.Name);
   MyPlanExercise = () => this.Model.PlanExercise.find( x => x.UserId == this.Me.Name );
-  ChosenExercise = () => this.Model.PlanExercise.find( x => x.Chosen );
+  ChosenExercise = () => this.Model.PlanExercise.find( x => x.Chosen ); */
 }

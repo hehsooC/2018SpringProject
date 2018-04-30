@@ -13,16 +13,16 @@ export class SignUpComponent implements OnInit {
   Me: User;
   constructor( private _Fit: FitService) { 
     this.Me = _Fit.Me;
-    this.loginName = _Fit.Me.Name;
+   // this.loginName = _Fit.Me.Name;
     
   }
 
   ngOnInit() {
   }
 
-  adding(age: number, weight: number, height: number, goalWeight: number, name: string ){
-    this._Fit.profileAdd(age, weight, height, goalWeight, name);
-    
+
+    newUser(name: string, password: string){
+        this._Fit.signUp(name, password);
     }
   
     

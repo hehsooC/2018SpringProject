@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FitService } from '../services/fit.service';
+import { Fit } from '../models/exercise';
+import { MessagesService } from '../services/messages.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +10,8 @@ import { FitService } from '../services/fit.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _Fit: FitService) { }
+  Model = new Fit();
+  constructor(private _Fit: FitService, private _Messages: MessagesService) { }
 
   ngOnInit() {
   }
@@ -18,9 +21,6 @@ export class LoginComponent implements OnInit {
   }
 
 // need to prevent sign up same userid here?
-  newUser(name: string, password: string){
-    this._Fit.signUp(name, password);
-    
-}
+
 
 }

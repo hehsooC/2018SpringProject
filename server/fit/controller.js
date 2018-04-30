@@ -5,10 +5,10 @@ var app = express.Router();
 
 var fit = new Fit(); 
    
-
+ 
 module.exports = app
     .get('/exercise', (req, res) =>{
-     res.send( fit.SignUp(req.query.userId) ) 
+     res.send( fit.SignUp(req.query.userId, req.query.password) ) 
     })
     .get('/exercise/login', (req, res) =>{
         console.log('log in successful!');

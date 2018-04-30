@@ -1,20 +1,8 @@
-<!-- 
-<div class="card" *ngIf="Me">
-    <div class="card-header">Please Sign In</div>
-    
-    <div class="login-form" >
-        <input #user /><button class="btn btn-primary" (click)="differentUser(user.value)" >Sign In</button>
-    </div>
-
-</div>  -->
-
-
-
 <div class="row justify-content-md-center" >
     <!-- Create Profile display-->
     <div class="col">
         <div class="card" >
-            <div class="card-header">
+            <div class="card-header-own">
             {{Me.Name}}'s Profile
             </div>
             <ul class="list-group list-group-flush list" *ngFor="let profile of Model.Profile">
@@ -33,13 +21,13 @@
     
 </div>
 
-
+<!-- 
 
 <div class="row justify-content-md-center">
     <div class="col  mb-3">
         
         <div class="card" >
-            <div class="card-header">Workout List </div>
+            <div class="card-header-own">Workout List </div>
             <form>
                 <div class="form-group">
                   <select multiple class="form-control" id="exampleFormControlSelect2" >
@@ -60,16 +48,25 @@
 <div class="row" >
     <div class="col-md-6">
         <div class="card mb-3" >
-            <div class="card-header textWrap">
+            <div class="card-header-own textWrap">
                 Workout Plan
                 <div class="subtitle">Choose Completed Workout</div>
-                <!--<div class="text-uppercase">Each workout corresponds to 3 minutes workout time</div> -->
             </div>
                 <ul class="list-group list-group-flush ">
                     <li *ngFor="let list of Model.PlanExercise"
                         [ngClass]="{ 'selected': list.Chosen }"
                         class="list-group-item d-flex justify-content-between align-items-center ">
                         {{list.Text}}
+                        <form>
+                            <div class="row d-flex justify-content-end">
+                              <div class="col-sm-3">
+                                <input type="text" class="form-control" placeholder="Time">
+                              </div>
+                              <div class="col-sm-3">
+                                <input type="text" class="form-control" placeholder="Set">
+                              </div>
+                            </div>
+                          </form>
                         <button (click)="doneExercise($event, list)"
                                 class="btn btn-sm btn-primary">
                                 Done
@@ -83,11 +80,9 @@
 
 
 
-<!-- if profile is saved and disappear, display plan to choose-->
     <div class="col-md-6">
-        <!-- Exercise Plan-->
         <div class="card tracking" >
-            <div class="card-header">
+            <div class="card-header-own">
             You achieved..
             </div>
             <ul class="list-group list-group-flush ">
@@ -104,8 +99,8 @@
                     Your Total Workout Time: {{time.TotalWorkout}} minutes
                 </i>
             </div>
-        </div><!-- Exercise Plan end-->
-    </div>
-</div><!-- row end -->
+        </div>
+</div>
 
 
+ -->
