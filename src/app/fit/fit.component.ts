@@ -50,7 +50,11 @@ export class FitComponent implements OnInit {
   }
 
 
+  getDate(){
+    var d = new Date();
+    document.getElementById("date").innerHTML = d.toDateString();
 
+  }
   doneExercise(e: MouseEvent, plan: string, time: number, set: number){
     console.log('done exercise');
     e.preventDefault();
