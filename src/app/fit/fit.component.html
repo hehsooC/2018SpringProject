@@ -5,14 +5,14 @@
             <div class="card-header-own">
             {{Me.Name}}'s Profile
             </div>
-            <ul class="list-group list-group-flush list" *ngFor="let profile of Model.Profile">
+            <ul class="list-group list-group-flush">
             <!-- **ngfor: display profile here** -->
-                <li>Name: {{Me.Name}}</li>
-                <li>Age: {{profile.Age}}</li>
-                <li>Weight: {{profile.Weight}}</li>
-                <li>BMI: {{profile.BMI}}</li>
-                <li>Goal Weight: {{profile.GoalWeight}}</li>
-                <li>Goal BMI: {{profile.GoalBMI}}</li>
+                <li>Name: {{Me.Name}} </li>
+                <li>Age: {{Me.Profile.Age}}</li>
+                <li>Weight: {{Me.Profile.Weight}} kg</li>
+                <li>BMI: {{Me.Profile.BMI}}</li>
+                <li>Goal Weight: {{Me.Profile.GoalWeight}} kg</li>
+                <li>Goal BMI: {{Me.Profile.GoalBMI}}</li>
                 
             </ul>
         </div> <!-- Saved Profile display ends-->
@@ -21,7 +21,7 @@
     
 </div>
 
-<!-- 
+
 
 <div class="row justify-content-md-center">
     <div class="col  mb-3">
@@ -31,7 +31,7 @@
             <form>
                 <div class="form-group">
                   <select multiple class="form-control" id="exampleFormControlSelect2" >
-                    <option *ngFor="let list of GetExercise.List"  (click)="submitWorkout($event, list)">
+                    <option *ngFor="let list of Model.ExerciseList"  (click)="submitWorkout($event, list)">
                         {{list}}
                     </option>
                   </select>
@@ -43,7 +43,7 @@
 </div>
 
 
-
+<!-- 
 
 <div class="row" >
     <div class="col-md-6">

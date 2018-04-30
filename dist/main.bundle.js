@@ -139,7 +139,7 @@ module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 5
 /***/ "./src/app/fit/fit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\" >\n    <!-- Create Profile display-->\n    <div class=\"col\">\n        <div class=\"card\" >\n            <div class=\"card-header-own\">\n            {{Me.Name}}'s Profile\n            </div>\n            <ul class=\"list-group list-group-flush list\" *ngFor=\"let profile of Model.Profile\">\n            <!-- **ngfor: display profile here** -->\n                <li>Name: {{Me.Name}}</li>\n                <li>Age: {{profile.Age}}</li>\n                <li>Weight: {{profile.Weight}}</li>\n                <li>BMI: {{profile.BMI}}</li>\n                <li>Goal Weight: {{profile.GoalWeight}}</li>\n                <li>Goal BMI: {{profile.GoalBMI}}</li>\n                \n            </ul>\n        </div> <!-- Saved Profile display ends-->\n    </div>\n\n    \n</div>\n\n<!-- \n\n<div class=\"row justify-content-md-center\">\n    <div class=\"col  mb-3\">\n        \n        <div class=\"card\" >\n            <div class=\"card-header-own\">Workout List </div>\n            <form>\n                <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                    <option *ngFor=\"let list of GetExercise.List\"  (click)=\"submitWorkout($event, list)\">\n                        {{list}}\n                    </option>\n                  </select>\n                </div>\n              </form>\n  \n          </div>\n    </div>\n</div>\n\n\n\n\n<div class=\"row\" >\n    <div class=\"col-md-6\">\n        <div class=\"card mb-3\" >\n            <div class=\"card-header-own textWrap\">\n                Workout Plan\n                <div class=\"subtitle\">Choose Completed Workout</div>\n            </div>\n                <ul class=\"list-group list-group-flush \">\n                    <li *ngFor=\"let list of Model.PlanExercise\"\n                        [ngClass]=\"{ 'selected': list.Chosen }\"\n                        class=\"list-group-item d-flex justify-content-between align-items-center \">\n                        {{list.Text}}\n                        <form>\n                            <div class=\"row d-flex justify-content-end\">\n                              <div class=\"col-sm-3\">\n                                <input type=\"text\" class=\"form-control\" placeholder=\"Time\">\n                              </div>\n                              <div class=\"col-sm-3\">\n                                <input type=\"text\" class=\"form-control\" placeholder=\"Set\">\n                              </div>\n                            </div>\n                          </form>\n                        <button (click)=\"doneExercise($event, list)\"\n                                class=\"btn btn-sm btn-primary\">\n                                Done\n                        </button>\n                    </li>\n                </ul>\n            </div>\n            \n    </div>\n\n\n\n\n    <div class=\"col-md-6\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header-own\">\n            You achieved..\n            </div>\n            <ul class=\"list-group list-group-flush \">\n                <li *ngFor= \"let choice of Model.DoneExerciseList\" (click)=\"submitWorkout($event, choice.Text)\"\n                    class=\"list-group-item d-flex justify-content-between align-items-center \">\n                    {{choice.Text}}\n                    <i *ngFor= \"let time of Model.DoneExerciseList\" class=\"badge float-right\" class =\"badge-info\">\n                        {{time.WorkoutMinute}}\n                    </i>\n                </li>\n            </ul>\n            <div class=\"card-body\">\n                <i *ngFor= \"let time of Model.Person\">\n                    Your Total Workout Time: {{time.TotalWorkout}} minutes\n                </i>\n            </div>\n        </div>\n</div>\n\n\n -->"
+module.exports = "<div class=\"row justify-content-md-center\" >\n    <!-- Create Profile display-->\n    <div class=\"col\">\n        <div class=\"card\" >\n            <div class=\"card-header-own\">\n            {{Me.Name}}'s Profile\n            </div>\n            <ul class=\"list-group list-group-flush\">\n            <!-- **ngfor: display profile here** -->\n                <li>Name: {{Me.Name}} </li>\n                <li>Age: {{Me.Profile.Age}}</li>\n                <li>Weight: {{Me.Profile.Weight}} kg</li>\n                <li>BMI: {{Me.Profile.BMI}}</li>\n                <li>Goal Weight: {{Me.Profile.GoalWeight}} kg</li>\n                <li>Goal BMI: {{Me.Profile.GoalBMI}}</li>\n                \n            </ul>\n        </div> <!-- Saved Profile display ends-->\n    </div>\n\n    \n</div>\n\n\n\n<div class=\"row justify-content-md-center\">\n    <div class=\"col  mb-3\">\n        \n        <div class=\"card\" >\n            <div class=\"card-header-own\">Workout List </div>\n            <form>\n                <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                    <option *ngFor=\"let list of Model.ExerciseList\"  (click)=\"submitWorkout($event, list)\">\n                        {{list}}\n                    </option>\n                  </select>\n                </div>\n              </form>\n  \n          </div>\n    </div>\n</div>\n\n\n<!-- \n\n<div class=\"row\" >\n    <div class=\"col-md-6\">\n        <div class=\"card mb-3\" >\n            <div class=\"card-header-own textWrap\">\n                Workout Plan\n                <div class=\"subtitle\">Choose Completed Workout</div>\n            </div>\n                <ul class=\"list-group list-group-flush \">\n                    <li *ngFor=\"let list of Model.PlanExercise\"\n                        [ngClass]=\"{ 'selected': list.Chosen }\"\n                        class=\"list-group-item d-flex justify-content-between align-items-center \">\n                        {{list.Text}}\n                        <form>\n                            <div class=\"row d-flex justify-content-end\">\n                              <div class=\"col-sm-3\">\n                                <input type=\"text\" class=\"form-control\" placeholder=\"Time\">\n                              </div>\n                              <div class=\"col-sm-3\">\n                                <input type=\"text\" class=\"form-control\" placeholder=\"Set\">\n                              </div>\n                            </div>\n                          </form>\n                        <button (click)=\"doneExercise($event, list)\"\n                                class=\"btn btn-sm btn-primary\">\n                                Done\n                        </button>\n                    </li>\n                </ul>\n            </div>\n            \n    </div>\n\n\n\n\n    <div class=\"col-md-6\">\n        <div class=\"card tracking\" >\n            <div class=\"card-header-own\">\n            You achieved..\n            </div>\n            <ul class=\"list-group list-group-flush \">\n                <li *ngFor= \"let choice of Model.DoneExerciseList\" (click)=\"submitWorkout($event, choice.Text)\"\n                    class=\"list-group-item d-flex justify-content-between align-items-center \">\n                    {{choice.Text}}\n                    <i *ngFor= \"let time of Model.DoneExerciseList\" class=\"badge float-right\" class =\"badge-info\">\n                        {{time.WorkoutMinute}}\n                    </i>\n                </li>\n            </ul>\n            <div class=\"card-body\">\n                <i *ngFor= \"let time of Model.Person\">\n                    Your Total Workout Time: {{time.TotalWorkout}} minutes\n                </i>\n            </div>\n        </div>\n</div>\n\n\n -->"
 
 /***/ }),
 
@@ -160,28 +160,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
-var exercise_1 = __webpack_require__("./src/app/models/exercise.ts");
 var messages_service_1 = __webpack_require__("./src/app/services/messages.service.ts");
 var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var FitComponent = /** @class */ (function () {
     function FitComponent(http, _Messages, _Fit, _Router) {
-        var _this = this;
         this.http = http;
         this._Messages = _Messages;
         this._Fit = _Fit;
         this._Router = _Router;
-        this.Model = new exercise_1.Fit();
-        this.signIn = false;
-        this.finishProfile = false;
         this._api = "http://localhost:8080/fit";
         this.Me = _Fit.Me;
+        this.Model = _Fit.Model;
         /*     if(!this.Me){
               _Router.navigate(['/login']);
             } */
-        //this.join(this.Me);
-        //this.signUp(this.Me.Name, this.Me.Password);
-        setInterval(function () { return _this.refresh(); }, 1000);
+        //setInterval(()=> this.refresh(), 1000)
     }
     FitComponent.prototype.ngOnInit = function () {
     };
@@ -190,14 +184,15 @@ var FitComponent = /** @class */ (function () {
         this.http.get(this._api + "/state")
             .subscribe(function (data) { return _this.Model = data.json(); });
     };
-    /*
-      submitWorkout(e: MouseEvent, text: string){
+    FitComponent.prototype.getExerciseList = function () {
+    };
+    FitComponent.prototype.submitWorkout = function (e, text) {
         console.log('submitting workout list');
         e.preventDefault();
+        this._Fit.chooseExercise(text);
+    };
+    /*
     
-        this.http.post(this._api + "/exercise", { Text: text, UserId: this.Me.Name })
-            .subscribe();
-      }
     
       doneExercise(e: MouseEvent, plan: Exercise){
         console.log('done exercise');
@@ -207,19 +202,22 @@ var FitComponent = /** @class */ (function () {
       } */
     // need to prevent sign up same userid here?
     FitComponent.prototype.signUp = function (name, password) {
-        console.log('Sign Up successful');
-        this._Messages.Messages.push('Successfully Signed Up! Welcome!');
-        this.logInName = name;
-        this.signIn = !this.signIn;
-        //this.giveExerciseList(name);
+        console.log('Sign Up Yay');
+        this._Messages.Messages.push('Successfully Signed Up! Welcome, ' + name + '!');
     };
+    /*  giveExerciseList(name: string){
+       console.log('giveExerciseList executed');
+       this.http.get(this._api + "/exercise/getList", { params: { userId: name }})
+       .subscribe(data => this.GetExercise = { List: data.json()});
+     }
+    */
     /*
-     this.http.get(this._api + "/exercise", { params : { userId: name } })
-     .subscribe(data=> this.Me =  {Name: name, Password: password} ) */
-    FitComponent.prototype.login = function (name) {
-        console.log('log in successful');
-        //this.http.get(this._api + "/exercise/login", { params : { userId: name } })
-        //.subscribe(data=> this.Me =  {Name: name} )
+    differentUser(name: string){
+      this.http.get(this._api + "/exercise/share", { params : { userId: name } })
+      .subscribe(data=> this.Others =  {Name: name} )
+    }
+  */
+    FitComponent.prototype.profileAdd = function (age, weight, height, goalWeight, name) {
     };
     FitComponent = __decorate([
         core_1.Component({
@@ -424,6 +422,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Fit = /** @class */ (function () {
     function Fit() {
         this.Person = [];
+        this.ExerciseList = [];
         /** Need to find health info database api
         HealthInfo: {
             url: string;
@@ -433,12 +432,6 @@ var Fit = /** @class */ (function () {
     return Fit;
 }());
 exports.Fit = Fit;
-var WorkoutList = /** @class */ (function () {
-    function WorkoutList() {
-    }
-    return WorkoutList;
-}());
-exports.WorkoutList = WorkoutList;
 var Different = /** @class */ (function () {
     function Different() {
     }
@@ -447,7 +440,6 @@ var Different = /** @class */ (function () {
 exports.Different = Different;
 var User = /** @class */ (function () {
     function User() {
-        this.Profile = [];
         this.PlanExercise = [];
         this.DoneExerciseList = [];
         //PlanExercise: Exercise[];   
@@ -603,7 +595,24 @@ var FitService = /** @class */ (function () {
         this.http = http;
         this._Messages = _Messages;
         this._Router = _Router;
+        this.ExerciseStack = [
+            "Squat",
+            "Plank",
+            "Running",
+            "Jump Rope",
+            "Swimming",
+            "Walk",
+            "Aerobic Dance",
+            "Zumba",
+            "Yoga",
+            "Centergy",
+            "Stretching",
+            "Gentle Yoga",
+            "Push Up"
+        ];
+        //DisplayProfile: Info;
         this.Model = new exercise_1.Fit();
+        this.Model.ExerciseList = this.ExerciseStack;
     }
     FitService.prototype.login = function (name, password) {
         if (this.Model.Person.find(function (x) { return x.Name == name; })) {
@@ -622,8 +631,7 @@ var FitService = /** @class */ (function () {
     FitService.prototype.profileAdd = function (age, weight, height, goalWeight, name) {
         var goalBmiCalculate = this.calculateBMI(goalWeight, height);
         var bmiCalculate = this.calculateBMI(weight, height);
-        this.DisplayProfile = { Age: age, Weight: weight, Height: height, GoalWeight: goalWeight,
-            BMI: bmiCalculate, GoalBMI: goalBmiCalculate, UserId: this.Me.Name };
+        this.Me.Profile = { Age: age, Weight: weight, Height: height, GoalWeight: goalWeight, BMI: bmiCalculate, GoalBMI: goalBmiCalculate };
         this._Router.navigate(['/fit']);
     };
     FitService.prototype.calculateBMI = function (weight, height) {
@@ -641,7 +649,10 @@ var FitService = /** @class */ (function () {
         ;
         this.Model.Person.push(this.Me);
         console.log('sign up successful');
+        //this.signUp(name, password);
         this._Router.navigate(['/profile']);
+    };
+    FitService.prototype.chooseExercise = function (text) {
     };
     FitService = __decorate([
         core_1.Injectable(),

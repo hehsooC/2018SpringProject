@@ -7,13 +7,31 @@ import { Router } from '@angular/router';
 @Injectable()
 export class FitService {
 
+  ExerciseStack =  [
+    "Squat",
+    "Plank", 
+     "Running",
+     "Jump Rope",
+     "Swimming",
+     "Walk",
+     "Aerobic Dance",
+     "Zumba",
+     "Yoga",
+     "Centergy",
+     "Stretching",
+     "Gentle Yoga",
+     "Push Up"
+     ];
+
   Me: User;
-  DisplayProfile: Info;
+  //DisplayProfile: Info;
   Model = new Fit();
   constructor(private http: Http, 
               private _Messages: MessagesService, 
               private _Router: Router,
               ) { 
+    this.Model.ExerciseList = this.ExerciseStack;
+                
 
   }
 
@@ -37,9 +55,7 @@ export class FitService {
   profileAdd(age: number, weight: number, height: number, goalWeight: number, name: string){
     const goalBmiCalculate = this.calculateBMI(goalWeight, height);
     const bmiCalculate = this.calculateBMI(weight, height);
-    this.DisplayProfile = {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight,
-      BMI: bmiCalculate, GoalBMI: goalBmiCalculate , UserId: this.Me.Name}
-      
+    this.Me.Profile = {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight, BMI: bmiCalculate, GoalBMI: goalBmiCalculate};
     this._Router.navigate(['/fit']);
   }
 
@@ -54,10 +70,15 @@ export class FitService {
       console.log('already taken')
     }
     else{
-      this.Me = {Name: name, Password: password, Profile: <Info[]>{}, PlanExercise: <Exercise[]>{}, DoneExerciseList: <Exercise[]>{}}};
+      this.Me = {Name: name, Password: password, Profile: <Info>{}, PlanExercise: <Exercise[]>{}, DoneExerciseList: <Exercise[]>{}}};
       this.Model.Person.push(this.Me);
       console.log('sign up successful')
+      //this.signUp(name, password);
       this._Router.navigate(['/profile']);
+    }
+
+    chooseExercise(text: string){
+
     }
     
   }

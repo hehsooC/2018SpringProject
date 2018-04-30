@@ -34,14 +34,14 @@ function Fit() {
         this.PlanExercise = [];
         this.Profile = [];
         this.DoneExerciseList = [];
-        this.HealthInfo = null;
+        this.HealthInfo = null; 
         this.ExerciseList = [];  
-   
-        this.GiveExerciseList = (userId) =>{
+     
+        this.GiveExerciseList = (userId) =>{ 
             console.log('give the global exercise list');
             return ExerciseStack;   
-
-        } 
+  
+        }   
 /*         this.SignUp = (userId, password) => {
             // if(!this.FirstUser )
              //   {this.FirstUser = userId } 
