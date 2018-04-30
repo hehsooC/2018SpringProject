@@ -51,11 +51,12 @@ export class FitComponent implements OnInit {
 
 
 
- /*  doneExercise(e: MouseEvent, plan: Exercise){
+  doneExercise(e: MouseEvent, plan: string, time: number, set: number){
     console.log('done exercise');
     e.preventDefault();
+    this._Fit.selectExercise(plan, time, set);
   } 
- */
+
 
 
  /*  giveExerciseList(name: string){

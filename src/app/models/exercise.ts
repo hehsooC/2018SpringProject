@@ -21,7 +21,8 @@ export class User {
     Password: string;
     Profile: Info;
     PlanExercise: Exercise[] = [];
-    DoneExerciseList: Exercise[] = [];
+    DoneExerciseList: Done[] = [];
+    
 }
 
 
@@ -30,6 +31,12 @@ export class Exercise {
     Chosen: boolean = false;
 }
 
+export class Done {
+    Text: string;
+    Time: number;
+    Set: number;
+    TotalTime: number;
+}
 
 export class Info {
     Age: number;

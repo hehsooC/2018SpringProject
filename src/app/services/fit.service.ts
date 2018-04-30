@@ -43,7 +43,7 @@ export class FitService {
     }
     else{
       this.Me = {Name: name, Password: password, Profile: <Info>{}, 
-      PlanExercise: [], DoneExerciseList: <Exercise[]>{}};
+      PlanExercise: [], DoneExerciseList: []};
       this.Model.Person.push(this.Me);
       console.log('sign up successful')
       //this.signUp(name, password);
@@ -86,7 +86,16 @@ export class FitService {
       this.Me.PlanExercise.push({Text: text, Chosen: false});
     }
   
+    selectExercise(text: string, time:number, set:number){
+      var totalTime = time * set;
+      this.Me.DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
+      
+    }
     
+    timeCalculate(totalTime: number){
+      var sum = totalTime + totalTime;
+      return sum;
+    }
   }
 
   

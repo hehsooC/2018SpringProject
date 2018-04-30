@@ -5,81 +5,21 @@
             <div class="card-header-own">
             {{Me.Name}}'s Profile
             </div>
-            <ul class="list-group list-group-flush">
-            <!-- **ngfor: display profile here** -->
-                <li>Name: {{Me.Name}} </li>
-                <li>Age: {{Me.Profile.Age}}</li>
-                <li>Height: {{Me.Profile.Height}} cm</li>
-                <li>Weight: {{Me.Profile.Weight}} kg</li>
-                <li>BMI: {{Me.Profile.BMI}}</li>
-                <li>Goal Weight: {{Me.Profile.GoalWeight}} kg</li>
-                <li>Goal BMI: {{Me.Profile.GoalBMI}}</li>
-                
-            </ul>
-        </div> <!-- Saved Profile display ends-->
-    </div>
-
-    
-</div>
-
-
-
-<div class="row justify-content-md-center">
-    <div class="col  mb-3">
-        
-        <div class="card" >
-            <div class="card-header-own">Workout List </div>
-            <form>
-                <div class="form-group">
-                  <select multiple class="form-control" id="exampleFormControlSelect2" >
-                    <option *ngFor="let list of Model.ExerciseList"  (click)="submitWorkout($event, list)">
-                        {{list}}
-                    </option>
-                  </select>
-                </div>
-              </form>
-  
-          </div>
-    </div>
-</div>
-
-
-
-
-<div class="row" >
-    <div class="col-md-6">
-        <div class="card mb-3" >
-            <div class="card-header-own textWrap">
-                Workout Plan
-                <div class="subtitle">Add your time and sets.<br/> When you are done, click Done button</div>
-            </div>
-                <ul class="list-group list-group-flush ">
-                    <li *ngFor="let list of Me.PlanExercise"
-                        [ngClass]="{ 'selected': list.Chosen }"
-                        class="list-group-item ">
-                        {{list.Text}}
-                        <form>
-                            <div class="row d-flex justify-content-end">
-                              <div class="col-sm-3">
-                                <input type="text" class="form-control" placeholder="Time">
-                              </div>
-                              <div class="col-sm-3">
-                                <input type="text" class="form-control" placeholder="Set">
-                              </div>
-                            </div>
-                          </form>
-                        <button (click)="doneExercise($event, list)"
-                                class="btn btn-sm btn-primary">
-                                Done
-                        </button>
-                    </li>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                <!-- **ngfor: display profile here** -->
+                    <li class="list-group-item">Name: {{Me.Name}} </li>
+                    <li class="list-group-item">Age: {{Me.Profile.Age}}</li>
+                    <li class="list-group-item">Height: {{Me.Profile.Height}} cm</li>
+                    <li class="list-group-item">Weight: {{Me.Profile.Weight}} kg</li>
+                    <li class="list-group-item">BMI: {{Me.Profile.BMI}}</li>
+                    <li class="list-group-item">Goal Weight: {{Me.Profile.GoalWeight}} kg</li>
+                    <li class="list-group-item">Goal BMI: {{Me.Profile.GoalBMI}}</li>
+                    
                 </ul>
             </div>
-            
+        </div> <!-- Saved Profile display ends-->
     </div>
-
-
-<!-- 
 
     <div class="col-md-6">
         <div class="card tracking" >
@@ -87,21 +27,82 @@
             You achieved..
             </div>
             <ul class="list-group list-group-flush ">
-                <li *ngFor= "let choice of Model.DoneExerciseList" (click)="submitWorkout($event, choice.Text)"
-                    class="list-group-item d-flex justify-content-between align-items-center ">
+                <li *ngFor= "let choice of Me.DoneExerciseList"
+                    class="list-group-item ">
                     {{choice.Text}}
-                    <i *ngFor= "let time of Model.DoneExerciseList" class="badge float-right" class ="badge-info">
-                        {{time.WorkoutMinute}}
+                    <i class="badge float-right" class ="badge-info d-flex justify-content-end">
+                        {{choice.Time}} min 
+                    </i>
+                    <i class="badge float-right" class ="badge-info d-flex justify-content-end">
+                        {{choice.Set}} times
                     </i>
                 </li>
             </ul>
             <div class="card-body">
-                <i *ngFor= "let time of Model.Person">
-                    Your Total Workout Time: {{time.TotalWorkout}} minutes
+                <i>
+                    Your Total Workout Time:  minutes
                 </i>
             </div>
         </div>
+    </div>
+    
 </div>
 
 
- -->
+
+
+    
+
+
+
+
+<div class="row" >
+
+    <div class="col  mb-3">
+    
+        <div class="card" >
+            <div class="card-header-own">Workout List </div>
+            <form>
+                <div class="form-group">
+                    <select multiple class="form-control" id="exampleFormControlSelect2" >
+                    <option *ngFor="let list of Model.ExerciseList"  (click)="submitWorkout($event, list)">
+                        {{list}}
+                    </option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div> <!-- workout list end-->
+        
+    <div class="col-md-6">
+        <div class="card mb-3" >
+            <div class="card-header-own textWrap">
+                Workout Plan
+                <div class="subtitle">Add your time and sets.<br/> When you are done, click Done button</div>
+            </div>
+            <ul class="list-group list-group-flush ">
+                <li *ngFor="let list of Me.PlanExercise"
+                    [ngClass]="{ 'selected': list.Chosen }"
+                    class="list-group-item list-group-flush ">
+                    {{list.Text}}
+                    <form>
+                        <div class="row d-flex justify-content-end">
+                            <div class="col-sm-3">
+                            <input #time type="number" class="form-control" placeholder="Minutes">
+                            </div>
+                            <div class="col-sm-3">
+                            <input #set type="number" class="form-control" placeholder="Sets">
+                            </div>
+                        </div>
+                    </form>
+                    <button (click)="doneExercise($event, list, time.value, set.value)"
+                            class="col-sm-3 btn btn-sm btn-primary">
+                            Done
+                    </button>
+                </li>
+            </ul>
+        </div>
+            
+    </div> <!-- workout plan end-->
+
+</div> <!-- row end -->
