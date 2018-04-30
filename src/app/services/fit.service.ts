@@ -60,13 +60,15 @@ export class FitService {
         console.log('login successful')
         this._Router.navigate(['/fit']);
       }
+      else{
+        console.log('login failed');
+        alert("Password doesn't match in our system!");
+      }
     }
     else{
-      console.log('login failed');
-      alert("User Name or Password doesn't match in our system!");
+      alert("No Username found in our system!")
     }
-    
-    
+   
   }
 
   profileAdd(age: number, weight: number, height: number, goalWeight: number, name: string){
@@ -83,18 +85,55 @@ export class FitService {
 
 
     chooseExercise(text: string){
-      this.Me.PlanExercise.push({Text: text, Chosen: false});
+      if(!this.Me.PlanExercise.find(x => x.Text == text)){
+        this.Me.PlanExercise.push({Text: text, Chosen: false});
+      }
     }
   
     selectExercise(text: string, time:number, set:number){
       var totalTime = time * set;
-      this.Me.DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
+      console.log('totalTime is : ' +totalTime);
+      this.Model.Record.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
+      if(!this.Me.DoneExerciseList.find(x => x.Text == text)){
+        this.Me.DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
+      }
+      else{ 
+        var RecordReceived = this.timeCalculate(text, time, set);
+        var recordIndex = RecordReceived.findIndex(x => x.Text == text);
+        var index = this.Me.DoneExerciseList.findIndex(x => x.Text == text);
+        this.Me.DoneExerciseList[index] = RecordReceived[recordIndex];
+      }
       
     }
     
-    timeCalculate(totalTime: number){
-      var sum = totalTime + totalTime;
-      return sum;
+    timeCalculate(text: string, time: number, set: number){
+      var record = this.Model.Record.pop();
+
+      var currentTime = Number(record.Time);
+      console.log('record current time is : ' +currentTime);
+      
+      var currentSet = Number(record.Set);
+      console.log('record current set is : ' +currentSet);
+
+      var record2 = this.Model.Record.pop();
+
+      var prevTime = Number(record2.Time) ;
+      console.log('record prev time is : ' + prevTime);
+
+      var prevSet = Number(record2.Set);
+      console.log('record prev set is : ' +prevSet);
+
+      var sum = Number(currentTime + prevTime);
+      console.log('sum is : ' +sum);
+
+      var setSum = Number(currentSet + prevSet);
+      console.log('setsum is : ' +setSum);
+
+      var totalTime = Number(sum * setSum);
+      console.log('totalTime is : ' +totalTime);
+
+      this.Model.Record.push({Text: text, Time: sum, Set: setSum, TotalTime: totalTime });
+      return this.Model.Record;
     }
   }
 

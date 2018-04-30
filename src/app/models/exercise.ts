@@ -2,6 +2,7 @@ export class Fit {
     
     Person: User[] = [];
     ExerciseList: string[] = [];
+    Record: Track[] = [];
     
     /** Need to find health info database api
     HealthInfo: {
@@ -16,6 +17,14 @@ export class Fit {
     Name: string;
 }
  */
+
+ export class Track{
+     Text: string;
+     Time: number;
+     Set: number;
+     TotalTime: number;
+
+ }
 export class User {
     Name: string;
     Password: string;

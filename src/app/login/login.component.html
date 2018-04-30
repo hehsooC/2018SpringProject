@@ -10,13 +10,13 @@
             Please Sign In
             </div> 
         <div class="login-form" >
-            <input #Name2 type ="text" placeholder ="User Name"/><br/>
-            <input #Password2 type ="text" placeholder ="Password" />
+            <input #Name type ="text" placeholder ="User Name"/><br/>
+            <input #Password type ="text" placeholder ="Password" />
 
 
         </div>
         <div class="btn-margin">
-            <button class="btn" (click)="login(Name2.value, Password2.value)" >Sign In</button>
+            <button class="btn" (click)="login(Name.value, Password.value)" >Sign In</button>
         </div>
 
     </div>
