@@ -31,6 +31,7 @@ export class FitComponent implements OnInit {
       _Router.navigate(['/login']);
     } 
     
+    
 
     //setInterval(()=> this.refresh(), 1000)
   } 
@@ -44,25 +45,31 @@ export class FitComponent implements OnInit {
   }
  */
   submitWorkout(e: MouseEvent, text: string){
-    console.log('submitting workout list');
+    console.log('submitting workout list - component');
     e.preventDefault();
     this._Fit.chooseExercise(text);
     
   }
 
+
+  doneExercise(e: MouseEvent, text: string, time: number, set: number){
+    console.log('done exercise - component');
+    e.preventDefault();
+    
+    this._Fit.selectExercise(text, time, set);
+
+  }
+
+  
+
+
+  
 /* 
   getDate(){
     var d = new Date();
     document.getElementById("date").innerHTML = d.toDateString();
 
   } */
- /*  doneExercise(e: MouseEvent, plan: string, time: number, set: number){
-    console.log('done exercise');
-    e.preventDefault();
-    this._Fit.selectExercise(plan, time, set);
-  } 
-
- */
 
  /*  giveExerciseList(name: string){
     console.log('giveExerciseList executed');

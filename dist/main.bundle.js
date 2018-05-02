@@ -163,10 +163,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var EditProfileComponent = /** @class */ (function () {
-    function EditProfileComponent(_Fit) {
+    function EditProfileComponent(_Fit, _Router) {
         this._Fit = _Fit;
+        this._Router = _Router;
         this.Me = this._Fit.Me;
+        if (!this.Me) {
+            _Router.navigate(['/login']);
+        }
     }
     EditProfileComponent.prototype.ngOnInit = function () {
     };
@@ -185,7 +190,7 @@ var EditProfileComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/edit-profile/edit-profile.component.html"),
             styles: [__webpack_require__("./src/app/edit-profile/edit-profile.component.css")]
         }),
-        __metadata("design:paramtypes", [fit_service_1.FitService])
+        __metadata("design:paramtypes", [fit_service_1.FitService, router_1.Router])
     ], EditProfileComponent);
     return EditProfileComponent;
 }());
@@ -251,9 +256,14 @@ var FitComponent = /** @class */ (function () {
       }
      */
     FitComponent.prototype.submitWorkout = function (e, text) {
-        console.log('submitting workout list');
+        console.log('submitting workout list - component');
         e.preventDefault();
         this._Fit.chooseExercise(text);
+    };
+    FitComponent.prototype.doneExercise = function (e, text, time, set) {
+        console.log('done exercise - component');
+        e.preventDefault();
+        this._Fit.selectExercise(text, time, set);
     };
     FitComponent = __decorate([
         core_1.Component({

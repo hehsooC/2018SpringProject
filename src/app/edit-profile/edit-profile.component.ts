@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FitService } from '../services/fit.service';
 import { Fit, User } from '../models/exercise';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,8 +13,12 @@ export class EditProfileComponent implements OnInit {
 
   Me: User;
 
-  constructor(private _Fit: FitService) {
+  constructor(private _Fit: FitService, private _Router: Router
+  ) {
     this.Me = this._Fit.Me;
+    if(!this.Me){
+      _Router.navigate(['/login']);
+    }
 
    }
 
