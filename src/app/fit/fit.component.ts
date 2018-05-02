@@ -16,7 +16,6 @@ export class FitComponent implements OnInit {
     Me: User;
     
 
-    private _api = "http://localhost:8080/fit";
 
   constructor(private http: Http,
               private _Messages: MessagesService,

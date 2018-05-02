@@ -7,13 +7,12 @@ var fit = new Fit();
    
  
 module.exports = app
-/*     .get('/exercise', (req, res) =>{
-     res.send( fit.SignUp(req.query.userId, req.query.password) ) 
+    .get('/exercise', (req, res) =>{
+     res.send( fit.SignUp(req.query.name, req.query.password) ) 
     })
     .get('/exercise/login', (req, res) =>{
-        console.log('log in successful!');
-        res.send( fit.GetData(req.query.userId))
-    })  */
+        res.send( fit.LogIn(req.query.name, req.query.password))
+    }) 
   /*   .get('/exercise/share', (req, res) =>{
         console.log('different user: ' + req.query)
         // need to send different approach for different user

@@ -169,7 +169,6 @@ var FitComponent = /** @class */ (function () {
         this._Messages = _Messages;
         this._Fit = _Fit;
         this._Router = _Router;
-        this._api = "http://localhost:8080/fit";
         this.Me = _Fit.Me;
         this.Model = _Fit.Model;
         /*     if(!this.Me){
@@ -578,13 +577,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 var messages_service_1 = __webpack_require__("./src/app/services/messages.service.ts");
-var exercise_1 = __webpack_require__("./src/app/models/exercise.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var FitService = /** @class */ (function () {
+    //DisplayProfile: Info;
+    //Model = new Fit();
     function FitService(http, _Messages, _Router) {
+        //this.Model.ExerciseList = this.ExerciseStack;
         this.http = http;
         this._Messages = _Messages;
         this._Router = _Router;
+        this._api = "http://localhost:8080/fit";
         this.ExerciseStack = [
             "Squat",
             "Plank",
@@ -600,41 +602,66 @@ var FitService = /** @class */ (function () {
             "Gentle Yoga",
             "Push Up"
         ];
-        //DisplayProfile: Info;
-        this.Model = new exercise_1.Fit();
-        this.Model.ExerciseList = this.ExerciseStack;
     }
     FitService.prototype.signUp = function (name, password) {
-        if (this.Model.Person.find(function (x) { return x.Name == name; })) {
-            // alert user name taken
-            alert("User Name is taken, please try different name");
-            console.log('already taken');
+        var _this = this;
+        this.Me = { Name: name, Password: password, Profile: {},
+            PlanExercise: [], DoneExerciseList: [] };
+        this.http.get(this._api + "/exercise", { params: { userId: name, password: password } })
+            .subscribe(function (data) {
+            if (!data.json()) {
+                // alert user name taken
+                alert("User Name is taken, please try different name");
+                console.log('already taken');
+                return;
+            }
+            _this._Router.navigate(['/profile']);
+        });
+        /* if(this.Model.Person.find(x => x.Name == name)){
+          // alert user name taken
+          alert("User Name is taken, please try different name");
+          console.log('already taken')
+          
         }
-        else {
-            this.Me = { Name: name, Password: password, Profile: {},
-                PlanExercise: [], DoneExerciseList: [] };
-            this.Model.Person.push(this.Me);
-            console.log('sign up successful');
-            //this.signUp(name, password);
-            this._Router.navigate(['/profile']);
-        }
+        else{
+          //this.Me = {Name: name, Password: password, Profile: <Info>{},
+          //PlanExercise: [], DoneExerciseList: []};
+          this.http.get(this._api + "/exercise", { params : { userId: name, password: password } })
+          .subscribe(data=> this.Me =  {Name: name, Password: password, Profile: <Info>{},
+            PlanExercise: [], DoneExerciseList: [] } )
+          //this.Model.Person.push(this.Me);
+          console.log('sign up successful')
+          //this.signUp(name, password);
+          this._Router.navigate(['/profile']);
+          } */
     };
     FitService.prototype.login = function (name, password) {
-        if (this.Model.Person.find(function (x) { return x.Name == name; })) {
-            var user = this.Model.Person.find(function (x) { return x.Name == name; });
-            if (user.Password == password) {
+        var _this = this;
+        this.http.get(this._api + "/exercise/login", { params: { userId: name, password: password } })
+            .subscribe(function (data) {
+            var check = data.json();
+            if (!check) {
+                //alert("No Username found in our system! - model")
+                console.log('alert! login - service');
+                alert("Username or Password doesn't match in our system! - model.js");
+                return;
+            }
+            _this.Me = data.json();
+            _this._Router.navigate(['/fit']);
+        });
+        /*     if(this.Model.Person.find(x => x.Name == name)){
+              var user = this.Model.Person.find( x => x.Name == name);
+              if(user.Password == password){
                 this.Me = user;
-                console.log('login successful');
                 this._Router.navigate(['/fit']);
-            }
-            else {
-                console.log('login failed');
+              }
+              else{
                 alert("Password doesn't match in our system!");
+              }
             }
-        }
-        else {
-            alert("No Username found in our system!");
-        }
+            else{
+              alert("No Username found in our system!")
+            } */
     };
     FitService.prototype.profileAdd = function (age, weight, height, goalWeight, name) {
         var goalBmiCalculate = this.calculateBMI(goalWeight, height);
@@ -651,38 +678,36 @@ var FitService = /** @class */ (function () {
         }
     };
     FitService.prototype.selectExercise = function (text, time, set) {
-        var totalTime = time * set;
-        console.log('totalTime is : ' + totalTime);
-        this.Model.Record.push({ Text: text, Time: time, Set: set, TotalTime: totalTime });
-        if (!this.Me.DoneExerciseList.find(function (x) { return x.Text == text; })) {
-            this.Me.DoneExerciseList.push({ Text: text, Time: time, Set: set, TotalTime: totalTime });
+        /* var totalTime = time * set;
+        this.Model.Record.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
+        if(!this.Me.DoneExerciseList.find(x => x.Text == text)){
+          this.Me.DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
         }
-        else {
-            var RecordReceived = this.timeCalculate(text, time, set);
-            var recordIndex = RecordReceived.findIndex(function (x) { return x.Text == text; });
-            var index = this.Me.DoneExerciseList.findIndex(function (x) { return x.Text == text; });
-            this.Me.DoneExerciseList[index] = RecordReceived[recordIndex];
+        else{
+          var RecordReceived = this.timeCalculate(text, time, set);
+          var recordIndex = RecordReceived.findIndex(x => x.Text == text);
+          var index = this.Me.DoneExerciseList.findIndex(x => x.Text == text);
+          this.Me.DoneExerciseList[index] = RecordReceived[recordIndex];
         }
+         */
     };
     FitService.prototype.timeCalculate = function (text, time, set) {
-        var record = this.Model.Record.pop();
-        var currentTime = Number(record.Time);
-        console.log('record current time is : ' + currentTime);
-        var currentSet = Number(record.Set);
-        console.log('record current set is : ' + currentSet);
-        var record2 = this.Model.Record.pop();
-        var prevTime = Number(record2.Time);
-        console.log('record prev time is : ' + prevTime);
-        var prevSet = Number(record2.Set);
-        console.log('record prev set is : ' + prevSet);
-        var sum = Number(currentTime + prevTime);
-        console.log('sum is : ' + sum);
-        var setSum = Number(currentSet + prevSet);
-        console.log('setsum is : ' + setSum);
-        var totalTime = Number(sum * setSum);
-        console.log('totalTime is : ' + totalTime);
-        this.Model.Record.push({ Text: text, Time: sum, Set: setSum, TotalTime: totalTime });
-        return this.Model.Record;
+        /*       var record = this.Model.Record.pop();
+        
+              var currentTime = Number(record.Time);
+              var currentSet = Number(record.Set);
+        
+              var record2 = this.Model.Record.pop();
+              var prevTime = Number(record2.Time) ;
+              var prevSet = Number(record2.Set);
+        
+              var sum = Number(currentTime + prevTime);
+              var setSum = Number(currentSet + prevSet);
+              var totalTime = Number(sum * setSum);
+        
+              this.Model.Record.push({Text: text, Time: sum, Set: setSum, TotalTime: totalTime });
+              return this.Model.Record;
+            } */
     };
     FitService = __decorate([
         core_1.Injectable(),

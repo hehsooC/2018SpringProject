@@ -31,51 +31,63 @@ var currentInfo = 0;
   
 function Fit() {  
         this.Person = [];
-        this.PlanExercise = [];
-        this.Profile = [];
-        this.DoneExerciseList = [];
-        this.HealthInfo = null; 
+        //this.HealthInfo = null; 
         this.ExerciseList = [];  
+        
      
-        this.GiveExerciseList = (userId) =>{ 
+/*         this.GiveExerciseList = (userId) =>{ 
             console.log('give the global exercise list');
             return ExerciseStack;   
   
-        }   
-/*         this.SignUp = (userId, password) => {
-            // if(!this.FirstUser )
-             //   {this.FirstUser = userId } 
-            if(this.Person.includes(x => x.Name == userId)){
-                console.log('user already exist');
-                return;
+        }   */ 
+        this.SignUp = (name, password) => {
+            if(this.Person.find(x => x.Name == name)){
+                console.log('user already exist - model.js');
+                return false;
             }else{
-                this.Person.push({ UserId: userId, Name: userId, Password: password, TotalWorkout: 0 });
+                this.Person.push({ Name: name, Password: password, Profile: [],
+                    PlanExercise: [], DoneExerciseList: []});
+                return true;
             }
- 
-               // return ExerciseStack.slice(0, ExerciseStack.length-1);  
-        }       
-   */
-        this.GetData = (userId) => {
+            
+        }        
+
+        this.LogIn = (name, password) => {
+            if(this.Person.find(x => x.Name == name)){
+                var user = this.Person.find( x => x.Name == name);
+                if(user.Name == name && user.Password == password){
+                    console.log('log in! - model')
+                    return user;
+                } 
+            } 
+            else{
+                console.log('user not exist - model')
+                return false;
+            }
+        }
+      
+  
+/*         this.GetData = (userId) => {
             console.log('user Id is ' + userId);
             if(this.Person.find(x=> x.UserId == userId))
                 console.log('return ' + userId +' Profile');
                 return this.Profile;
-        }
+        } */
     /*     this.SharingOthers = (userId) => {
             console.log('sharing?');
             //if(this.FirstUser != userId)
                 this.OtherUser.push({Name: userId});
         }  
            */  
-        this.SubmitWorkout = (text, userId) => {
+/*         this.SubmitWorkout = (text, userId) => {
             console.log('text is ' + text);
             if(!this.PlanExercise.find(x => x.Text == text)){
                 this.PlanExercise.push({ Text: text, UserId: userId });
                 
             }
 
-        }    
-        this.DoneExercise = text => {
+        }  */   
+/*         this.DoneExercise = text => {
             const chosenWorkout = this.PlanExercise.find(x=> x.Text == text)
             chosenWorkout.Chosen = true;
             this.Person.find(x=> x.UserId == chosenWorkout.UserId).TotalWorkout+=3;
@@ -87,7 +99,7 @@ function Fit() {
             } 
          
              
-        }  
+        }  */ 
 
  
   /** Couldn't find the health information database yet. 
@@ -97,11 +109,11 @@ function Fit() {
         }
          */ 
 
-        this.ProfileAdd = (age, weight, height, goalWeight, bmi, goalBmi, userId) =>{
+        /* this.ProfileAdd = (age, weight, height, goalWeight, bmi, goalBmi, userId) =>{
             this.Profile.push( {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight, BMI: bmi, GoalBMI: goalBmi, UserId: userId} );
             console.log('received ' + age + ", " + userId )
 //, Weight: profile.weight, Height: profile.height, GoalWeight: profile.goalWeight, BMI: profile.bmi, GoalBMI: profile.goalBmi
-        } 
+        } */ 
   
 }   
  
