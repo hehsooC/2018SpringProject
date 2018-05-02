@@ -542,7 +542,13 @@ var ProfileComponent = /** @class */ (function () {
     ProfileComponent.prototype.ngOnInit = function () {
     };
     ProfileComponent.prototype.adding = function (age, weight, height, goalWeight, name) {
-        this._Fit.profileAdd(age, weight, height, goalWeight, name);
+        var goalBmi = this.calculateBMI(goalWeight, height);
+        var bmi = this.calculateBMI(weight, height);
+        console.log('profile component');
+        this._Fit.profileAdd(age, weight, height, goalWeight, bmi, goalBmi, name);
+    };
+    ProfileComponent.prototype.calculateBMI = function (weight, height) {
+        return Math.round((weight / height / height * 10000) * 100) / 100;
     };
     ProfileComponent = __decorate([
         core_1.Component({
@@ -605,7 +611,7 @@ var FitService = /** @class */ (function () {
     }
     FitService.prototype.signUp = function (name, password) {
         var _this = this;
-        this.Me = { Name: name, Password: password, Profile: {},
+        this.Me = { Name: name, Password: password, Profile: { Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null },
             PlanExercise: [], DoneExerciseList: [] };
         this.http.get(this._api + "/exercise", { params: { name: name, password: password } })
             .subscribe(function (data) {
@@ -632,29 +638,25 @@ var FitService = /** @class */ (function () {
             _this.Me = data.json();
             _this._Router.navigate(['/fit']);
         });
-        /*     if(this.Model.Person.find(x => x.Name == name)){
-              var user = this.Model.Person.find( x => x.Name == name);
-              if(user.Password == password){
-                this.Me = user;
-                this._Router.navigate(['/fit']);
-              }
-              else{
-                alert("Password doesn't match in our system!");
-              }
-            }
-            else{
-              alert("No Username found in our system!")
-            } */
     };
-    FitService.prototype.profileAdd = function (age, weight, height, goalWeight, name) {
-        var goalBmiCalculate = this.calculateBMI(goalWeight, height);
-        var bmiCalculate = this.calculateBMI(weight, height);
-        this.Me.Profile = { Age: age, Weight: weight, Height: height, GoalWeight: goalWeight, BMI: bmiCalculate, GoalBMI: goalBmiCalculate };
-        this._Router.navigate(['/fit']);
+    FitService.prototype.profileAdd = function (age, weight, height, goalWeight, bmi, goalBmi, name) {
+        var _this = this;
+        //const goalBmiCalculate = this.calculateBMI(goalWeight, height);
+        //const bmiCalculate = this.calculateBMI(weight, height);
+        console.log('got the profile component in service');
+        this.http.post(this._api + "/exercise/profile", { Age: age, Weight: weight, Height: height,
+            GoalWeight: goalWeight, BMI: bmi,
+            GoalBMI: goalBmi, name: name })
+            .subscribe(function (data) {
+            console.log("here is profile - service: " + data.json());
+            _this.Me.Profile = data.json();
+            _this._Router.navigate(['/fit']);
+        });
+        // this.Me.Profile = {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight, BMI: bmiCalculate, GoalBMI: goalBmiCalculate};
     };
-    FitService.prototype.calculateBMI = function (weight, height) {
-        return Math.round((weight / height / height * 10000) * 100) / 100;
-    };
+    /* calculateBMI(weight: number, height: number){
+      return Math.round((weight / height / height * 10000) * 100) / 100;
+    } */
     FitService.prototype.chooseExercise = function (text) {
         if (!this.Me.PlanExercise.find(function (x) { return x.Text == text; })) {
             this.Me.PlanExercise.push({ Text: text, Chosen: false });

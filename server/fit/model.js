@@ -45,11 +45,11 @@ function Fit() {
                 console.log('user already exist - model.js');
                 return false;
             }else{
-                this.Person.push({ Name: name, Password: password, Profile: null,
+                this.Person.push({ Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null},
                     PlanExercise: [], DoneExerciseList: []});
                 return true;
             }
-            
+             
         }        
 
         this.LogIn = (name, password) => {
@@ -63,11 +63,19 @@ function Fit() {
             else{
                 console.log('user not exist - model')
                 return false;
-            }
+            } 
         }
-      
-  
-/*         this.GetData = (userId) => {
+       
+        this.ProfileAdd = (age, weight, height, goalWeight, bmi, goalBmi, name) =>{
+            console.log('try to find user to add profile - model');
+            if(this.Person.find(x => x.Name == name)){
+                console.log('adding profile - model');
+                var userProfile = this.Person.find(x => x.Name == name).Profile = {Age: age, Weight: weight, Height: height, 
+                    GoalWeight: goalWeight, BMI: bmi, GoalBMI: goalBmi};
+                return userProfile; 
+            } 
+        }
+/*         this.GetData = (userId) => {  
             console.log('user Id is ' + userId);
             if(this.Person.find(x=> x.UserId == userId))
                 console.log('return ' + userId +' Profile');
@@ -109,11 +117,7 @@ function Fit() {
         }
          */ 
 
-        /* this.ProfileAdd = (age, weight, height, goalWeight, bmi, goalBmi, userId) =>{
-            this.Profile.push( {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight, BMI: bmi, GoalBMI: goalBmi, UserId: userId} );
-            console.log('received ' + age + ", " + userId )
-//, Weight: profile.weight, Height: profile.height, GoalWeight: profile.goalWeight, BMI: profile.bmi, GoalBMI: profile.goalBmi
-        } */ 
+       
   
 }   
  

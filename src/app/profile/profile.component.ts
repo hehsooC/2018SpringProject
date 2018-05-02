@@ -18,9 +18,16 @@ export class ProfileComponent implements OnInit {
   }
 
   adding(age: number, weight: number, height: number, goalWeight: number, name: string ){
-  this._Fit.profileAdd(age, weight, height, goalWeight, name);
+    const goalBmi = this.calculateBMI(goalWeight, height);
+    const bmi = this.calculateBMI(weight, height);
+    console.log('profile component');
+    this._Fit.profileAdd(age, weight, height, goalWeight, bmi, goalBmi, name);
   
   
   }
+  calculateBMI(weight: number, height: number){
+    return Math.round((weight / height / height * 10000) * 100) / 100;
+  }
+
 
 }

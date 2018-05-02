@@ -7,12 +7,19 @@ var fit = new Fit();
    
  
 module.exports = app
+    .get('/state', (req, res) => res.send(fit))
     .get('/exercise', (req, res) =>{
      res.send( fit.SignUp(req.query.name, req.query.password) ) 
     })
     .get('/exercise/login', (req, res) =>{
         res.send( fit.LogIn(req.query.name, req.query.password))
     }) 
+    .post('/exercise/profile', (req, res) =>{
+        console.log('send profile to server - controller');
+        fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 
+                        req.body.GoalWeight, req.body.BMI, req.body.GoalBMI, 
+                        req.body.name);
+    })
   /*   .get('/exercise/share', (req, res) =>{
         console.log('different user: ' + req.query)
         // need to send different approach for different user
@@ -23,7 +30,6 @@ module.exports = app
         res.send( fit.GiveExerciseList(req.body.userId));
     })
          */
-    .get('/state', (req, res) => res.send(fit))
     // this works but couldn't find api database for workout
     //.post('/exercise/info', (req, res) => res.send( fit.GetHealthInfo()))
 /*     .post('/exercise', (req, res) => {
@@ -45,11 +51,7 @@ module.exports = app
           
     })
     // need to work on this
-    .post('/exercise/profile', (req, res) =>{
-        console.log(req.body);
-        fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, req.body.GoalWeight, 
-            req.body.BMI, req.body.GoalBMI, req.body.UserId);
-    }) */; 
+ */; 
   
  
  

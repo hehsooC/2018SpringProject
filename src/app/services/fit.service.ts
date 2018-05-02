@@ -40,7 +40,7 @@ export class FitService {
   }
 
   signUp(name: string, password: string){
-    this.Me = {Name: name, Password: password, Profile: <Info>{}, 
+    this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
     PlanExercise: [], DoneExerciseList: []};
     this.http.get(this._api + "/exercise", { params : { name: name, password: password } })
     .subscribe(data=> {
@@ -71,32 +71,28 @@ export class FitService {
 
     
     })
-/*     if(this.Model.Person.find(x => x.Name == name)){
-      var user = this.Model.Person.find( x => x.Name == name);
-      if(user.Password == password){
-        this.Me = user;
-        this._Router.navigate(['/fit']);
-      }
-      else{
-        alert("Password doesn't match in our system!");
-      }
-    }
-    else{
-      alert("No Username found in our system!")
-    } */
    
   }
 
-  profileAdd(age: number, weight: number, height: number, goalWeight: number, name: string){
-    const goalBmiCalculate = this.calculateBMI(goalWeight, height);
-    const bmiCalculate = this.calculateBMI(weight, height);
-    this.Me.Profile = {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight, BMI: bmiCalculate, GoalBMI: goalBmiCalculate};
-    this._Router.navigate(['/fit']);
+  profileAdd(age: number, weight: number, height: number, goalWeight: number, bmi: number, goalBmi: number, name: string){
+    //const goalBmiCalculate = this.calculateBMI(goalWeight, height);
+    //const bmiCalculate = this.calculateBMI(weight, height);
+    console.log('got the profile component in service')
+    this.http.post(this._api + "/exercise/profile", { Age: age, Weight: weight, Height: height, 
+                                                              GoalWeight: goalWeight, BMI: bmi, 
+                                                              GoalBMI: goalBmi, name: name})
+    .subscribe(data => {
+      console.log("here is profile - service: " + data.json());
+
+      this.Me.Profile = data.json();
+      this._Router.navigate(['/fit']);
+    })
+   // this.Me.Profile = {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight, BMI: bmiCalculate, GoalBMI: goalBmiCalculate};
   }
 
-  calculateBMI(weight: number, height: number){
+  /* calculateBMI(weight: number, height: number){
     return Math.round((weight / height / height * 10000) * 100) / 100;
-  }
+  } */
 
 
 
