@@ -89,6 +89,7 @@ var share_component_1 = __webpack_require__("./src/app/share/share.component.ts"
 var login_component_1 = __webpack_require__("./src/app/login/login.component.ts");
 var sign_up_component_1 = __webpack_require__("./src/app/sign-up/sign-up.component.ts");
 var profile_component_1 = __webpack_require__("./src/app/profile/profile.component.ts");
+var edit_profile_component_1 = __webpack_require__("./src/app/edit-profile/edit-profile.component.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -103,7 +104,8 @@ var AppModule = /** @class */ (function () {
                 share_component_1.ShareComponent,
                 login_component_1.LoginComponent,
                 sign_up_component_1.SignUpComponent,
-                profile_component_1.ProfileComponent
+                profile_component_1.ProfileComponent,
+                edit_profile_component_1.EditProfileComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -115,6 +117,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'login', component: login_component_1.LoginComponent },
                     { path: 'sign-up', component: sign_up_component_1.SignUpComponent },
                     { path: 'profile', component: profile_component_1.ProfileComponent },
+                    { path: 'editProfile', component: edit_profile_component_1.EditProfileComponent },
                     { path: '', redirectTo: '/home', pathMatch: 'full' }
                 ])
             ],
@@ -129,6 +132,68 @@ exports.AppModule = AppModule;
 
 /***/ }),
 
+/***/ "./src/app/edit-profile/edit-profile.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 15px;\n    color: white;\n    background-color: #F4C3D8;\n    border: none;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header-own{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.textWrap{\n    height: 150px;\n   padding: 1.2rem;\n}\n\nform{\n    padding: 1rem;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    font-weight: 300;\n    \n}\n\n.text-uppercase-own{\n    text-transform: uppercase;\n    font-size: 12px;\n    color: white;\n}\n\n.title{\n    font-size: 20px;\n    padding: 0.4rem 0rem;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    color: #7CACEA;\n}\n\n.selected{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}"
+
+/***/ }),
+
+/***/ "./src/app/edit-profile/edit-profile.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card\" >\n    <div class=\"card-header-own\">\n        <div class=\" text-uppercase\">\n        {{Me.Name}}'s Profile\n        </div>\n        <div class=\"text-uppercase-own\">Edit your profile or set your new goal</div> \n    </div>\n    \n    <div class=\"card-body\">\n        <form>\n            <div class=\"form-row\">\n        \n            <div class=\"form-group col-md-4\">\n                <label for=\"inputName\">Name</label>\n                <input #name type=\"text\" readonly class=\"form-control\" id=\"inputName\" [value]=\"Me.Name\">\n            </div>\n        \n            <div class=\"form-group col-md-4\">\n                <label for=\"inputAge\">Age</label>\n                <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" [value]=\"Me.Profile.Age\" placeholder=\"Age\">\n            </div>\n            </div>\n        \n            <div class=\"form-group\">\n                <label for=\"Height\">Height</label>\n                <input #height type=\"number\" class=\"form-control\" id=\"Height\" [value]=\"Me.Profile.Height\" placeholder=\"cm\">\n            </div>\n        \n            <div class=\"form-group\">\n                <label for=\"Weight\">Weight</label>\n                <input #weight type=\"number\" class=\"form-control\" id=\"Weight\" [value]=\"Me.Profile.Weight\" placeholder=\"kg\">\n            </div>\n        \n            <div class=\"form-group\">\n                <label for=\"inputGoalWeight\">Goal Weight</label>\n                <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" [value]=\"Me.Profile.GoalWeight\" placeholder=\"kg\">\n            </div>\n            </form>\n        <div>\n            <button class=\"btn btn-primary btn-sm btn-own\" (click)=\"editing(age.value, weight.value, height.value, goalWeight.value, name.value)\">Edit</button>\n        </div> \n      </div>\n</div> \n\n\n"
+
+/***/ }),
+
+/***/ "./src/app/edit-profile/edit-profile.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
+var EditProfileComponent = /** @class */ (function () {
+    function EditProfileComponent(_Fit) {
+        this._Fit = _Fit;
+        this.Me = this._Fit.Me;
+    }
+    EditProfileComponent.prototype.ngOnInit = function () {
+    };
+    EditProfileComponent.prototype.editing = function (age, weight, height, goalWeight, name) {
+        var goalBmi = this.calculateBMI(goalWeight, height);
+        var bmi = this.calculateBMI(weight, height);
+        console.log('profile component');
+        this._Fit.profileAdd(age, weight, height, goalWeight, bmi, goalBmi, name);
+    };
+    EditProfileComponent.prototype.calculateBMI = function (weight, height) {
+        return Math.round((weight / height / height * 10000) * 100) / 100;
+    };
+    EditProfileComponent = __decorate([
+        core_1.Component({
+            selector: 'app-edit-profile',
+            template: __webpack_require__("./src/app/edit-profile/edit-profile.component.html"),
+            styles: [__webpack_require__("./src/app/edit-profile/edit-profile.component.css")]
+        }),
+        __metadata("design:paramtypes", [fit_service_1.FitService])
+    ], EditProfileComponent);
+    return EditProfileComponent;
+}());
+exports.EditProfileComponent = EditProfileComponent;
+
+
+/***/ }),
+
 /***/ "./src/app/fit/fit.component.css":
 /***/ (function(module, exports) {
 
@@ -139,7 +204,7 @@ module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 5
 /***/ "./src/app/fit/fit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\" >\n    <!-- Create Profile display-->\n    <div class=\"col-sm-10\">\n        <div class=\"card\" >\n            <div class=\"card-header-own text-uppercase\">\n            {{Me.Name}}'s Profile\n            </div>\n\n            \n            <div class=\"card-body\">\n                <form>\n                    <div class=\"form-group row\">\n                        <label for=\"Name\" class=\"col-sm-2 col-form-label\">Name</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Name\" value= {{Me.Name}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Age\" class=\"col-sm-2 col-form-label\">Age</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Age\" value= {{Me.Profile.Age}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Weight\" class=\"col-sm-2 col-form-label\">Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Weight\" value= \"{{Me.Profile.Weight}} kg\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"BMI\" class=\"col-sm-2 col-form-label\">BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"BMI\" value= {{Me.Profile.BMI}}>\n                        </div>\n                    </div>                    \n                    <div class=\"form-group row\">\n                        <label for=\"GoalWeight\" class=\"col-sm-2 col-form-label\">Goal Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalWeight\" value= \"{{Me.Profile.GoalWeight}} kg\">\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"GoalBMI\" class=\"col-sm-2 col-form-label\">Goal BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalBMI\" value= {{Me.Profile.GoalBMI}}>\n                        </div>\n                    </div>  \n                </form>\n            </div>\n        </div> \n    </div><!-- Saved Profile display ends-->\n\n\n    <div class =\"col-md-9\">\n            <div class=\"row mb-3\">\n            \n                <div class=\"card\" style=\"width: 80rem\" >\n                    <div class=\"card-header-own\">\n                        <div class=\"text-uppercase\">\n                            Workout List \n                        </div>\n                        <div class=\"subtitle\">Click to add workout to your plan</div>\n                    </div>\n                </div>\n                    \n\n                <form>\n                    <div class=\"form-group\">\n                        <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                        <option *ngFor=\"let list of ExerciseList\"  (click)=\"submitWorkout($event, list)\">\n                            {{list}}\n                        </option>\n                        </select>\n                    </div>\n                </form>\n            </div>\n        </div> <!-- workout list end-->\n</div>"
+module.exports = "<div class=\"row\" >\n    <!-- Create Profile display-->\n    <div class=\"col-sm-10\">\n        <div class=\"card\" >\n            <div class=\"card-header-own text-uppercase\">\n            {{Me.Name}}'s Profile\n            </div>\n\n            \n            <div class=\"card-body\">\n                <form>\n                    <div class=\"form-group row\">\n                        <label for=\"Name\" class=\"col-sm-2 col-form-label\">Name</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Name\" value= {{Me.Name}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Age\" class=\"col-sm-2 col-form-label\">Age</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Age\" value= {{Me.Profile.Age}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Height\" class=\"col-sm-2 col-form-label\">Height</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Height\" value= \"{{Me.Profile.Height}} cm\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Weight\" class=\"col-sm-2 col-form-label\">Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Weight\" value= \"{{Me.Profile.Weight}} kg\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"BMI\" class=\"col-sm-2 col-form-label\">BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"BMI\" value= {{Me.Profile.BMI}}>\n                        </div>\n                    </div>                    \n                    <div class=\"form-group row\">\n                        <label for=\"GoalWeight\" class=\"col-sm-2 col-form-label\">Goal Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalWeight\" value= \"{{Me.Profile.GoalWeight}} kg\">\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"GoalBMI\" class=\"col-sm-2 col-form-label\">Goal BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalBMI\" value= {{Me.Profile.GoalBMI}}>\n                        </div>\n                    </div>  \n                </form>\n            </div>\n        </div> \n    </div><!-- Saved Profile display ends-->\n\n\n    <div class =\"col-md-9\">\n            <div class=\"row mb-3\">\n            \n                <div class=\"card\" style=\"width: 80rem\" >\n                    <div class=\"card-header-own\">\n                        <div class=\"text-uppercase\">\n                            Workout List \n                        </div>\n                        <div class=\"subtitle\">Click to add workout to your plan</div>\n                    </div>\n                </div>\n                    \n\n                <form>\n                    <div class=\"form-group\">\n                        <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                        <option *ngFor=\"let list of ExerciseList\"  (click)=\"submitWorkout($event, list)\">\n                            {{list}}\n                        </option>\n                        </select>\n                    </div>\n                </form>\n            </div>\n        </div> <!-- workout list end-->\n</div>"
 
 /***/ }),
 
@@ -455,7 +520,7 @@ module.exports = ".navbar {\n    padding: 0 1rem;\n    height: 120px;\n  }\n  \n
 /***/ "./src/app/nav/nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark nav-back\">\n  <div class=\"container\">\n    <div>\n        <a class=\"navbar-brand\" routerLink=\"/fit\">Fitness Tracker</a>\n    </div>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse navbar-nav\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\" >Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\" >Fitness</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">Share</a>\n        </li>\n\n      </ul>\n    </div>\n\n    <div class=\"d-flex justify-content-end\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item \">\n          <a class=\"nav-link\" routerLink=\"/sign-up\" routerLinkActive=\"active\">Sign Up</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Sign In</a>\n        </li>\n      </ul>\n    </div>\n  </div><!-- navbar container -->\n</nav><!-- nav bar -->\n"
+module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark nav-back\">\n  <div class=\"container\">\n    <div>\n        <a class=\"navbar-brand\" routerLink=\"/fit\">Fitness Tracker</a>\n    </div>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse navbar-nav\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\" >Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/editProfile\" routerLinkActive=\"active\" >Profile</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\" >Fitness</a>\n        </li>\n  \n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">Share</a>\n        </li>\n\n      </ul>\n    </div>\n\n    <div class=\"d-flex justify-content-end\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item \">\n          <a class=\"nav-link\" routerLink=\"/sign-up\" routerLinkActive=\"active\">Sign Up</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Sign In</a>\n        </li>\n      </ul>\n    </div>\n  </div><!-- navbar container -->\n</nav><!-- nav bar -->\n"
 
 /***/ }),
 
@@ -498,14 +563,14 @@ exports.NavComponent = NavComponent;
 /***/ "./src/app/profile/profile.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 15px;\n    color: white;\n    background-color: #F4C3D8;\n    border: none;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header-own{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.textWrap{\n    height: 150px;\n   padding: 1.2rem;\n}\n\nform{\n    padding: 1rem;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    font-weight: 300;\n    \n}\n\n.text-uppercase{\n    font-size: 12px;\n    color: white;\n}\n\n.title{\n    font-size: 20px;\n    padding: 0.4rem 0rem;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    color: #7CACEA;\n}\n\n.selected{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}"
+module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 15px;\n    color: white;\n    background-color: #F4C3D8;\n    border: none;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header-own{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.textWrap{\n    height: 150px;\n   padding: 1.2rem;\n}\n\nform{\n    padding: 1rem;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    font-weight: 300;\n    \n}\n\n.text-uppercase-own{\n    text-transform: uppercase;\n    font-size: 12px;\n    color: white;\n}\n\n.title{\n    font-size: 20px;\n    padding: 0.4rem 0rem;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    color: #7CACEA;\n}\n\n.selected{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}"
 
 /***/ }),
 
 /***/ "./src/app/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"card\">\n  <div class=\"card-header-own\">\n  <div class=\"text-uppercase\">Please Create Your Profile Before Tracking Your Workout!</div> \n  Create Profile\n  </div>\n  <form>\n      <div class=\"form-row\">\n  \n      <div class=\"form-group col-md-4\">\n          <label for=\"inputName\">Name</label>\n          <input #name type=\"text\" class=\"form-control\" id=\"inputName\" [value]=\"Me.Name\">\n      </div>\n  \n      <div class=\"form-group col-md-4\">\n          <label for=\"inputAge\">Age</label>\n          <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" placeholder=\"Age\" >\n      </div>\n      </div>\n  \n      <div class=\"form-group\">\n          <label for=\"inputHeight\">Height</label>\n          <input #height type=\"number\" class=\"form-control\" id=\"inputHeight\" placeholder=\"cm\">\n      </div>\n\n      <div class=\"form-group\">\n          <label for=\"inputWeight\">Weight</label>\n          <input #weight type=\"number\" class=\"form-control\" id=\"inputWeight\" placeholder=\"kg\">\n      </div>\n  \n      <div class=\"form-group\">\n          <label for=\"inputGoalWeight\">Goal Weight</label>\n          <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" placeholder=\"kg\">\n      </div>\n      </form>\n  <div>\n      <button class=\"btn btn-primary btn-sm btn-own\" (click)=\"adding(age.value, weight.value, height.value, goalWeight.value, name.value)\">Save</button>\n  </div> \n</div> <!-- Profile Form ends-->"
+module.exports = "<div class=\"card\"  >\n  <div class=\"card-header-own\">\n  <div class=\"text-uppercase-own\">Please Create Your Profile Before Tracking Your Workout!</div> \n  <div class=\"text-uppercase\">Profile</div>\n  \n\n  </div>\n  <form>\n      <div class=\"form-row\">\n  \n      <div class=\"form-group col-md-4\">\n          <label for=\"inputName\">Name</label>\n          <input #name type=\"text\" class=\"form-control\" id=\"inputName\" [value]=\"Me.Name\">\n      </div>\n  \n      <div class=\"form-group col-md-4\">\n          <label for=\"inputAge\">Age</label>\n          <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" placeholder=\"Age\" >\n      </div>\n      </div>\n  \n      <div class=\"form-group\">\n          <label for=\"inputHeight\">Height</label>\n          <input #height type=\"number\" class=\"form-control\" id=\"inputHeight\" placeholder=\"cm\">\n      </div>\n\n      <div class=\"form-group\">\n          <label for=\"inputWeight\">Weight</label>\n          <input #weight type=\"number\" class=\"form-control\" id=\"inputWeight\" placeholder=\"kg\">\n      </div>\n  \n      <div class=\"form-group\">\n          <label for=\"inputGoalWeight\">Goal Weight</label>\n          <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" placeholder=\"kg\">\n      </div>\n      </form>\n  <div>\n      <button class=\"btn btn-primary btn-sm btn-own\" (click)=\"adding(age.value, weight.value, height.value, goalWeight.value, name.value)\">Save</button>\n  </div> \n</div> <!-- Profile Form ends-->\n\n\n\n        "
 
 /***/ }),
 

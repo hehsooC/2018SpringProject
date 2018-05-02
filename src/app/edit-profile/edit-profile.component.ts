@@ -2,23 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { FitService } from '../services/fit.service';
 import { Fit, User } from '../models/exercise';
 
+
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class EditProfileComponent implements OnInit {
 
   Me: User;
 
-  constructor( private _Fit: FitService) {
+  constructor(private _Fit: FitService) {
     this.Me = this._Fit.Me;
+
    }
 
   ngOnInit() {
   }
 
-  adding(age: number, weight: number, height: number, goalWeight: number, name: string ){
+  editing(age: number, weight: number, height: number, goalWeight: number, name: string ){
     const goalBmi = this.calculateBMI(goalWeight, height);
     const bmi = this.calculateBMI(weight, height);
     console.log('profile component');
@@ -29,6 +31,5 @@ export class ProfileComponent implements OnInit {
   calculateBMI(weight: number, height: number){
     return Math.round((weight / height / height * 10000) * 100) / 100;
   }
-
 
 }

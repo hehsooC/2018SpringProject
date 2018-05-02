@@ -1,0 +1,45 @@
+<div class="card" >
+    <div class="card-header-own">
+        <div class=" text-uppercase">
+        {{Me.Name}}'s Profile
+        </div>
+        <div class="text-uppercase-own">Edit your profile or set your new goal</div> 
+    </div>
+    
+    <div class="card-body">
+        <form>
+            <div class="form-row">
+        
+            <div class="form-group col-md-4">
+                <label for="inputName">Name</label>
+                <input #name type="text" readonly class="form-control" id="inputName" [value]="Me.Name">
+            </div>
+        
+            <div class="form-group col-md-4">
+                <label for="inputAge">Age</label>
+                <input #age type="number" class="form-control" id="inputAge" [value]="Me.Profile.Age" placeholder="Age">
+            </div>
+            </div>
+        
+            <div class="form-group">
+                <label for="Height">Height</label>
+                <input #height type="number" class="form-control" id="Height" [value]="Me.Profile.Height" placeholder="cm">
+            </div>
+        
+            <div class="form-group">
+                <label for="Weight">Weight</label>
+                <input #weight type="number" class="form-control" id="Weight" [value]="Me.Profile.Weight" placeholder="kg">
+            </div>
+        
+            <div class="form-group">
+                <label for="inputGoalWeight">Goal Weight</label>
+                <input #goalWeight type="number" class="form-control" id="inputGoalWeight" [value]="Me.Profile.GoalWeight" placeholder="kg">
+            </div>
+            </form>
+        <div>
+            <button class="btn btn-primary btn-sm btn-own" (click)="editing(age.value, weight.value, height.value, goalWeight.value, name.value)">Edit</button>
+        </div> 
+      </div>
+</div> 
+
+
