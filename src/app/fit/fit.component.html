@@ -117,5 +117,34 @@
 
         </div>
 
+        <div class = "row-md-4">
+            <div class="card tracking">
+                <div class="card-header-own date">
+                You achieved..
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush ">
+                        <li *ngFor= "let choice of Me.DoneExerciseList"
+                            class="list-group-item ">
+                            {{choice.Text}}
+                            <!-- need to individually change total time.-->
+
+                            <i class="badge float-right badge-info d-flex justify-content-end" >
+                                {{choice.Set}} times
+                            </i>
+                            <i class="badge float-right badge-info d-flex justify-content-end" >
+                                {{choice.Time}} min 
+                            </i>
+                        </li>
+                    </ul>
+                    <div class="card-body" *ngFor= "let choice of Me.DoneExerciseList">
+                        <i>
+                            Your Total Workout Time: {{choice.TotalTime}} minutes
+                        </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

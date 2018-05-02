@@ -88,6 +88,29 @@ function Fit() {
 
         }
 
+        this.DoneExercise = (name, text, time, set) => {
+            var user = this.Person.find(x => x.Name == name);
+            var chosenWorkout = user.PlanExercise.find(x=> x.Text == text)
+            chosenWorkout.Chosen = true;
+            var user = this.Person.find(x => x.Name == name);
+            var totalTime = time * set;
+            if(user){
+                if(!user.DoneExerciseList.find(x => x.Text == text)){
+                    console.log('pushing Done exercise - model');
+                    user.DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
+                    var done = user.DoneExerciseList;
+                    return done;
+                } 
+                return false;
+            }
+            else{
+                console.log('fail to done exercise - model');
+                return false;
+            }
+            
+             
+        }  
+
 /*         this.GetData = (userId) => {   
             console.log('user Id is ' + userId); 
             if(this.Person.find(x=> x.UserId == userId))
@@ -108,19 +131,7 @@ function Fit() {
             }
 
         }  */   
-/*         this.DoneExercise = text => {
-            const chosenWorkout = this.PlanExercise.find(x=> x.Text == text)
-            chosenWorkout.Chosen = true;
-            this.Person.find(x=> x.UserId == chosenWorkout.UserId).TotalWorkout+=3;
-            //this.DoneExerciseList.push({ Text: text, WorkoutMinute: 0});
-            //this.DoneExerciseList.find(x => x.Text = text).WorkoutMinute +=3;
-            if(!this.DoneExerciseList.find(x => x.Text == text)){
-                console.log('pushing exercise');
-                this.DoneExerciseList.push({Text: text});
-            } 
-         
-             
-        }  */ 
+
 
  
   /** Couldn't find the health information database yet. 

@@ -103,6 +103,15 @@ export class FitService {
   }
   
     selectExercise(text: string, time:number, set:number){
+      this.http.post(this._api + "/exercise/done", {name: this.Me.Name, text: text, time: time, set: set })
+                .subscribe(data => {
+                  if(!data.json()){
+                    console.log('done data is false - service');
+                    return;
+                  }
+                  console.log('successfully done - service ');
+                  this.Me.DoneExerciseList = data.json();
+                });
       /* var totalTime = time * set;
       this.Model.Record.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
       if(!this.Me.DoneExerciseList.find(x => x.Text == text)){
