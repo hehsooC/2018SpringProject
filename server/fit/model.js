@@ -27,6 +27,7 @@ function Fit() {
    
         }   */ 
         this.SignUp = (name, password) => {
+        
             if(this.Person.find(x => x.Name == name)){
                 console.log('user already exist - model.js');
                 return false;
@@ -69,11 +70,16 @@ function Fit() {
             console.log('plan workout - model');
 
             if(this.Person.find(x => x.Name == name)){
+                var user = this.Person.find(x => x.Name == name);
                 console.log('pushing plan? - model');
-                this.Person.find(x=> x.Name == name).PlanExercise.push({Text: text, Chosen: false});
-                var plan = this.Person.find(x => x.Name == name).PlanExercise;
-                return plan;
-    
+
+                if(!user.PlanExercise.find(x => x.Text == text)){
+                    console.log('return plan exercise - model ');
+                    user.PlanExercise.push({Text: text, Chosen: false});
+                    var plan = user.PlanExercise;
+                    return plan;
+                }
+                return false;
             }
             else{
                 console.log('fail to push plan - model');
