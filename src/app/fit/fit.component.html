@@ -1,6 +1,6 @@
 <div class="row" >
     <!-- Create Profile display-->
-    <div class="col-sm-10">
+    <div class="col-md-4">
         <div class="card" >
             <div class="card-header-own text-uppercase">
             {{Me.Name}}'s Profile
@@ -10,43 +10,43 @@
             <div class="card-body">
                 <form>
                     <div class="form-group row">
-                        <label for="Name" class="col-sm-2 col-form-label">Name</label>
+                        <label for="Name" class="col-sm-10 col-form-label">Name</label>
                         <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="Name" value= {{Me.Name}}>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="Age" class="col-sm-2 col-form-label">Age</label>
+                        <label for="Age" class="col-sm-10 col-form-label">Age</label>
                         <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="Age" value= {{Me.Profile.Age}}>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="Height" class="col-sm-2 col-form-label">Height</label>
+                        <label for="Height" class="col-sm-10 col-form-label">Height</label>
                         <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="Height" value= "{{Me.Profile.Height}} cm"> 
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="Weight" class="col-sm-2 col-form-label">Weight</label>
+                        <label for="Weight" class="col-sm-10 col-form-label">Weight</label>
                         <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="Weight" value= "{{Me.Profile.Weight}} kg"> 
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="BMI" class="col-sm-2 col-form-label">BMI</label>
+                        <label for="BMI" class="col-sm-10 col-form-label">BMI</label>
                         <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="BMI" value= {{Me.Profile.BMI}}>
                         </div>
                     </div>                    
                     <div class="form-group row">
-                        <label for="GoalWeight" class="col-sm-2 col-form-label">Goal Weight</label>
+                        <label for="GoalWeight" class="col-sm-10 col-form-label">Goal Weight</label>
                         <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="GoalWeight" value= "{{Me.Profile.GoalWeight}} kg">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="GoalBMI" class="col-sm-2 col-form-label">Goal BMI</label>
+                        <label for="GoalBMI" class="col-sm-10 col-form-label">Goal BMI</label>
                         <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="GoalBMI" value= {{Me.Profile.GoalBMI}}>
                         </div>
@@ -57,19 +57,15 @@
     </div><!-- Saved Profile display ends-->
 
 
-    <div class ="col-md-9">
-            <div class="row mb-3">
+    <div class ="col-md-8">
             
-                <div class="card" style="width: 80rem" >
+                <div class="card" >
                     <div class="card-header-own">
                         <div class="text-uppercase">
                             Workout List 
                         </div>
                         <div class="subtitle">Click to add workout to your plan</div>
                     </div>
-                </div>
-                    
-
                 <form>
                     <div class="form-group">
                         <select multiple class="form-control" id="exampleFormControlSelect2" >
@@ -80,5 +76,6 @@
                     </div>
                 </form>
             </div>
-        </div> <!-- workout list end-->
+         <!-- workout list end-->
+    </div>
 </div>

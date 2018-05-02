@@ -86,14 +86,14 @@ export class FitService {
     
   }
 
+  chooseExercise(text: string){
+    this.http.post(this._api + "/exercise/choose", {})
+              .subscribe();
 
-
-
-    chooseExercise(text: string){
-      if(!this.Me.PlanExercise.find(x => x.Text == text)){
-        this.Me.PlanExercise.push({Text: text, Chosen: false});
-      }
-    }
+/*     if(!this.Me.PlanExercise.find(x => x.Text == text)){
+      this.Me.PlanExercise.push({Text: text, Chosen: false});
+    } */
+  }
   
     selectExercise(text: string, time:number, set:number){
       /* var totalTime = time * set;
