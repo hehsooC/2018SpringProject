@@ -27,6 +27,7 @@ export class FitService {
      ];
 
   Me: User;
+  Model: Fit;
   //DisplayProfile: Info;
   //Model = new Fit();
   constructor(private http: Http, 
@@ -41,7 +42,7 @@ export class FitService {
   signUp(name: string, password: string){
     this.Me = {Name: name, Password: password, Profile: <Info>{}, 
     PlanExercise: [], DoneExerciseList: []};
-    this.http.get(this._api + "/exercise", { params : { userId: name, password: password } })
+    this.http.get(this._api + "/exercise", { params : { name: name, password: password } })
     .subscribe(data=> {
       if(!data.json()){
               // alert user name taken
@@ -56,7 +57,7 @@ export class FitService {
     }
     
   login(name: string, password: string){
-    this.http.get(this._api + "/exercise/login", { params : { userId: name, password: password } })
+    this.http.get(this._api + "/exercise/login", { params : { name: name, password: password } })
     .subscribe(data=> {
       var check = data.json()
       if(!check){
@@ -141,6 +142,6 @@ export class FitService {
 
   
 
-  
+}
   
 

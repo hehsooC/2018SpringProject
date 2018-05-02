@@ -38,14 +38,14 @@ function Fit() {
 /*         this.GiveExerciseList = (userId) =>{ 
             console.log('give the global exercise list');
             return ExerciseStack;   
-  
+   
         }   */ 
         this.SignUp = (name, password) => {
             if(this.Person.find(x => x.Name == name)){
                 console.log('user already exist - model.js');
                 return false;
             }else{
-                this.Person.push({ Name: name, Password: password, Profile: [],
+                this.Person.push({ Name: name, Password: password, Profile: null,
                     PlanExercise: [], DoneExerciseList: []});
                 return true;
             }

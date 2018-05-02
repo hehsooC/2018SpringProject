@@ -607,7 +607,7 @@ var FitService = /** @class */ (function () {
         var _this = this;
         this.Me = { Name: name, Password: password, Profile: {},
             PlanExercise: [], DoneExerciseList: [] };
-        this.http.get(this._api + "/exercise", { params: { userId: name, password: password } })
+        this.http.get(this._api + "/exercise", { params: { name: name, password: password } })
             .subscribe(function (data) {
             if (!data.json()) {
                 // alert user name taken
@@ -617,27 +617,10 @@ var FitService = /** @class */ (function () {
             }
             _this._Router.navigate(['/profile']);
         });
-        /* if(this.Model.Person.find(x => x.Name == name)){
-          // alert user name taken
-          alert("User Name is taken, please try different name");
-          console.log('already taken')
-          
-        }
-        else{
-          //this.Me = {Name: name, Password: password, Profile: <Info>{},
-          //PlanExercise: [], DoneExerciseList: []};
-          this.http.get(this._api + "/exercise", { params : { userId: name, password: password } })
-          .subscribe(data=> this.Me =  {Name: name, Password: password, Profile: <Info>{},
-            PlanExercise: [], DoneExerciseList: [] } )
-          //this.Model.Person.push(this.Me);
-          console.log('sign up successful')
-          //this.signUp(name, password);
-          this._Router.navigate(['/profile']);
-          } */
     };
     FitService.prototype.login = function (name, password) {
         var _this = this;
-        this.http.get(this._api + "/exercise/login", { params: { userId: name, password: password } })
+        this.http.get(this._api + "/exercise/login", { params: { name: name, password: password } })
             .subscribe(function (data) {
             var check = data.json();
             if (!check) {
