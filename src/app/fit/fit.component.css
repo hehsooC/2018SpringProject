@@ -64,7 +64,7 @@ form{
     margin-left: 10px;
     color: #7CACEA;
 }
-.selected{
+.list-group-item-success{
     background-color:#FBE9C1;
 }
 .font-margin{
