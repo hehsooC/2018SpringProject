@@ -1,7 +1,7 @@
 export class Fit {
     
     Person: User[] = [];
-    ExerciseList: string[] = [];
+    //ExerciseList: string[] = [];
     Record: Track[] = [];
     
     /** Need to find health info database api

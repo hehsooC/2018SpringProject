@@ -132,14 +132,14 @@ exports.AppModule = AppModule;
 /***/ "./src/app/fit/fit.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 5px;\n    color: white;\n    background-color: #F4C3D8;\n    border: none;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header-own{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.textWrap{\n    height: 150px;\n   padding: 1.2rem;\n}\n\nform{\n    padding: 1rem;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    font-weight: 300;\n    \n}\n\n.text-uppercase{\n    font-size: 12px;\n    color: white;\n}\n\n.title{\n    font-size: 20px;\n    padding: 0.4rem 0rem;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    color: #7CACEA;\n}\n\n.selected{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}"
+module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 5px;\n    color: white;\n    background-color: #F4C3D8;\n    border: none;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header-own{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.textWrap{\n    height: 150px;\n   padding: 1.2rem;\n}\n\nform{\n    padding: 1rem;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    font-weight: 300;\n    \n}\n\n.text-uppercase-own{\n    font-size: 12px;\n    color: white;\n}\n\n.title{\n    font-size: 20px;\n    padding: 0.4rem 0rem;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    color: #7CACEA;\n}\n\n.selected{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}\n"
 
 /***/ }),
 
 /***/ "./src/app/fit/fit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\" >\n    <!-- Create Profile display-->\n    <div class=\"col-sm-10\">\n        <div class=\"card\" >\n            <div class=\"card-header-own text-uppercase-own\">\n            {{Me.Name}}'s Profile\n            </div>\n\n            \n            <div class=\"card-body\">\n                <form>\n                    <div class=\"form-group row\">\n                        <label for=\"Name\" class=\"col-sm-2 col-form-label\">Name</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Name\" value= {{Me.Name}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Age\" class=\"col-sm-2 col-form-label\">Age</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Age\" value= {{Me.Profile.Age}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Weight\" class=\"col-sm-2 col-form-label\">Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Weight\" value= \"{{Me.Profile.Weight}} kg\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"BMI\" class=\"col-sm-2 col-form-label\">BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"BMI\" value= {{Me.Profile.BMI}}>\n                        </div>\n                    </div>                    \n                    <div class=\"form-group row\">\n                        <label for=\"GoalWeight\" class=\"col-sm-2 col-form-label\">Goal Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalWeight\" value= \"{{Me.Profile.GoalWeight}} kg\">\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"GoalBMI\" class=\"col-sm-2 col-form-label\">Goal BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalBMI\" value= {{Me.Profile.GoalBMI}}>\n                        </div>\n                    </div>  \n                </form>\n            </div>\n        </div> \n    </div><!-- Saved Profile display ends-->\n\n"
+module.exports = "<div class=\"row\" >\n    <!-- Create Profile display-->\n    <div class=\"col-sm-10\">\n        <div class=\"card\" >\n            <div class=\"card-header-own text-uppercase\">\n            {{Me.Name}}'s Profile\n            </div>\n\n            \n            <div class=\"card-body\">\n                <form>\n                    <div class=\"form-group row\">\n                        <label for=\"Name\" class=\"col-sm-2 col-form-label\">Name</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Name\" value= {{Me.Name}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Age\" class=\"col-sm-2 col-form-label\">Age</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Age\" value= {{Me.Profile.Age}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Weight\" class=\"col-sm-2 col-form-label\">Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Weight\" value= \"{{Me.Profile.Weight}} kg\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"BMI\" class=\"col-sm-2 col-form-label\">BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"BMI\" value= {{Me.Profile.BMI}}>\n                        </div>\n                    </div>                    \n                    <div class=\"form-group row\">\n                        <label for=\"GoalWeight\" class=\"col-sm-2 col-form-label\">Goal Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalWeight\" value= \"{{Me.Profile.GoalWeight}} kg\">\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"GoalBMI\" class=\"col-sm-2 col-form-label\">Goal BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalBMI\" value= {{Me.Profile.GoalBMI}}>\n                        </div>\n                    </div>  \n                </form>\n            </div>\n        </div> \n    </div><!-- Saved Profile display ends-->\n\n\n    <div class =\"col-md-9\">\n            <div class=\"row mb-3\">\n            \n                <div class=\"card\" style=\"width: 80rem\" >\n                    <div class=\"card-header-own\">\n                        <div class=\"text-uppercase\">\n                            Workout List \n                        </div>\n                        <div class=\"subtitle\">Click to add workout to your plan</div>\n                    </div>\n                </div>\n                    \n\n                <form>\n                    <div class=\"form-group\">\n                        <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                        <option *ngFor=\"let list of ExerciseList\"  (click)=\"submitWorkout($event, list)\">\n                            {{list}}\n                        </option>\n                        </select>\n                    </div>\n                </form>\n            </div>\n        </div> <!-- workout list end-->\n</div>"
 
 /***/ }),
 
@@ -171,6 +171,7 @@ var FitComponent = /** @class */ (function () {
         this._Router = _Router;
         this.Me = _Fit.Me;
         this.Model = _Fit.Model;
+        this.ExerciseList = _Fit.ExerciseStack;
         if (!this.Me) {
             _Router.navigate(['/login']);
         }
@@ -188,15 +189,6 @@ var FitComponent = /** @class */ (function () {
         console.log('submitting workout list');
         e.preventDefault();
         this._Fit.chooseExercise(text);
-    };
-    FitComponent.prototype.getDate = function () {
-        var d = new Date();
-        document.getElementById("date").innerHTML = d.toDateString();
-    };
-    FitComponent.prototype.doneExercise = function (e, plan, time, set) {
-        console.log('done exercise');
-        e.preventDefault();
-        this._Fit.selectExercise(plan, time, set);
     };
     FitComponent = __decorate([
         core_1.Component({
@@ -401,7 +393,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Fit = /** @class */ (function () {
     function Fit() {
         this.Person = [];
-        this.ExerciseList = [];
+        //ExerciseList: string[] = [];
         this.Record = [];
         /** Need to find health info database api
         HealthInfo: {
@@ -585,14 +577,12 @@ var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 var messages_service_1 = __webpack_require__("./src/app/services/messages.service.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var FitService = /** @class */ (function () {
-    //DisplayProfile: Info;
-    //Model = new Fit();
     function FitService(http, _Messages, _Router) {
-        //this.Model.ExerciseList = this.ExerciseStack;
         this.http = http;
         this._Messages = _Messages;
         this._Router = _Router;
         this._api = "http://localhost:8080/fit";
+        this.ExerciseStack = [];
         this.ExerciseStack = [
             "Squat",
             "Plank",
@@ -612,7 +602,7 @@ var FitService = /** @class */ (function () {
     FitService.prototype.signUp = function (name, password) {
         var _this = this;
         this.Me = { Name: name, Password: password, Profile: { Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null },
-            PlanExercise: [], DoneExerciseList: [] };
+            PlanExercise: [{ Text: null, Chosen: false }], DoneExerciseList: [{ Text: null, Time: null, Set: null, TotalTime: null }] };
         this.http.get(this._api + "/exercise", { params: { name: name, password: password } })
             .subscribe(function (data) {
             if (!data.json()) {
@@ -630,9 +620,7 @@ var FitService = /** @class */ (function () {
             .subscribe(function (data) {
             var check = data.json();
             if (!check) {
-                //alert("No Username found in our system! - model")
-                console.log('alert! login - service');
-                alert("Username or Password doesn't match in our system! - model.js");
+                alert('Username or Password doesn\'t match in our system! - service ');
                 return;
             }
             _this.Me = data.json();
@@ -641,8 +629,6 @@ var FitService = /** @class */ (function () {
     };
     FitService.prototype.profileAdd = function (age, weight, height, goalWeight, bmi, goalBmi, name) {
         var _this = this;
-        //const goalBmiCalculate = this.calculateBMI(goalWeight, height);
-        //const bmiCalculate = this.calculateBMI(weight, height);
         console.log('got the profile component in service');
         this.http.post(this._api + "/exercise/profile", { Age: age, Weight: weight, Height: height,
             GoalWeight: goalWeight, BMI: bmi,
@@ -653,11 +639,7 @@ var FitService = /** @class */ (function () {
             _this.Me.Profile = data.json();
         });
         this._Router.navigate(['/fit']);
-        // this.Me.Profile = {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight, BMI: bmiCalculate, GoalBMI: goalBmiCalculate};
     };
-    /* calculateBMI(weight: number, height: number){
-      return Math.round((weight / height / height * 10000) * 100) / 100;
-    } */
     FitService.prototype.chooseExercise = function (text) {
         if (!this.Me.PlanExercise.find(function (x) { return x.Text == text; })) {
             this.Me.PlanExercise.push({ Text: text, Chosen: false });

@@ -2,7 +2,7 @@
     <!-- Create Profile display-->
     <div class="col-sm-10">
         <div class="card" >
-            <div class="card-header-own text-uppercase-own">
+            <div class="card-header-own text-uppercase">
             {{Me.Name}}'s Profile
             </div>
 
@@ -50,3 +50,29 @@
         </div> 
     </div><!-- Saved Profile display ends-->
 
+
+    <div class ="col-md-9">
+            <div class="row mb-3">
+            
+                <div class="card" style="width: 80rem" >
+                    <div class="card-header-own">
+                        <div class="text-uppercase">
+                            Workout List 
+                        </div>
+                        <div class="subtitle">Click to add workout to your plan</div>
+                    </div>
+                </div>
+                    
+
+                <form>
+                    <div class="form-group">
+                        <select multiple class="form-control" id="exampleFormControlSelect2" >
+                        <option *ngFor="let list of ExerciseList"  (click)="submitWorkout($event, list)">
+                            {{list}}
+                        </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div> <!-- workout list end-->
+</div>

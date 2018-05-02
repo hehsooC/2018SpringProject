@@ -1,19 +1,4 @@
-<div class ="col-md-9">
-    <div class="row mb-3">
-    
-        <div class="card" style="width: 80rem" >
-            <div class="card-header-own">Workout List </div>
-            <form>
-                <div class="form-group">
-                    <select multiple class="form-control" id="exampleFormControlSelect2" >
-                    <option *ngFor="let list of Model.ExerciseList"  (click)="submitWorkout($event, list)">
-                        {{list}}
-                    </option>
-                    </select>
-                </div>
-            </form>
-        </div>
-    </div> <!-- workout list end-->
+
         
     <div class="row">
         <div class="card" style="width: 80rem">

@@ -1,19 +1,5 @@
 
-const ExerciseStack =  [
-   "Squat",
-   "Plank", 
-    "Running",
-    "Jump Rope",
-    "Swimming",
-    "Walk",
-    "Aerobic Dance",
-    "Zumba",
-    "Yoga",
-    "Centergy",
-    "Stretching",
-    "Gentle Yoga",
-    "Push Up"
-    ];
+
 /**
 // this works but couldn't find api database for workout
 var axios = require("axios");
@@ -32,7 +18,7 @@ var currentInfo = 0;
 function Fit() {  
         this.Person = [];
         //this.HealthInfo = null; 
-        this.ExerciseList = [];  
+       // this.ExerciseList = [];   
         
      
 /*         this.GiveExerciseList = (userId) =>{ 
@@ -59,6 +45,9 @@ function Fit() {
                     console.log('log in! - model')
                     return user;
                 } 
+                else{
+                    return false;
+                }
             }  
             else{ 
                 console.log('user not exist - model')
@@ -73,8 +62,9 @@ function Fit() {
                 var userProfile = this.Person.find(x => x.Name == name).Profile = {Age: age, Weight: weight, Height: height, 
                     GoalWeight: goalWeight, BMI: bmi, GoalBMI: goalBmi};
                 return userProfile;
-            } 
+            }  
         }
+
 /*         this.GetData = (userId) => {   
             console.log('user Id is ' + userId); 
             if(this.Person.find(x=> x.UserId == userId))
@@ -82,7 +72,7 @@ function Fit() {
                 return this.Profile;
         } */
     /*     this.SharingOthers = (userId) => {
-            console.log('sharing?');
+            console.log('sharing?'); 
             //if(this.FirstUser != userId)
                 this.OtherUser.push({Name: userId});
         }  

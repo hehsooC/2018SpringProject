@@ -21,6 +21,7 @@ module.exports = app
                         req.body.name);
         res.send(profile);
     })
+    
   /*   .get('/exercise/share', (req, res) =>{
         console.log('different user: ' + req.query)
         // need to send different approach for different user
