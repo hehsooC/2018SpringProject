@@ -27,12 +27,16 @@ module.exports = app
         var plan = fit.PlanWorkout(req.body.name, req.body.Text);
         res.send(plan);
     })
+    .post('/exercise/chosen', (req,res) => {
+        console.log('make chosen - controller')
+        res.send(fit.MakeChosen(req.body.name, req.body.text));
+    })
     .post('/exercise/done', (req, res) => {
         console.log('done exercise - controller');
         var done = fit.DoneExercise(req.body.name, req.body.text, req.body.time, req.body.set);
         res.send(done);
     })
-
+ 
     
   /*   .get('/exercise/share', (req, res) =>{
         console.log('different user: ' + req.query)

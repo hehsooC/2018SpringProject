@@ -14,6 +14,7 @@ export class FitService {
 
   Me: User;
   Model: Fit;
+  TotalTime: number;
 
   constructor(private http: Http, 
               private _Messages: MessagesService, 
@@ -97,12 +98,16 @@ export class FitService {
                 this.Me.PlanExercise = data.json();
               });
 
-/*     if(!this.Me.PlanExercise.find(x => x.Text == text)){
-      this.Me.PlanExercise.push({Text: text, Chosen: false});
-    } */
   }
   
+    makeChosen(text: string){
+      this.http.post(this._api + "/exercise/chosen", {name: this.Me.Name, text: text})
+      .subscribe(data => {
+        this.Me.PlanExercise = data.json();
+      })
+    }
     selectExercise(text: string, time:number, set:number){
+      
       this.http.post(this._api + "/exercise/done", {name: this.Me.Name, text: text, time: time, set: set })
                 .subscribe(data => {
                   if(!data.json()){
@@ -111,39 +116,10 @@ export class FitService {
                   }
                   console.log('successfully done - service ');
                   this.Me.DoneExerciseList = data.json();
+                  this.TotalTime = data.json().TotalTime;
                 });
-      /* var totalTime = time * set;
-      this.Model.Record.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
-      if(!this.Me.DoneExerciseList.find(x => x.Text == text)){
-        this.Me.DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
-      }
-      else{ 
-        var RecordReceived = this.timeCalculate(text, time, set);
-        var recordIndex = RecordReceived.findIndex(x => x.Text == text);
-        var index = this.Me.DoneExerciseList.findIndex(x => x.Text == text);
-        this.Me.DoneExerciseList[index] = RecordReceived[recordIndex];
-      }
-       */
+
     }
-    
-    timeCalculate(text: string, time: number, set: number){
-/*       var record = this.Model.Record.pop();
-
-      var currentTime = Number(record.Time);
-      var currentSet = Number(record.Set);
-
-      var record2 = this.Model.Record.pop();
-      var prevTime = Number(record2.Time) ;
-      var prevSet = Number(record2.Set);
-
-      var sum = Number(currentTime + prevTime);
-      var setSum = Number(currentSet + prevSet);
-      var totalTime = Number(sum * setSum);
-
-      this.Model.Record.push({Text: text, Time: sum, Set: setSum, TotalTime: totalTime });
-      return this.Model.Record;
-    } */
-  }
 
   
 

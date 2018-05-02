@@ -89,11 +89,16 @@ function Fit() {
 
         }
 
-        this.DoneExercise = (name, text, time, set) => {
+        this.MakeChosen = (name, text) => {
             var user = this.Person.find(x => x.Name == name);
             var chosenWorkout = user.PlanExercise.find(x=> x.Text == text)
             chosenWorkout.Chosen = true;
+            return user.PlanExercise;
+        }
 
+
+        this.DoneExercise = (name, text, time, set) => {
+            var user = this.Person.find(x => x.Name == name);
 
             var totalTime = time * set;
             var record = this.Record.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
