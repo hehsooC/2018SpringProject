@@ -59,12 +59,12 @@ function Fit() {
                     console.log('log in! - model')
                     return user;
                 } 
-            } 
-            else{
+            }  
+            else{ 
                 console.log('user not exist - model')
                 return false;
-            } 
-        }
+            }  
+        } 
        
         this.ProfileAdd = (age, weight, height, goalWeight, bmi, goalBmi, name) =>{
             console.log('try to find user to add profile - model');
@@ -72,11 +72,11 @@ function Fit() {
                 console.log('adding profile - model');
                 var userProfile = this.Person.find(x => x.Name == name).Profile = {Age: age, Weight: weight, Height: height, 
                     GoalWeight: goalWeight, BMI: bmi, GoalBMI: goalBmi};
-                return userProfile; 
+                return userProfile;
             } 
         }
-/*         this.GetData = (userId) => {  
-            console.log('user Id is ' + userId);
+/*         this.GetData = (userId) => {   
+            console.log('user Id is ' + userId); 
             if(this.Person.find(x=> x.UserId == userId))
                 console.log('return ' + userId +' Profile');
                 return this.Profile;

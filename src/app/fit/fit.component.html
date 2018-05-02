@@ -1,101 +1,52 @@
 <div class="row" >
     <!-- Create Profile display-->
-    <div class="col-md-3">
+    <div class="col-sm-10">
         <div class="card" >
-            <div class="card-header-own">
+            <div class="card-header-own text-uppercase-own">
             {{Me.Name}}'s Profile
             </div>
+
+            
             <div class="card-body">
-                <ul class="list-group list-group-flush">
-                <!-- **ngfor: display profile here** -->
-                    <li class="list-group-item">Name: {{Me.Name}} </li>
-                    <li class="list-group-item">Age: {{Me.Profile.Age}}</li>
-                    <li class="list-group-item">Height: {{Me.Profile.Height}} cm</li>
-                    <li class="list-group-item">Weight: {{Me.Profile.Weight}} kg</li>
-                    <li class="list-group-item">BMI: {{Me.Profile.BMI}}</li>
-                    <li class="list-group-item">Goal Weight: {{Me.Profile.GoalWeight}} kg</li>
-                    <li class="list-group-item">Goal BMI: {{Me.Profile.GoalBMI}}</li>
-                    
-                </ul>
+                <form>
+                    <div class="form-group row">
+                        <label for="Name" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="Name" value= {{Me.Name}}>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Age" class="col-sm-2 col-form-label">Age</label>
+                        <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="Age" value= {{Me.Profile.Age}}>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Weight" class="col-sm-2 col-form-label">Weight</label>
+                        <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="Weight" value= "{{Me.Profile.Weight}} kg"> 
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="BMI" class="col-sm-2 col-form-label">BMI</label>
+                        <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="BMI" value= {{Me.Profile.BMI}}>
+                        </div>
+                    </div>                    
+                    <div class="form-group row">
+                        <label for="GoalWeight" class="col-sm-2 col-form-label">Goal Weight</label>
+                        <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="GoalWeight" value= "{{Me.Profile.GoalWeight}} kg">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="GoalBMI" class="col-sm-2 col-form-label">Goal BMI</label>
+                        <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="GoalBMI" value= {{Me.Profile.GoalBMI}}>
+                        </div>
+                    </div>  
+                </form>
             </div>
         </div> 
     </div><!-- Saved Profile display ends-->
-<div class ="col-md-9">
-    <div class="row mb-3">
-    
-        <div class="card" style="width: 80rem" >
-            <div class="card-header-own">Workout List </div>
-            <form>
-                <div class="form-group">
-                    <select multiple class="form-control" id="exampleFormControlSelect2" >
-                    <option *ngFor="let list of Model.ExerciseList"  (click)="submitWorkout($event, list)">
-                        {{list}}
-                    </option>
-                    </select>
-                </div>
-            </form>
-        </div>
-    </div> <!-- workout list end-->
-        
-    <div class="row">
-        <div class="card" style="width: 80rem">
-            <div class="card-header-own textWrap">
-                Workout Plan
-                <div class="subtitle">Add your time and sets.<br/> When you are done, click Done button</div>
-            </div>
-            <ul class="list-group list-group-flush ">
-                <li *ngFor="let list of Me.PlanExercise"
-                    [ngClass]="{ 'list-group-item-success': list.Chosen }"
-                    class="list-group-item list-group-flush ">
-                    {{list.Text}}
-                    <form>
-                        <div class="row d-flex justify-content-end">
-                            <div class="col-sm-3">
-                            <input #time type="number" class="form-control" placeholder="Minutes">
-                            </div>
-                            <div class="col-sm-3">
-                            <input #set type="number" class="form-control" placeholder="Sets">
-                            </div>
-                        </div>
-                    </form>
-                    <div class="d-flex justify-content-end">
-                        <button (click)="doneExercise($event, list.Text, time.value, set.value)"
-                                class="col-sm-3 btn btn-sm btn-primary">
-                                Done
-                        </button>
-                    </div>
-                </li>
-            </ul>
-        </div>
-            
-    </div> <!-- workout plan end-->
 
-
-    <div class="row">
-            <div class="card tracking" style="width: 80rem" >
-                <div class="card-header-own date">
-                You achieved..
-                </div>
-                <ul class="list-group list-group-flush ">
-                    <li *ngFor= "let choice of Me.DoneExerciseList"
-                        class="list-group-item ">
-                        {{choice.Text}}
-                        <!-- need to individually change total time.-->
-                        <i class="badge float-right badge-info d-flex justify-content-end" >
-                            {{choice.Time}} min 
-                        </i>
-                        <i class="badge float-right badge-info d-flex justify-content-end" >
-                            {{choice.Set}} times
-                        </i>
-                    </li>
-                </ul>
-                <div class="card-body" *ngFor= "let choice of Me.DoneExerciseList">
-                    <i>
-                        Your Total Workout Time: {{choice.TotalTime}} minutes
-                    </i>
-                </div>
-            </div>
-        </div> <!-- Complete workout end-->
-</div> <!-- second col end-->
-
-</div> <!-- row end -->

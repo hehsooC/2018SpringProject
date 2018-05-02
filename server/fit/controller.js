@@ -2,10 +2,10 @@ var express = require('express');
 var Fit = require('./model');
 
 var app = express.Router();
-
-var fit = new Fit(); 
-   
  
+var fit = new Fit(); 
+    
+  
 module.exports = app
     .get('/state', (req, res) => res.send(fit))
     .get('/exercise', (req, res) =>{
@@ -16,9 +16,10 @@ module.exports = app
     }) 
     .post('/exercise/profile', (req, res) =>{
         console.log('send profile to server - controller');
-        fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 
+        var profile = fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 
                         req.body.GoalWeight, req.body.BMI, req.body.GoalBMI, 
                         req.body.name);
+        res.send(profile);
     })
   /*   .get('/exercise/share', (req, res) =>{
         console.log('different user: ' + req.query)

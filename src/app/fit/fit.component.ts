@@ -26,9 +26,9 @@ export class FitComponent implements OnInit {
     this.Model = _Fit.Model;
     
 
-/*     if(!this.Me){
+    if(!this.Me){
       _Router.navigate(['/login']);
-    } */
+    } 
     
     //setInterval(()=> this.refresh(), 1000)
   } 

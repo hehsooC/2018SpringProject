@@ -77,16 +77,19 @@ export class FitService {
   profileAdd(age: number, weight: number, height: number, goalWeight: number, bmi: number, goalBmi: number, name: string){
     //const goalBmiCalculate = this.calculateBMI(goalWeight, height);
     //const bmiCalculate = this.calculateBMI(weight, height);
-    console.log('got the profile component in service')
+    console.log('got the profile component in service');
     this.http.post(this._api + "/exercise/profile", { Age: age, Weight: weight, Height: height, 
                                                               GoalWeight: goalWeight, BMI: bmi, 
                                                               GoalBMI: goalBmi, name: name})
     .subscribe(data => {
-      console.log("here is profile - service: " + data.json());
+      console.log('subscribe in profile - service');
+     
+        console.log('successfully got profile - service');
+        this.Me.Profile = data.json();
+    });
+    this._Router.navigate(['/fit']);
 
-      this.Me.Profile = data.json();
-      this._Router.navigate(['/fit']);
-    })
+    
    // this.Me.Profile = {Age: age, Weight: weight, Height: height, GoalWeight: goalWeight, BMI: bmiCalculate, GoalBMI: goalBmiCalculate};
   }
 
