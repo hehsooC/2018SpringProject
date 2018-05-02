@@ -65,6 +65,23 @@ function Fit() {
             }  
         }
 
+        this.PlanWorkout = (name, text) => {
+            console.log('plan workout - model');
+
+            if(this.Person.find(x => x.Name == name)){
+                console.log('pushing plan? - model');
+                this.Person.find(x=> x.Name == name).PlanExercise.push({Text: text, Chosen: false});
+                var plan = this.Person.find(x => x.Name == name).PlanExercise;
+                return plan;
+    
+            }
+            else{
+                console.log('fail to push plan - model');
+                return false;
+            }
+
+        }
+
 /*         this.GetData = (userId) => {   
             console.log('user Id is ' + userId); 
             if(this.Person.find(x=> x.UserId == userId))

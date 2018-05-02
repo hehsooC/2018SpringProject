@@ -40,7 +40,7 @@ export class FitService {
 
   signUp(name: string, password: string){
     this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
-    PlanExercise: [{Text: null, Chosen: false}], DoneExerciseList: [{Text: null, Time: null, Set: null, TotalTime: null}]};
+    PlanExercise: [], DoneExerciseList: []};
     this.http.get(this._api + "/exercise", { params : { name: name, password: password } })
     .subscribe(data=> {
       if(!data.json()){
@@ -87,8 +87,15 @@ export class FitService {
   }
 
   chooseExercise(text: string){
-    this.http.post(this._api + "/exercise/choose", {})
-              .subscribe();
+    this.http.post(this._api + "/exercise/choose", {name: this.Me.Name, Text: text})
+              .subscribe(data => {
+                if(!data.json()){
+                  console.log('plan data is false - service');
+                  return;
+                }
+                console.log('successfully planned - service');
+                this.Me.PlanExercise = data.json();
+              });
 
 /*     if(!this.Me.PlanExercise.find(x => x.Text == text)){
       this.Me.PlanExercise.push({Text: text, Chosen: false});

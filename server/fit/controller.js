@@ -21,17 +21,20 @@ module.exports = app
                         req.body.name);
         res.send(profile);
     })
+    .post('/exercise/choose', (req, res) =>{
+        console.log('send plan list to server - controller');
+        console.log('text is ' + req.body.Text + 'name is ' + req.body.name);
+        var plan = fit.PlanWorkout(req.body.name, req.body.Text);
+        res.send(plan);
+    })
+
     
   /*   .get('/exercise/share', (req, res) =>{
         console.log('different user: ' + req.query)
         // need to send different approach for different user
         res.send(fit.SharingOthers(req.query.userId));
        }) */
-/*     .get('/exercise/getList', (req, res) => {
-        console.log('does it really get the list?');
-        res.send( fit.GiveExerciseList(req.body.userId));
-    })
-         */
+
     // this works but couldn't find api database for workout
     //.post('/exercise/info', (req, res) => res.send( fit.GetHealthInfo()))
 /*     .post('/exercise', (req, res) => {
