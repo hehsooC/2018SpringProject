@@ -3,6 +3,8 @@ import { FitService } from '../services/fit.service';
 import { Fit } from '../models/exercise';
 import { MessagesService } from '../services/messages.service';
 
+declare var googleyolo: any
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +22,22 @@ export class LoginComponent implements OnInit {
     this._Fit.login(name, password);
   }
 
-// need to prevent sign up same userid here?
-
+  googleLogin(){
+    googleyolo.hint({
+      supportedAuthMethods: [
+        "https://accounts.google.com",
+       // "googleyolo://id-and-password"
+      ],
+      supportedIdTokenProviders: [
+        {
+          uri: "https://accounts.google.com",
+          clientId: "224672501632-b59a192aifnt8s107nllt1kdognsjejv.apps.googleusercontent.com"
+        }
+      ]
+    }).then((credentials: any) => {
+      this._Fit.oAuthLogin(credentials.displayName, credentials.idToken, credentials.profilePicture);
+      console.log(credentials);
+    })
+  }
 
 }

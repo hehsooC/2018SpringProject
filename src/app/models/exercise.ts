@@ -23,6 +23,8 @@ export class Fit {
      Time: number;
      Set: number;
      TotalTime: number;
+     
+     //Name: string;
 
  }
 export class User {
@@ -47,6 +49,7 @@ export class Done {
     Time: number;
     Set: number;
     TotalTime: number;
+    //Name: string;
 }
 
 export class Info {

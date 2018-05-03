@@ -4,7 +4,7 @@ var Fit = require('./model');
 var app = express.Router();
  
 var fit = new Fit(); 
-    
+     
   
 module.exports = app
     .get('/state', (req, res) => res.send(fit))
@@ -33,8 +33,8 @@ module.exports = app
     }) */
     .post('/exercise/done', (req, res) => {
         console.log('done exercise - controller - text is ' + req.body.text );
-        var done = fit.DoneExercise(req.body.name, req.body.text, req.body.time, req.body.set);
-        res.send(done);
+        // var done = fit.DoneExercise(req.body.name, req.body.text, req.body.time, req.body.set, req.body.total);
+        res.send(fit.DoneExercise(req.body.name, req.body.list));
     })
     .post('/exercise/totaltime', (req, res) => {
         console.log('give total time - controller');

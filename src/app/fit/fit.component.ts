@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from "@angular/http";
-import {Fit, User } from '../models/exercise';
+import {Fit, User, Track } from '../models/exercise';
 import { MessagesService } from '../services/messages.service';
 import { FitService } from '../services/fit.service';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ export class FitComponent implements OnInit {
     Model: Fit;
     Me: User;
     ExerciseList: string[];
+    //Record: Track[];
     
 
 
@@ -31,7 +32,7 @@ export class FitComponent implements OnInit {
       _Router.navigate(['/login']);
     } 
     
-    
+  // this.Record = [];
 
     //setInterval(()=> this.refresh(), 1000)
   } 
@@ -50,16 +51,34 @@ export class FitComponent implements OnInit {
     
   }
 
-
+ /* doneExercise() will track the completed workout that a user checks it as "done"
+    */
   doneExercise(e: MouseEvent, text: string, time: number, set: number){
     e.preventDefault();
-    //this._Fit.makeChosen(text);
-    this._Fit.selectExercise(text, time, set);
+    this._Fit.makeChosen(text);
+
+    var totalTime = time * set;
+   
+    // if the workout list is a newly selected, add it to DoneExerciseList
+    if(!this.Me.DoneExerciseList.find( x=> x.Text == text)){
+      this.Me.DoneExerciseList.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
+      this._Fit.selectExercise(this.Me.DoneExerciseList);
+    }
+    // else if user adds more time and set of the selected workout, keep tracking of time and set
+    else{
+      var user = this.Me.DoneExerciseList.find(x=> x.Text == text);
+      user.Time = Number(user.Time) + Number(time);
+      user.Set = Number(user.Set) + Number(set);
+      user.TotalTime = Number(user.TotalTime) + Number(totalTime);
+      this._Fit.selectExercise(this.Me.DoneExerciseList);
+      
+    }
+
     //this._Fit.getTotalTime();
 
   }
 
-  
+ 
 
 
   

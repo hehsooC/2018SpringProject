@@ -90,30 +90,18 @@ function Fit() {
         }
 
 
-        this.DoneExercise = (name, text, time, set) => {
+        this.DoneExercise = (name, list) => {
             var user = this.Person.find(x => x.Name == name);
 
-            var totalTime = time * set;
-            var record = this.Record.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
-            //var totalSetTime = totalTime;
+           // var totalTime = time * set;
+            //var record = this.Record.push({Text: text, Time: time, Set: set, TotalTime: totalTime, Name:name });
+            //var totalSetTime = totalTime; 
             if(user){
-                if(!user.DoneExerciseList.find(x => x.Text == text)){
-                    console.log('pushing Done exercise - model');
-                    user.DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
-                   // user.TotalSetTime = totalSetTime;
-                    var done1 = user.DoneExerciseList;
-                    
-                    return done1;
-                }
-                else{
-                    var RecordReceived = this.timeCalculate(name, text, time, set);
-                    var recordIndex = RecordReceived.findIndex(x => x.Text == text);
-                    var index = user.DoneExerciseList.findIndex(x => x.Text == text);
-                    user.DoneExerciseList[index] = RecordReceived[recordIndex];
-                    var sumTime = user.TotalSetTime + sumTime;
-                    var done = user.DoneExerciseList;
-                    return done;
-                }
+
+                user.DoneExerciseList = list;
+                console.log('_server_ DoneExerciseList ');
+                console.log(user.DoneExerciseList);
+                return user.DoneExerciseList;
                 
             }
             else{
@@ -132,28 +120,7 @@ function Fit() {
 
         }
 
-        this.timeCalculate = (name, text, time, set) => {
-            var user = this.Person.find(x => x.Name == name);
-
-            var record = this.Record.pop();
     
-            var currentTime = Number(record.Time);
-            var currentSet = Number(record.Set);
-            
-            var record2 = this.Record.pop();
-            var prevTime = Number(record2.Time) ;
-            var prevSet = Number(record2.Set);
-
-    
-            var sum = Number(currentTime + prevTime);
-            var setSum = Number(currentSet + prevSet);
-            var totalTime = Number(sum * setSum);
-            user.TotalSetTime = totalTime;
-            
-            this.Record.push({Text: text, Time: sum, Set: setSum, TotalTime: totalTime });
-            var record = this.Record;
-            return record;
-        }
             
 
 /*         this.GetData = (userId) => {   

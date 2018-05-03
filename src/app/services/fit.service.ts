@@ -54,6 +54,16 @@ export class FitService {
      
       
     }
+
+    oAuthLogin(name: string, token: string, pic: string){
+     /*  this.Me = { Name: name };
+      this.pic = pic;
+      this.token = token; */
+      this.Me = {Name: name, Password: null, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
+      PlanExercise: [], DoneExerciseList: [], TotalSetTime: 0};
+      this._Router.navigate(['/game']);
+    }
+  
     
   login(name: string, password: string){
     this.http.get(this._api + "/exercise/login", { params : { name: name, password: password } })
@@ -70,6 +80,7 @@ export class FitService {
     })
    
   }
+
 
   profileAdd(age: number, weight: number, height: number, goalWeight: number, bmi: number, goalBmi: number, name: string){
     this.http.post(this._api + "/exercise/profile", { Age: age, Weight: weight, Height: height, 
@@ -93,26 +104,33 @@ export class FitService {
 
   }
   
-/*     makeChosen(text: string){
+    makeChosen(text: string){
       console.log('make chosen = service');
       this.http.post(this._api + "/exercise/chosen", {name: this.Me.Name, text: text})
       .subscribe(data => {
         this.Me.PlanExercise = data.json();
       })
-    } */
-    selectExercise(text: string, time:number, set:number){
-      console.log('_service_ selected text is ' + text);
-      this.http.post(this._api + "/exercise/done", {name: this.Me.Name, text: text, time: time, set: set })
+    }
+    selectExercise(done){
+      console.log('_service_ selected text is ');
+
+      this.http.post(this._api + '/exercise/done', {name: this.Me.Name, list: done })
                 .subscribe(data => {
+                  console.log('_service_SelectEx_data.json(): ');
+                  console.log(data.json());
                   if(!data.json()){
                     console.log('done data is false - service');
                     return;
                   }
                   console.log('successfully done - service ');
-                  this.Me.DoneExerciseList = data.json();
+                  //this.Me.DoneExerciseList.push(data.json());
+                  console.log('---------------------');
+                  console.log(this.Me.DoneExerciseList);
                   // need to slice list off
                 });
     }
+
+
 
 /*     getTotalTime(){
       this.http.post(this._api + "/exercise/totaltime",{name: this.Me.Name})
