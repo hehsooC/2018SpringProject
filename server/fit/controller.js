@@ -28,9 +28,9 @@ module.exports = app
         var plan = fit.PlanWorkout(req.body.name, req.body.Text);
         res.send(plan);
     })
-/*     .post('/exercise/chosen', (req,res) => {
+    .post('/exercise/chosen', (req,res) => {
         res.send(fit.MakeChosen(req.body.name, req.body.text));
-    }) */
+    })
     .post('/exercise/done', (req, res) => {
         console.log('done exercise - controller - text is ' + req.body.text );
         // var done = fit.DoneExercise(req.body.name, req.body.text, req.body.time, req.body.set, req.body.total);
