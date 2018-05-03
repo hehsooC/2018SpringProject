@@ -8,7 +8,7 @@
         </div>
         <div class="font-margin">
             Please Sign In
-            </div> 
+        </div> 
         <div class="login-form" >
             <input #Name type ="text" placeholder ="User Name"/><br/>
             <input #Password type ="text" placeholder ="Password" />
@@ -17,7 +17,23 @@
         </div>
         <div class="btn-margin">
             <button class="btn" (click)="login(Name.value, Password.value)" >Sign In</button>
+            <button class="btn" (click)="googleLogin()" >Sign In with Google</button>
+
         </div>
 
+
+ 
+        <div class="card-link">
+            <div class ="text-uppercase black">
+                New to Here?
+            </div>
+            
+            
+            <button class="btn btn-margin">
+                <div class="font-margin nav-link" routerLink="/sign-up" >
+                    Please Sign Up
+                </div> 
+            </button>
+        </div>
     </div>
 </div>
