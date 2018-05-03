@@ -31,6 +31,8 @@ export class User {
     Profile: Info;
     PlanExercise: Exercise[] = [];
     DoneExerciseList: Done[] = [];
+    TotalSetTime: number;
+
     
 }
 

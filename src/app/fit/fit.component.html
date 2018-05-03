@@ -66,31 +66,31 @@
                     </div>
                     <div class="subtitle">Click to add workout to your plan</div>
                 </div>
-                <form>
-                    <div class="form-group">
-                        <select multiple class="form-control" id="exampleFormControlSelect2" >
-                        <option *ngFor="let list of ExerciseList"  (click)="submitWorkout($event, list)">
-                            {{list}}
-                        </option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-        </div>        <!-- workout list end-->
-
-        <div class="row-md-4">
-            <div class="card">
-                <div class="card-header-own heightAdjust">
-                <div class="text-uppercase ">
-                    Workout Plan
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <select multiple class="form-control" id="exampleFormControlSelect2" >
+                            <option *ngFor="let list of ExerciseList"  (click)="submitWorkout($event, list)">
+                                {{list}}
+                            </option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
-                <div class="subtitle">Add your time and sets.<br/> When you are done, click Done button</div>
+            </div>
+
+        
+            <div class="card ">
+                <div class="card-header-own heightAdjust">
+                    <div class="text-uppercase ">
+                        Workout Plan
+                    </div>
+                    <div class="subtitle">Add your time and sets.<br/> When you are done, click Done button</div>
 
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush ">
                         <li *ngFor="let list of Me.PlanExercise"
-                            [ngClass]="{'list-group-item-success': list.Chosen }"
                             class="list-group-item list-group-flush ">
                             {{list.Text}}
                             <form>
@@ -105,8 +105,7 @@
                             </form>
                             <div class="d-flex justify-content-end">
                                 <button (click)="doneExercise($event, list.Text, time.value, set.value)"
-                                        class="col-sm-3 btn btn-sm btn-primary"
-                                        >
+                                        class="col-sm-3 btn btn-sm btn-primary">
                                         Done
                                 </button>
                             </div>
@@ -140,7 +139,7 @@
                     </ul>
                     <div class="card-body">
                         <i>
-                            Your Total Workout Time: {{TotalTime}} minutes
+                            Your Total Workout Time: {{Me.TotalSetTime}} minutes
                         </i>
                     </div>
                 </div>

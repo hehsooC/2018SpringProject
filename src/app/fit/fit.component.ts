@@ -45,7 +45,6 @@ export class FitComponent implements OnInit {
   }
  */
   submitWorkout(e: MouseEvent, text: string){
-    console.log('submitting workout list - component');
     e.preventDefault();
     this._Fit.chooseExercise(text);
     
@@ -53,10 +52,10 @@ export class FitComponent implements OnInit {
 
 
   doneExercise(e: MouseEvent, text: string, time: number, set: number){
-    console.log('done exercise - component');
     e.preventDefault();
-    this._Fit.makeChosen(text);
+    //this._Fit.makeChosen(text);
     this._Fit.selectExercise(text, time, set);
+    //this._Fit.getTotalTime();
 
   }
 

@@ -13,7 +13,8 @@ module.exports = app
     })
     .get('/exercise/login', (req, res) =>{
         res.send( fit.LogIn(req.query.name, req.query.password))
-    }) 
+    })
+
     .post('/exercise/profile', (req, res) =>{
         console.log('send profile to server - controller');
         var profile = fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 
@@ -23,19 +24,24 @@ module.exports = app
     })
     .post('/exercise/choose', (req, res) =>{
         console.log('send plan list to server - controller');
-        console.log('text is ' + req.body.Text + 'name is ' + req.body.name);
+        console.log('-controller PlanWorkokut-text is ' + req.body.Text + 'name is ' + req.body.name);
         var plan = fit.PlanWorkout(req.body.name, req.body.Text);
         res.send(plan);
     })
-    .post('/exercise/chosen', (req,res) => {
-        console.log('make chosen - controller')
+/*     .post('/exercise/chosen', (req,res) => {
         res.send(fit.MakeChosen(req.body.name, req.body.text));
-    })
+    }) */
     .post('/exercise/done', (req, res) => {
-        console.log('done exercise - controller');
+        console.log('done exercise - controller - text is ' + req.body.text );
         var done = fit.DoneExercise(req.body.name, req.body.text, req.body.time, req.body.set);
         res.send(done);
     })
+    .post('/exercise/totaltime', (req, res) => {
+        console.log('give total time - controller');
+        var time = fit.GetTotalTime(req.body.name);
+        res.send(time.toString());
+    }) 
+    
  
     
   /*   .get('/exercise/share', (req, res) =>{
