@@ -132,12 +132,12 @@ export class FitService {
 
 
 
-/*     getTotalTime(){
-      this.http.post(this._api + "/exercise/totaltime",{name: this.Me.Name})
+    getTotalTime(total){
+      this.http.post(this._api + "/exercise/totaltime",{name: this.Me.Name, totalSet: total})
       .subscribe(data => {
         this.Me.TotalSetTime = Number(data.json());
       })
-    } */
+    }
   
 
 }

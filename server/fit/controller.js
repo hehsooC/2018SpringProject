@@ -33,12 +33,11 @@ module.exports = app
     })
     .post('/exercise/done', (req, res) => {
         console.log('done exercise - controller - text is ' + req.body.text );
-        // var done = fit.DoneExercise(req.body.name, req.body.text, req.body.time, req.body.set, req.body.total);
-        res.send(fit.DoneExercise(req.body.name, req.body.list));
+        res.send(fit.DoneExercise(req.body.name, req.body.list, req.body.total));
     })
     .post('/exercise/totaltime', (req, res) => {
         console.log('give total time - controller');
-        var time = fit.GetTotalTime(req.body.name);
+        var time = fit.GetTotalTime(req.body.name, req.body.totalSet);
         res.send(time.toString());
     }) 
     

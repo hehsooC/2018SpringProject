@@ -93,14 +93,9 @@ function Fit() {
         this.DoneExercise = (name, list) => {
             var user = this.Person.find(x => x.Name == name);
 
-           // var totalTime = time * set;
-            //var record = this.Record.push({Text: text, Time: time, Set: set, TotalTime: totalTime, Name:name });
-            //var totalSetTime = totalTime; 
             if(user){
 
                 user.DoneExerciseList = list;
-                console.log('_server_ DoneExerciseList ');
-                console.log(user.DoneExerciseList);
                 return user.DoneExerciseList;
                 
             }
@@ -112,11 +107,11 @@ function Fit() {
              
         }  
 
-        this.GetTotalTime = (name) => {
+        this.GetTotalTime = (name, totalSet) => {
             var user = this.Person.find(x => x.Name == name);
-            var time = user.TotalSetTime;
+            user.TotalSetTime = totalSet
 
-            return time;
+            return user.TotalSetTime;
 
         }
 

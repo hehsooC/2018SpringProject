@@ -58,11 +58,15 @@ export class FitComponent implements OnInit {
     this._Fit.makeChosen(text);
 
     var totalTime = time * set;
-   
     // if the workout list is a newly selected, add it to DoneExerciseList
     if(!this.Me.DoneExerciseList.find( x=> x.Text == text)){
       this.Me.DoneExerciseList.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
+      if(this.Me.TotalSetTime == 0){
+        this.Me.TotalSetTime = totalTime;
+        this._Fit.getTotalTime(this.Me.TotalSetTime);
+        }
       this._Fit.selectExercise(this.Me.DoneExerciseList);
+      
     }
     // else if user adds more time and set of the selected workout, keep tracking of time and set
     else{
@@ -70,6 +74,8 @@ export class FitComponent implements OnInit {
       user.Time = Number(user.Time) + Number(time);
       user.Set = Number(user.Set) + Number(set);
       user.TotalTime = Number(user.TotalTime) + Number(totalTime);
+      this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
+      this._Fit.getTotalTime(this.Me.TotalSetTime);
       this._Fit.selectExercise(this.Me.DoneExerciseList);
       
     }
