@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from "@angular/http";
-import {Fit, User, Track } from '../models/exercise';
+import {Fit, User } from '../models/exercise';
 import { MessagesService } from '../services/messages.service';
 import { FitService } from '../services/fit.service';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ export class FitComponent implements OnInit {
     ExerciseList: string[];
     //Record: Track[];
     
-
+    track: boolean = false;
 
   constructor(private http: Http,
               private _Messages: MessagesService,
@@ -32,7 +32,7 @@ export class FitComponent implements OnInit {
       _Router.navigate(['/login']);
     } 
     
-  // this.Record = [];
+   //this.Record = [];
 
     //setInterval(()=> this.refresh(), 1000)
   } 
@@ -61,6 +61,12 @@ export class FitComponent implements OnInit {
     // if the workout list is a newly selected, add it to DoneExerciseList
     if(!this.Me.DoneExerciseList.find( x=> x.Text == text)){
       this.Me.DoneExerciseList.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
+      // copy DoneExerciseList object to Record to keep the original data
+      this.Me.Record.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
+
+      console.log('Record ---------');
+      console.log(this.Me.Record);
+     // if user didn't start the workout yet, set the total (set * time) to TotalSetTime
       if(this.Me.TotalSetTime == 0){
         this.Me.TotalSetTime = totalTime;
         this._Fit.getTotalTime(this.Me.TotalSetTime);
@@ -68,9 +74,14 @@ export class FitComponent implements OnInit {
       this._Fit.selectExercise(this.Me.DoneExerciseList);
       
     }
-    // else if user adds more time and set of the selected workout, keep tracking of time and set
+    // else if user adds more time and set of the selected workout, keep tracking of time, set, and Total time
     else{
+      
       var user = this.Me.DoneExerciseList.find(x=> x.Text == text);
+
+      this.Me.Record.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
+      this.IsTextSame(text);
+      
       user.Time = Number(user.Time) + Number(time);
       user.Set = Number(user.Set) + Number(set);
       user.TotalTime = Number(user.TotalTime) + Number(totalTime);
@@ -84,7 +95,16 @@ export class FitComponent implements OnInit {
 
   }
 
- 
+ IsTextSame = (text) => { 
+   var record = this.Me.Record.find(x => x.Text == text);
+   var done = this.Me.DoneExerciseList.find(x => x.Text == text);
+   if(record.Text == done.Text)
+      this.track = true;
+  else{
+    this.track = false;
+  }
+
+  };
 
 
   

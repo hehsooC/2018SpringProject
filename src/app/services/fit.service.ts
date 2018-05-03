@@ -41,7 +41,7 @@ export class FitService {
 
   signUp(name: string, password: string){
     this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
-    PlanExercise: [], DoneExerciseList: [], TotalSetTime: 0};
+    PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0};
     this.http.get(this._api + "/exercise", { params : { name: name, password: password } })
     .subscribe(data=> {
       if(!data.json()){
@@ -60,8 +60,8 @@ export class FitService {
       this.pic = pic;
       this.token = token; */
       this.Me = {Name: name, Password: null, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
-      PlanExercise: [], DoneExerciseList: [], TotalSetTime: 0};
-      this._Router.navigate(['/game']);
+      PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0};
+      this._Router.navigate(['/fit']);
     }
   
     
@@ -105,28 +105,19 @@ export class FitService {
   }
   
     makeChosen(text: string){
-      console.log('make chosen = service');
       this.http.post(this._api + "/exercise/chosen", {name: this.Me.Name, text: text})
       .subscribe(data => {
         this.Me.PlanExercise = data.json();
       })
     }
     selectExercise(done){
-      console.log('_service_ selected text is ');
 
       this.http.post(this._api + '/exercise/done', {name: this.Me.Name, list: done })
                 .subscribe(data => {
-                  console.log('_service_SelectEx_data.json(): ');
-                  console.log(data.json());
                   if(!data.json()){
                     console.log('done data is false - service');
                     return;
                   }
-                  console.log('successfully done - service ');
-                  //this.Me.DoneExerciseList.push(data.json());
-                  console.log('---------------------');
-                  console.log(this.Me.DoneExerciseList);
-                  // need to slice list off
                 });
     }
 
