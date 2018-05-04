@@ -127,19 +127,18 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush" *ngFor= "let choice of Me.DoneExerciseList">
-                        <li *ngFor = "let record of Me.Record"
-                            class="list-group-item ">
+                        <li class="list-group-item ">
                             {{choice.Text}}
                             <!-- need to individually change total time.-->
                             <div>
                                 <i class="badge float-right badge-info d-flex justify-content-end" >
-                                    => {{record.TotalTime}} min 
+                                    => {{choice.TotalTime}} min 
                                 </i>
                                 <i class="badge float-right badge-light d-flex justify-content-end" >
-                                    Set: {{record.Set}} times
+                                    Set: {{choice.Set}} times
                                 </i>
                                 <i class="badge float-right badge-light d-flex justify-content-end" >
-                                    Time: {{record.Time}} min 
+                                    Time: {{choice.Time}} min 
                                 </i>
                             </div>
                             

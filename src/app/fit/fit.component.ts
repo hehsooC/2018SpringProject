@@ -58,19 +58,21 @@ export class FitComponent implements OnInit {
     this._Fit.makeChosen(text);
 
     var totalTime = time * set;
+  /*    // if user didn't start the workout yet, set the total (set * time) to TotalSetTime
+     if(this.Me.TotalSetTime == 0){
+      this.Me.TotalSetTime = totalTime;
+      this._Fit.getTotalTime(this.Me.TotalSetTime);
+      } */
     // if the workout list is a newly selected, add it to DoneExerciseList
     if(!this.Me.DoneExerciseList.find( x=> x.Text == text)){
       this.Me.DoneExerciseList.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
       // copy DoneExerciseList object to Record to keep the original data
       this.Me.Record.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
 
+      this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
       console.log('Record ---------');
       console.log(this.Me.Record);
-     // if user didn't start the workout yet, set the total (set * time) to TotalSetTime
-      if(this.Me.TotalSetTime == 0){
-        this.Me.TotalSetTime = totalTime;
-        this._Fit.getTotalTime(this.Me.TotalSetTime);
-        }
+    
       this._Fit.selectExercise(this.Me.DoneExerciseList);
       
     }
@@ -80,7 +82,7 @@ export class FitComponent implements OnInit {
       var user = this.Me.DoneExerciseList.find(x=> x.Text == text);
 
       this.Me.Record.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
-      this.IsTextSame(text);
+      //this.IsTextSame(text);
       
       user.Time = Number(user.Time) + Number(time);
       user.Set = Number(user.Set) + Number(set);
@@ -95,7 +97,7 @@ export class FitComponent implements OnInit {
 
   }
 
- IsTextSame = (text) => { 
+/*  IsTextSame = (text) => { 
    var record = this.Me.Record.find(x => x.Text == text);
    var done = this.Me.DoneExerciseList.find(x => x.Text == text);
    if(record.Text == done.Text)
@@ -104,7 +106,7 @@ export class FitComponent implements OnInit {
     this.track = false;
   }
 
-  };
+  } */
 
 
   
