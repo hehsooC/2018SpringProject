@@ -9,12 +9,15 @@ var fit = new Fit();
 module.exports = app
     .get('/state', (req, res) => res.send(fit))
     .get('/exercise', (req, res) =>{
-     res.send( fit.SignUp(req.query.name, req.query.password) ) 
+     res.send( fit.SignUp(req.query.name, req.query.password) );
     })
     .get('/exercise/login', (req, res) =>{
-        res.send( fit.LogIn(req.query.name, req.query.password))
+        res.send( fit.LogIn(req.query.name, req.query.password));
     })
 
+    .get('/exercise/people', (req, res) => {
+        res.send(fit.giveUserList());
+    })
     .post('/exercise/profile', (req, res) =>{
         console.log('send profile to server - controller');
         var profile = fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 

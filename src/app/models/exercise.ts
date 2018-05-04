@@ -3,6 +3,8 @@ export class Fit {
     Person: User[] = [];
     //ExerciseList: string[] = [];
     //Record: Track[] = [];
+
+    Share: People[] = [];
     
     /** Need to find health info database api
     HealthInfo: {
@@ -18,15 +20,7 @@ export class Fit {
 }
  */
 
-/*  export class Track{
-     Text: string;
-     Time: number;
-     Set: number;
-     TotalTime: number;
-     
-     //Name: string;
 
- } */
 export class User {
     Name: string;
     Password: string;
@@ -39,6 +33,17 @@ export class User {
     
 }
 
+export class People {
+    Name: string;
+    Password: string;
+    Profile: Info;
+    PlanExercise: Exercise[] = [];
+    DoneExerciseList: Done[] = [];
+    Record: Done[] = [];
+    TotalSetTime: number;
+
+    
+}
 
 export class Exercise {
     Text: string;
@@ -50,7 +55,6 @@ export class Done {
     Time: number;
     Set: number;
     TotalTime: number;
-    //Name: string;
 }
 
 export class Info {

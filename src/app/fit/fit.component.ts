@@ -58,20 +58,15 @@ export class FitComponent implements OnInit {
     this._Fit.makeChosen(text);
 
     var totalTime = time * set;
-  /*    // if user didn't start the workout yet, set the total (set * time) to TotalSetTime
-     if(this.Me.TotalSetTime == 0){
-      this.Me.TotalSetTime = totalTime;
-      this._Fit.getTotalTime(this.Me.TotalSetTime);
-      } */
+
     // if the workout list is a newly selected, add it to DoneExerciseList
     if(!this.Me.DoneExerciseList.find( x=> x.Text == text)){
       this.Me.DoneExerciseList.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
-      // copy DoneExerciseList object to Record to keep the original data
-      this.Me.Record.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
+      /* // copy DoneExerciseList object to Record to keep the original data
+      this.Me.Record.push({Text:text, Time:time, Set:set, TotalTime:totalTime}); */
 
+      // tracking the total workout time 
       this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
-      console.log('Record ---------');
-      console.log(this.Me.Record);
     
       this._Fit.selectExercise(this.Me.DoneExerciseList);
       
@@ -81,9 +76,10 @@ export class FitComponent implements OnInit {
       
       var user = this.Me.DoneExerciseList.find(x=> x.Text == text);
 
-      this.Me.Record.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
+      //this.Me.Record.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
       //this.IsTextSame(text);
       
+      // keep tracking of total workout time
       user.Time = Number(user.Time) + Number(time);
       user.Set = Number(user.Set) + Number(set);
       user.TotalTime = Number(user.TotalTime) + Number(totalTime);

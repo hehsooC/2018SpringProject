@@ -17,7 +17,8 @@ var currentInfo = 0;
   
 function Fit() {  
         this.Person = [];
-        this.Record = [];
+        //this.Record = [];
+        this.Share = [];
         //this.HealthInfo = null; 
        // this.ExerciseList = [];   
         
@@ -115,6 +116,13 @@ function Fit() {
 
         }
 
+        this.giveUserList = () => {
+            console.log('_server_give user list');
+            this.Share = this.Person;
+            // this.Share.splice(this.Person.indexOf(this.Person.Name), 1);
+
+            return this.Share;
+        }
     
             
 

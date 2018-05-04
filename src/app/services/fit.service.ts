@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { MessagesService } from './messages.service';
-import { Fit, User, Info, Exercise } from '../models/exercise';
+import { Fit, User, Info, Exercise, People } from '../models/exercise';
 import { Router } from '@angular/router';
 import { DefaultUrlHandlingStrategy } from '@angular/router/src/url_handling_strategy';
 
@@ -15,6 +15,7 @@ export class FitService {
   Me: User;
   Model: Fit;
   TotalTime: number;
+  Share: People;
 
   constructor(private http: Http, 
               private _Messages: MessagesService, 
@@ -127,6 +128,15 @@ export class FitService {
       this.http.post(this._api + "/exercise/totaltime",{name: this.Me.Name, totalSet: total})
       .subscribe(data => {
         this.Me.TotalSetTime = Number(data.json());
+      })
+    }
+
+    getUserList(){
+      this.http.get(this._api + '/exercise/people', { params: {}})
+      .subscribe(data => {
+        this.Share = data.json();
+        console.log('share----');
+        console.log(data.json());
       })
     }
   

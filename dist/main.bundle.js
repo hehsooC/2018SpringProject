@@ -202,14 +202,14 @@ exports.EditProfileComponent = EditProfileComponent;
 /***/ "./src/app/fit/fit.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 5px;\n    color: white;\n    background-color: #F4C3D8;\n    border: none;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header-own{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.heightAdjust{\n    height: 160px;\n}\n\nform{\n    padding: 1rem;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    margin-bottom: 10px;\n    font-weight: 300;\n    padding: 0.2rem;\n    \n}\n\n.text-uppercase-own{\n    font-size: 12px;\n    color: white;\n}\n\n.title{\n    font-size: 20px;\n    padding: 0.4rem 0rem;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    color: #7CACEA;\n}\n\n.list-group-item-success{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}\n"
+module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 5px;\n    color: white;\n    background-color: #F4C3D8;\n    border: none;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header-own{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.heightAdjust{\n    height: 160px;\n}\n\nform{\n    padding: 1rem;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    margin-bottom: 10px;\n    font-weight: 300;\n    padding: 0.2rem;\n    \n}\n\n.text-uppercase-own{\n    font-size: 12px;\n    color: white;\n}\n\n.title{\n    font-size: 20px;\n    padding: 0.4rem 0rem;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    color: #7CACEA;\n}\n\n.list-group-item-success{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}\n\n.badge{\n    margin-left: 5px;\n}"
 
 /***/ }),
 
 /***/ "./src/app/fit/fit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\" >\n    <!-- Create Profile display-->\n    <div class=\"col-md-4\">\n        <div class=\"card\" >\n            <div class=\"card-header-own text-uppercase\">\n            {{Me.Name}}'s Profile\n            </div>\n\n            \n            <div class=\"card-body\">\n                <form>\n                    <div class=\"form-group row\">\n                        <label for=\"Name\" class=\"col-sm-10 col-form-label\">Name</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Name\" value= {{Me.Name}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Age\" class=\"col-sm-10 col-form-label\">Age</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Age\" value= {{Me.Profile.Age}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Height\" class=\"col-sm-10 col-form-label\">Height</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Height\" value= \"{{Me.Profile.Height}} cm\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Weight\" class=\"col-sm-10 col-form-label\">Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Weight\" value= \"{{Me.Profile.Weight}} kg\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"BMI\" class=\"col-sm-10 col-form-label\">BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"BMI\" value= {{Me.Profile.BMI}}>\n                        </div>\n                    </div>                    \n                    <div class=\"form-group row\">\n                        <label for=\"GoalWeight\" class=\"col-sm-10 col-form-label\">Goal Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalWeight\" value= \"{{Me.Profile.GoalWeight}} kg\">\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"GoalBMI\" class=\"col-sm-10 col-form-label\">Goal BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalBMI\" value= {{Me.Profile.GoalBMI}}>\n                        </div>\n                    </div>  \n                </form>\n            </div>\n        </div> \n    </div><!-- Saved Profile display ends-->\n\n\n    <div class =\"col-md-8\">\n        <div class=\"row-md-4\">\n            <div class=\"card\" >\n                <div class=\"card-header-own\">\n                    <div class=\"text-uppercase\">\n                        Workout List \n                    </div>\n                    <div class=\"subtitle\">Click to add workout to your plan</div>\n                </div>\n                <div class=\"card-body\">\n                    <form>\n                        <div class=\"form-group\">\n                            <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                            <option *ngFor=\"let list of ExerciseList\"  (click)=\"submitWorkout($event, list)\">\n                                {{list}}\n                            </option>\n                            </select>\n                        </div>\n                    </form>\n                </div>\n            </div>\n\n        \n            <div class=\"card \">\n                <div class=\"card-header-own heightAdjust\">\n                    <div class=\"text-uppercase \">\n                        Workout Plan\n                    </div>\n                    <div class=\"subtitle\">Add your time and sets.<br/> When you are done, click Done button</div>\n\n                </div>\n                <div class=\"card-body\">\n                    <ul class=\"list-group list-group-flush \">\n                        <li *ngFor=\"let list of Me.PlanExercise\"\n                            class=\"list-group-item list-group-flush \">\n                            {{list.Text}}\n                            <form>\n                                <div class=\"row d-flex justify-content-end\">\n                                    <div class=\"col-sm-3\">\n                                    <input #time type=\"number\" class=\"form-control\" placeholder=\"Minutes\">\n                                    </div>\n                                    <div class=\"col-sm-3\">\n                                    <input #set type=\"number\" class=\"form-control\" placeholder=\"Sets\">\n                                    </div>\n                                </div>\n                            </form>\n                            <div class=\"d-flex justify-content-end\">\n                                <button (click)=\"doneExercise($event, list.Text, time.value, set.value)\"\n                                        class=\"col-sm-3 btn btn-sm btn-primary\">\n                                        Done\n                                </button>\n                            </div>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n\n\n        </div>\n\n        <div class = \"row-md-4\">\n            <div class=\"card tracking\">\n                <div class=\"card-header-own date\">\n                You achieved..\n                </div>\n                <div class=\"card-body\">\n                    <ul class=\"list-group list-group-flush \">\n                        <li *ngFor= \"let choice of Me.DoneExerciseList\"\n                            class=\"list-group-item \">\n                            {{choice.Text}}\n                            <!-- need to individually change total time.-->\n\n                            <i class=\"badge float-right badge-info d-flex justify-content-end\" >\n                                {{choice.Set}} times\n                            </i>\n                            <i class=\"badge float-right badge-info d-flex justify-content-end\" >\n                                {{choice.Time}} min \n                            </i>\n                        </li>\n                    </ul>\n                    <div class=\"card-body\">\n                        <i>\n                            Your Total Workout Time: {{Me.TotalSetTime}} minutes\n                        </i>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n    </div>\n</div>"
+module.exports = "<div class=\"row\" >\n    <!-- Create Profile display-->\n    <div class=\"col-md-4\">\n        <div class=\"card\" >\n            <div class=\"card-header-own text-uppercase\">\n            {{Me.Name}}'s Profile\n            </div>\n\n            \n            <div class=\"card-body\">\n                <form>\n                    <div class=\"form-group row\">\n                        <label for=\"Name\" class=\"col-sm-10 col-form-label\">Name</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Name\" value= {{Me.Name}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Age\" class=\"col-sm-10 col-form-label\">Age</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Age\" value= {{Me.Profile.Age}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Height\" class=\"col-sm-10 col-form-label\">Height</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Height\" value= \"{{Me.Profile.Height}} cm\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Weight\" class=\"col-sm-10 col-form-label\">Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Weight\" value= \"{{Me.Profile.Weight}} kg\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"BMI\" class=\"col-sm-10 col-form-label\">BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"BMI\" value= {{Me.Profile.BMI}}>\n                        </div>\n                    </div>                    \n                    <div class=\"form-group row\">\n                        <label for=\"GoalWeight\" class=\"col-sm-10 col-form-label\">Goal Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalWeight\" value= \"{{Me.Profile.GoalWeight}} kg\">\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"GoalBMI\" class=\"col-sm-10 col-form-label\">Goal BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalBMI\" value= {{Me.Profile.GoalBMI}}>\n                        </div>\n                    </div>  \n                </form>\n            </div>\n        </div> \n    </div><!-- Saved Profile display ends-->\n\n\n    <div class =\"col-md-8\">\n        <div class=\"row-md-4\">\n            <div class=\"card\" >\n                <div class=\"card-header-own\">\n                    <div class=\"text-uppercase\">\n                        Workout List \n                    </div>\n                    <div class=\"subtitle\">Click to add workout to your plan</div>\n                </div>\n                <div class=\"card-body\">\n                    <form>\n                        <div class=\"form-group\">\n                            <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                            <option *ngFor=\"let list of ExerciseList\"  (click)=\"submitWorkout($event, list)\">\n                                {{list}}\n                            </option>\n                            </select>\n                        </div>\n                    </form>\n                </div>\n            </div>\n\n        \n            <div class=\"card \">\n                <div class=\"card-header-own heightAdjust\">\n                    <div class=\"text-uppercase \">\n                        Workout Plan\n                    </div>\n                    <div class=\"subtitle\">Add your time and sets.<br/> When you are done, click Done button</div>\n\n                </div>\n                <div class=\"card-body\">\n                    <ul class=\"list-group list-group-flush \">\n                        <li *ngFor=\"let list of Me.PlanExercise\"\n                            [ngClass]=\"{ 'list-group-item-success': list.Chosen }\"                            class=\"list-group-item list-group-flush \">\n                            {{list.Text}}\n                            <form>\n                                <div class=\"row d-flex justify-content-end\">\n                                    <div class=\"col-sm-3\">\n                                    <input #time type=\"number\" class=\"form-control\" placeholder=\"Minutes\">\n                                    </div>\n                                    <div class=\"col-sm-3\">\n                                    <input #set type=\"number\" class=\"form-control\" placeholder=\"Sets\">\n                                    </div>\n                                </div>\n                            </form>\n                            <div class=\"d-flex justify-content-end\">\n                                <button (click)=\"doneExercise($event, list.Text, time.value, set.value)\"\n                                        class=\"col-sm-3 btn btn-sm btn-primary\">\n                                        Done\n                                </button>\n                            </div>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n\n\n        </div>\n\n        <div class = \"row-md-4\">\n            <div class=\"card tracking\">\n                <div class=\"card-header-own heightAdjust date\">\n                    <div class=\"subtitle\"> Well Done, You achieved.. </div>\n                    <div class=\"text-uppercase\">\n                        Workout Log\n                    </div>    \n                </div>\n                <div class=\"card-body\">\n                    <ul class=\"list-group list-group-flush\" *ngFor= \"let choice of Me.DoneExerciseList\">\n                        <li class=\"list-group-item \">\n                            {{choice.Text}}\n                            <!-- need to individually change total time.-->\n                            <div>\n                                <i class=\"badge float-right badge-info d-flex justify-content-end\" >\n                                    Total Cycle: {{choice.TotalTime}} min \n                                </i>\n                                <i class=\"badge float-right badge-light d-flex justify-content-end\" >\n                                    Total Set: {{choice.Set}} times\n                                </i>\n                                <i class=\"badge float-right badge-light d-flex justify-content-end\" >\n                                    Total Time: {{choice.Time}} min \n                                </i>\n                            </div>\n                            \n                        </li>\n                    </ul>\n                    <div class=\"card-body\">\n                        <i>\n                            Your Total Workout Time: {{Me.TotalSetTime}} minutes\n                        </i>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n    </div>\n</div>"
 
 /***/ }),
 
@@ -234,19 +234,20 @@ var messages_service_1 = __webpack_require__("./src/app/services/messages.servic
 var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var FitComponent = /** @class */ (function () {
-    //Record: Track[];
     function FitComponent(http, _Messages, _Fit, _Router) {
         this.http = http;
         this._Messages = _Messages;
         this._Fit = _Fit;
         this._Router = _Router;
+        //Record: Track[];
+        this.track = false;
         this.Me = _Fit.Me;
         this.Model = _Fit.Model;
         this.ExerciseList = _Fit.ExerciseStack;
         if (!this.Me) {
             _Router.navigate(['/login']);
         }
-        // this.Record = [];
+        //this.Record = [];
         //setInterval(()=> this.refresh(), 1000)
     }
     FitComponent.prototype.ngOnInit = function () {
@@ -270,13 +271,22 @@ var FitComponent = /** @class */ (function () {
         // if the workout list is a newly selected, add it to DoneExerciseList
         if (!this.Me.DoneExerciseList.find(function (x) { return x.Text == text; })) {
             this.Me.DoneExerciseList.push({ Text: text, Time: time, Set: set, TotalTime: totalTime });
+            /* // copy DoneExerciseList object to Record to keep the original data
+            this.Me.Record.push({Text:text, Time:time, Set:set, TotalTime:totalTime}); */
+            // tracking the total workout time 
+            this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
             this._Fit.selectExercise(this.Me.DoneExerciseList);
         }
         else {
             var user = this.Me.DoneExerciseList.find(function (x) { return x.Text == text; });
+            //this.Me.Record.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
+            //this.IsTextSame(text);
+            // keep tracking of total workout time
             user.Time = Number(user.Time) + Number(time);
             user.Set = Number(user.Set) + Number(set);
             user.TotalTime = Number(user.TotalTime) + Number(totalTime);
+            this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
+            this._Fit.getTotalTime(this.Me.TotalSetTime);
             this._Fit.selectExercise(this.Me.DoneExerciseList);
         }
         //this._Fit.getTotalTime();
@@ -502,7 +512,8 @@ var Fit = /** @class */ (function () {
     function Fit() {
         this.Person = [];
         //ExerciseList: string[] = [];
-        this.Record = [];
+        //Record: Track[] = [];
+        this.Share = [];
         /** Need to find health info database api
         HealthInfo: {
             url: string;
@@ -516,20 +527,24 @@ exports.Fit = Fit;
     Name: string;
 }
  */
-var Track = /** @class */ (function () {
-    function Track() {
-    }
-    return Track;
-}());
-exports.Track = Track;
 var User = /** @class */ (function () {
     function User() {
         this.PlanExercise = [];
         this.DoneExerciseList = [];
+        this.Record = [];
     }
     return User;
 }());
 exports.User = User;
+var People = /** @class */ (function () {
+    function People() {
+        this.PlanExercise = [];
+        this.DoneExerciseList = [];
+        this.Record = [];
+    }
+    return People;
+}());
+exports.People = People;
 var Exercise = /** @class */ (function () {
     function Exercise() {
         this.Chosen = false;
@@ -563,7 +578,7 @@ module.exports = ".navbar {\n    padding: 0 1rem;\n    height: 120px;\n  }\n  \n
 /***/ "./src/app/nav/nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark nav-back\">\n  <div class=\"container\">\n    <div>\n        <a class=\"navbar-brand\" routerLink=\"/fit\">Fitness Tracker</a>\n    </div>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse navbar-nav\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\" >Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/editProfile\" routerLinkActive=\"active\" >Profile</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\" >Fitness</a>\n        </li>\n  \n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">Share</a>\n        </li>\n\n      </ul>\n    </div>\n\n    <div class=\"d-flex justify-content-end\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item \">\n          <a class=\"nav-link\" routerLink=\"/sign-up\" routerLinkActive=\"active\">Sign Up</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Sign In</a>\n        </li>\n      </ul>\n    </div>\n  </div><!-- navbar container -->\n</nav><!-- nav bar -->\n"
+module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark nav-back\">\n  <div class=\"container\">\n    <div>\n        <a class=\"navbar-brand\" routerLink=\"/fit\">Fitness Tracker</a>\n    </div>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse navbar-nav\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\" >Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/editProfile\" routerLinkActive=\"active\" >Profile</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\" >Fitness</a>\n        </li>\n  \n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">Share</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">History</a>\n        </li>\n\n      </ul>\n    </div>\n\n    <div class=\"d-flex justify-content-end\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item \">\n          <a class=\"nav-link\" routerLink=\"/sign-up\" routerLinkActive=\"active\">Sign Up</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Sign In</a>\n        </li>\n      </ul>\n    </div>\n  </div><!-- navbar container -->\n</nav><!-- nav bar -->\n"
 
 /***/ }),
 
@@ -710,7 +725,7 @@ var FitService = /** @class */ (function () {
     FitService.prototype.signUp = function (name, password) {
         var _this = this;
         this.Me = { Name: name, Password: password, Profile: { Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null },
-            PlanExercise: [], DoneExerciseList: [], TotalSetTime: 0 };
+            PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0 };
         this.http.get(this._api + "/exercise", { params: { name: name, password: password } })
             .subscribe(function (data) {
             if (!data.json()) {
@@ -726,8 +741,8 @@ var FitService = /** @class */ (function () {
          this.pic = pic;
          this.token = token; */
         this.Me = { Name: name, Password: null, Profile: { Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null },
-            PlanExercise: [], DoneExerciseList: [], TotalSetTime: 0 };
-        this._Router.navigate(['/game']);
+            PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0 };
+        this._Router.navigate(['/fit']);
     };
     FitService.prototype.login = function (name, password) {
         var _this = this;
@@ -764,28 +779,34 @@ var FitService = /** @class */ (function () {
     };
     FitService.prototype.makeChosen = function (text) {
         var _this = this;
-        console.log('make chosen = service');
         this.http.post(this._api + "/exercise/chosen", { name: this.Me.Name, text: text })
             .subscribe(function (data) {
             _this.Me.PlanExercise = data.json();
         });
     };
     FitService.prototype.selectExercise = function (done) {
-        var _this = this;
-        console.log('_service_ selected text is ');
         this.http.post(this._api + '/exercise/done', { name: this.Me.Name, list: done })
             .subscribe(function (data) {
-            console.log('_service_SelectEx_data.json(): ');
-            console.log(data.json());
             if (!data.json()) {
                 console.log('done data is false - service');
                 return;
             }
-            console.log('successfully done - service ');
-            //this.Me.DoneExerciseList.push(data.json());
-            console.log('---------------------');
-            console.log(_this.Me.DoneExerciseList);
-            // need to slice list off
+        });
+    };
+    FitService.prototype.getTotalTime = function (total) {
+        var _this = this;
+        this.http.post(this._api + "/exercise/totaltime", { name: this.Me.Name, totalSet: total })
+            .subscribe(function (data) {
+            _this.Me.TotalSetTime = Number(data.json());
+        });
+    };
+    FitService.prototype.getUserList = function () {
+        var _this = this;
+        this.http.get(this._api + '/exercise/people', { params: {} })
+            .subscribe(function (data) {
+            _this.Share = data.json();
+            console.log('share----');
+            console.log(data.json());
         });
     };
     FitService = __decorate([
@@ -843,7 +864,7 @@ module.exports = "ul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card
 /***/ "./src/app/share/share.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div clas=\"row justify-content-md-center\">\n  <!-- You're sharing with.. -->\n  <div class=\"col\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          (User's) Workout Achievement\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n          <li>UserName:</li>\n        </ul>\n    </div> \n  </div>\n\n  <!-- who do you want to share?-->\n  <div class=\"col\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n        User List\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n            <li>UserName:\n                <button \n                class=\"btn btn-sm btn-warning\">\n                    Share\n                </button>\n            </li>\n\n        </ul>\n    </div> \n  </div>\n</div>"
+module.exports = "<div clas=\"row justify-content-md-center\">\n  <!-- You're sharing with.. -->\n  <div class=\"col\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          {{Me.Name}} Workout Achievement\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n          <li>{{Me.Name}}:</li>\n        </ul>\n    </div> \n  </div>\n\n  <!-- who do you want to share?-->\n  <div class=\"col\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n        User List\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n            <li>UserName:\n                <button \n                class=\"btn btn-sm btn-warning\">\n                    Share\n                </button>\n            </li>\n\n        </ul>\n    </div> \n  </div>\n</div>"
 
 /***/ }),
 
@@ -863,10 +884,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var ShareComponent = /** @class */ (function () {
-    function ShareComponent() {
+    function ShareComponent(_Fit, _Router) {
+        this._Fit = _Fit;
+        this._Router = _Router;
+        this.Me = _Fit.Me;
+        if (!this.Me) {
+            _Router.navigate(['/login']);
+        }
+        this.createShareList();
     }
     ShareComponent.prototype.ngOnInit = function () {
+    };
+    ShareComponent.prototype.createShareList = function () {
+        console.log('_component_creating sharelist');
+        this._Fit.getUserList();
     };
     ShareComponent = __decorate([
         core_1.Component({
@@ -874,7 +908,7 @@ var ShareComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/share/share.component.html"),
             styles: [__webpack_require__("./src/app/share/share.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [fit_service_1.FitService, router_1.Router])
     ], ShareComponent);
     return ShareComponent;
 }());
