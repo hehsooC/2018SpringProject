@@ -15,7 +15,7 @@ export class FitService {
   Me: User;
   Model: Fit;
   TotalTime: number;
-  Share: People[];
+  //Share: People[];
   
 
   constructor(private http: Http, 
@@ -149,28 +149,24 @@ export class FitService {
     getUserList(name: string){
       this.http.get(this._api + '/exercise/people', { params: {name: name}})
       .subscribe(data => {
-       // this.Me = data.json();
-        this.Share = data.json();
-       this.Me.EachShare = data.json();
-       
-        console.log('share----');
-        console.log(this.Share);
-        console.log('name ' + name);
+        //this.Share = data.json();
+        this.Me.EachShare = data.json();
+        // remove myself from the share list
         this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == name)), 1);
         
-        console.log('each share----');
-        console.log(this.Me.EachShare);
-        console.log('Me-----');
-        console.log(this.Me);
       })
     }
 
-    createLocalUser() {
-
-    }
-
-    shareLog(name: string){
-
+    // Share request?
+    friendRequest(name: string){
+      this.http.get(this._api + '/exercise/request', {params: {}})
+      .subscribe(data => {
+        // click the share button
+        // send name
+        // find user by name
+        // send my data to a selected user
+        // 
+      })
     }
   
 

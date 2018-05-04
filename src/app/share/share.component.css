@@ -22,9 +22,13 @@ ul{
     margin-top: 2px;
     margin-bottom: 5px;
 
-    color: white;
+    
+    
+}
+.btn-color{
     background-color: #F4C3D8;
     border: none;
+    color: white;
 }
 .subtitle{
     font-size: 15px;

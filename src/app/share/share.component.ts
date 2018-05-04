@@ -11,15 +11,19 @@ import { Router } from '@angular/router';
 export class ShareComponent implements OnInit {
   
   Me: User;
-  Share: People[];
+  clicked: boolean = false;
+  accept: boolean = false;
+  //Share: People[];
 
   constructor(private _Fit: FitService, private _Router: Router) { 
     this.Me = _Fit.Me;
-    this.Share = _Fit.Share;
+    //this.Share = _Fit.Share;
     
+    // if there user is not logged in or not signed up, direct user to login.
     if(!this.Me){
       _Router.navigate(['/login']);
     } 
+    // every time user goes to Share, other users will be updated and displayed in share list.
     if(this.Me)
       this.createShareList(this.Me.Name)
 
@@ -29,15 +33,20 @@ export class ShareComponent implements OnInit {
   }
 
 
+  // create other users list to share
   createShareList(name: string){
     console.log('_component_creating sharelist');
     this._Fit.getUserList(name);
   }
 
 
-  shareWorkout(name: string){
-    this._Fit.shareLog(name);
+  friendRequest(e: MouseEvent, name: string){
+    this._Fit.friendRequest(name);
+    this.clicked = !this.clicked;
   }
- // IsUserMe = () => this.Share.find(x=>x.Name == this.Me.Name);
+
+  acceptFriend(){
+
+  }
 
 }

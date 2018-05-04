@@ -9,7 +9,9 @@
           <div class="card-body">
             <ul class="list-group-item list-group-flush list" *ngFor =" let users of Me.EachShare">
                 <li  >UserName: {{users.Name}}
-                  <button class="btn btn-sm d-flex justify-content-end" (click) = "shareWorkout(users.Name)"> Share </button>
+                  <button class="btn btn-color btn-sm d-flex justify-content-end" (click) = "friendRequest($event, users.Name)" *ngIf = "!clicked"> Request Friend </button>
+                  <button class="btn btn-sm btn-light d-flex justify-content-end" disabled *ngIf = "clicked"> Requested </button>
+
                 </li>
     
             </ul>
@@ -20,14 +22,32 @@
   <!-- Selected Users' workout summary -->
   <div class="col">
     <div class="card" >
-        <div class="card-header">
-          Other user's Workout Achievement
+      <div class="card-header">
+        <div class="text-uppercase">
+          Friends Request
         </div>
-        <ul class="list-group list-group-flush list">
-          <li>users name and workout summary will be here</li>
+      </div>
+      <div class="card-body">
+        <ul class="list-group-item list-group-flush list" *ngFor =" ">
+          <li >(this user)
+            <button class="btn btn-sm d-flex justify-content-end" (click) = "acceptFriend()" *ngIf = "!accept"> Accept </button>
+            <button class="btn btn-sm d-flex justify-content-end" disabled *ngIf = "accept"> Accepted </button>
+
+          </li>
         </ul>
+      </div>
     </div> 
   </div>
 
+  <div class="col">
+      <div class="card" >
+          <div class="card-header">
+            Other user's Workout Achievement
+          </div>
+          <ul class="list-group list-group-flush list">
+            <li>users name and workout summary will be here</li>
+          </ul>
+      </div> 
+    </div>
   
 </div>
