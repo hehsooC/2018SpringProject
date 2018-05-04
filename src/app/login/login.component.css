@@ -9,6 +9,8 @@
     margin-bottom: 5px;
 
     color: white;
+    background-color: #F4C3D8;
+    border: none;
 }
 
 ul{
@@ -37,10 +39,6 @@ form{
 }
 
 
-.btn{
-    background-color: #F4C3D8;
-    border: none;
-}
 .subtitle{
     font-size: 15px;
     margin: 1px;

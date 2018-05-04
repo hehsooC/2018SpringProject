@@ -32,19 +32,17 @@ export class FitComponent implements OnInit {
       _Router.navigate(['/login']);
     } 
     
+
    //this.Record = [];
 
-    //setInterval(()=> this.refresh(), 1000)
   } 
 
   ngOnInit() {
   }
-/* 
-  refresh(){
-    this.http.get(this._api + "/state")
-        .subscribe(data=> this.Model = data.json())
-  }
- */
+
+ 
+
+
   submitWorkout(e: MouseEvent, text: string){
     e.preventDefault();
     this._Fit.chooseExercise(text);

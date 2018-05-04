@@ -55,6 +55,7 @@ function Fit() {
             }  
         } 
        
+        // Add each user's profile
         this.ProfileAdd = (age, weight, height, goalWeight, bmi, goalBmi, name) =>{
             if(this.Person.find(x => x.Name == name)){
                 var userProfile = this.Person.find(x => x.Name == name).Profile = {Age: age, Weight: weight, Height: height, 
@@ -63,9 +64,11 @@ function Fit() {
             }  
         }
 
+        // push the list of planned workout to the PlanExercise.
         this.PlanWorkout = (name, text) => {
-            console.log('plan workout - model');
 
+            // Find user, and if a user exists, 
+            //find if there is selected workout list in the PlanExercise, if doesn't exist, push the list
             if(this.Person.find(x => x.Name == name)){
                 var user = this.Person.find(x => x.Name == name);
 
@@ -116,12 +119,18 @@ function Fit() {
 
         }
 
-        this.giveUserList = () => {
+        this.giveUserList = (name) => {
             console.log('_server_give user list');
-            this.Share = this.Person;
-            // this.Share.splice(this.Person.indexOf(this.Person.Name), 1);
+            if(!this.Share.find(x => x.Name == name)){
+                this.Share.push({Name: name});
+                return this.Share;
 
-            return this.Share;
+            }
+            else{
+                return this.Share;
+            }
+            /* if(!user)
+                user.Share.push(this.Person.Name); */
         }
     
             

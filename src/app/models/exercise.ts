@@ -29,19 +29,12 @@ export class User {
     DoneExerciseList: Done[] = [];
     Record: Done[] = [];
     TotalSetTime: number;
-
+    EachShare: People[] = [];
     
 }
 
 export class People {
     Name: string;
-    Password: string;
-    Profile: Info;
-    PlanExercise: Exercise[] = [];
-    DoneExerciseList: Done[] = [];
-    Record: Done[] = [];
-    TotalSetTime: number;
-
     
 }
 

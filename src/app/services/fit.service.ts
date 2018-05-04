@@ -15,7 +15,8 @@ export class FitService {
   Me: User;
   Model: Fit;
   TotalTime: number;
-  Share: People;
+  Share: People[];
+  
 
   constructor(private http: Http, 
               private _Messages: MessagesService, 
@@ -36,13 +37,19 @@ export class FitService {
                    "Gentle Yoga",
                    "Push Up"
                    ];
+    // setInterval(()=> this.refresh(), 1000)
                 
 
   }
 
+/*   refresh(){
+    this.http.get(this._api + "/state")
+        .subscribe(data=> this.Model = data.json())
+  } */
+
   signUp(name: string, password: string){
     this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
-    PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0};
+    PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: []};
     this.http.get(this._api + "/exercise", { params : { name: name, password: password } })
     .subscribe(data=> {
       if(!data.json()){
@@ -50,20 +57,21 @@ export class FitService {
         alert("User Name is taken, please try different name");
         return;
       }
+      //this.getUserList();
       this._Router.navigate(['/profile']);
     })
      
       
     }
 
-    oAuthLogin(name: string, token: string, pic: string){
-     /*  this.Me = { Name: name };
-      this.pic = pic;
-      this.token = token; */
+    /* oAuthLogin(name: string, token: string, pic: string){
+      // this.Me = { Name: name };
+      // this.pic = pic;
+      // this.token = token; 
       this.Me = {Name: name, Password: null, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
       PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0};
       this._Router.navigate(['/fit']);
-    }
+    } */
   
     
   login(name: string, password: string){
@@ -94,6 +102,7 @@ export class FitService {
     
   }
 
+  // post planned workout list to the server
   chooseExercise(text: string){
     this.http.post(this._api + "/exercise/choose", {name: this.Me.Name, Text: text})
               .subscribe(data => {
@@ -105,12 +114,17 @@ export class FitService {
 
   }
   
+
+  // set the selected workout list to the server and make Chosen to true
     makeChosen(text: string){
       this.http.post(this._api + "/exercise/chosen", {name: this.Me.Name, text: text})
       .subscribe(data => {
         this.Me.PlanExercise = data.json();
       })
     }
+
+
+    // post selected workout to the server
     selectExercise(done){
 
       this.http.post(this._api + '/exercise/done', {name: this.Me.Name, list: done })
@@ -123,7 +137,7 @@ export class FitService {
     }
 
 
-
+    // post total workout time to the server
     getTotalTime(total){
       this.http.post(this._api + "/exercise/totaltime",{name: this.Me.Name, totalSet: total})
       .subscribe(data => {
@@ -131,13 +145,32 @@ export class FitService {
       })
     }
 
-    getUserList(){
-      this.http.get(this._api + '/exercise/people', { params: {}})
+    // get the list of other users from the server
+    getUserList(name: string){
+      this.http.get(this._api + '/exercise/people', { params: {name: name}})
       .subscribe(data => {
+       // this.Me = data.json();
         this.Share = data.json();
+       this.Me.EachShare = data.json();
+       
         console.log('share----');
-        console.log(data.json());
+        console.log(this.Share);
+        console.log('name ' + name);
+        this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == name)), 1);
+        
+        console.log('each share----');
+        console.log(this.Me.EachShare);
+        console.log('Me-----');
+        console.log(this.Me);
       })
+    }
+
+    createLocalUser() {
+
+    }
+
+    shareLog(name: string){
+
     }
   
 

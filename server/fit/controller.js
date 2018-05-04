@@ -16,7 +16,7 @@ module.exports = app
     })
 
     .get('/exercise/people', (req, res) => {
-        res.send(fit.giveUserList());
+        res.send(fit.giveUserList(req.query.name));
     })
     .post('/exercise/profile', (req, res) =>{
         console.log('send profile to server - controller');
@@ -26,8 +26,6 @@ module.exports = app
         res.send(profile);
     })
     .post('/exercise/choose', (req, res) =>{
-        console.log('send plan list to server - controller');
-        console.log('-controller PlanWorkokut-text is ' + req.body.Text + 'name is ' + req.body.name);
         var plan = fit.PlanWorkout(req.body.name, req.body.Text);
         res.send(plan);
     })

@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     this._Fit.login(name, password);
   }
 
-  googleLogin(){
+  /* googleLogin(){
     googleyolo.hint({
       supportedAuthMethods: [
         "https://accounts.google.com",
@@ -38,6 +38,6 @@ export class LoginComponent implements OnInit {
       this._Fit.oAuthLogin(credentials.displayName, credentials.idToken, credentials.profilePicture);
       console.log(credentials);
     })
-  }
+  } */
 
 }

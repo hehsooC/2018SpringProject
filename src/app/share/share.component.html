@@ -1,31 +1,33 @@
-<div clas="row justify-content-md-center">
-  <!-- You're sharing with.. -->
+<div class="row justify-content-md-center">
+  <!-- Choose a user to share workout log-->
+  <div class="col">
+      <div class="card" >
+          <div class="card-header">
+            <div class="text-uppercase">Users List</div>
+            <div class="subtitle"> Please choose a user you want to share your workout summary</div>
+          </div>
+          <div class="card-body">
+            <ul class="list-group-item list-group-flush list" *ngFor =" let users of Me.EachShare">
+                <li  >UserName: {{users.Name}}
+                  <button class="btn btn-sm d-flex justify-content-end" (click) = "shareWorkout(users.Name)"> Share </button>
+                </li>
+    
+            </ul>
+          </div>
+      </div> 
+    </div>
+
+  <!-- Selected Users' workout summary -->
   <div class="col">
     <div class="card" >
         <div class="card-header">
-          {{Me.Name}} Workout Achievement
+          Other user's Workout Achievement
         </div>
         <ul class="list-group list-group-flush list">
-          <li>{{Me.Name}}:</li>
+          <li>users name and workout summary will be here</li>
         </ul>
     </div> 
   </div>
 
-  <!-- who do you want to share?-->
-  <div class="col">
-    <div class="card" >
-        <div class="card-header">
-        User List
-        </div>
-        <ul class="list-group list-group-flush list">
-            <li>UserName:
-                <button 
-                class="btn btn-sm btn-warning">
-                    Share
-                </button>
-            </li>
-
-        </ul>
-    </div> 
-  </div>
+  
 </div>
