@@ -41,6 +41,10 @@ module.exports = app
         var time = fit.GetTotalTime(req.body.name, req.body.totalSet);
         res.send(time.toString());
     }) 
+    .post('/exercise/request', (req, res) => {
+        console.log('_controller_ send request');
+        fit.friendRequest(req.body.friend, req.body.name)
+    })
     
  
     

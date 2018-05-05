@@ -34,7 +34,7 @@ function Fit() {
                 return false;
             }else{
                 this.Person.push({ Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null},
-                    PlanExercise: [], DoneExerciseList: []});
+                    PlanExercise: [], DoneExerciseList: [], Notice: []});
                 return true;
             }
              
@@ -133,6 +133,19 @@ function Fit() {
                 user.Share.push(this.Person.Name); */
         }
     
+        this.friendRequest = (friend, name) => {
+            console.log('_model_ friend request');
+            var me = this.Person.find(x => x.Name == name);
+            var msg = me.Name + ' sent a friend request!'
+            var friendUser = this.Person.find(x => x.Name == friend);
+            console.log('me ' + me.Name);
+            console.log('friend ' + friendUser.Name);
+            
+            friendUser.Notice.push(msg);
+
+
+
+        }
             
 
 /*         this.GetData = (userId) => {   

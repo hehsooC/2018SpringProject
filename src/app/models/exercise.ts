@@ -30,7 +30,7 @@ export class User {
     Record: Done[] = [];
     TotalSetTime: number;
     EachShare: People[] = [];
-    
+    Notice: string[];
 }
 
 export class People {

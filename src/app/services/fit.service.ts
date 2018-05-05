@@ -49,7 +49,7 @@ export class FitService {
 
   signUp(name: string, password: string){
     this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
-    PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: []};
+    PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: []};
     this.http.get(this._api + "/exercise", { params : { name: name, password: password } })
     .subscribe(data=> {
       if(!data.json()){
@@ -157,16 +157,13 @@ export class FitService {
       })
     }
 
-    // Share request?
-    friendRequest(name: string){
-      this.http.get(this._api + '/exercise/request', {params: {}})
-      .subscribe(data => {
-        // click the share button
-        // send name
-        // find user by name
-        // send my data to a selected user
-        // 
-      })
+    // Send a request notice to a selected user
+    friendRequest(friendName: string){
+      console.log('_service_ friend name: ' + friendName);
+      console.log('_service_ your name: ' + this.Me.Name);
+
+      this.http.post(this._api + '/exercise/request', {friend: friendName, name: this.Me.Name})
+      .subscribe();
     }
   
 

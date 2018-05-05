@@ -40,12 +40,14 @@ export class ShareComponent implements OnInit {
   }
 
 
-  friendRequest(e: MouseEvent, name: string){
-    this._Fit.friendRequest(name);
+  friendRequest(e: MouseEvent, friendName: string){
+    console.log('friend name ' + friendName);
+    this._Fit.friendRequest(friendName);
     this.clicked = !this.clicked;
   }
 
   acceptFriend(){
+    
 
   }
 

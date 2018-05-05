@@ -25,7 +25,7 @@ export class SignUpComponent implements OnInit {
     newUser(name: string, password: string){
         this._Fit.signUp(name, password);
         console.log('Sign Up Yay');
-        //this._Messages.Messages.push('Successfully Signed Up! Welcome, ' + name + '!');
+       // this._Messages.Messages.push('Successfully Signed Up! Welcome, ' + name + '!');
     }
   
     
