@@ -3,22 +3,25 @@ import { Http } from "@angular/http";
 import { FitService } from '../services/fit.service';
 import {Fit, User, People } from '../models/exercise';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-share',
   templateUrl: './share.component.html',
   styleUrls: ['./share.component.css']
 })
+
 export class ShareComponent implements OnInit {
   
   Me: User;
   clicked: boolean = false;
   accept: boolean = false;
   popRequest: boolean = false;
-  //Share: People[];
+  FriendName: string;
+  interval: any;
+  
 
   constructor(private _Fit: FitService, private _Router: Router) { 
     this.Me = _Fit.Me;
-    //this.Share = _Fit.Share;
     
     // if there user is not logged in or not signed up, direct user to login.
     if(!this.Me){
@@ -30,45 +33,51 @@ export class ShareComponent implements OnInit {
 
     }
 
-    this.refreshList(this.Me.Name);
+    //this.refreshList();
     
    
 
   }
 
   ngOnInit() {
-  }
+    /* this.refreshList();
+    this.interval = setInterval(()=> {
+      this.refreshList();}, 1000); */
+    }
+    
+  
 
-  refreshList(name: string){
-    this._Fit.refreshList(name);
-  }
+  
+
+  /* refreshList(){
+    this._Fit.getUserList
+    // this._Fit.refreshList(name);
+  } */
   // create other users list to share
   createShareList(name: string){
     console.log('_component_creating sharelist');
-    this._Fit.getUserList(name);
+    this._Fit.getUserList();
     console.log('3333');
     console.log(this.Me);
   }
 
 
   friendRequest(e: MouseEvent, friendName: string){
-    console.log('friend name ' + friendName);
+    console.log('-===in friendRequest===friend name ' + friendName);
     this._Fit.friendRequest(friendName);
     this.clicked = !this.clicked;
-    // this.acceptFriend(friendName);
+
   }
 
-/*   acceptFriend(friendName){
-    console.log('link to alert _comp');
+  
 
-   
-      
-    
-  } */
-
-  requestBox(e: MouseEvent, friendName: string) {
+  requestBox(e: MouseEvent) {
+    // var friend = this._Fit.returnFriendName();
+    var friend = this.Me.Notice[0].Friend;
+    this.Me.Notice.unshift();
+    console.log('friend name** ' + friend);
     if (confirm("You have a friend request!")) {
-        this._Fit.addFriendList(friendName);
+        this._Fit.addFriendList(friend);
     } else {
         // dismiss request
     }

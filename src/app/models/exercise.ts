@@ -38,6 +38,7 @@ export class People {
 
 export class Friend{
     Name: string;
+    Friend: string;
     Msg: string;
 }
 

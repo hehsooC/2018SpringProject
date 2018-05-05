@@ -248,16 +248,9 @@ var FitComponent = /** @class */ (function () {
             _Router.navigate(['/login']);
         }
         //this.Record = [];
-        //setInterval(()=> this.refresh(), 1000)
     }
     FitComponent.prototype.ngOnInit = function () {
     };
-    /*
-      refresh(){
-        this.http.get(this._api + "/state")
-            .subscribe(data=> this.Model = data.json())
-      }
-     */
     FitComponent.prototype.submitWorkout = function (e, text) {
         e.preventDefault();
         this._Fit.chooseExercise(text);
@@ -374,7 +367,7 @@ exports.HomeComponent = HomeComponent;
 /***/ "./src/app/login/login.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".login-form{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    \n}\n\n.btn{\n    margin-top: 2px;\n    margin-bottom: 5px;\n\n    color: white;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\nform{\n    padding: 1rem;\n}\n\n.btn{\n    background-color: #F4C3D8;\n    border: none;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    font-weight: 300;\n    \n}\n\n.text-uppercase{\n    font-size: 12px;\n    color: white;\n}\n\n.title{\n    font-size: 20px;\n    \n    padding: 0.4rem 0.4rem;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    color: #7CACEA;\n}\n\n.selected{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}\n\n.btn-margin{\n    margin-left:98px;\n    margin-top: 0px;\n\n}"
+module.exports = ".login-form{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    \n}\n\n.btn{\n    margin-top: 2px;\n    margin-bottom: 5px;\n\n    color: white;\n    background-color: #F4C3D8;\n    border: none;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\nform{\n    padding: 1rem;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    font-weight: 300;\n    \n}\n\n.text-uppercase{\n    font-size: 12px;\n    color: white;\n}\n\n.title{\n    font-size: 20px;\n    \n    padding: 0.4rem 0.4rem;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    color: #7CACEA;\n}\n\n.selected{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}\n\n.btn-margin{\n    margin-left:98px;\n    margin-top: 0px;\n\n}"
 
 /***/ }),
 
@@ -414,23 +407,6 @@ var LoginComponent = /** @class */ (function () {
     };
     LoginComponent.prototype.login = function (name, password) {
         this._Fit.login(name, password);
-    };
-    LoginComponent.prototype.googleLogin = function () {
-        var _this = this;
-        googleyolo.hint({
-            supportedAuthMethods: [
-                "https://accounts.google.com",
-            ],
-            supportedIdTokenProviders: [
-                {
-                    uri: "https://accounts.google.com",
-                    clientId: "224672501632-b59a192aifnt8s107nllt1kdognsjejv.apps.googleusercontent.com"
-                }
-            ]
-        }).then(function (credentials) {
-            _this._Fit.oAuthLogin(credentials.displayName, credentials.idToken, credentials.profilePicture);
-            console.log(credentials);
-        });
     };
     LoginComponent = __decorate([
         core_1.Component({
@@ -512,8 +488,8 @@ var Fit = /** @class */ (function () {
     function Fit() {
         this.Person = [];
         //ExerciseList: string[] = [];
-        //Record: Track[] = [];
         this.Share = [];
+        // Request: Friend[];
         /** Need to find health info database api
         HealthInfo: {
             url: string;
@@ -523,28 +499,29 @@ var Fit = /** @class */ (function () {
     return Fit;
 }());
 exports.Fit = Fit;
-/* export class Different{
-    Name: string;
-}
- */
 var User = /** @class */ (function () {
     function User() {
         this.PlanExercise = [];
         this.DoneExerciseList = [];
         this.Record = [];
+        this.EachShare = [];
+        this.FriendList = [];
     }
     return User;
 }());
 exports.User = User;
 var People = /** @class */ (function () {
     function People() {
-        this.PlanExercise = [];
-        this.DoneExerciseList = [];
-        this.Record = [];
     }
     return People;
 }());
 exports.People = People;
+var Friend = /** @class */ (function () {
+    function Friend() {
+    }
+    return Friend;
+}());
+exports.Friend = Friend;
 var Exercise = /** @class */ (function () {
     function Exercise() {
         this.Chosen = false;
@@ -697,12 +674,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
-var messages_service_1 = __webpack_require__("./src/app/services/messages.service.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+//import { DefaultUrlHandlingStrategy } from '@angular/router/src/url_handling_strategy';
 var FitService = /** @class */ (function () {
-    function FitService(http, _Messages, _Router) {
+    //Share: People[];
+    ///Request: Friend;
+    function FitService(http, _Router) {
         this.http = http;
-        this._Messages = _Messages;
         this._Router = _Router;
         this._api = "http://localhost:8080/fit";
         this.ExerciseStack = [];
@@ -721,11 +699,16 @@ var FitService = /** @class */ (function () {
             "Gentle Yoga",
             "Push Up"
         ];
+        //   setInterval(()=> this.refresh(), 1000)
     }
+    /*  refresh(){
+       this.http.get(this._api + "/state")
+           .subscribe(data=> this.Model = data.json())
+     } */
     FitService.prototype.signUp = function (name, password) {
         var _this = this;
         this.Me = { Name: name, Password: password, Profile: { Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null },
-            PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0 };
+            PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [] };
         this.http.get(this._api + "/exercise", { params: { name: name, password: password } })
             .subscribe(function (data) {
             if (!data.json()) {
@@ -733,17 +716,18 @@ var FitService = /** @class */ (function () {
                 alert("User Name is taken, please try different name");
                 return;
             }
+            //this.getUserList();
             _this._Router.navigate(['/profile']);
         });
     };
-    FitService.prototype.oAuthLogin = function (name, token, pic) {
-        /*  this.Me = { Name: name };
-         this.pic = pic;
-         this.token = token; */
-        this.Me = { Name: name, Password: null, Profile: { Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null },
-            PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0 };
-        this._Router.navigate(['/fit']);
-    };
+    /* oAuthLogin(name: string, token: string, pic: string){
+      // this.Me = { Name: name };
+      // this.pic = pic;
+      // this.token = token;
+      this.Me = {Name: name, Password: null, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null },
+      PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0};
+      this._Router.navigate(['/fit']);
+    } */
     FitService.prototype.login = function (name, password) {
         var _this = this;
         this.http.get(this._api + "/exercise/login", { params: { name: name, password: password } })
@@ -767,6 +751,7 @@ var FitService = /** @class */ (function () {
         });
         this._Router.navigate(['/fit']);
     };
+    // post planned workout list to the server
     FitService.prototype.chooseExercise = function (text) {
         var _this = this;
         this.http.post(this._api + "/exercise/choose", { name: this.Me.Name, Text: text })
@@ -777,6 +762,7 @@ var FitService = /** @class */ (function () {
             _this.Me.PlanExercise = data.json();
         });
     };
+    // set the selected workout list to the server and make Chosen to true
     FitService.prototype.makeChosen = function (text) {
         var _this = this;
         this.http.post(this._api + "/exercise/chosen", { name: this.Me.Name, text: text })
@@ -784,6 +770,7 @@ var FitService = /** @class */ (function () {
             _this.Me.PlanExercise = data.json();
         });
     };
+    // post selected workout to the server
     FitService.prototype.selectExercise = function (done) {
         this.http.post(this._api + '/exercise/done', { name: this.Me.Name, list: done })
             .subscribe(function (data) {
@@ -793,6 +780,7 @@ var FitService = /** @class */ (function () {
             }
         });
     };
+    // post total workout time to the server
     FitService.prototype.getTotalTime = function (total) {
         var _this = this;
         this.http.post(this._api + "/exercise/totaltime", { name: this.Me.Name, totalSet: total })
@@ -800,19 +788,47 @@ var FitService = /** @class */ (function () {
             _this.Me.TotalSetTime = Number(data.json());
         });
     };
-    FitService.prototype.getUserList = function () {
+    // get the list of other users from the server
+    FitService.prototype.getUserList = function (name) {
         var _this = this;
-        this.http.get(this._api + '/exercise/people', { params: {} })
+        this.http.get(this._api + '/exercise/people', { params: { name: name } })
             .subscribe(function (data) {
-            _this.Share = data.json();
-            console.log('share----');
-            console.log(data.json());
+            //this.Share = data.json();
+            _this.Me.EachShare = data.json();
+            // remove myself from the share list
+            _this.Me.EachShare.splice(_this.Me.EachShare.indexOf(_this.Me.EachShare.find(function (x) { return x.Name == name; })), 1);
+        });
+    };
+    // Send a request notice to a selected user
+    FitService.prototype.friendRequest = function (friendName) {
+        this.http.post(this._api + '/exercise/request', { friend: friendName, name: this.Me.Name })
+            .subscribe(function (data) {
+            /*    console.log('data.json() for friend');
+               console.log(data.json().Name);
+               console.log('###FriendName from server');
+               this.FriendName = data.json().Name;
+               console.log(this.FriendName); */
+        });
+    };
+    FitService.prototype.addFriendList = function (friendName) {
+        var _this = this;
+        this.http.post(this._api + '/exercise/addFriend', { name: this.Me.Name, friend: friendName })
+            .subscribe(function (data) {
+            _this.Me.FriendList = data.json();
+            console.log('FriendList ---');
+            console.log(_this.Me.FriendList);
+        });
+    };
+    FitService.prototype.refreshList = function (name) {
+        var _this = this;
+        this.http.get(this._api + '/exercise/refreshUser', { params: { name: this.Me.Name } })
+            .subscribe(function (data) {
+            _this.Me = data.json();
         });
     };
     FitService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http,
-            messages_service_1.MessagesService,
             router_1.Router])
     ], FitService);
     return FitService;
@@ -838,14 +854,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var MessagesService = /** @class */ (function () {
-    function MessagesService() {
+    function MessagesService(_Fit) {
+        this._Fit = _Fit;
         this.Messages = [];
         this.Messages = ['Complete your Profile before you begin to plan your workout.', 'You can choose your workout plan.'];
     }
     MessagesService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [fit_service_1.FitService])
     ], MessagesService);
     return MessagesService;
 }());
@@ -857,14 +875,14 @@ exports.MessagesService = MessagesService;
 /***/ "./src/app/share/share.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "ul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}"
+module.exports = "ul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.btn{\n    margin-top: 2px;\n    margin-bottom: 5px;\n\n    \n    \n}\n\n.btn-color{\n    background-color: #F4C3D8;\n    border: none;\n    color: white;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    margin-bottom: 10px;\n    font-weight: 300;\n    padding: 0.2rem;\n    \n}\n\n.text-uppercase-own{\n    font-size: 12px;\n    color: white;\n}"
 
 /***/ }),
 
 /***/ "./src/app/share/share.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div clas=\"row justify-content-md-center\">\n  <!-- You're sharing with.. -->\n  <div class=\"col\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          {{Me.Name}} Workout Achievement\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n          <li>{{Me.Name}}:</li>\n        </ul>\n    </div> \n  </div>\n\n  <!-- who do you want to share?-->\n  <div class=\"col\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n        User List\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n            <li>UserName:\n                <button \n                class=\"btn btn-sm btn-warning\">\n                    Share\n                </button>\n            </li>\n\n        </ul>\n    </div> \n  </div>\n</div>"
+module.exports = "<div class=\"row justify-content-md-center\">\n  <!-- Choose a user to share workout log-->\n  <div class=\"col\">\n      <div class=\"card\" >\n          <div class=\"card-header\">\n            <div class=\"text-uppercase\">Users List</div>\n            <div class=\"subtitle\"> Please choose a user you want to share your workout summary</div>\n          </div>\n          <div class=\"card-body\">\n            <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n                <li  >UserName: {{users.Name}}\n                  <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" *ngIf = \"!clicked\"> Request Friend </button>\n                  <button class=\"btn btn-sm btn-light d-flex justify-content-end\" disabled *ngIf = \"clicked\"> Requested </button>\n                </li>\n    \n            </ul>\n          </div>\n      </div> \n    </div>\n\n\n      <div class=\"col\" >\n        <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n        <button   class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event)\">You Have a Friend Request</button>\n      </div>\n\n    \n\n  <div class=\"col\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n          <li>users name and workout summary will be here</li>\n        </ul>\n    </div> \n  </div>\n\n    \n  <div class=\"col\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div>\n      <div class=\"card-body\">\n        <ng-template >\n        <ul class=\"list-group-item list-group-flush list\">\n          <li >(this user)\n            <button class=\"btn btn-sm d-flex justify-content-end\" (click) = \"acceptFriend()\" [ngIf] = \"!accept\"> Share </button>\n            <button class=\"btn btn-sm d-flex justify-content-end\" disabled [ngIf] = \"accept\"> {{friend.Name}}  </button>\n\n          </li>\n        </ul>\n      </ng-template>\n      </div>\n    </div> \n  </div> \n</div>\n\n\n"
 
 /***/ }),
 
@@ -887,20 +905,63 @@ var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var ShareComponent = /** @class */ (function () {
+    //Share: People[];
     function ShareComponent(_Fit, _Router) {
         this._Fit = _Fit;
         this._Router = _Router;
+        this.clicked = false;
+        this.accept = false;
+        this.popRequest = false;
         this.Me = _Fit.Me;
+        //this.Share = _Fit.Share;
+        // if there user is not logged in or not signed up, direct user to login.
         if (!this.Me) {
             _Router.navigate(['/login']);
         }
-        this.createShareList();
+        // every time user goes to Share, other users will be updated and displayed in share list.
+        if (this.Me) {
+            this.createShareList(this.Me.Name);
+        }
+        this.refreshList(this.Me.Name);
     }
     ShareComponent.prototype.ngOnInit = function () {
     };
-    ShareComponent.prototype.createShareList = function () {
+    ShareComponent.prototype.refreshList = function (name) {
+        this._Fit.refreshList(name);
+    };
+    // create other users list to share
+    ShareComponent.prototype.createShareList = function (name) {
         console.log('_component_creating sharelist');
-        this._Fit.getUserList();
+        this._Fit.getUserList(name);
+        console.log('3333');
+        console.log(this.Me);
+    };
+    ShareComponent.prototype.friendRequest = function (e, friendName) {
+        console.log('-===in friendRequest===friend name ' + friendName);
+        this._Fit.friendRequest(friendName);
+        this.clicked = !this.clicked;
+        // this.acceptFriend(friendName);
+    };
+    /*   acceptFriend(friendName){
+        console.log('link to alert _comp');
+    
+       
+          
+        
+      } */
+    // need to put friends name somehow... how to track friend name?????
+    // need to create a different pop up alert - material???
+    ShareComponent.prototype.requestBox = function (e) {
+        // var friend = this._Fit.returnFriendName();
+        var friend = this.Me.Notice[0].Friend;
+        this.Me.Notice.unshift();
+        console.log('friend name** ' + friend);
+        if (confirm("You have a friend request!")) {
+            this._Fit.addFriendList(friend);
+        }
+        else {
+            // dismiss request
+        }
     };
     ShareComponent = __decorate([
         core_1.Component({
@@ -961,7 +1022,7 @@ var SignUpComponent = /** @class */ (function () {
     SignUpComponent.prototype.newUser = function (name, password) {
         this._Fit.signUp(name, password);
         console.log('Sign Up Yay');
-        //this._Messages.Messages.push('Successfully Signed Up! Welcome, ' + name + '!');
+        // this._Messages.Messages.push('Successfully Signed Up! Welcome, ' + name + '!');
     };
     SignUpComponent = __decorate([
         core_1.Component({

@@ -18,13 +18,11 @@
       </div> 
     </div>
 
-    <ng-container>
 
       <div class="col" >
         <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
         <button   class="btn btn-warning"  *ngIf="Me.Requested" (click)="requestBox($event)">You Have a Friend Request</button>
       </div>
-    </ng-container>
 
     
 
@@ -48,13 +46,15 @@
         </div>
       </div>
       <div class="card-body">
-        <ul class="list-group-item list-group-flush list" *ngFor =" ">
+        <ng-template >
+        <ul class="list-group-item list-group-flush list">
           <li >(this user)
-            <button class="btn btn-sm d-flex justify-content-end" (click) = "acceptFriend()" *ngIf = "!accept"> Accept </button>
-            <button class="btn btn-sm d-flex justify-content-end" disabled *ngIf = "accept"> Accepted </button>
+            <button class="btn btn-sm d-flex justify-content-end" (click) = "acceptFriend()" [ngIf] = "!accept"> Share </button>
+            <button class="btn btn-sm d-flex justify-content-end" disabled [ngIf] = "accept"> {{friend.Name}}  </button>
 
           </li>
         </ul>
+      </ng-template>
       </div>
     </div> 
   </div> 

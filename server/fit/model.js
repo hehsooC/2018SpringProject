@@ -139,11 +139,10 @@ function Fit() {
             var me = this.Person.find(x => x.Name == name);
             var msg = me.Name + ' sent a friend request!'
             var friendUser = this.Person.find(x => x.Name == friend);
-            
-            friendUser.Notice.push({Name: friend, Msg: msg});
+            friendUser.Notice.push({Name: friend, Friend: name, Msg: msg});
             friendUser.Requested = true;
 
-            
+            //return friendUser;
 
 
 
@@ -151,7 +150,14 @@ function Fit() {
         this.AddFriend = (name, friend) =>{
             console.log('AddFriend -model');
             var user = this.Person.find(x=> x.Name == name);
+            console.log('_model_** user ');
+            console.log(user);
+
+            var friendN = this.Person.find(x=> x.Name == friend);
             user.FriendList.push({Name: friend});
+            friendN.FriendList.push({Name: name});
+            user.Notice.splice(user.Notice.indexOf(name), 1);
+            return user.FriendList;
 
         }
 

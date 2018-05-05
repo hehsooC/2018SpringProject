@@ -45,11 +45,11 @@ module.exports = app
         res.send(time.toString());
     }) 
     .post('/exercise/request', (req,res) => {
-        fit.FriendRequest(req.body.friend, req.body.name);
+       res.send( fit.FriendRequest(req.body.friend, req.body.name));
     })
     .post('/exercise/addFriend', (req,res)=>{
         console.log('add friend_controller');
-        fit.AddFriend(req.body.name, req.body.friend);
+        res.send(fit.AddFriend(req.body.name, req.body.friend));
 
 
     })

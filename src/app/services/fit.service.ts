@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Fit, User, Info, Exercise, People, Friend } from '../models/exercise';
 import { Router } from '@angular/router';
-//import { DefaultUrlHandlingStrategy } from '@angular/router/src/url_handling_strategy';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class FitService {
@@ -14,8 +14,6 @@ export class FitService {
   Me: User;
   Model: Fit;
   TotalTime: number;
-  //Share: People[];
-  ///Request: Friend;
   
 
   constructor(private http: Http, 
@@ -36,16 +34,16 @@ export class FitService {
                    "Gentle Yoga",
                    "Push Up"
                    ];
-    setInterval(()=> this.refresh(), 1000)
+ //   setInterval(()=> this.refresh(), 1000)
     
                 
 
   }
 
-  refresh(){
+ /*  refresh(){
     this.http.get(this._api + "/state")
         .subscribe(data=> this.Model = data.json())
-  }
+  } */
 
   signUp(name: string, password: string){
     this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
@@ -146,13 +144,17 @@ export class FitService {
     }
 
     // get the list of other users from the server
-    getUserList(name: string){
-      this.http.get(this._api + '/exercise/people', { params: {name: name}})
+    getUserList(){
+      /* console.log('&&&name??');
+      console.log(name);
+      console.log('&&&this.Me.Name??');
+      console.log(this.Me.Name); */
+
+      this.http.get(this._api + '/exercise/people', { params: {name: this.Me.Name}})
       .subscribe(data => {
-        //this.Share = data.json();
         this.Me.EachShare = data.json();
         // remove myself from the share list
-        this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == name)), 1);
+        this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
         
       })
     }
@@ -161,15 +163,19 @@ export class FitService {
     friendRequest(friendName: string){
 
       this.http.post(this._api + '/exercise/request', {friend: friendName, name: this.Me.Name})
-      .subscribe(data=>{
-
-        console.log('###');
-      });
+      //.map((response:Response)=>response.json());
+      .subscribe();
 
     }
+
     addFriendList(friendName:string){
+      
       this.http.post(this._api+'/exercise/addFriend',{name: this.Me.Name, friend: friendName})
-      .subscribe();
+      .subscribe(data => {
+        this.Me.FriendList = data.json();
+        console.log('FriendList ---');
+        console.log(this.Me.FriendList);
+      });
       
     }
 
