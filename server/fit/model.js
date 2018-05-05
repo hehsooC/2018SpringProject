@@ -142,7 +142,7 @@ function Fit() {
             var me = this.Person.find(x => x.Name == name);
             var msg = me.Name + ' sent a friend request!'
             var friendUser = this.Person.find(x => x.Name == friend);
-            if(!friendUser.Notice.find(x=> x.Name == friend)){
+            if(!friendUser.Notice.find(x=> x.Name == friend) && !friendUser.FriendList.find(x=>x.Name == name)){
                 friendUser.Notice.push({Name: friend, Friend: name, Msg: msg});
                 friendUser.Requested = true;
             }
