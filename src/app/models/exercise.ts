@@ -33,6 +33,8 @@ export class User {
 
 export class People {
     Name: string;
+    FriendRequest: boolean;
+
     
 }
 

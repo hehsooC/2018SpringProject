@@ -1,4 +1,8 @@
 <div class="row justify-content-md-center">
+  <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
+  <button class="btn btn-warning"  *ngIf="Me.Requested" (click)="requestBox($event)">You Have a Friend Request</button>
+</div>
+<div class="row justify-content-md-center">
   <!-- Choose a user to share workout log-->
   <div class="col">
       <div class="card" >
@@ -9,22 +13,14 @@
           <div class="card-body">
             <ul class="list-group-item list-group-flush list" *ngFor =" let users of Me.EachShare">
                 <li  >User Name: {{users.Name}}
-                  <button class="btn btn-color btn-sm d-flex justify-content-end" (click) = "friendRequest($event, users.Name)" *ngIf = "!clicked"> Request Friend </button>
-                  <button class="btn btn-sm btn-light d-flex justify-content-end" disabled *ngIf = "clicked"> Requested </button>
+                  <button class="btn btn-color btn-sm d-flex justify-content-end" (click) = "friendRequest($event, users.Name)" *ngIf = "!users.Requested"> Request Friend </button>
+                  <button class="btn btn-sm btn-light d-flex justify-content-end" disabled *ngIf = "users.Requested"> Requested </button>
                 </li>
     
             </ul>
           </div>
       </div> 
     </div>
-
-
-      <div class="col" >
-        <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
-        <button   class="btn btn-warning"  *ngIf="Me.Requested" (click)="requestBox($event)">You Have a Friend Request</button>
-      </div>
-
-    
 
   <div class="col">
     <div class="card" >

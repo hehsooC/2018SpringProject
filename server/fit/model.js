@@ -121,7 +121,6 @@ function Fit() {
         }
 
         this.GiveUserList = (name) => {
-            console.log('_server_give user list');
             if(!this.Share.find(x => x.Name == name)){
                 this.Share.push({Name: name});
                 return this.Share;
@@ -130,12 +129,9 @@ function Fit() {
             else{
                 return this.Share;
             }
-            /* if(!user)
-                user.Share.push(this.Person.Name); */
         }
     
         this.GiveRequestState = (name) =>{
-            console.log('_model_ give state of user in share');
             var me = this.Person.find(x => x.Name == name);
 
             return me;
@@ -146,16 +142,24 @@ function Fit() {
             var me = this.Person.find(x => x.Name == name);
             var msg = me.Name + ' sent a friend request!'
             var friendUser = this.Person.find(x => x.Name == friend);
-            friendUser.Notice.push({Name: friend, Friend: name, Msg: msg});
-            friendUser.Requested = true;
-
-            //return friendUser;
+            if(!friendUser.Notice.find(x=> x.Name == friend)){
+                friendUser.Notice.push({Name: friend, Friend: name, Msg: msg});
+                friendUser.Requested = true;
+            }
+            else{
+                console.log('friend request already done!');
+                
+            }
+        /*     if(this.Share.find(x=>x.Name == friend)){
+                var index = this.Share.indexOf(friend);
+                this.Share[index] = ({Name: friend, FriendRequest: true});
+            }
+ */
 
 
 
         }
         this.AddFriend = (name, friend) =>{
-            console.log('AddFriend -model');
             var user = this.Person.find(x=> x.Name == name);
 
             var friendN = this.Person.find(x=> x.Name == friend);
@@ -166,13 +170,10 @@ function Fit() {
 
         }
 
-        this.RefreshUser= (name) =>{
-            console.log('user refreshed - model');
-            var user = this.Person.find(x=> x.Name == name);
-            return user;
-
+        this.ChangeRequested = ( name )=>{
+            var user = this.Person.find( x => x.Name == name);
+            user.Requested = false;
         }
-   
 
 
  

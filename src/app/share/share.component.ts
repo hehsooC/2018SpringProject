@@ -13,10 +13,6 @@ import { Router } from '@angular/router';
 export class ShareComponent implements OnInit {
   
   Me: User;
-  clicked: boolean = false;
-  accept: boolean = false;
-  popRequest: boolean = false;
-  FriendName: string;
   interval: any;
   
 
@@ -27,14 +23,13 @@ export class ShareComponent implements OnInit {
     if(!this.Me){
       _Router.navigate(['/login']);
     } 
+    setInterval(()=> this.refreshList(), 1000)
 
 
   }
 
   ngOnInit() {
-    this.refreshList();
-    this.interval = setInterval(()=> {
-      this.refreshList();}, 1000);
+
     }
     
   
@@ -53,15 +48,19 @@ export class ShareComponent implements OnInit {
       this.Me.EachShare = data;
       // remove myself from the share list
       this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
+      //console.log(this.Me.EachShare);
+
       
     });
   }
 
 
   friendRequest(e: MouseEvent, friendName: string){
-    console.log('-===in friendRequest===friend name ' + friendName);
     this._Fit.friendRequest(friendName);
-    this.clicked = !this.clicked;
+    /* console.log('friendName is ' + friendName);
+    console.log('###EachShare');
+    console.log(this.Me.EachShare); */
+    // this.Me.EachShare.find(x=> x.Name == friendName).FriendRequest = true;
 
   }
 
@@ -69,13 +68,15 @@ export class ShareComponent implements OnInit {
 
   requestBox(e: MouseEvent) {
     var friend = this.Me.Notice[0].Friend;
-    this.Me.Notice.unshift();
     console.log('friend name** ' + friend);
-    if (confirm("You have a friend request!")) {
+    if (confirm(this.Me.Notice.find(x=>x.Name == this.Me.Name).Msg + '\n Hit Ok to Accept or Cancel to Decline.')) {
         this._Fit.addFriendList(friend);
     } else {
         // dismiss request
     }
+    this.Me.Notice.unshift();
+    this._Fit.changeRequested(this.Me.Name);
+
 }
 
 }

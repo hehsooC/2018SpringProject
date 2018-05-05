@@ -145,20 +145,8 @@ export class FitService {
 
     // get the list of other users from the server
     getUserList(){
-      /* console.log('&&&name??');
-      console.log(name);
-      console.log('&&&this.Me.Name??');
-      console.log(this.Me.Name); */
-
       return this.http.get(this._api + '/exercise/people', { params: {name: this.Me.Name}})
             .map((response:Response)=>response.json());
-
-      /* .subscribe(data => {
-        this.Me.EachShare = data.json();
-        // remove myself from the share list
-        this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
-        
-      }) */
     }
 
     getRequestState(){
@@ -170,8 +158,8 @@ export class FitService {
     friendRequest(friendName: string){
 
       this.http.post(this._api + '/exercise/request', {friend: friendName, name: this.Me.Name})
-      //.map((response:Response)=>response.json());
       .subscribe();
+      
 
     }
 
@@ -186,14 +174,14 @@ export class FitService {
       
     }
 
+    changeRequested(name: string){
+      this.http.post(this._api + '/exercise/changeRequest', {name: name})
+      .subscribe();
 
-    refreshList(name: string){
-      this.http.get(this._api+'/exercise/refreshUser',{params: {name: this.Me.Name}})
-      .subscribe(data=>{
-        this.Me = data.json();
-      });
-
+      
     }
+
+
 
   
 

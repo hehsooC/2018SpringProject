@@ -18,14 +18,10 @@ module.exports = app
     .get('/exercise/people', (req, res) => {
         res.send(fit.GiveUserList(req.query.name));
     })
-    .get('/exercise/refreshUser', (req, res) => {
-        res.send(fit.RefreshUser(req.query.name));
-    })
     .get('/exercise/request/state', (req, res) => {
         res.send(fit.GiveRequestState(req.query.name));
     })
     .post('/exercise/profile', (req, res) =>{
-        console.log('send profile to server - controller');
         var profile = fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 
                         req.body.GoalWeight, req.body.BMI, req.body.GoalBMI, 
                         req.body.name);
@@ -39,11 +35,9 @@ module.exports = app
         res.send(fit.MakeChosen(req.body.name, req.body.text));
     })
     .post('/exercise/done', (req, res) => {
-        console.log('done exercise - controller - text is ' + req.body.text );
         res.send(fit.DoneExercise(req.body.name, req.body.list, req.body.total));
     })
     .post('/exercise/totaltime', (req, res) => {
-        console.log('give total time - controller');
         var time = fit.GetTotalTime(req.body.name, req.body.totalSet);
         res.send(time.toString());
     }) 
@@ -51,10 +45,12 @@ module.exports = app
        res.send( fit.FriendRequest(req.body.friend, req.body.name));
     })
     .post('/exercise/addFriend', (req,res)=>{
-        console.log('add friend_controller');
         res.send(fit.AddFriend(req.body.name, req.body.friend));
 
 
+    })
+    .post('/exercise/changeRequest', (req, res) => {
+        fit.ChangeRequested(req.body.name);
     })
     
  

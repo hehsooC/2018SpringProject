@@ -90,6 +90,7 @@ var login_component_1 = __webpack_require__("./src/app/login/login.component.ts"
 var sign_up_component_1 = __webpack_require__("./src/app/sign-up/sign-up.component.ts");
 var profile_component_1 = __webpack_require__("./src/app/profile/profile.component.ts");
 var edit_profile_component_1 = __webpack_require__("./src/app/edit-profile/edit-profile.component.ts");
+var history_component_1 = __webpack_require__("./src/app/history/history.component.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -105,7 +106,8 @@ var AppModule = /** @class */ (function () {
                 login_component_1.LoginComponent,
                 sign_up_component_1.SignUpComponent,
                 profile_component_1.ProfileComponent,
-                edit_profile_component_1.EditProfileComponent
+                edit_profile_component_1.EditProfileComponent,
+                history_component_1.HistoryComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -118,6 +120,7 @@ var AppModule = /** @class */ (function () {
                     { path: 'sign-up', component: sign_up_component_1.SignUpComponent },
                     { path: 'profile', component: profile_component_1.ProfileComponent },
                     { path: 'editProfile', component: edit_profile_component_1.EditProfileComponent },
+                    { path: 'history', component: history_component_1.HistoryComponent },
                     { path: '', redirectTo: '/home', pathMatch: 'full' }
                 ])
             ],
@@ -298,6 +301,56 @@ var FitComponent = /** @class */ (function () {
     return FitComponent;
 }());
 exports.FitComponent = FitComponent;
+
+
+/***/ }),
+
+/***/ "./src/app/history/history.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/history/history.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  history works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/history/history.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var HistoryComponent = /** @class */ (function () {
+    function HistoryComponent() {
+    }
+    HistoryComponent.prototype.ngOnInit = function () {
+    };
+    HistoryComponent = __decorate([
+        core_1.Component({
+            selector: 'app-history',
+            template: __webpack_require__("./src/app/history/history.component.html"),
+            styles: [__webpack_require__("./src/app/history/history.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], HistoryComponent);
+    return HistoryComponent;
+}());
+exports.HistoryComponent = HistoryComponent;
 
 
 /***/ }),
@@ -555,7 +608,7 @@ module.exports = ".navbar {\n    padding: 0 1rem;\n    height: 120px;\n  }\n  \n
 /***/ "./src/app/nav/nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark nav-back\">\n  <div class=\"container\">\n    <div>\n        <a class=\"navbar-brand\" routerLink=\"/fit\">Fitness Tracker</a>\n    </div>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse navbar-nav\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\" >Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/editProfile\" routerLinkActive=\"active\" >Profile</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\" >Fitness</a>\n        </li>\n  \n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">Share</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">History</a>\n        </li>\n\n      </ul>\n    </div>\n\n    <div class=\"d-flex justify-content-end\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item \">\n          <a class=\"nav-link\" routerLink=\"/sign-up\" routerLinkActive=\"active\">Sign Up</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Sign In</a>\n        </li>\n      </ul>\n    </div>\n  </div><!-- navbar container -->\n</nav><!-- nav bar -->\n"
+module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark nav-back\">\n  <div class=\"container\">\n    <div>\n        <a class=\"navbar-brand\" routerLink=\"/fit\">Fitness Tracker</a>\n    </div>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse navbar-nav\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\" >Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/editProfile\" routerLinkActive=\"active\" >Profile</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\" >Fitness</a>\n        </li>\n  \n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">Share</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/history\" routerLinkActive=\"active\">History</a>\n        </li>\n\n      </ul>\n    </div>\n\n    <div class=\"d-flex justify-content-end\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item \">\n          <a class=\"nav-link\" routerLink=\"/sign-up\" routerLinkActive=\"active\">Sign Up</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Sign In</a>\n        </li>\n      </ul>\n    </div>\n  </div><!-- navbar container -->\n</nav><!-- nav bar -->\n"
 
 /***/ }),
 
@@ -788,18 +841,8 @@ var FitService = /** @class */ (function () {
     };
     // get the list of other users from the server
     FitService.prototype.getUserList = function () {
-        /* console.log('&&&name??');
-        console.log(name);
-        console.log('&&&this.Me.Name??');
-        console.log(this.Me.Name); */
         return this.http.get(this._api + '/exercise/people', { params: { name: this.Me.Name } })
             .map(function (response) { return response.json(); });
-        /* .subscribe(data => {
-          this.Me.EachShare = data.json();
-          // remove myself from the share list
-          this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
-          
-        }) */
     };
     FitService.prototype.getRequestState = function () {
         return this.http.get(this._api + '/exercise/request/state', { params: { name: this.Me.Name } })
@@ -819,12 +862,9 @@ var FitService = /** @class */ (function () {
             console.log(_this.Me.FriendList);
         });
     };
-    FitService.prototype.refreshList = function (name) {
-        var _this = this;
-        this.http.get(this._api + '/exercise/refreshUser', { params: { name: this.Me.Name } })
-            .subscribe(function (data) {
-            _this.Me = data.json();
-        });
+    FitService.prototype.changeRequested = function (name) {
+        this.http.post(this._api + '/exercise/changeRequest', { name: name })
+            .subscribe();
     };
     FitService = __decorate([
         core_1.Injectable(),
@@ -882,7 +922,7 @@ module.exports = "ul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card
 /***/ "./src/app/share/share.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\">\n  <!-- Choose a user to share workout log-->\n  <div class=\"col\">\n      <div class=\"card\" >\n          <div class=\"card-header\">\n            <div class=\"text-uppercase\">Users List</div>\n            <div class=\"subtitle\"> Please choose a user you want to share your workout summary</div>\n          </div>\n          <div class=\"card-body\">\n            <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n                <li  >User Name: {{users.Name}}\n                  <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" *ngIf = \"!clicked\"> Request Friend </button>\n                  <button class=\"btn btn-sm btn-light d-flex justify-content-end\" disabled *ngIf = \"clicked\"> Requested </button>\n                </li>\n    \n            </ul>\n          </div>\n      </div> \n    </div>\n\n\n      <div class=\"col\" >\n        <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n        <button   class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event)\">You Have a Friend Request</button>\n      </div>\n\n    \n\n  <div class=\"col\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n          <li>users name and workout summary will be here</li>\n        </ul>\n    </div> \n  </div>\n\n    \n  <div class=\"col\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div>\n      <div class=\"card-body\">\n        <ng-template >\n        <ul class=\"list-group-item list-group-flush list\">\n          <li >(this user)\n            <button class=\"btn btn-sm d-flex justify-content-end\" (click) = \"acceptFriend()\" [ngIf] = \"!accept\"> Share </button>\n            <button class=\"btn btn-sm d-flex justify-content-end\" disabled [ngIf] = \"accept\"> {{friend.Name}}  </button>\n\n          </li>\n        </ul>\n      </ng-template>\n      </div>\n    </div> \n  </div> \n</div>\n\n\n"
+module.exports = "<div class=\"row justify-content-md-center\">\n  <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n  <button class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event)\">You Have a Friend Request</button>\n</div>\n<div class=\"row justify-content-md-center\">\n  <!-- Choose a user to share workout log-->\n  <div class=\"col\">\n      <div class=\"card\" >\n          <div class=\"card-header\">\n            <div class=\"text-uppercase\">Users List</div>\n            <div class=\"subtitle\"> Please choose a user you want to share your workout summary</div>\n          </div>\n          <div class=\"card-body\">\n            <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n                <li  >User Name: {{users.Name}}\n                  <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" *ngIf = \"!users.Requested\"> Request Friend </button>\n                  <button class=\"btn btn-sm btn-light d-flex justify-content-end\" disabled *ngIf = \"users.Requested\"> Requested </button>\n                </li>\n    \n            </ul>\n          </div>\n      </div> \n    </div>\n\n  <div class=\"col\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n          <li>users name and workout summary will be here</li>\n        </ul>\n    </div> \n  </div>\n\n    \n  <div class=\"col\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div>\n      <div class=\"card-body\">\n        <ng-template >\n        <ul class=\"list-group-item list-group-flush list\">\n          <li >(this user)\n            <button class=\"btn btn-sm d-flex justify-content-end\" (click) = \"acceptFriend()\" [ngIf] = \"!accept\"> Share </button>\n            <button class=\"btn btn-sm d-flex justify-content-end\" disabled [ngIf] = \"accept\"> {{friend.Name}}  </button>\n\n          </li>\n        </ul>\n      </ng-template>\n      </div>\n    </div> \n  </div> \n</div>\n\n\n"
 
 /***/ }),
 
@@ -906,23 +946,17 @@ var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var ShareComponent = /** @class */ (function () {
     function ShareComponent(_Fit, _Router) {
+        var _this = this;
         this._Fit = _Fit;
         this._Router = _Router;
-        this.clicked = false;
-        this.accept = false;
-        this.popRequest = false;
         this.Me = _Fit.Me;
         // if there user is not logged in or not signed up, direct user to login.
         if (!this.Me) {
             _Router.navigate(['/login']);
         }
+        setInterval(function () { return _this.refreshList(); }, 1000);
     }
     ShareComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.refreshList();
-        this.interval = setInterval(function () {
-            _this.refreshList();
-        }, 1000);
     };
     ShareComponent.prototype.refreshList = function () {
         var _this = this;
@@ -935,23 +969,28 @@ var ShareComponent = /** @class */ (function () {
             _this.Me.EachShare = data;
             // remove myself from the share list
             _this.Me.EachShare.splice(_this.Me.EachShare.indexOf(_this.Me.EachShare.find(function (x) { return x.Name == _this.Me.Name; })), 1);
+            //console.log(this.Me.EachShare);
         });
     };
     ShareComponent.prototype.friendRequest = function (e, friendName) {
-        console.log('-===in friendRequest===friend name ' + friendName);
         this._Fit.friendRequest(friendName);
-        this.clicked = !this.clicked;
+        /* console.log('friendName is ' + friendName);
+        console.log('###EachShare');
+        console.log(this.Me.EachShare); */
+        // this.Me.EachShare.find(x=> x.Name == friendName).FriendRequest = true;
     };
     ShareComponent.prototype.requestBox = function (e) {
+        var _this = this;
         var friend = this.Me.Notice[0].Friend;
-        this.Me.Notice.unshift();
         console.log('friend name** ' + friend);
-        if (confirm("You have a friend request!")) {
+        if (confirm(this.Me.Notice.find(function (x) { return x.Name == _this.Me.Name; }).Msg + '\n Hit Ok to Accept or Cancel to Decline.')) {
             this._Fit.addFriendList(friend);
         }
         else {
             // dismiss request
         }
+        this.Me.Notice.unshift();
+        this._Fit.changeRequested(this.Me.Name);
     };
     ShareComponent = __decorate([
         core_1.Component({
