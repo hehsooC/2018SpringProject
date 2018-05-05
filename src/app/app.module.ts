@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { HistoryComponent } from './history/history.component';
 
 
 
@@ -29,7 +30,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     LoginComponent,
     SignUpComponent,
     ProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
         { path: 'sign-up', component: SignUpComponent },
         { path: 'profile', component: ProfileComponent },
         { path: 'editProfile', component: EditProfileComponent },
+        { path: 'history', component: HistoryComponent },
         { path: '', redirectTo: '/home', pathMatch: 'full'}
 
     ])
