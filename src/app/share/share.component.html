@@ -42,15 +42,12 @@
         </div>
       </div>
       <div class="card-body">
-        <ng-template >
-        <ul class="list-group-item list-group-flush list">
-          <li >(this user)
-            <button class="btn btn-sm d-flex justify-content-end" (click) = "acceptFriend()" [ngIf] = "!accept"> Share </button>
-            <button class="btn btn-sm d-flex justify-content-end" disabled [ngIf] = "accept"> {{friend.Name}}  </button>
+        <ul class="list-group-item list-group-flush list" *ngFor = "let friend of Me.FriendList">
+          <li > {{friend.Name}}
+            <button class="btn btn-sm d-flex justify-content-end" (click) = "acceptFriend()"> Share </button>
 
           </li>
         </ul>
-      </ng-template>
       </div>
     </div> 
   </div> 

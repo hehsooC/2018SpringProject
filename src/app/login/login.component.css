@@ -70,7 +70,9 @@ form{
     margin-left: 10px;
 }
 .btn-margin{
-    margin-left:98px;
-    margin-top: 0px;
-
+    margin:0px;
+}
+.col-sm-2{
+    margin: 2px;
+    padding: 0.2rem;
 }

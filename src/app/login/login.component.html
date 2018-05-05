@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-    <div class="card text-center" style="width: 20rem">
+    <div class="card text-center" style="width: 30rem">
         <div class="card-header">
             <div class="text-uppercase title">Please Sign In</div>
         </div>
@@ -12,25 +12,23 @@
         <div class="login-form" >
             <input #Name type ="text" placeholder ="User Name"/><br/>
             <input #Password type ="text" placeholder ="Password" />
-
-
         </div>
-        <div class="btn-margin">
-            <button class="btn" (click)="login(Name.value, Password.value)" >Sign In</button>
-            <button class="btn" (click)="googleLogin()" >Sign In with Google</button>
-
+    
+        <div class="row justify-content-center">
+            <div class="col-sm-2">
+                <button class=" btn btn-margin" (click)="login(Name.value, Password.value)" >Sign In</button>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-margin" (click)="googleLogin()" >Sign In with Google</button>
+            </div>
         </div>
-
-
- 
         <div class="card-link">
             <div class ="text-uppercase black">
                 New to Here?
             </div>
             
-            
-            <button class="btn btn-margin">
-                <div class="font-margin nav-link" routerLink="/sign-up" >
+            <button type="submit" class="btn">
+                <div class="nav-link" routerLink="/sign-up" >
                     Please Sign Up
                 </div> 
             </button>
