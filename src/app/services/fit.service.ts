@@ -150,15 +150,22 @@ export class FitService {
       console.log('&&&this.Me.Name??');
       console.log(this.Me.Name); */
 
-      this.http.get(this._api + '/exercise/people', { params: {name: this.Me.Name}})
-      .subscribe(data => {
+      return this.http.get(this._api + '/exercise/people', { params: {name: this.Me.Name}})
+            .map((response:Response)=>response.json());
+
+      /* .subscribe(data => {
         this.Me.EachShare = data.json();
         // remove myself from the share list
         this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
         
-      })
+      }) */
     }
 
+    getRequestState(){
+      return this.http.get(this._api + '/exercise/request/state', {params: {name: this.Me.Name}})
+            .map((response:Response)=>response.json());
+
+    }
     // Send a request notice to a selected user
     friendRequest(friendName: string){
 

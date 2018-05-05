@@ -21,6 +21,9 @@ module.exports = app
     .get('/exercise/refreshUser', (req, res) => {
         res.send(fit.RefreshUser(req.query.name));
     })
+    .get('/exercise/request/state', (req, res) => {
+        res.send(fit.GiveRequestState(req.query.name));
+    })
     .post('/exercise/profile', (req, res) =>{
         console.log('send profile to server - controller');
         var profile = fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 

@@ -27,38 +27,34 @@ export class ShareComponent implements OnInit {
     if(!this.Me){
       _Router.navigate(['/login']);
     } 
-    // every time user goes to Share, other users will be updated and displayed in share list.
-    if(this.Me){
-      this.createShareList(this.Me.Name)
 
-    }
-
-    //this.refreshList();
-    
-   
 
   }
 
   ngOnInit() {
-    /* this.refreshList();
+    this.refreshList();
     this.interval = setInterval(()=> {
-      this.refreshList();}, 1000); */
+      this.refreshList();}, 1000);
     }
     
   
 
   
 
-  /* refreshList(){
-    this._Fit.getUserList
-    // this._Fit.refreshList(name);
-  } */
-  // create other users list to share
-  createShareList(name: string){
-    console.log('_component_creating sharelist');
-    this._Fit.getUserList();
-    console.log('3333');
-    console.log(this.Me);
+  refreshList(){
+
+    // refresh user's data 
+    this._Fit.getRequestState().subscribe(data => {
+      this.Me = data;
+    });
+
+    // create other users list to share and refresh to update
+    this._Fit.getUserList().subscribe(data => {
+      this.Me.EachShare = data;
+      // remove myself from the share list
+      this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
+      
+    });
   }
 
 
@@ -72,7 +68,6 @@ export class ShareComponent implements OnInit {
   
 
   requestBox(e: MouseEvent) {
-    // var friend = this._Fit.returnFriendName();
     var friend = this.Me.Notice[0].Friend;
     this.Me.Notice.unshift();
     console.log('friend name** ' + friend);

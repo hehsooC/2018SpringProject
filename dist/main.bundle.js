@@ -675,10 +675,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
-//import { DefaultUrlHandlingStrategy } from '@angular/router/src/url_handling_strategy';
+__webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
 var FitService = /** @class */ (function () {
-    //Share: People[];
-    ///Request: Friend;
     function FitService(http, _Router) {
         this.http = http;
         this._Router = _Router;
@@ -789,26 +787,28 @@ var FitService = /** @class */ (function () {
         });
     };
     // get the list of other users from the server
-    FitService.prototype.getUserList = function (name) {
-        var _this = this;
-        this.http.get(this._api + '/exercise/people', { params: { name: name } })
-            .subscribe(function (data) {
-            //this.Share = data.json();
-            _this.Me.EachShare = data.json();
-            // remove myself from the share list
-            _this.Me.EachShare.splice(_this.Me.EachShare.indexOf(_this.Me.EachShare.find(function (x) { return x.Name == name; })), 1);
-        });
+    FitService.prototype.getUserList = function () {
+        /* console.log('&&&name??');
+        console.log(name);
+        console.log('&&&this.Me.Name??');
+        console.log(this.Me.Name); */
+        return this.http.get(this._api + '/exercise/people', { params: { name: this.Me.Name } })
+            .map(function (response) { return response.json(); });
+        /* .subscribe(data => {
+          this.Me.EachShare = data.json();
+          // remove myself from the share list
+          this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
+          
+        }) */
+    };
+    FitService.prototype.getRequestState = function () {
+        return this.http.get(this._api + '/exercise/request/state', { params: { name: this.Me.Name } })
+            .map(function (response) { return response.json(); });
     };
     // Send a request notice to a selected user
     FitService.prototype.friendRequest = function (friendName) {
         this.http.post(this._api + '/exercise/request', { friend: friendName, name: this.Me.Name })
-            .subscribe(function (data) {
-            /*    console.log('data.json() for friend');
-               console.log(data.json().Name);
-               console.log('###FriendName from server');
-               this.FriendName = data.json().Name;
-               console.log(this.FriendName); */
-        });
+            .subscribe();
     };
     FitService.prototype.addFriendList = function (friendName) {
         var _this = this;
@@ -882,7 +882,7 @@ module.exports = "ul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card
 /***/ "./src/app/share/share.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\">\n  <!-- Choose a user to share workout log-->\n  <div class=\"col\">\n      <div class=\"card\" >\n          <div class=\"card-header\">\n            <div class=\"text-uppercase\">Users List</div>\n            <div class=\"subtitle\"> Please choose a user you want to share your workout summary</div>\n          </div>\n          <div class=\"card-body\">\n            <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n                <li  >UserName: {{users.Name}}\n                  <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" *ngIf = \"!clicked\"> Request Friend </button>\n                  <button class=\"btn btn-sm btn-light d-flex justify-content-end\" disabled *ngIf = \"clicked\"> Requested </button>\n                </li>\n    \n            </ul>\n          </div>\n      </div> \n    </div>\n\n\n      <div class=\"col\" >\n        <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n        <button   class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event)\">You Have a Friend Request</button>\n      </div>\n\n    \n\n  <div class=\"col\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n          <li>users name and workout summary will be here</li>\n        </ul>\n    </div> \n  </div>\n\n    \n  <div class=\"col\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div>\n      <div class=\"card-body\">\n        <ng-template >\n        <ul class=\"list-group-item list-group-flush list\">\n          <li >(this user)\n            <button class=\"btn btn-sm d-flex justify-content-end\" (click) = \"acceptFriend()\" [ngIf] = \"!accept\"> Share </button>\n            <button class=\"btn btn-sm d-flex justify-content-end\" disabled [ngIf] = \"accept\"> {{friend.Name}}  </button>\n\n          </li>\n        </ul>\n      </ng-template>\n      </div>\n    </div> \n  </div> \n</div>\n\n\n"
+module.exports = "<div class=\"row justify-content-md-center\">\n  <!-- Choose a user to share workout log-->\n  <div class=\"col\">\n      <div class=\"card\" >\n          <div class=\"card-header\">\n            <div class=\"text-uppercase\">Users List</div>\n            <div class=\"subtitle\"> Please choose a user you want to share your workout summary</div>\n          </div>\n          <div class=\"card-body\">\n            <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n                <li  >User Name: {{users.Name}}\n                  <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" *ngIf = \"!clicked\"> Request Friend </button>\n                  <button class=\"btn btn-sm btn-light d-flex justify-content-end\" disabled *ngIf = \"clicked\"> Requested </button>\n                </li>\n    \n            </ul>\n          </div>\n      </div> \n    </div>\n\n\n      <div class=\"col\" >\n        <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n        <button   class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event)\">You Have a Friend Request</button>\n      </div>\n\n    \n\n  <div class=\"col\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n          <li>users name and workout summary will be here</li>\n        </ul>\n    </div> \n  </div>\n\n    \n  <div class=\"col\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div>\n      <div class=\"card-body\">\n        <ng-template >\n        <ul class=\"list-group-item list-group-flush list\">\n          <li >(this user)\n            <button class=\"btn btn-sm d-flex justify-content-end\" (click) = \"acceptFriend()\" [ngIf] = \"!accept\"> Share </button>\n            <button class=\"btn btn-sm d-flex justify-content-end\" disabled [ngIf] = \"accept\"> {{friend.Name}}  </button>\n\n          </li>\n        </ul>\n      </ng-template>\n      </div>\n    </div> \n  </div> \n</div>\n\n\n"
 
 /***/ }),
 
@@ -905,7 +905,6 @@ var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var ShareComponent = /** @class */ (function () {
-    //Share: People[];
     function ShareComponent(_Fit, _Router) {
         this._Fit = _Fit;
         this._Router = _Router;
@@ -913,46 +912,37 @@ var ShareComponent = /** @class */ (function () {
         this.accept = false;
         this.popRequest = false;
         this.Me = _Fit.Me;
-        //this.Share = _Fit.Share;
         // if there user is not logged in or not signed up, direct user to login.
         if (!this.Me) {
             _Router.navigate(['/login']);
         }
-        // every time user goes to Share, other users will be updated and displayed in share list.
-        if (this.Me) {
-            this.createShareList(this.Me.Name);
-        }
-        this.refreshList(this.Me.Name);
     }
     ShareComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.refreshList();
+        this.interval = setInterval(function () {
+            _this.refreshList();
+        }, 1000);
     };
-    ShareComponent.prototype.refreshList = function (name) {
-        this._Fit.refreshList(name);
-    };
-    // create other users list to share
-    ShareComponent.prototype.createShareList = function (name) {
-        console.log('_component_creating sharelist');
-        this._Fit.getUserList(name);
-        console.log('3333');
-        console.log(this.Me);
+    ShareComponent.prototype.refreshList = function () {
+        var _this = this;
+        // refresh user's data 
+        this._Fit.getRequestState().subscribe(function (data) {
+            _this.Me = data;
+        });
+        // create other users list to share and refresh to update
+        this._Fit.getUserList().subscribe(function (data) {
+            _this.Me.EachShare = data;
+            // remove myself from the share list
+            _this.Me.EachShare.splice(_this.Me.EachShare.indexOf(_this.Me.EachShare.find(function (x) { return x.Name == _this.Me.Name; })), 1);
+        });
     };
     ShareComponent.prototype.friendRequest = function (e, friendName) {
         console.log('-===in friendRequest===friend name ' + friendName);
         this._Fit.friendRequest(friendName);
         this.clicked = !this.clicked;
-        // this.acceptFriend(friendName);
     };
-    /*   acceptFriend(friendName){
-        console.log('link to alert _comp');
-    
-       
-          
-        
-      } */
-    // need to put friends name somehow... how to track friend name?????
-    // need to create a different pop up alert - material???
     ShareComponent.prototype.requestBox = function (e) {
-        // var friend = this._Fit.returnFriendName();
         var friend = this.Me.Notice[0].Friend;
         this.Me.Notice.unshift();
         console.log('friend name** ' + friend);

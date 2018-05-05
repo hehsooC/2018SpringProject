@@ -134,6 +134,13 @@ function Fit() {
                 user.Share.push(this.Person.Name); */
         }
     
+        this.GiveRequestState = (name) =>{
+            console.log('_model_ give state of user in share');
+            var me = this.Person.find(x => x.Name == name);
+
+            return me;
+
+        }
         this.FriendRequest = (friend, name) => {
             console.log('_model_ friend request');
             var me = this.Person.find(x => x.Name == name);
@@ -150,8 +157,6 @@ function Fit() {
         this.AddFriend = (name, friend) =>{
             console.log('AddFriend -model');
             var user = this.Person.find(x=> x.Name == name);
-            console.log('_model_** user ');
-            console.log(user);
 
             var friendN = this.Person.find(x=> x.Name == friend);
             user.FriendList.push({Name: friend});
