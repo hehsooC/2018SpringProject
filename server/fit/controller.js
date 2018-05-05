@@ -16,7 +16,10 @@ module.exports = app
     })
 
     .get('/exercise/people', (req, res) => {
-        res.send(fit.giveUserList(req.query.name));
+        res.send(fit.GiveUserList(req.query.name));
+    })
+    .get('/exercise/refreshUser', (req, res) => {
+        res.send(fit.RefreshUser(req.query.name));
     })
     .post('/exercise/profile', (req, res) =>{
         console.log('send profile to server - controller');
@@ -41,9 +44,14 @@ module.exports = app
         var time = fit.GetTotalTime(req.body.name, req.body.totalSet);
         res.send(time.toString());
     }) 
-    .post('/exercise/request', (req, res) => {
-        console.log('_controller_ send request');
-        fit.friendRequest(req.body.friend, req.body.name)
+    .post('/exercise/request', (req,res) => {
+        fit.FriendRequest(req.body.friend, req.body.name);
+    })
+    .post('/exercise/addFriend', (req,res)=>{
+        console.log('add friend_controller');
+        fit.AddFriend(req.body.name, req.body.friend);
+
+
     })
     
  

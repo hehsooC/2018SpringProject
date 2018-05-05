@@ -19,6 +19,7 @@ function Fit() {
         this.Person = [];
         //this.Record = [];
         this.Share = [];
+       // this.Request = [];
         //this.HealthInfo = null; 
        // this.ExerciseList = [];   
         
@@ -34,7 +35,7 @@ function Fit() {
                 return false;
             }else{
                 this.Person.push({ Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null},
-                    PlanExercise: [], DoneExerciseList: [], Notice: []});
+                    PlanExercise: [], DoneExerciseList: [], Notice: [], Requested: false, FriendList:[]});
                 return true;
             }
              
@@ -119,7 +120,7 @@ function Fit() {
 
         }
 
-        this.giveUserList = (name) => {
+        this.GiveUserList = (name) => {
             console.log('_server_give user list');
             if(!this.Share.find(x => x.Name == name)){
                 this.Share.push({Name: name});
@@ -133,41 +134,34 @@ function Fit() {
                 user.Share.push(this.Person.Name); */
         }
     
-        this.friendRequest = (friend, name) => {
+        this.FriendRequest = (friend, name) => {
             console.log('_model_ friend request');
             var me = this.Person.find(x => x.Name == name);
             var msg = me.Name + ' sent a friend request!'
             var friendUser = this.Person.find(x => x.Name == friend);
-            console.log('me ' + me.Name);
-            console.log('friend ' + friendUser.Name);
             
-            friendUser.Notice.push(msg);
+            friendUser.Notice.push({Name: friend, Msg: msg});
+            friendUser.Requested = true;
+
+            
 
 
 
         }
-            
+        this.AddFriend = (name, friend) =>{
+            console.log('AddFriend -model');
+            var user = this.Person.find(x=> x.Name == name);
+            user.FriendList.push({Name: friend});
 
-/*         this.GetData = (userId) => {   
-            console.log('user Id is ' + userId); 
-            if(this.Person.find(x=> x.UserId == userId))
-                console.log('return ' + userId +' Profile');
-                return this.Profile;
-        } */
-    /*     this.SharingOthers = (userId) => {
-            console.log('sharing?'); 
-            //if(this.FirstUser != userId)
-                this.OtherUser.push({Name: userId});
-        }  
-           */  
-/*         this.SubmitWorkout = (text, userId) => {
-            console.log('text is ' + text);
-            if(!this.PlanExercise.find(x => x.Text == text)){
-                this.PlanExercise.push({ Text: text, UserId: userId });
-                
-            }
+        }
 
-        }  */   
+        this.RefreshUser= (name) =>{
+            console.log('user refreshed - model');
+            var user = this.Person.find(x=> x.Name == name);
+            return user;
+
+        }
+   
 
 
  

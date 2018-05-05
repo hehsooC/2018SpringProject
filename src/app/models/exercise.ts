@@ -2,9 +2,9 @@ export class Fit {
     
     Person: User[] = [];
     //ExerciseList: string[] = [];
-    //Record: Track[] = [];
 
     Share: People[] = [];
+   // Request: Friend[];
     
     /** Need to find health info database api
     HealthInfo: {
@@ -15,10 +15,6 @@ export class Fit {
  
 }
 
-/* export class Different{
-    Name: string;
-}
- */
 
 
 export class User {
@@ -30,12 +26,19 @@ export class User {
     Record: Done[] = [];
     TotalSetTime: number;
     EachShare: People[] = [];
-    Notice: string[];
+    Notice: Friend[];
+    Requested: boolean;
+    FriendList: People[] =[];
 }
 
 export class People {
     Name: string;
     
+}
+
+export class Friend{
+    Name: string;
+    Msg: string;
 }
 
 export class Exercise {

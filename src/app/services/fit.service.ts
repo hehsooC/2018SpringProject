@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { MessagesService } from './messages.service';
-import { Fit, User, Info, Exercise, People } from '../models/exercise';
+import { Fit, User, Info, Exercise, People, Friend } from '../models/exercise';
 import { Router } from '@angular/router';
-import { DefaultUrlHandlingStrategy } from '@angular/router/src/url_handling_strategy';
+//import { DefaultUrlHandlingStrategy } from '@angular/router/src/url_handling_strategy';
 
 @Injectable()
 export class FitService {
@@ -16,10 +15,10 @@ export class FitService {
   Model: Fit;
   TotalTime: number;
   //Share: People[];
+  ///Request: Friend;
   
 
   constructor(private http: Http, 
-              private _Messages: MessagesService, 
               private _Router: Router,
               ) { 
                 this.ExerciseStack =  [
@@ -37,19 +36,20 @@ export class FitService {
                    "Gentle Yoga",
                    "Push Up"
                    ];
-    // setInterval(()=> this.refresh(), 1000)
+    setInterval(()=> this.refresh(), 1000)
+    
                 
 
   }
 
-/*   refresh(){
+  refresh(){
     this.http.get(this._api + "/state")
         .subscribe(data=> this.Model = data.json())
-  } */
+  }
 
   signUp(name: string, password: string){
     this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
-    PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: []};
+    PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: []};
     this.http.get(this._api + "/exercise", { params : { name: name, password: password } })
     .subscribe(data=> {
       if(!data.json()){
@@ -159,12 +159,29 @@ export class FitService {
 
     // Send a request notice to a selected user
     friendRequest(friendName: string){
-      console.log('_service_ friend name: ' + friendName);
-      console.log('_service_ your name: ' + this.Me.Name);
 
       this.http.post(this._api + '/exercise/request', {friend: friendName, name: this.Me.Name})
-      .subscribe();
+      .subscribe(data=>{
+
+        console.log('###');
+      });
+
     }
+    addFriendList(friendName:string){
+      this.http.post(this._api+'/exercise/addFriend',{name: this.Me.Name, friend: friendName})
+      .subscribe();
+      
+    }
+
+
+    refreshList(name: string){
+      this.http.get(this._api+'/exercise/refreshUser',{params: {name: this.Me.Name}})
+      .subscribe(data=>{
+        this.Me = data.json();
+      });
+
+    }
+
   
 
 }
