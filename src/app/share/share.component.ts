@@ -33,8 +33,6 @@ export class ShareComponent implements OnInit {
     
   
 
-  
-
   refreshList(){
 
     // refresh user's data 

@@ -17,25 +17,17 @@ var currentInfo = 0;
   
 function Fit() {  
         this.Person = [];
-        //this.Record = [];
         this.Share = [];
-       // this.Request = [];
         //this.HealthInfo = null; 
-       // this.ExerciseList = [];   
         
      
-/*         this.GiveExerciseList = (userId) =>{ 
-            console.log('give the global exercise list');
-            return ExerciseStack;   
-   
-        }   */ 
         this.SignUp = (name, password) => {
         
             if(this.Person.find(x => x.Name == name)){
                 return false;
             }else{
                 this.Person.push({ Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null},
-                    PlanExercise: [], DoneExerciseList: [], Notice: [], Requested: false, FriendList:[]});
+                    PlanExercise: [], DoneExerciseList: [], Notice: [], Requested: false, FriendList:[], History: []});
                 return true;
             }
              
@@ -176,6 +168,17 @@ function Fit() {
         }
 
 
+        this.RecordDay = (month, date, name) => {
+            console.log('=======RecordDay server======');
+            console.log('month ' + month);  
+            console.log('date ' + date);
+            var user = this.Person.find( x => x.Name == name);
+            user.History.push({ Name: name, DoneExerciseList: [], TotalSetTime: null, 
+                                Month: month, Date: date});
+            user.Reset = true;
+
+            return user;
+        }
  
   /** Couldn't find the health information database yet. 
          // at Home, Give a user to a health information.

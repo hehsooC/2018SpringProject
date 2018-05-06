@@ -1,10 +1,8 @@
 export class Fit {
     
     Person: User[] = [];
-    //ExerciseList: string[] = [];
 
     Share: People[] = [];
-   // Request: Friend[];
     
     /** Need to find health info database api
     HealthInfo: {
@@ -29,8 +27,18 @@ export class User {
     Notice: Friend[];
     Requested: boolean;
     FriendList: People[] =[];
+    History: Log[] = [];
+    Reset: boolean;
+    
 }
+export class Log{
+    Name: string;
+    DoneExerciseList: Done[] = [];
+    TotalSetTime: number;
+    Month: any;
+    Date: number;
 
+}
 export class People {
     Name: string;
     FriendRequest: boolean;
@@ -54,6 +62,7 @@ export class Done {
     Time: number;
     Set: number;
     TotalTime: number;
+
 }
 
 export class Info {

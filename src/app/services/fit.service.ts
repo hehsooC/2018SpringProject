@@ -47,7 +47,7 @@ export class FitService {
 
   signUp(name: string, password: string){
     this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
-    PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: []};
+    PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [], History: [], Reset: false};
     this.http.get(this._api + "/exercise", { params : { name: name, password: password } })
     .subscribe(data=> {
       if(!data.json()){
@@ -181,7 +181,19 @@ export class FitService {
       
     }
 
+    // set the month and the date of user's log in the server.
+    RecordDay(month: number, date: number){
+      console.log('month: ' + month);
+      console.log('date ' + date);
+      this.http.post(this._api + '/exercise/recordDay', {month: month, date: date, name: this.Me.Name})
+      .subscribe(data =>{
+        this.Me=data.json();
+        console.log('??????');
+        console.log(this.Me.Reset);
+      });
 
+
+    }
 
   
 

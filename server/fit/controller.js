@@ -52,6 +52,9 @@ module.exports = app
     .post('/exercise/changeRequest', (req, res) => {
         fit.ChangeRequested(req.body.name);
     })
+    .post('/exercise/recordDay', (req, res) => {
+        res.send(fit.RecordDay(req.body.month, req.body.date, req.body.name));
+    })
     
  
     

@@ -15,7 +15,7 @@ export class FitComponent implements OnInit {
     Model: Fit;
     Me: User;
     ExerciseList: string[];
-    
+    added: boolean = false;
 
   constructor(private http: Http,
               private _Messages: MessagesService,
@@ -82,8 +82,54 @@ export class FitComponent implements OnInit {
 
   }
 
-  addTime(){
-    
+  // Record the month and the date ((user input)) of completed workout
+  addTime(e: MouseEvent, month: any, date: number){
+    e.preventDefault();
+    while(true){
+      if(month == 1){
+        month = 'January';
+        break;
+      }else if(month == 2){
+        month = 'February';
+        break;
+      }else if(month == 3){
+        month = 'March';
+        break;
+      }else if(month == 4){
+        month = 'April';
+        break;
+      }else if(month == 5){
+        month = 'May';
+        break;
+      }else if(month == 6){
+        month = 'June';
+        break;
+      }else if(month == 7){
+        month = 'July';
+        break;
+      }else if(month == 8){
+        month = 'August';
+        break;
+      }else if(month == 9){
+        month = 'September';
+        break;
+      }else if(month == 10){
+        month = 'October';
+        break;
+      }else if(month == 11){
+        month = 'November';
+        break;
+      }else if(month == 12){
+        month = 'December';
+        break;
+      }else{
+        alert('wrong month, please type between 1 - 12');
+        break;
+      }
+    }
+    this._Fit.RecordDay(month, date);
+    // this.added = !this.added;
+
   }
 
   
