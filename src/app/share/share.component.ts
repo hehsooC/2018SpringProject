@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 export class ShareComponent implements OnInit {
   
   Me: User;
-  interval: any;
   
 
   constructor(private _Fit: FitService, private _Router: Router) { 

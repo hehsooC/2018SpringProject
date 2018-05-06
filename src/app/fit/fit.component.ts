@@ -15,9 +15,7 @@ export class FitComponent implements OnInit {
     Model: Fit;
     Me: User;
     ExerciseList: string[];
-    //Record: Track[];
     
-    track: boolean = false;
 
   constructor(private http: Http,
               private _Messages: MessagesService,
@@ -33,7 +31,6 @@ export class FitComponent implements OnInit {
     } 
     
 
-   //this.Record = [];
 
   } 
 
@@ -60,8 +57,6 @@ export class FitComponent implements OnInit {
     // if the workout list is a newly selected, add it to DoneExerciseList
     if(!this.Me.DoneExerciseList.find( x=> x.Text == text)){
       this.Me.DoneExerciseList.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
-      /* // copy DoneExerciseList object to Record to keep the original data
-      this.Me.Record.push({Text:text, Time:time, Set:set, TotalTime:totalTime}); */
 
       // tracking the total workout time 
       this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
@@ -74,9 +69,6 @@ export class FitComponent implements OnInit {
       
       var user = this.Me.DoneExerciseList.find(x=> x.Text == text);
 
-      //this.Me.Record.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
-      //this.IsTextSame(text);
-      
       // keep tracking of total workout time
       user.Time = Number(user.Time) + Number(time);
       user.Set = Number(user.Set) + Number(set);
@@ -87,45 +79,12 @@ export class FitComponent implements OnInit {
       
     }
 
-    //this._Fit.getTotalTime();
 
   }
 
-/*  IsTextSame = (text) => { 
-   var record = this.Me.Record.find(x => x.Text == text);
-   var done = this.Me.DoneExerciseList.find(x => x.Text == text);
-   if(record.Text == done.Text)
-      this.track = true;
-  else{
-    this.track = false;
+  addTime(){
+    
   }
-
-  } */
-
 
   
-/* 
-  getDate(){
-    var d = new Date();
-    document.getElementById("date").innerHTML = d.toDateString();
-
-  } */
-
- /*  giveExerciseList(name: string){
-    console.log('giveExerciseList executed');
-    this.http.get(this._api + "/exercise/getList", { params: { userId: name }})
-    .subscribe(data => this.GetExercise = { List: data.json()});
-  }
- */
-  /*
-  differentUser(name: string){
-    this.http.get(this._api + "/exercise/share", { params : { userId: name } })
-    .subscribe(data=> this.Others =  {Name: name} )
-  }
-*/
-
-/*     
-  AlreadyUser = () => this.Model.Profile.find( x => x.UserId == this.Me.Name);
-  MyPlanExercise = () => this.Model.PlanExercise.find( x => x.UserId == this.Me.Name );
-  ChosenExercise = () => this.Model.PlanExercise.find( x => x.Chosen ); */
 }
