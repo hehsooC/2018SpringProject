@@ -174,10 +174,14 @@ function Fit() {
             console.log('date ' + date);
             var user = this.Person.find( x => x.Name == name);
             user.History.push({ Name: name, DoneExerciseList: [], TotalSetTime: null, 
-                                Month: month, Date: date});
+                                Month: month, Date: date, Reset: true});
             user.Reset = true;
 
             return user;
+        }
+        this.GetDay=(name)=>{
+            var user = this.Person.find( x => x.Name == name);
+            return user.History;
         }
  
   /** Couldn't find the health information database yet. 

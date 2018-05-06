@@ -30,6 +30,7 @@ export class FitComponent implements OnInit {
       _Router.navigate(['/login']);
     } 
     
+    setInterval(()=> this.refreshList(), 1000)
 
 
   } 
@@ -39,6 +40,12 @@ export class FitComponent implements OnInit {
 
  
 
+  refreshList(){
+    this._Fit.getDay().subscribe(data=>{
+      this.Me.History = data;
+    })
+
+  }
 
   submitWorkout(e: MouseEvent, text: string){
     e.preventDefault();
@@ -128,7 +135,8 @@ export class FitComponent implements OnInit {
       }
     }
     this._Fit.RecordDay(month, date);
-    // this.added = !this.added;
+    // instead of this, how to disable date setting until user resets the list?
+    this.added = !this.added;
 
   }
 

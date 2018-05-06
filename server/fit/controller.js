@@ -21,6 +21,9 @@ module.exports = app
     .get('/exercise/request/state', (req, res) => {
         res.send(fit.GiveRequestState(req.query.name));
     })
+    .get('/exercise/getDay', (req, res) => {
+        res.send(fit.GetDay(req.query.name));
+    })
     .post('/exercise/profile', (req, res) =>{
         var profile = fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 
                         req.body.GoalWeight, req.body.BMI, req.body.GoalBMI, 

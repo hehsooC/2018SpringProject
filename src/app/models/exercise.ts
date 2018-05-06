@@ -28,7 +28,6 @@ export class User {
     Requested: boolean;
     FriendList: People[] =[];
     History: Log[] = [];
-    Reset: boolean;
     
 }
 export class Log{
@@ -37,6 +36,8 @@ export class Log{
     TotalSetTime: number;
     Month: any;
     Date: number;
+    Reset: boolean;
+
 
 }
 export class People {
