@@ -1,34 +1,6 @@
 .btn{
     margin-top: 10px;
 }
-
-.card {
-    padding: 0.5rem;
-    
-}
-
-.add-button {
-    
-    
-    display:block;
-    width:70px;
-    height:70px;
-    border: .5px solid grey;
-    border-radius: 50%;
-    color:grey;
-    text-align: center;
-    text-decoration:none;
-    background: white;
-    font-size: 15px;
-    font-weight: bold;
-    
-    
-}
-.add-button:hover {
-    cursor: pointer;
-    border: .5px solid darkcyan;
-    color: darkcyan;
-}
 .center{
     margin: 0 auto;
     max-width: 100%;
@@ -36,18 +8,24 @@
     padding: 1rem;
 }
 
-.already{
-    font-size: 10px;
-    color: chocolate;
-
-}
-
-.tracking{
-    margin-left: 5px;
-    margin-right: 5px;
-  
-}
 
 .list{
     list-style-type: none;
+}
+
+.center-img{
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+}
+.lead{
+    color:  #1C5F93;
+}
+@media only screen and (max-width: 480px) {
+    /*change to vertical nav bar*/
+    .navbar{
+        
+    }
 }
