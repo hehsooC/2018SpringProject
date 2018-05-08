@@ -36,8 +36,15 @@ module.exports = app
                         req.body.name);
         res.send(profile);
     })
+    .post('/exercise/setDay', (req, res) => {
+        fit.SetDay(req.body.user, req.body.key);
+     })
     .post('/exercise/choose', (req, res) =>{
         var plan = fit.PlanWorkout(req.body.name, req.body.Text);
+        res.send(plan);
+    })
+    .post('/exercise/planHistory', (req, res) =>{
+        var plan = fit.PlanHistory(req.body.user, req.body.Text, req.body.key);
         res.send(plan);
     })
     .post('/exercise/chosen', (req,res) => {
@@ -47,7 +54,7 @@ module.exports = app
         res.send(fit.DoneExercise(req.body.name, req.body.list, req.body.total));
     })
     .post('/exercise/totaltime', (req, res) => {
-        var time = fit.GetTotalTime(req.body.name, req.body.totalSet);
+        var time = fit.GetTotalTime(req.body.user, req.body.key, req.body.totalTime);
         res.send(time.toString());
     }) 
     .post('/exercise/request', (req,res) => {
@@ -64,9 +71,7 @@ module.exports = app
 /*     .post('/exercise/setDay', (req, res) => {
         res.send(fit.SetDay(req.body.month, req.body.date, req.body.name, req.body.key));
     }) */
-    .post('/exercise/setDay', (req, res) => {
-       fit.SetDay(req.body.user, req.body.key);
-    })
+ 
     .post('/exercise/recordDay', (req, res) => {
         fit.RecordDay(req.body.name, req.body.user, req.body.key);
     })

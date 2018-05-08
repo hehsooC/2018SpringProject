@@ -15,7 +15,8 @@ export class FitComponent implements OnInit {
     Model: Fit;
     Me: User;
     ExerciseList: string[];
-    added: boolean = false;
+    // date: Date;
+    // added: boolean = false;
 
   constructor(private http: Http,
               private _Messages: MessagesService,
@@ -31,6 +32,7 @@ export class FitComponent implements OnInit {
     } 
      // setInterval(()=> this.refreshList(), 1000);
     
+    //  this.date = new Date();
 
 
   } 
@@ -163,7 +165,32 @@ export class FitComponent implements OnInit {
 
   submitWorkout(e: MouseEvent, text: string){
     e.preventDefault();
+    var key = this.Me.Month+'/'+this.Me.Date;
+    if(this.Me.PlanExercise.find(y => y.Text == text)){
+      return;
+    }
+    else{
+      this.Me.PlanExercise.push({Text: text, Chosen: false});
+      
+    }
+
+    if(!this.Me.History.find(x => x.KeyDate == key)){
+      console.log('_comp_ history not found, create plan');
+      
+      this.Me.History.find(x=> x.KeyDate == key).PlanExercise = this.Me.PlanExercise;
+
+    }
+    else{
+      console.log('_comp_history found, return plan');
+      var result = this.Me.History.find(x => x.KeyDate == key);
+      this.Me.Month = result.Month;
+      this.Me.Date = result.Date;
+      this.Me.DoneExerciseList = result.DoneExerciseList;
+      this.Me.PlanExercise = result.PlanExercise;
+      this.Me.TotalSetTime = result.TotalSetTime;
+    }
     this._Fit.chooseExercise(text);
+    this._Fit.planHistory(text, key);
     
   }
 
@@ -173,7 +200,7 @@ export class FitComponent implements OnInit {
     e.preventDefault();
     // fix this to client -> server
     this._Fit.makeChosen(text);
-
+    var key = this.Me.Month+'/'+this.Me.Date;
     var totalTime = time * set;
 
     // if the workout list is a newly selected, add it to DoneExerciseList
@@ -183,7 +210,9 @@ export class FitComponent implements OnInit {
       // tracking the total workout time 
       this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
     
+      this._Fit.getTotalTime(this.Me, key, this.Me.TotalSetTime);
       this._Fit.selectExercise(this.Me.DoneExerciseList);
+      
       
     }
     // else if user adds more time and set of the selected workout, keep tracking of time, set, and Total time
@@ -196,7 +225,7 @@ export class FitComponent implements OnInit {
       user.Set = Number(user.Set) + Number(set);
       user.TotalTime = Number(user.TotalTime) + Number(totalTime);
       this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
-      this._Fit.getTotalTime(this.Me.TotalSetTime);
+      this._Fit.getTotalTime(this.Me, key, this.Me.TotalSetTime);
       this._Fit.selectExercise(this.Me.DoneExerciseList);
       //this._Fit.putHistory(this.Me.DoneExerciseList);
       
@@ -215,6 +244,8 @@ export class FitComponent implements OnInit {
 
 
     }
+
+    
     console.log('_comp_doneEx_this.Me.History');
     console.log(this.Me.History);
 

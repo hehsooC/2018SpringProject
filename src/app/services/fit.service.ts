@@ -106,12 +106,22 @@ export class FitService {
   // post planned workout list to the server
   chooseExercise(text: string){
     this.http.post(this._api + "/exercise/choose", {name: this.Me.Name, Text: text})
-              .subscribe(data => {
+              .subscribe(/* data => {
                 if(!data.json()){
                   return;
                 }
                 this.Me.PlanExercise = data.json();
-              });
+              } */);
+
+  }
+  planHistory(text: string, key: string){
+    this.http.post(this._api + "/exercise/planHistory", {user: this.Me, Text: text, key: key})
+              .subscribe(/* data => {
+                if(!data.json()){
+                  return;
+                }
+                this.Me.PlanExercise = data.json();
+              } */);
 
   }
   
@@ -139,8 +149,8 @@ export class FitService {
 
 
     // post total workout time to the server
-    getTotalTime(total){
-      this.http.post(this._api + "/exercise/totaltime",{name: this.Me.Name, totalSet: total})
+    getTotalTime(user: User, key: string, totalTime: number){
+      this.http.post(this._api + "/exercise/totaltime",{user: user, key: key, totalTime: totalTime})
       .subscribe(data => {
         this.Me.TotalSetTime = Number(data.json());
       })
@@ -199,7 +209,7 @@ export class FitService {
      /*  var key = month +'/'+date;
       this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, month: month, date: date, key: key.toString() })
       .subscribe(); */
-      this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, user: user.History, key: key })
+      this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, user: user, key: key })
       .subscribe();
 
 
