@@ -45,9 +45,11 @@ export class FitService {
         .subscribe(data=> this.Model = data.json())
   } */
 
+  
   signUp(name: string, password: string){
     this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
-    PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [], History: []};
+    PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [], History: [],
+    Month: null, Date: null};
     this.http.get(this._api + "/exercise", { params : { name: name, password: password } })
     .subscribe(data=> {
       if(!data.json()){
@@ -61,6 +63,7 @@ export class FitService {
      
       
     }
+
 
     /* oAuthLogin(name: string, token: string, pic: string){
       // this.Me = { Name: name };
@@ -180,22 +183,45 @@ export class FitService {
 
       
     }
-
     // set the month and the date of user's log in the server.
-    RecordDay(month: number, date: number){
+    SetDay(month: number, date: number){
       console.log('month: ' + month);
       console.log('date ' + date);
-      this.http.post(this._api + '/exercise/recordDay', {month: month, date: date, name: this.Me.Name})
+      this.http.post(this._api + '/exercise/setDay', {month: month, date: date, name: this.Me.Name})
       .subscribe();
 
 
     }
+
+    RecordDay(){
+      this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name})
+      .subscribe();
+
+
+    }
+
+
     getDay(){
       return this.http.get(this._api+'/exercise/getDay', {params:{name: this.Me.Name}})
       .map((response:Response)=>response.json());
       
     }
+    getMonth(){
+      return this.http.get(this._api+'/exercise/getMonth', {params:{name: this.Me.Name}})
+      .map((response:Response)=>response.json());
+      
+    }
 
+    putHistory(done){
+      this.http.post(this._api + '/exercise/recordWorkout', {name: this.Me.Name, done: done})
+      .subscribe();
+    }
+
+    getUserStatus(){
+      return this.http.get(this._api+'/exercise/user', {params:{name: this.Me.Name}})
+      .map((response:Response)=>response.json());
+
+    }
   
 
 }

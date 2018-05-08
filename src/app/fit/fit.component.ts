@@ -29,8 +29,8 @@ export class FitComponent implements OnInit {
     if(!this.Me){
       _Router.navigate(['/login']);
     } 
+      // setInterval(()=> this.refreshList(), 1000);
     
-    setInterval(()=> this.refreshList(), 1000)
 
 
   } 
@@ -38,12 +38,20 @@ export class FitComponent implements OnInit {
   ngOnInit() {
   }
 
- 
 
   refreshList(){
-    this._Fit.getDay().subscribe(data=>{
-      this.Me.History = data;
-    })
+   
+      this._Fit.getDay().subscribe(data=>{
+        this.Me.Date = data;
+      })
+      this._Fit.getMonth().subscribe(data=>{
+        this.Me.Month = data;
+      })
+    
+      this._Fit.getUserStatus().subscribe(data=>{
+        this.Me = data;
+      })
+    
 
   }
 
@@ -83,8 +91,10 @@ export class FitComponent implements OnInit {
       this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
       this._Fit.getTotalTime(this.Me.TotalSetTime);
       this._Fit.selectExercise(this.Me.DoneExerciseList);
+      this._Fit.putHistory(this.Me.DoneExerciseList);
       
     }
+    this._Fit.RecordDay();
 
 
   }
@@ -134,9 +144,9 @@ export class FitComponent implements OnInit {
         break;
       }
     }
-    this._Fit.RecordDay(month, date);
+    this._Fit.SetDay(month, date);
     // instead of this, how to disable date setting until user resets the list?
-    this.added = !this.added;
+    // this.added = !this.added;
 
   }
 

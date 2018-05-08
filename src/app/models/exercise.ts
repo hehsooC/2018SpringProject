@@ -28,11 +28,14 @@ export class User {
     Requested: boolean;
     FriendList: People[] =[];
     History: Log[] = [];
+    Month: any;
+    Date: number;
     
 }
 export class Log{
     Name: string;
     DoneExerciseList: Done[] = [];
+    PlanExercise: Exercise[] = [];
     TotalSetTime: number;
     Month: any;
     Date: number;

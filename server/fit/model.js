@@ -27,7 +27,7 @@ function Fit() {
                 return false;
             }else{
                 this.Person.push({ Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null},
-                    PlanExercise: [], DoneExerciseList: [], Notice: [], Requested: false, FriendList:[], History: []});
+                    PlanExercise: [], DoneExerciseList: [], Notice: [], Requested: false, FriendList:[], History: [], Month: null, Date: null});
                 return true;
             }
              
@@ -124,11 +124,13 @@ function Fit() {
         }
     
         this.GiveRequestState = (name) =>{
+          
             var me = this.Person.find(x => x.Name == name);
 
             return me;
 
         }
+
         this.FriendRequest = (friend, name) => {
             console.log('_model_ friend request');
             var me = this.Person.find(x => x.Name == name);
@@ -167,21 +169,67 @@ function Fit() {
             user.Requested = false;
         }
 
-
-        this.RecordDay = (month, date, name) => {
+        this.SetDay = (month, date, name) => {
             console.log('=======RecordDay server======');
             console.log('month ' + month);  
             console.log('date ' + date);
             var user = this.Person.find( x => x.Name == name);
-            user.History.push({ Name: name, DoneExerciseList: [], TotalSetTime: null, 
-                                Month: month, Date: date, Reset: true});
-            user.Reset = true;
+            user.Month = month;
+            user.Date = date;
+            // create a history for specific month and date
+            var monthMatch = user.History.find(x=>x.Month == month);
+            var dateMatch = user.History.find(x=>x.Date == date);
+            if(!monthMatch){
+                user.History.push({ Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: null, 
+                    Month: month, Date: date});
+                return user;
+            }
+            else{
+                // if the specific date history already existed, don't create a new one, but find this history and return it to user.
+                if(dateMatch){
+                    console.log('datematch is ');
+                    console.log(dateMatch);
+                    return dateMatch;
+                }
+                else{
+                    console.log('no history found');
+                    return false;
+                }
+            }
 
-            return user;
+            //user.Reset = true;
+
+        }
+        this.RecordDay = (name) => {
+            var user = this.Person.find( x => x.Name == name);
+            if(!user){
+                return false;
+            }
+            else{
+                user.History.push({ Name: name, DoneExerciseList: Me.DoneExerciseList, PlanExercise: Me.PlanExercise, TotalSetTime: Me.TotalSetTime, 
+                    Month: Me.Month, Date: Me.Date});
+                return user;
+            }
+            // user.Reset = true;
+
         }
         this.GetDay=(name)=>{
             var user = this.Person.find( x => x.Name == name);
-            return user.History;
+            return user.Date;
+        }
+        this.GetMonth=(name)=>{
+            var user = this.Person.find( x => x.Name == name);
+            return user.Month;
+        }
+
+        this.RecordWorkokut = (month, date, name, done)=>{
+            var user = this.Person.find( x => x.Name == name);
+            user.History.find(x => x.Month == month);
+
+        }
+        this.GiveUser=(name)=>{
+            var user = this.Person.find( x => x.Name == name);
+            return user.Date;
         }
  
   /** Couldn't find the health information database yet. 

@@ -21,7 +21,13 @@ module.exports = app
     .get('/exercise/request/state', (req, res) => {
         res.send(fit.GiveRequestState(req.query.name));
     })
+    .get('/exercise/user', (req, res) => {
+        res.send(fit.GiveUser(req.query.name));
+    })
     .get('/exercise/getDay', (req, res) => {
+        res.send(fit.GetDay(req.query.name));
+    })
+    .get('/exercise/getMonth', (req, res) => {
         res.send(fit.GetDay(req.query.name));
     })
     .post('/exercise/profile', (req, res) =>{
@@ -55,10 +61,15 @@ module.exports = app
     .post('/exercise/changeRequest', (req, res) => {
         fit.ChangeRequested(req.body.name);
     })
-    .post('/exercise/recordDay', (req, res) => {
-        res.send(fit.RecordDay(req.body.month, req.body.date, req.body.name));
+    .post('/exercise/setDay', (req, res) => {
+        res.send(fit.SetDay(req.body.month, req.body.date, req.body.name));
     })
-    
+    .post('/exercise/recordDay', (req, res) => {
+        res.send(fit.RecordDay(req.body.name));
+    })
+    .post('/exercise/recordWorkout', (req, res) => {
+        fit.RecordWorkokut(req.body.name, req.body.done);
+    })
  
     
   /*   .get('/exercise/share', (req, res) =>{
