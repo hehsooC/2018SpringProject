@@ -187,21 +187,23 @@ export class FitService {
     SetDay(month: number, date: number){
       console.log('month: ' + month);
       console.log('date ' + date);
-      this.http.post(this._api + '/exercise/setDay', {month: month, date: date, name: this.Me.Name})
+      var key = month +'/'+date;
+      this.http.post(this._api + '/exercise/setDay', {month: month, date: date, name: this.Me.Name, key: key.toString()})
       .subscribe();
 
 
     }
 
-    RecordDay(){
-      this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name})
+    RecordDay(month: any, date: number){
+      var key = month +'/'+date;
+      this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, month: month, date: date, key: key.toString() })
       .subscribe();
 
 
     }
 
 
-    getDay(){
+  /*   getDay(){
       return this.http.get(this._api+'/exercise/getDay', {params:{name: this.Me.Name}})
       .map((response:Response)=>response.json());
       
@@ -216,7 +218,7 @@ export class FitService {
       this.http.post(this._api + '/exercise/recordWorkout', {name: this.Me.Name, done: done})
       .subscribe();
     }
-
+ */
     getUserStatus(){
       return this.http.get(this._api+'/exercise/user', {params:{name: this.Me.Name}})
       .map((response:Response)=>response.json());

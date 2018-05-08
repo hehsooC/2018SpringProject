@@ -14,7 +14,6 @@ export class SignUpComponent implements OnInit {
   Me: User;
   constructor( private _Fit: FitService, private _Messages: MessagesService) { 
     this.Me = _Fit.Me;
-   // this.loginName = _Fit.Me.Name;
     
   }
 

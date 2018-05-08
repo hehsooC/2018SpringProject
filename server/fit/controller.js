@@ -62,10 +62,10 @@ module.exports = app
         fit.ChangeRequested(req.body.name);
     })
     .post('/exercise/setDay', (req, res) => {
-        res.send(fit.SetDay(req.body.month, req.body.date, req.body.name));
+        res.send(fit.SetDay(req.body.month, req.body.date, req.body.name, req.body.key));
     })
     .post('/exercise/recordDay', (req, res) => {
-        res.send(fit.RecordDay(req.body.name));
+        res.send(fit.RecordDay(req.body.name, req.body.month, req.body.date, req.body.key));
     })
     .post('/exercise/recordWorkout', (req, res) => {
         fit.RecordWorkokut(req.body.name, req.body.done);

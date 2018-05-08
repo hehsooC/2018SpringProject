@@ -212,7 +212,7 @@ module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 5
 /***/ "./src/app/fit/fit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\" >\n    <!-- Create Profile display-->\n    <div class=\"col-md-4\">\n        <div class=\"card\" >\n            <div class=\"card-header-own text-uppercase\">\n            {{Me.Name}}'s Profile\n            </div>\n\n            \n            <div class=\"card-body\">\n                <form>\n                    <div class=\"form-group row\">\n                        <label for=\"Name\" class=\"col-sm-10 col-form-label\">Name</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Name\" value= {{Me.Name}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Age\" class=\"col-sm-10 col-form-label\">Age</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Age\" value= {{Me.Profile.Age}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Height\" class=\"col-sm-10 col-form-label\">Height</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Height\" value= \"{{Me.Profile.Height}} cm\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Weight\" class=\"col-sm-10 col-form-label\">Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Weight\" value= \"{{Me.Profile.Weight}} kg\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"BMI\" class=\"col-sm-10 col-form-label\">BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"BMI\" value= {{Me.Profile.BMI}}>\n                        </div>\n                    </div>                    \n                    <div class=\"form-group row\">\n                        <label for=\"GoalWeight\" class=\"col-sm-10 col-form-label\">Goal Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalWeight\" value= \"{{Me.Profile.GoalWeight}} kg\">\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"GoalBMI\" class=\"col-sm-10 col-form-label\">Goal BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalBMI\" value= {{Me.Profile.GoalBMI}}>\n                        </div>\n                    </div>  \n                </form>\n            </div>\n        </div> \n    </div><!-- Saved Profile display ends-->\n\n\n    <div class =\"col-md-8\">\n        \n        <div class=\"row-md-4\">\n            <div class=\"card\" >\n                <div class=\"card-header-own\">\n                    <div class=\"text-uppercase\">\n                        Workout List \n                    </div>\n                    <div class=\"subtitle\">Click to add workout to your plan</div>\n                </div>\n                <div class=\"card-body\">\n                    <form>\n                        <div class=\"form-group\">\n                            <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                            <option *ngFor=\"let list of ExerciseList\" (click)=\"submitWorkout($event, list)\">\n                                {{list}}\n                            </option>\n                            </select>\n                        </div>\n                    </form>\n                </div>\n            </div>\n\n        \n            <div class=\"card \">\n                <div class=\"card-header-own heightAdjust\">\n                    <div class=\"text-uppercase today\" [ngClass] =\" { 'time-show' : added}\" *ngFor=\"let time of Me.History\">\n                        {{time.Month}} {{time.Date}}\n                    </div>\n                    <div class=\"text-uppercase \">\n                        Workout Plan\n                    </div>\n    \n                    <div class=\"subtitle\">Add your time and sets.<br/> When you are done, click Done button</div>\n\n                </div>\n                <div class=\"row-md-4 display-none\" \n                    [ngClass]=\"{'display-none' :added}\">\n                    <div class=\"text-uppercase d-flex justify-content-center\" >\n                        Set Your Date\n                    </div>\n                    <div class=\" d-flex justify-content-center subtitle\">\n                        Record the Date You Worked Out\n                    </div>\n                    <div class=\"card-body d-flex justify-content-center\">\n                        <div class=\"row\">\n                            <div class=\"col\">\n                                <form>\n                                    <div class=\"row d-flex justify-content-center\">\n                                        <div class=\"col\">\n                                            <input #month type=\"number\" class=\"form-control\" placeholder=\"Month\">\n                                        </div>\n                                        <div class=\"col\">\n                                            <input #date type=\"number\" class=\"form-control\" placeholder=\"Date\">\n                                        </div>\n                                        <div class=\"col\">\n                                            <div class=\"d-flex justify-content-end\">\n                                                <button class=\"btn btn-primary\" \n                                                        type=\"submit\" \n                                                        (click)=\"addTime($event, month.value, date.value)\">\n                                                    Save\n                                                </button>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </form>\n                            </div>\n                            \n                        </div>\n                    </div>\n                            \n                </div>\n                <div class=\"card-body\">\n                    <ul class=\"list-group list-group-flush \">\n                        <li *ngFor=\"let list of Me.PlanExercise\"\n                            [ngClass]=\"{ 'list-group-item-success': list.Chosen }\"                            \n                            class=\"list-group-item list-group-flush \">\n                            {{list.Text}}\n                            <form>\n                                <div class=\"row d-flex justify-content-end\">\n                                    <div class=\"col\">\n                                    <input #time type=\"number\" class=\"form-control\" placeholder=\"Minutes\">\n                                    </div>\n                                    <div class=\"col\">\n                                    <input #set type=\"number\" class=\"form-control\" placeholder=\"Sets\">\n                                    </div>\n                                </div>\n                            </form>\n                            <div class=\"d-flex justify-content-end\">\n                                <button (click)=\"doneExercise($event, list.Text, time.value, set.value)\"\n                                        class=\"col-sm-3 btn btn-sm btn-primary\">\n                                        Done\n                                </button>\n                            </div>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n\n\n        </div>\n\n        <div class = \"row-md-4\">\n            <div class=\"card tracking\">\n                <div class=\"card-header-own heightAdjust-big date\">\n                    <div class=\"subtitle\"> Well Done, You Are The Best!  </div>\n                    <div class=\"text-uppercase subtitle\" \n                        *ngFor=\"let time of Me.History\" \n                        [ngClass] =\" { 'time-show' : time.Reset}\" >\n                            You worked out on <br /> {{time.Month}} {{time.Date}}\n                    </div> \n                    <div class=\"text-uppercase\">\n                        Workout Log \n                    </div> \n                </div>\n                <div class=\"card-body\">\n                    <ul class=\"list-group list-group-flush\" *ngFor= \"let choice of Me.DoneExerciseList\">\n                        <li class=\"list-group-item \">\n                            {{choice.Text}}\n                            <!-- need to individually change total time.-->\n                            <div>\n                                <i class=\"badge float-right badge-info d-flex justify-content-end\" >\n                                    Total Cycle: {{choice.TotalTime}} min \n                                </i>\n                                <i class=\"badge float-right badge-light d-flex justify-content-end\" >\n                                    Total Set: {{choice.Set}} times\n                                </i>\n                                <i class=\"badge float-right badge-light d-flex justify-content-end\" >\n                                    Total Time: {{choice.Time}} min \n                                </i>\n                            </div>\n                            \n                        </li>\n                    </ul>\n                    <div class=\"card-body\">\n                        <i>\n                            Your Total Workout Time: {{Me.TotalSetTime}} minutes\n                        </i>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n    </div>\n</div>"
+module.exports = "<div class=\"row\" >\n    <!-- Create Profile display-->\n    <div class=\"col-md-4\">\n        <div class=\"card\" >\n            <div class=\"card-header-own text-uppercase\">\n            {{Me.Name}}'s Profile\n            </div>\n\n            \n            <div class=\"card-body\">\n                <form>\n                    <div class=\"form-group row\">\n                        <label for=\"Name\" class=\"col-sm-10 col-form-label\">Name</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Name\" value= {{Me.Name}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Age\" class=\"col-sm-10 col-form-label\">Age</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Age\" value= {{Me.Profile.Age}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Height\" class=\"col-sm-10 col-form-label\">Height</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Height\" value= \"{{Me.Profile.Height}} cm\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Weight\" class=\"col-sm-10 col-form-label\">Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Weight\" value= \"{{Me.Profile.Weight}} kg\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"BMI\" class=\"col-sm-10 col-form-label\">BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"BMI\" value= {{Me.Profile.BMI}}>\n                        </div>\n                    </div>                    \n                    <div class=\"form-group row\">\n                        <label for=\"GoalWeight\" class=\"col-sm-10 col-form-label\">Goal Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalWeight\" value= \"{{Me.Profile.GoalWeight}} kg\">\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"GoalBMI\" class=\"col-sm-10 col-form-label\">Goal BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalBMI\" value= {{Me.Profile.GoalBMI}}>\n                        </div>\n                    </div>  \n                </form>\n            </div>\n        </div> \n    </div><!-- Saved Profile display ends-->\n\n\n\n    <div class =\"col-md-8\">\n        <div class=\"row-md-4\">\n            <div class=\"card display-none\" [ngClass]=\"{'display-none' : Me.Month}\">\n                <div class=\" card-header-own \">\n                    <div class=\"text-uppercase d-flex justify-content-center\" >\n                        Set Your Date\n                    </div>\n                    <div class=\" d-flex justify-content-center subtitle\">\n                        Record the Date You Worked Out\n                    </div>\n                </div>\n                    \n                    <div class=\"card-body d-flex justify-content-center\">\n                        <div class=\"row\">\n                            <div class=\"col\">\n                                <form>\n                                    <div class=\"row d-flex justify-content-center\">\n                                        <div class=\"col\">\n                                            <input #month type=\"number\" class=\"form-control\" placeholder=\"Month\">\n                                        </div>\n                                        <div class=\"col\">\n                                            <input #date type=\"number\" class=\"form-control\" placeholder=\"Date\">\n                                        </div>\n                                        <div class=\"col\">\n                                            <div class=\"d-flex justify-content-end\">\n                                                <button class=\"btn btn-primary\" \n                                                        type=\"submit\" \n                                                        (click)=\"addTime($event, month.value, date.value)\">\n                                                    Save\n                                                </button>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </form>\n                            </div>\n                            \n                        </div>\n                    </div>\n                        \n            </div>\n        </div>\n        <div class=\"row-md-4\">\n            <div class=\"card display-none\" [ngClass]=\"{'display-none': !Me.Month}\" >\n                <div class=\"card-header-own\">\n                    <div class=\"text-uppercase\">\n                        Workout List \n                    </div>\n                    <div class=\"subtitle\">Click to add workout to your plan</div>\n                </div>\n                <div class=\"card-body\">\n                    <form>\n                        <div class=\"form-group\">\n                            <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                            <option *ngFor=\"let list of ExerciseList\" (click)=\"submitWorkout($event, list)\">\n                                {{list}}\n                            </option>\n                            </select>\n                        </div>\n                    </form>\n                </div>\n            </div>\n\n        \n            <div class=\"card display-none\" [ngClass]=\"{'display-none': !Me.Month}\">\n                <div class=\"card-header-own heightAdjust\">\n                    <div class=\"text-uppercase today\" >\n                        {{Me.Month}} {{Me.Date}}\n                    </div>\n                    <div class=\"text-uppercase \">\n                        Workout Plan\n                    </div>\n    \n                    <div class=\"subtitle\">Add your time and sets.<br/> When you are done, click Done button</div>\n\n                </div>\n                \n                <div class=\"card-body\">\n                    <ul class=\"list-group list-group-flush \">\n                        <li *ngFor=\"let list of Me.PlanExercise\"\n                            [ngClass]=\"{ 'list-group-item-success': list.Chosen }\"                            \n                            class=\"list-group-item list-group-flush \">\n                            {{list.Text}}\n                            <form>\n                                <div class=\"row d-flex justify-content-end\">\n                                    <div class=\"col\">\n                                    <input #time type=\"number\" class=\"form-control\" placeholder=\"Minutes\">\n                                    </div>\n                                    <div class=\"col\">\n                                    <input #set type=\"number\" class=\"form-control\" placeholder=\"Sets\">\n                                    </div>\n                                </div>\n                            </form>\n                            <div class=\"d-flex justify-content-end\">\n                                <button (click)=\"doneExercise($event, list.Text, time.value, set.value)\"\n                                        class=\"col-sm-3 btn btn-sm btn-primary\">\n                                        Done\n                                </button>\n                            </div>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n\n\n        </div>\n\n        <div class = \"row-md-4\">\n            <div class=\"card tracking display-none\" [ngClass]=\"{'display-none': !Me.Month}\">\n                <div class=\"card-header-own heightAdjust-big date\">\n                    <div class=\"subtitle\"> Well Done, You Are The Best!  </div>\n                    <div class=\"text-uppercase subtitle\">\n                            You worked out on <br /> {{Me.Month}} {{Me.Date}}\n                    </div> \n                    <div class=\"text-uppercase\">\n                        Workout Log \n                    </div> \n                </div>\n                <div class=\"card-body\">\n                    <ul class=\"list-group list-group-flush\" *ngFor= \"let choice of Me.DoneExerciseList\">\n                        <li class=\"list-group-item \">\n                            {{choice.Text}}\n                            <!-- need to individually change total time.-->\n                            <div>\n                                <i class=\"badge float-right badge-info d-flex justify-content-end\" >\n                                    Total Cycle: {{choice.TotalTime}} min \n                                </i>\n                                <i class=\"badge float-right badge-light d-flex justify-content-end\" >\n                                    Total Set: {{choice.Set}} times\n                                </i>\n                                <i class=\"badge float-right badge-light d-flex justify-content-end\" >\n                                    Total Time: {{choice.Time}} min \n                                </i>\n                            </div>\n                            \n                        </li>\n                    </ul>\n                    <div class=\"card-body\">\n                        <i>\n                            Your Total Workout Time: {{Me.TotalSetTime}} minutes\n                        </i>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n    </div>\n</div>"
 
 /***/ }),
 
@@ -256,8 +256,15 @@ var FitComponent = /** @class */ (function () {
     };
     FitComponent.prototype.refreshList = function () {
         var _this = this;
-        this._Fit.getDay().subscribe(function (data) {
-            _this.Me.History = data;
+        /*    this._Fit.getDay().subscribe(data=>{
+             this.Me.Date = data;
+           })
+           this._Fit.getMonth().subscribe(data=>{
+             this.Me.Month = data;
+           })
+         */
+        this._Fit.getUserStatus().subscribe(function (data) {
+            _this.Me = data;
         });
     };
     FitComponent.prototype.submitWorkout = function (e, text) {
@@ -286,68 +293,16 @@ var FitComponent = /** @class */ (function () {
             this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
             this._Fit.getTotalTime(this.Me.TotalSetTime);
             this._Fit.selectExercise(this.Me.DoneExerciseList);
+            //this._Fit.putHistory(this.Me.DoneExerciseList);
         }
+        this._Fit.RecordDay(this.Me.Month, this.Me.Date);
     };
     // Record the month and the date ((user input)) of completed workout
     FitComponent.prototype.addTime = function (e, month, date) {
         e.preventDefault();
-        while (true) {
-            if (month == 1) {
-                month = 'January';
-                break;
-            }
-            else if (month == 2) {
-                month = 'February';
-                break;
-            }
-            else if (month == 3) {
-                month = 'March';
-                break;
-            }
-            else if (month == 4) {
-                month = 'April';
-                break;
-            }
-            else if (month == 5) {
-                month = 'May';
-                break;
-            }
-            else if (month == 6) {
-                month = 'June';
-                break;
-            }
-            else if (month == 7) {
-                month = 'July';
-                break;
-            }
-            else if (month == 8) {
-                month = 'August';
-                break;
-            }
-            else if (month == 9) {
-                month = 'September';
-                break;
-            }
-            else if (month == 10) {
-                month = 'October';
-                break;
-            }
-            else if (month == 11) {
-                month = 'November';
-                break;
-            }
-            else if (month == 12) {
-                month = 'December';
-                break;
-            }
-            else {
-                alert('wrong month, please type between 1 - 12');
-                break;
-            }
-        }
-        this._Fit.RecordDay(month, date);
+        this._Fit.SetDay(month, date);
         // instead of this, how to disable date setting until user resets the list?
-        this.added = !this.added;
+        // this.added = !this.added;
     };
     FitComponent = __decorate([
         core_1.Component({
@@ -420,14 +375,14 @@ exports.HistoryComponent = HistoryComponent;
 /***/ "./src/app/home/home.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".btn{\n    margin-top: 10px;\n}\n\n.card {\n    padding: 0.5rem;\n    \n}\n\n.add-button {\n    \n    \n    display:block;\n    width:70px;\n    height:70px;\n    border: .5px solid grey;\n    border-radius: 50%;\n    color:grey;\n    text-align: center;\n    text-decoration:none;\n    background: white;\n    font-size: 15px;\n    font-weight: bold;\n    \n    \n}\n\n.add-button:hover {\n    cursor: pointer;\n    border: .5px solid darkcyan;\n    color: darkcyan;\n}\n\n.center{\n    margin: 0 auto;\n    max-width: 100%;\n    width: 100px;\n    padding: 1rem;\n}\n\n.already{\n    font-size: 10px;\n    color: chocolate;\n\n}\n\n.tracking{\n    margin-left: 5px;\n    margin-right: 5px;\n  \n}\n\n.list{\n    list-style-type: none;\n}"
+module.exports = ".btn{\n    margin-top: 10px;\n}\n.center{\n    margin: 0 auto;\n    max-width: 100%;\n    width: 100px;\n    padding: 1rem;\n}\n.list{\n    list-style-type: none;\n}\n.center-img{\n\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n    width: 500px;\n}\n.lead{\n    color:  #1C5F93;\n}\n@media only screen and (max-width: 480px) {\n    /*change to vertical nav bar*/\n    .navbar{\n        \n    }\n}"
 
 /***/ }),
 
 /***/ "./src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--Need to find health info database api-->\n<!-- <div class=\"card\">\n    <img class=\"card-img-top card-img-bottom\" *ngIf=\"Model.HealthInfo\" [src]=\"Model.HealthInfo.url\" /> \n    <div class = \"card-img-overlay\" style=\"text-align: center\">\n      <button class=\"btn btn-success btn-lg\" (click)=\"getHealthInfo($event)\">\n              Get Health Information\n      </button>\n    </div>\n</div> \n -->\n\n <div>\n   Please Sign Up\n </div>"
+module.exports = "<!--Need to find health info database api-->\n<!-- <div class=\"card\">\n    <img class=\"card-img-top card-img-bottom\" *ngIf=\"Model.HealthInfo\" [src]=\"Model.HealthInfo.url\" /> \n    <div class = \"card-img-overlay\" style=\"text-align: center\">\n      <button class=\"btn btn-success btn-lg\" (click)=\"getHealthInfo($event)\">\n              Get Health Information\n      </button>\n    </div>\n</div> \n -->\n\n<div class=\"jumbotron\">\n  <h1 class=\" d-flex justify-content-center display-4\">Welcome to Fitness Tracker!</h1>\n  <div class=\"d-flex justify-content-center\">\n    <p class=\"lead\">This is a simple fitness tracker app. You can use it as if it's your workout journal! </p>\n  </div>\n  <div class=\"d-flex justify-content-center\">\n    <p class=\"lead\">You can record your date and workout lists to be proud of your awesome achievement!</p>\n  </div>\n  <hr class=\"my-4\">\n  <img src=\"https://images.pexels.com/photos/864990/pexels-photo-864990.jpeg?cs=srgb&dl=active-adult-aerobic-864990.jpg&fm=jpg\" \n      class = \"center-img\">\n  <span class=\"d-flex justify-content-center\">\n      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>\n  </span>\n  <span class=\"d-flex justify-content-center\">\n    <a class=\"btn btn-primary btn-lg\" href=\"/sign-up\" role=\"button\">Get Started</a>\n  </span>\n</div>"
 
 /***/ }),
 
@@ -448,21 +403,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
-var exercise_1 = __webpack_require__("./src/app/models/exercise.ts");
+var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(http) {
-        var _this = this;
+    function HomeComponent(http, _Fit) {
         this.http = http;
-        this.Model = new exercise_1.Fit();
+        this._Fit = _Fit;
         this._api = "http://localhost:8080/fit";
-        setInterval(function () { return _this.refresh(); }, 1000);
+        this.Me = _Fit.Me;
+        // setInterval(()=> this.refresh(), 1000)
     }
     HomeComponent.prototype.ngOnInit = function () {
-    };
-    HomeComponent.prototype.refresh = function () {
-        var _this = this;
-        this.http.get(this._api + "/state")
-            .subscribe(function (data) { return _this.Model = data.json(); });
     };
     HomeComponent = __decorate([
         core_1.Component({
@@ -470,7 +420,7 @@ var HomeComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/home/home.component.html"),
             styles: [__webpack_require__("./src/app/home/home.component.css")]
         }),
-        __metadata("design:paramtypes", [http_1.Http])
+        __metadata("design:paramtypes", [http_1.Http, fit_service_1.FitService])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -627,6 +577,7 @@ exports.User = User;
 var Log = /** @class */ (function () {
     function Log() {
         this.DoneExerciseList = [];
+        this.PlanExercise = [];
     }
     return Log;
 }());
@@ -676,7 +627,7 @@ module.exports = ".navbar {\n    padding: 0 1rem;\n    height: 120px;\n  }\n  \n
 /***/ "./src/app/nav/nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark nav-back\">\n  <div class=\"container\">\n    <div>\n        <a class=\"navbar-brand\" routerLink=\"/fit\">Fitness Tracker</a>\n    </div>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse navbar-nav\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\" >Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/editProfile\" routerLinkActive=\"active\" >Profile</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\" >Fitness</a>\n        </li>\n  \n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">Share</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/history\" routerLinkActive=\"active\">History</a>\n        </li>\n\n      </ul>\n    </div>\n\n    <div class=\"d-flex justify-content-end\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item \">\n          <a class=\"nav-link\" routerLink=\"/sign-up\" routerLinkActive=\"active\">Sign Up</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Sign In</a>\n        </li>\n      </ul>\n    </div>\n  </div><!-- navbar container -->\n</nav><!-- nav bar -->\n"
+module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark nav-back\">\n  <div class=\"container\">\n    <div>\n        <a class=\"navbar-brand\" routerLink=\"/fit\">Fitness Tracker</a>\n    </div>\n    <button class=\"navbar-toggler\" type=\"button\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse navbar-nav\" id=\"#navbarNav\">\n      <ul class=\"navbar-nav navbarNav\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\" >Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/editProfile\" routerLinkActive=\"active\" >Profile</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\" >Fitness</a>\n        </li>\n  \n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">Share</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/history\" routerLinkActive=\"active\">History</a>\n        </li>\n\n      </ul>\n    </div>\n\n    \n\n    <div class=\"d-flex justify-content-end\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item \">\n          <a class=\"nav-link\" routerLink=\"/sign-up\" routerLinkActive=\"active\">Sign Up</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Sign In</a>\n        </li>\n      </ul>\n    </div>\n  </div><!-- navbar container -->\n</nav><!-- nav bar -->\n\n\n"
 
 /***/ }),
 
@@ -696,8 +647,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var NavComponent = /** @class */ (function () {
-    function NavComponent() {
+    function NavComponent(_Fit) {
+        this._Fit = _Fit;
     }
     NavComponent.prototype.ngOnInit = function () {
     };
@@ -707,7 +660,7 @@ var NavComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/nav/nav.component.html"),
             styles: [__webpack_require__("./src/app/nav/nav.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [fit_service_1.FitService])
     ], NavComponent);
     return NavComponent;
 }());
@@ -827,7 +780,8 @@ var FitService = /** @class */ (function () {
     FitService.prototype.signUp = function (name, password) {
         var _this = this;
         this.Me = { Name: name, Password: password, Profile: { Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null },
-            PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [], History: [] };
+            PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [], History: [],
+            Month: null, Date: null };
         this.http.get(this._api + "/exercise", { params: { name: name, password: password } })
             .subscribe(function (data) {
             if (!data.json()) {
@@ -935,14 +889,36 @@ var FitService = /** @class */ (function () {
             .subscribe();
     };
     // set the month and the date of user's log in the server.
-    FitService.prototype.RecordDay = function (month, date) {
+    FitService.prototype.SetDay = function (month, date) {
         console.log('month: ' + month);
         console.log('date ' + date);
-        this.http.post(this._api + '/exercise/recordDay', { month: month, date: date, name: this.Me.Name })
+        var key = month + '/' + date;
+        this.http.post(this._api + '/exercise/setDay', { month: month, date: date, name: this.Me.Name, key: key.toString() })
             .subscribe();
     };
-    FitService.prototype.getDay = function () {
-        return this.http.get(this._api + '/exercise/getDay', { params: { name: this.Me.Name } })
+    FitService.prototype.RecordDay = function (month, date) {
+        var key = month + '/' + date;
+        this.http.post(this._api + '/exercise/recordDay', { name: this.Me.Name, month: month, date: date, key: key.toString() })
+            .subscribe();
+    };
+    /*   getDay(){
+        return this.http.get(this._api+'/exercise/getDay', {params:{name: this.Me.Name}})
+        .map((response:Response)=>response.json());
+        
+      }
+      getMonth(){
+        return this.http.get(this._api+'/exercise/getMonth', {params:{name: this.Me.Name}})
+        .map((response:Response)=>response.json());
+        
+      }
+  
+      putHistory(done){
+        this.http.post(this._api + '/exercise/recordWorkout', {name: this.Me.Name, done: done})
+        .subscribe();
+      }
+   */
+    FitService.prototype.getUserStatus = function () {
+        return this.http.get(this._api + '/exercise/user', { params: { name: this.Me.Name } })
             .map(function (response) { return response.json(); });
     };
     FitService = __decorate([
@@ -1123,7 +1099,6 @@ var SignUpComponent = /** @class */ (function () {
         this._Fit = _Fit;
         this._Messages = _Messages;
         this.Me = _Fit.Me;
-        // this.loginName = _Fit.Me.Name;
     }
     SignUpComponent.prototype.ngOnInit = function () {
     };

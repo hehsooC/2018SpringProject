@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FitService } from '../services/fit.service';
+import { User } from '../models/exercise';
 
 @Component({
   selector: 'app-nav',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-
-  constructor() { }
+  constructor(private _Fit: FitService) { 
+  
+  }
 
   ngOnInit() {
   }
+
 
 }

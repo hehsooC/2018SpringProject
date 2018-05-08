@@ -169,10 +169,52 @@ function Fit() {
             user.Requested = false;
         }
 
-        this.SetDay = (month, date, name) => {
+        // set the date of this workout date.
+        this.SetDay = (month, date, name, key) => {
             console.log('=======RecordDay server======');
             console.log('month ' + month);  
             console.log('date ' + date);
+            while(true){
+                if(month == 1){
+                  month = 'January';
+                  break;
+                }else if(month == 2){
+                  month = 'February';
+                  break;
+                }else if(month == 3){
+                  month = 'March';
+                  break;
+                }else if(month == 4){
+                  month = 'April';
+                  break;
+                }else if(month == 5){
+                  month = 'May';
+                  break;
+                }else if(month == 6){
+                  month = 'June';
+                  break;
+                }else if(month == 7){
+                  month = 'July';
+                  break;
+                }else if(month == 8){
+                  month = 'August';
+                  break;
+                }else if(month == 9){
+                  month = 'September';
+                  break;
+                }else if(month == 10){
+                  month = 'October';
+                  break;
+                }else if(month == 11){
+                  month = 'November';
+                  break;
+                }else if(month == 12){
+                  month = 'December';
+                  break;
+                }else{
+                  break;
+                }
+              }
             var user = this.Person.find( x => x.Name == name);
             user.Month = month;
             user.Date = date;
@@ -181,7 +223,7 @@ function Fit() {
             var dateMatch = user.History.find(x=>x.Date == date);
             if(!monthMatch){
                 user.History.push({ Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: null, 
-                    Month: month, Date: date});
+                    Month: month, Date: date, KeyDate: key});
                 return user;
             }
             else{
@@ -200,15 +242,32 @@ function Fit() {
             //user.Reset = true;
 
         }
-        this.RecordDay = (name) => {
+        this.RecordDay = (name, month, date, key) => {
             var user = this.Person.find( x => x.Name == name);
+            var monthMatch= user.History.find( x => x.Month == month);
+            var dateMatch = user.History.find(x=>x.Date == date);
+
             if(!user){
                 return false;
             }
             else{
-                user.History.push({ Name: name, DoneExerciseList: Me.DoneExerciseList, PlanExercise: Me.PlanExercise, TotalSetTime: Me.TotalSetTime, 
-                    Month: Me.Month, Date: Me.Date});
-                return user;
+                if(monthMatch){
+                    if(dateMatch){
+                        console.log('return this date workout');
+                        var index = user.History.indexOf(key);
+                        dateMatch[index] = { Name: name, DoneExerciseList: user.DoneExerciseList, PlanExercise: user.PlanExercise, TotalSetTime: user.TotalSetTime, 
+                            Month: user.Month, Date: user.Date, key: key};
+                        return dateMatch;
+                    }
+                    else{
+                        console.log('no history found');
+                        return false;
+                    }
+                }
+                
+                // user.History.push({ Name: name, DoneExerciseList: user.DoneExerciseList, PlanExercise: user.PlanExercise, TotalSetTime: user.TotalSetTime, 
+                //     Month: user.Month, Date: user.Date});
+                // return user;
             }
             // user.Reset = true;
 
@@ -229,7 +288,7 @@ function Fit() {
         }
         this.GiveUser=(name)=>{
             var user = this.Person.find( x => x.Name == name);
-            return user.Date;
+            return user;
         }
  
   /** Couldn't find the health information database yet. 

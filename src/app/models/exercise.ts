@@ -40,6 +40,7 @@ export class Log{
     Month: any;
     Date: number;
     Reset: boolean;
+    KeyDate: string;
 
 
 }
