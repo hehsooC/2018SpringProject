@@ -170,10 +170,17 @@ function Fit() {
         }
 
         // set the date of this workout date.
-        this.SetDay = (user) => {
+        this.SetDay = (user, key) => {
             var userFound = this.Person.find( x => x.Name == user.Name);
-            if(userFound){
-                userFound.History.push(user.History);
+            // var found = 
+            var historyFound = userFound.History.find(x=>x.KeyDate == key);
+            if(!historyFound){
+                userFound.History.push(user.History.find(x=>x.KeyDate == key));
+                
+            }
+            else{
+                console.log('_model_ history already exist');
+                
             }
 
         }
@@ -209,8 +216,25 @@ function Fit() {
             //user.Reset = true;
 
         } */
-        this.RecordDay = (name, month, date, key) => {
-            var user = this.Person.find( x => x.Name == name);
+        this.RecordDay = (name, user, key) => {
+
+            var userFound = this.Person.find( x => x.Name == name);
+            console.log('key is ' + key);
+            var keyFound = userFound.History.find(x => x.KeyDate == key);
+            console.log('keyfound');
+            console.log(keyFound);
+            var keyFound2 = user.find(x => x.KeyDate == key);
+
+            keyFound = keyFound2;
+            /* if(keyFound){
+                var userIndex = user.History.indexOf(key);
+            }
+            console.log('user is ');
+            console.log(user);
+            console.log('keydate is');
+            console.log(user[0].KeyDate);
+            keyFound.DoneExerciseList = user.DoneExerciseList; */
+            /* var user = this.Person.find( x => x.Name == name);
             var monthMatch= user.History.find( x => x.Month == month);
             var dateMatch = user.History.find(x=>x.Date == date);
 
@@ -230,7 +254,7 @@ function Fit() {
                         console.log('no history found');
                         return false;
                     }
-                }
+                } */
                 
                 // user.History.push({ Name: name, DoneExerciseList: user.DoneExerciseList, PlanExercise: user.PlanExercise, TotalSetTime: user.TotalSetTime, 
                 //     Month: user.Month, Date: user.Date});
@@ -238,7 +262,6 @@ function Fit() {
             }
             // user.Reset = true;
 
-        }
         this.GetDay=(name)=>{
             var user = this.Person.find( x => x.Name == name);
             return user.Date;

@@ -184,20 +184,22 @@ export class FitService {
       
     }
     // set the month and the date of user's log in the server.
-    SetDay(user: User){
+    SetDay(user: User, key: string){
   /*     console.log('month: ' + month);
       console.log('date ' + date);
       var key = month +'/'+date;
       this.http.post(this._api + '/exercise/setDay', {month: month, date: date, name: this.Me.Name, key: key.toString()})
       .subscribe(); */
 
-      this.http.post(this._api + '/exercise/setDay', {user: user})
+      this.http.post(this._api + '/exercise/setDay', {user: user, key: key})
       .subscribe();
     }
 
-    RecordDay(month: any, date: number){
-      var key = month +'/'+date;
+    RecordDay(user: User, key: string){
+     /*  var key = month +'/'+date;
       this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, month: month, date: date, key: key.toString() })
+      .subscribe(); */
+      this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, user: user.History, key: key })
       .subscribe();
 
 

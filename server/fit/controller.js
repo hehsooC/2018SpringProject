@@ -65,10 +65,10 @@ module.exports = app
         res.send(fit.SetDay(req.body.month, req.body.date, req.body.name, req.body.key));
     }) */
     .post('/exercise/setDay', (req, res) => {
-        res.send(fit.SetDay(req.body.user));
+       fit.SetDay(req.body.user, req.body.key);
     })
     .post('/exercise/recordDay', (req, res) => {
-        res.send(fit.RecordDay(req.body.name, req.body.month, req.body.date, req.body.key));
+        fit.RecordDay(req.body.name, req.body.user, req.body.key);
     })
     .post('/exercise/recordWorkout', (req, res) => {
         fit.RecordWorkokut(req.body.name, req.body.done);

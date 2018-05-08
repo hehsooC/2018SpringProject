@@ -55,49 +55,7 @@ export class FitComponent implements OnInit {
 
   }
 
-  submitWorkout(e: MouseEvent, text: string){
-    e.preventDefault();
-    this._Fit.chooseExercise(text);
-    
-  }
 
- /* doneExercise() will track the completed workout that a user checks it as "done"
-    */
-  doneExercise(e: MouseEvent, text: string, time: number, set: number){
-    e.preventDefault();
-    this._Fit.makeChosen(text);
-
-    var totalTime = time * set;
-
-    // if the workout list is a newly selected, add it to DoneExerciseList
-    if(!this.Me.DoneExerciseList.find( x=> x.Text == text)){
-      this.Me.DoneExerciseList.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
-
-      // tracking the total workout time 
-      this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
-    
-      this._Fit.selectExercise(this.Me.DoneExerciseList);
-      
-    }
-    // else if user adds more time and set of the selected workout, keep tracking of time, set, and Total time
-    else{
-      
-      var user = this.Me.DoneExerciseList.find(x=> x.Text == text);
-
-      // keep tracking of total workout time
-      user.Time = Number(user.Time) + Number(time);
-      user.Set = Number(user.Set) + Number(set);
-      user.TotalTime = Number(user.TotalTime) + Number(totalTime);
-      this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
-      this._Fit.getTotalTime(this.Me.TotalSetTime);
-      this._Fit.selectExercise(this.Me.DoneExerciseList);
-      //this._Fit.putHistory(this.Me.DoneExerciseList);
-      
-    }
-    this._Fit.RecordDay(this.Me.Month, this.Me.Date);
-
-
-  }
 
   // Record the month and the date ((user input)) of completed workout
   addTime(e: MouseEvent, month: any, date: number){
@@ -140,16 +98,44 @@ export class FitComponent implements OnInit {
         month = 'December';
         break;
       }else{
+        alert('Please input between 1 - 12');
         break;
       }
     }
 
     var key = month +'/'+date;
     var user = this.Me;
-    user.Month = month;
-    user.Date = date;
-    user.History.push({ Name: this.Me.Name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: null, 
-      Month: month, Date: date, KeyDate: key.toString()});
+    // user.Month = month;
+    // user.Date = date;
+    //if the recorded day already exists, set recorded day to a user
+    if(!user.History.find(x => x.KeyDate == key)){
+      console.log('_comp_ history not found, create one');
+      user.Month = month;
+      user.Date = date;
+      user.History.push({ Name: this.Me.Name, DoneExerciseList: this.Me.DoneExerciseList, PlanExercise: this.Me.PlanExercise, TotalSetTime: this.Me.TotalSetTime, 
+        Month: month, Date: date, KeyDate: key.toString()});
+      this._Fit.SetDay(user, key);
+
+    }
+    else{
+      //this.Me.Month = month;
+      //this.Me.Date = date;
+      //var i = this.Me.History.find(x=> x.KeyDate == key).indexOf(key);
+      console.log('_comp_history found, return one');
+      var result = this.Me.History.find(x => x.KeyDate == key);
+      console.log('_comp_ History exist is');
+      console.log(result);
+      this.Me.Month = result.Month;
+      this.Me.Date = result.Date;
+      this.Me.DoneExerciseList = result.DoneExerciseList;
+      this.Me.PlanExercise = result.PlanExercise;
+      this.Me.TotalSetTime = result.TotalSetTime;
+      this._Fit.SetDay(user, key);
+
+      
+
+  
+    }
     // create a history for specific month and date
     // var monthMatch = user.History.find(x=>x.Month == month);
     // var dateMatch = user.History.find(x=>x.Date == date);
@@ -170,11 +156,73 @@ export class FitComponent implements OnInit {
         }
     }
  */
-    this._Fit.SetDay(user);
     // instead of this, how to disable date setting until user resets the list?
     // this.added = !this.added;
 
   }
+
+  submitWorkout(e: MouseEvent, text: string){
+    e.preventDefault();
+    this._Fit.chooseExercise(text);
+    
+  }
+
+ /* doneExercise() will track the completed workout that a user checks it as "done"
+    */
+  doneExercise(e: MouseEvent, text: string, time: number, set: number){
+    e.preventDefault();
+    // fix this to client -> server
+    this._Fit.makeChosen(text);
+
+    var totalTime = time * set;
+
+    // if the workout list is a newly selected, add it to DoneExerciseList
+    if(!this.Me.DoneExerciseList.find( x=> x.Text == text)){
+      this.Me.DoneExerciseList.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
+
+      // tracking the total workout time 
+      this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
+    
+      this._Fit.selectExercise(this.Me.DoneExerciseList);
+      
+    }
+    // else if user adds more time and set of the selected workout, keep tracking of time, set, and Total time
+    else{
+      
+      var user = this.Me.DoneExerciseList.find(x=> x.Text == text);
+
+      // keep tracking of total workout time
+      user.Time = Number(user.Time) + Number(time);
+      user.Set = Number(user.Set) + Number(set);
+      user.TotalTime = Number(user.TotalTime) + Number(totalTime);
+      this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
+      this._Fit.getTotalTime(this.Me.TotalSetTime);
+      this._Fit.selectExercise(this.Me.DoneExerciseList);
+      //this._Fit.putHistory(this.Me.DoneExerciseList);
+      
+    }
+
+    var key = this.Me.Month+'/'+this.Me.Date;
+
+    if(this.Me.History.find(x => x.KeyDate == key)){
+      this.Me.History.find(x => x.KeyDate == key).Name = this.Me.Name;
+      this.Me.History.find(x => x.KeyDate == key).DoneExerciseList = this.Me.DoneExerciseList;
+      this.Me.History.find(x => x.KeyDate == key).PlanExercise = this.Me.PlanExercise;
+      this.Me.History.find(x => x.KeyDate == key).TotalSetTime = this.Me.TotalSetTime;
+      this.Me.History.find(x => x.KeyDate == key).Month = this.Me.Month;
+      this.Me.History.find(x => x.KeyDate == key).Date = this.Me.Date;
+      this._Fit.RecordDay(this.Me, key);
+
+
+    }
+    console.log('_comp_doneEx_this.Me.History');
+    console.log(this.Me.History);
+
+
+
+
+  }
+
 
   
 }
