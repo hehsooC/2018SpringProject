@@ -105,7 +105,7 @@ export class FitComponent implements OnInit {
       }
     }
 
-    var key = month +'/'+date;
+    var key = month +' / '+date;
     var user = this.Me;
     // user.Month = month;
     // user.Date = date;
@@ -165,7 +165,7 @@ export class FitComponent implements OnInit {
 
   submitWorkout(e: MouseEvent, text: string){
     e.preventDefault();
-    var key = this.Me.Month+'/'+this.Me.Date;
+    var key = this.Me.Month+' / '+this.Me.Date;
     if(this.Me.PlanExercise.find(y => y.Text == text)){
       return;
     }
@@ -174,7 +174,7 @@ export class FitComponent implements OnInit {
       
     }
 
-    if(!this.Me.History.find(x => x.KeyDate == key)){
+    /* if(!this.Me.History.find(x => x.KeyDate == key)){
       console.log('_comp_ history not found, create plan');
       
       this.Me.History.find(x=> x.KeyDate == key).PlanExercise = this.Me.PlanExercise;
@@ -188,7 +188,7 @@ export class FitComponent implements OnInit {
       this.Me.DoneExerciseList = result.DoneExerciseList;
       this.Me.PlanExercise = result.PlanExercise;
       this.Me.TotalSetTime = result.TotalSetTime;
-    }
+    } */
     this._Fit.chooseExercise(text);
     this._Fit.planHistory(text, key);
     
@@ -200,7 +200,7 @@ export class FitComponent implements OnInit {
     e.preventDefault();
     // fix this to client -> server
     this._Fit.makeChosen(text);
-    var key = this.Me.Month+'/'+this.Me.Date;
+    var key = this.Me.Month+' / '+this.Me.Date;
     var totalTime = time * set;
 
     // if the workout list is a newly selected, add it to DoneExerciseList
@@ -231,7 +231,7 @@ export class FitComponent implements OnInit {
       
     }
 
-    var key = this.Me.Month+'/'+this.Me.Date;
+    var key = this.Me.Month+' / '+this.Me.Date;
 
     if(this.Me.History.find(x => x.KeyDate == key)){
       this.Me.History.find(x => x.KeyDate == key).Name = this.Me.Name;

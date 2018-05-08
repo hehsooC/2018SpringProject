@@ -1,0 +1,87 @@
+.login-form{
+    margin: 10px;
+}
+
+.btn-own{
+    margin: 5px;
+    color: white;
+    background-color: #F4C3D8;
+    border: none;
+}
+
+ul{
+    list-style-type: none;
+    margin: 10px;
+}
+
+.card{
+    margin: 10px;
+    color: #1C5F93;
+}
+.card-header-own{
+    background-color: #7CACEA;
+    height: 120px;
+    text-align: center;
+    border: none;
+    padding: 1.7rem 0;
+    font-size: 30px;
+    color: white;
+    
+    
+}
+
+.heightAdjust{
+    height: 160px;
+}
+
+.heightAdjust-big{
+    height: 200px;
+}
+form{
+    padding: 1rem;
+}
+
+
+.subtitle{
+    font-size: 15px;
+    margin: 1px;
+    margin-bottom: 3px;
+    font-weight: 300;
+    padding: 0.2rem;
+    
+}
+
+.text-uppercase-own{
+    font-size: 12px;
+    color: white;
+}
+
+.title{
+    font-size: 20px;
+    padding: 0.4rem 0rem;
+}
+
+.black{
+    margin-top: 10px;
+    margin-bottom: 2px;
+    margin-left: 10px;
+    color: #7CACEA;
+}
+.list-group-item-success{
+    background-color:#FBE9C1;
+}
+.font-margin{
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.badge{
+    margin-left: 5px;
+}
+.display-none{
+    display: none;
+}
+.today{
+    color: white;
+    font-size: 15px;
+}

@@ -49,7 +49,7 @@ export class FitService {
   signUp(name: string, password: string){
     this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
     PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [], History: [],
-    Month: null, Date: null};
+    Month: null, Date: null, Summary: {Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, Month: 0, Date: 0, KeyDate: null}};
     this.http.get(this._api + "/exercise", { params : { name: name, password: password } })
     .subscribe(data=> {
       if(!data.json()){
@@ -215,6 +215,19 @@ export class FitService {
 
     }
 
+    getSummary(key: string){
+      console.log('getSummary this.Me');
+      console.log(this.Me);
+      this.http.get(this._api + "/exercise/summary", { params : { user: this.Me.Name, key: key } })
+      .subscribe(data=> {
+        console.log('_service_ getSummary gets data.json()');
+        console.log(data.json());
+        this.Me.Summary = data.json();
+        console.log('Summary +++++');
+        console.log(this.Me.Summary);
+
+    });
+  }
 
   /*   getDay(){
       return this.http.get(this._api+'/exercise/getDay', {params:{name: this.Me.Name}})

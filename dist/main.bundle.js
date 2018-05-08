@@ -324,7 +324,7 @@ var FitComponent = /** @class */ (function () {
                 break;
             }
         }
-        var key = month + '/' + date;
+        var key = month + ' / ' + date;
         var user = this.Me;
         // user.Month = month;
         // user.Date = date;
@@ -377,26 +377,28 @@ var FitComponent = /** @class */ (function () {
     };
     FitComponent.prototype.submitWorkout = function (e, text) {
         e.preventDefault();
-        var key = this.Me.Month + '/' + this.Me.Date;
+        var key = this.Me.Month + ' / ' + this.Me.Date;
         if (this.Me.PlanExercise.find(function (y) { return y.Text == text; })) {
             return;
         }
         else {
             this.Me.PlanExercise.push({ Text: text, Chosen: false });
         }
-        if (!this.Me.History.find(function (x) { return x.KeyDate == key; })) {
-            console.log('_comp_ history not found, create plan');
-            this.Me.History.find(function (x) { return x.KeyDate == key; }).PlanExercise = this.Me.PlanExercise;
+        /* if(!this.Me.History.find(x => x.KeyDate == key)){
+          console.log('_comp_ history not found, create plan');
+          
+          this.Me.History.find(x=> x.KeyDate == key).PlanExercise = this.Me.PlanExercise;
+    
         }
-        else {
-            console.log('_comp_history found, return plan');
-            var result = this.Me.History.find(function (x) { return x.KeyDate == key; });
-            this.Me.Month = result.Month;
-            this.Me.Date = result.Date;
-            this.Me.DoneExerciseList = result.DoneExerciseList;
-            this.Me.PlanExercise = result.PlanExercise;
-            this.Me.TotalSetTime = result.TotalSetTime;
-        }
+        else{
+          console.log('_comp_history found, return plan');
+          var result = this.Me.History.find(x => x.KeyDate == key);
+          this.Me.Month = result.Month;
+          this.Me.Date = result.Date;
+          this.Me.DoneExerciseList = result.DoneExerciseList;
+          this.Me.PlanExercise = result.PlanExercise;
+          this.Me.TotalSetTime = result.TotalSetTime;
+        } */
         this._Fit.chooseExercise(text);
         this._Fit.planHistory(text, key);
     };
@@ -406,7 +408,7 @@ var FitComponent = /** @class */ (function () {
         e.preventDefault();
         // fix this to client -> server
         this._Fit.makeChosen(text);
-        var key = this.Me.Month + '/' + this.Me.Date;
+        var key = this.Me.Month + ' / ' + this.Me.Date;
         var totalTime = time * set;
         // if the workout list is a newly selected, add it to DoneExerciseList
         if (!this.Me.DoneExerciseList.find(function (x) { return x.Text == text; })) {
@@ -427,7 +429,7 @@ var FitComponent = /** @class */ (function () {
             this._Fit.selectExercise(this.Me.DoneExerciseList);
             //this._Fit.putHistory(this.Me.DoneExerciseList);
         }
-        var key = this.Me.Month + '/' + this.Me.Date;
+        var key = this.Me.Month + ' / ' + this.Me.Date;
         if (this.Me.History.find(function (x) { return x.KeyDate == key; })) {
             this.Me.History.find(function (x) { return x.KeyDate == key; }).Name = this.Me.Name;
             this.Me.History.find(function (x) { return x.KeyDate == key; }).DoneExerciseList = this.Me.DoneExerciseList;
@@ -461,14 +463,14 @@ exports.FitComponent = FitComponent;
 /***/ "./src/app/history/history.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 5px;\n    color: white;\n    background-color: #F4C3D8;\n    border: none;\n}\n\nul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header-own{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.heightAdjust{\n    height: 160px;\n}\n\n.heightAdjust-big{\n    height: 200px;\n}\n\nform{\n    padding: 1rem;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    margin-bottom: 3px;\n    font-weight: 300;\n    padding: 0.2rem;\n    \n}\n\n.text-uppercase-own{\n    font-size: 12px;\n    color: white;\n}\n\n.title{\n    font-size: 20px;\n    padding: 0.4rem 0rem;\n}\n\n.black{\n    margin-top: 10px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    color: #7CACEA;\n}\n\n.list-group-item-success{\n    background-color:#FBE9C1;\n}\n\n.font-margin{\n    margin-bottom: 5px;\n    margin-left: 10px;\n}\n\n.badge{\n    margin-left: 5px;\n}\n\n.display-none{\n    display: none;\n}\n\n.today{\n    color: white;\n    font-size: 15px;\n}"
 
 /***/ }),
 
 /***/ "./src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  history works!\n</p>\n"
+module.exports = "<div class=\"row-md-4\">\n  <div class=\"card\" >\n      <div class=\"card-header-own\">\n          <div class=\"text-uppercase\">\n              Workout Day\n          </div>\n          <div class=\"subtitle\">Select Your Date to See Your Workout History </div>\n      </div>\n      <div class=\"card-body\">\n          <form>\n              <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                  <option *ngFor=\"let list of Me.History\" (click)=\"submitLog($event, list.KeyDate)\">\n                      {{list.KeyDate}}\n                  </option>\n                  </select>\n              </div>\n          </form>\n      </div>\n  </div>\n\n\n  <div class=\"card display-none\" [ngClass]=\"{'display-none': !Me.Summary}\">\n      <div class=\"card-header-own heightAdjust\">\n          \n          <div class=\"text-uppercase \">\n              Workout Summary\n          </div>\n\n          <div class=\"subtitle\">Enjoy your Achievement!</div>\n\n      </div>\n      \n      <div class=\"card-body\">\n          <ul class=\"list-group list-group-flush \">\n              <li *ngFor=\"let list of Me.Summary.DoneExerciseList\"\n                  class=\"list-group-item list-group-flush \">\n                  {{list.Text}}\n                  <div class=\"d-flex justify-content-end\">\n                    <i class=\"badge float-right badge-info d-flex justify-content-end\" >\n                      Total Time: {{Me.Summary.TotalSetTime}} min \n                    </i>\n                  </div>\n              </li>\n          </ul>\n      </div>\n  </div>\n\n\n</div>\n"
 
 /***/ }),
 
@@ -488,10 +490,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var HistoryComponent = /** @class */ (function () {
-    function HistoryComponent() {
+    function HistoryComponent(_Fit, _Router) {
+        this._Fit = _Fit;
+        this._Router = _Router;
+        this.Me = _Fit.Me;
+        if (!this.Me) {
+            _Router.navigate(['/login']);
+        }
     }
     HistoryComponent.prototype.ngOnInit = function () {
+    };
+    HistoryComponent.prototype.submitLog = function (e, key) {
+        console.log('submit log');
+        if (this.Me.History.find(function (x) { return x.KeyDate == key; })) {
+            console.log('history found');
+            this._Fit.getSummary(key);
+            console.log('this.Me.Summary');
+            console.log(this.Me.Summary);
+        }
+        else {
+            console.log('no history found');
+        }
     };
     HistoryComponent = __decorate([
         core_1.Component({
@@ -499,7 +521,7 @@ var HistoryComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/history/history.component.html"),
             styles: [__webpack_require__("./src/app/history/history.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [fit_service_1.FitService, router_1.Router])
     ], HistoryComponent);
     return HistoryComponent;
 }());
@@ -763,7 +785,7 @@ module.exports = ".navbar {\n    padding: 0 1rem;\n    height: 120px;\n  }\n  \n
 /***/ "./src/app/nav/nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark nav-back\">\n  <div class=\"container\">\n    <div>\n        <a class=\"navbar-brand\" routerLink=\"/fit\">Fitness Tracker</a>\n    </div>\n    <button class=\"navbar-toggler\" type=\"button\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse navbar-nav\" id=\"#navbarNav\">\n      <ul class=\"navbar-nav navbarNav\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\" >Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/editProfile\" routerLinkActive=\"active\" >Profile</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\" >Fitness</a>\n        </li>\n  \n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">Share</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/history\" routerLinkActive=\"active\">History</a>\n        </li>\n\n      </ul>\n    </div>\n\n    \n\n    <div class=\"d-flex justify-content-end\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item \">\n          <a class=\"nav-link\" routerLink=\"/sign-up\" routerLinkActive=\"active\">Sign Up</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Sign In</a>\n        </li>\n      </ul>\n    </div>\n  </div><!-- navbar container -->\n</nav><!-- nav bar -->\n\n\n"
+module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark nav-back\">\n  <div class=\"container\">\n    <div>\n        <a class=\"navbar-brand\" routerLink=\"/fit\">Fitness Tracker</a>\n    </div>\n    <button class=\"navbar-toggler\" type=\"button\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse navbar-nav\" id=\"#navbarNav\">\n      <ul class=\"navbar-nav navbarNav\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\" >Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/editProfile\" routerLinkActive=\"active\" >Profile</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\" >Fitness</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/history\" routerLinkActive=\"active\">History</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">Share</a>\n        </li>\n       \n\n      </ul>\n    </div>\n\n    \n\n    <div class=\"d-flex justify-content-end\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item \">\n          <a class=\"nav-link\" routerLink=\"/sign-up\" routerLinkActive=\"active\">Sign Up</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Sign In</a>\n        </li>\n      </ul>\n    </div>\n  </div><!-- navbar container -->\n</nav><!-- nav bar -->\n\n\n"
 
 /***/ }),
 
@@ -917,7 +939,7 @@ var FitService = /** @class */ (function () {
         var _this = this;
         this.Me = { Name: name, Password: password, Profile: { Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null },
             PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [], History: [],
-            Month: null, Date: null };
+            Month: null, Date: null, Summary: { Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, Month: 0, Date: 0, KeyDate: null } };
         this.http.get(this._api + "/exercise", { params: { name: name, password: password } })
             .subscribe(function (data) {
             if (!data.json()) {
@@ -1039,6 +1061,19 @@ var FitService = /** @class */ (function () {
         this.http.post(this._api + '/exercise/recordDay', { name: this.Me.Name, user: user, key: key })
             .subscribe();
     };
+    FitService.prototype.getSummary = function (key) {
+        var _this = this;
+        console.log('getSummary this.Me');
+        console.log(this.Me);
+        this.http.get(this._api + "/exercise/summary", { params: { user: this.Me.Name, key: key } })
+            .subscribe(function (data) {
+            console.log('_service_ getSummary gets data.json()');
+            console.log(data.json());
+            _this.Me.Summary = data.json();
+            console.log('Summary +++++');
+            console.log(_this.Me.Summary);
+        });
+    };
     /*   getDay(){
         return this.http.get(this._api+'/exercise/getDay', {params:{name: this.Me.Name}})
         .map((response:Response)=>response.json());
@@ -1115,7 +1150,7 @@ module.exports = "ul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card
 /***/ "./src/app/share/share.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\">\n  <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n  <button class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event)\">You Have a Friend Request</button>\n</div>\n<div class=\"row justify-content-md-center\">\n  <!-- Choose a user to share workout log-->\n  <div class=\"col\">\n      <div class=\"card\" >\n          <div class=\"card-header heightAdjust\">\n            <div class=\"text-uppercase\">Users List</div>\n            <div class=\"subtitle\"> Please choose a user you want to share your workout summary</div>\n          </div>\n          <div class=\"card-body\">\n            <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n                <li  >User Name: {{users.Name}}\n                  <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" *ngIf = \"!users.Requested\"> Request Friend </button>\n                  <button class=\"btn btn-sm btn-light d-flex justify-content-end\" disabled *ngIf = \"users.Requested\"> Requested </button>\n                </li>\n    \n            </ul>\n          </div>\n      </div> \n    </div>\n\n  <div class=\"col\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n          <li>users name and workout summary will be here</li>\n        </ul>\n    </div> \n  </div>\n\n    \n  <div class=\"col\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div>\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of Me.FriendList\">\n          <li > {{friend.Name}}\n            <button class=\"btn btn-sm d-flex justify-content-end\" (click) = \"acceptFriend()\"> Share </button>\n\n          </li>\n        </ul>\n      </div>\n    </div> \n  </div> \n</div>\n\n\n"
+module.exports = "<div class=\"row justify-content-md-center\">\n  <div class=\"col-md-3\">\n    <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n    <button class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event)\">You Have a Friend Request</button>\n  </div>\n</div>\n<div class=\"row justify-content-md-center\">\n  <!-- Choose a user to share workout log-->\n  <div class=\"col-md-4\">\n      <div class=\"card\" >\n          <div class=\"card-header heightAdjust\">\n            <div class=\"text-uppercase\">Users List</div>\n            <div class=\"subtitle\"> Please choose a user you want to share your workout summary</div>\n          </div>\n          <div class=\"card-body\">\n            <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n                <li  >User Name: {{users.Name}}\n                  <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" *ngIf = \"!users.Requested\"> Request Friend </button>\n                  <button class=\"btn btn-sm btn-light d-flex justify-content-end\" disabled *ngIf = \"users.Requested\"> Requested </button>\n                </li>\n    \n            </ul>\n          </div>\n      </div> \n    </div>\n\n  <div class=\"col-md-4\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n          <li>users name and workout summary will be here</li>\n        </ul>\n    </div> \n  </div>\n\n    \n  <div class=\"col\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div>\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of Me.FriendList\">\n          <li > {{friend.Name}}\n            <button class=\"btn btn-sm d-flex justify-content-end\" (click) = \"acceptFriend()\"> Share </button>\n\n          </li>\n        </ul>\n      </div>\n    </div> \n  </div> \n</div>\n\n\n"
 
 /***/ }),
 

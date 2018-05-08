@@ -3,6 +3,8 @@ export class Fit {
     Person: User[] = [];
 
     Share: People[] = [];
+
+    
     
     /** Need to find health info database api
     HealthInfo: {
@@ -30,8 +32,11 @@ export class User {
     History: Log[] = [];
     Month: any;
     Date: number;
+    Summary: Log;
     
 }
+
+
 export class Log{
     Name: string;
     DoneExerciseList: Done[] = [];

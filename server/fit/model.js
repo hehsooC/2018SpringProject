@@ -157,12 +157,10 @@ function Fit() {
                 console.log('history not found');
             }
             else{
-                console.log('set total set time in history');
                 historyFound.TotalSetTime = totalTime;
                 
                 
             }
-            console.log('set Person totalset time');
             userFound.TotalSetTime = totalTime;
 
             return userFound.TotalSetTime;
@@ -226,6 +224,19 @@ function Fit() {
             user.Requested = false;
         }
 
+        this.GetSummary = (user, key) => {
+            console.log('user name is');
+            console.log(user);
+            var userFound = this.Person.find( x => x.Name == user);
+            console.log('======');
+            console.log(userFound);
+            var historyFound = userFound.History.find(x=> x.KeyDate == key);
+            console.log('_model_ GetSummary return');
+            console.log(historyFound);
+            return historyFound;
+
+  
+        }
         
         /* this.SetDay = (month, date, name, key) => {
             console.log('=======RecordDay server======');

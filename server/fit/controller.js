@@ -30,6 +30,9 @@ module.exports = app
     .get('/exercise/getMonth', (req, res) => {
         res.send(fit.GetDay(req.query.name));
     })
+    .get('/exercise/summary', (req, res) => {
+        res.send(fit.GetSummary(req.query.user, req.query.key));
+    })
     .post('/exercise/profile', (req, res) =>{
         var profile = fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 
                         req.body.GoalWeight, req.body.BMI, req.body.GoalBMI, 

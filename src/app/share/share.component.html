@@ -1,10 +1,12 @@
 <div class="row justify-content-md-center">
-  <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
-  <button class="btn btn-warning"  *ngIf="Me.Requested" (click)="requestBox($event)">You Have a Friend Request</button>
+  <div class="col-md-3">
+    <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
+    <button class="btn btn-warning"  *ngIf="Me.Requested" (click)="requestBox($event)">You Have a Friend Request</button>
+  </div>
 </div>
 <div class="row justify-content-md-center">
   <!-- Choose a user to share workout log-->
-  <div class="col">
+  <div class="col-md-4">
       <div class="card" >
           <div class="card-header heightAdjust">
             <div class="text-uppercase">Users List</div>
@@ -22,7 +24,7 @@
       </div> 
     </div>
 
-  <div class="col">
+  <div class="col-md-4">
     <div class="card" >
         <div class="card-header">
           Other user's Workout Achievement
