@@ -238,7 +238,6 @@ var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var FitComponent = /** @class */ (function () {
     function FitComponent(http, _Messages, _Fit, _Router) {
-        var _this = this;
         this.http = http;
         this._Messages = _Messages;
         this._Fit = _Fit;
@@ -250,12 +249,11 @@ var FitComponent = /** @class */ (function () {
         if (!this.Me) {
             _Router.navigate(['/login']);
         }
-        setInterval(function () { return _this.refreshList(); }, 1000);
+        // setInterval(()=> this.refreshList(), 1000);
     }
     FitComponent.prototype.ngOnInit = function () {
     };
     FitComponent.prototype.refreshList = function () {
-        var _this = this;
         /*    this._Fit.getDay().subscribe(data=>{
              this.Me.Date = data;
            })
@@ -263,9 +261,9 @@ var FitComponent = /** @class */ (function () {
              this.Me.Month = data;
            })
          */
-        this._Fit.getUserStatus().subscribe(function (data) {
-            _this.Me = data;
-        });
+        /* this._Fit.getUserStatus().subscribe(data=>{
+          this.Me = data;
+        })  */
     };
     FitComponent.prototype.submitWorkout = function (e, text) {
         e.preventDefault();
@@ -300,7 +298,86 @@ var FitComponent = /** @class */ (function () {
     // Record the month and the date ((user input)) of completed workout
     FitComponent.prototype.addTime = function (e, month, date) {
         e.preventDefault();
-        this._Fit.SetDay(month, date);
+        while (true) {
+            if (month == 1) {
+                month = 'January';
+                break;
+            }
+            else if (month == 2) {
+                month = 'February';
+                break;
+            }
+            else if (month == 3) {
+                month = 'March';
+                break;
+            }
+            else if (month == 4) {
+                month = 'April';
+                break;
+            }
+            else if (month == 5) {
+                month = 'May';
+                break;
+            }
+            else if (month == 6) {
+                month = 'June';
+                break;
+            }
+            else if (month == 7) {
+                month = 'July';
+                break;
+            }
+            else if (month == 8) {
+                month = 'August';
+                break;
+            }
+            else if (month == 9) {
+                month = 'September';
+                break;
+            }
+            else if (month == 10) {
+                month = 'October';
+                break;
+            }
+            else if (month == 11) {
+                month = 'November';
+                break;
+            }
+            else if (month == 12) {
+                month = 'December';
+                break;
+            }
+            else {
+                break;
+            }
+        }
+        var key = month + '/' + date;
+        var user = this.Me;
+        user.Month = month;
+        user.Date = date;
+        user.History.push({ Name: this.Me.Name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: null,
+            Month: month, Date: date, KeyDate: key.toString() });
+        // create a history for specific month and date
+        // var monthMatch = user.History.find(x=>x.Month == month);
+        // var dateMatch = user.History.find(x=>x.Date == date);
+        /* if(!monthMatch){
+            user.History.push({ Name: this.Me.Name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: null,
+                Month: month, Date: date, KeyDate: key.toString()});
+        }
+        else{
+            // if the specific date history already existed, don't create a new one, but find this history and return it to user.
+            if(dateMatch){
+                console.log('datematch is ');
+                console.log(dateMatch);
+                this.Me.History = dateMatch;
+              }
+    
+            else{
+                console.log('no history found');
+            }
+        }
+     */
+        this._Fit.SetDay(user);
         // instead of this, how to disable date setting until user resets the list?
         // this.added = !this.added;
     };
@@ -889,11 +966,13 @@ var FitService = /** @class */ (function () {
             .subscribe();
     };
     // set the month and the date of user's log in the server.
-    FitService.prototype.SetDay = function (month, date) {
-        console.log('month: ' + month);
-        console.log('date ' + date);
-        var key = month + '/' + date;
-        this.http.post(this._api + '/exercise/setDay', { month: month, date: date, name: this.Me.Name, key: key.toString() })
+    FitService.prototype.SetDay = function (user) {
+        /*     console.log('month: ' + month);
+            console.log('date ' + date);
+            var key = month +'/'+date;
+            this.http.post(this._api + '/exercise/setDay', {month: month, date: date, name: this.Me.Name, key: key.toString()})
+            .subscribe(); */
+        this.http.post(this._api + '/exercise/setDay', { user: user })
             .subscribe();
     };
     FitService.prototype.RecordDay = function (month, date) {

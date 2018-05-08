@@ -39,7 +39,7 @@ export class Log{
     TotalSetTime: number;
     Month: any;
     Date: number;
-    Reset: boolean;
+    // Reset: boolean;
     KeyDate: string;
 
 

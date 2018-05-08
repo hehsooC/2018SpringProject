@@ -170,51 +170,18 @@ function Fit() {
         }
 
         // set the date of this workout date.
-        this.SetDay = (month, date, name, key) => {
+        this.SetDay = (user) => {
+            var userFound = this.Person.find( x => x.Name == user.Name);
+            if(userFound){
+                userFound.History.push(user.History);
+            }
+
+        }
+        /* this.SetDay = (month, date, name, key) => {
             console.log('=======RecordDay server======');
             console.log('month ' + month);  
             console.log('date ' + date);
-            while(true){
-                if(month == 1){
-                  month = 'January';
-                  break;
-                }else if(month == 2){
-                  month = 'February';
-                  break;
-                }else if(month == 3){
-                  month = 'March';
-                  break;
-                }else if(month == 4){
-                  month = 'April';
-                  break;
-                }else if(month == 5){
-                  month = 'May';
-                  break;
-                }else if(month == 6){
-                  month = 'June';
-                  break;
-                }else if(month == 7){
-                  month = 'July';
-                  break;
-                }else if(month == 8){
-                  month = 'August';
-                  break;
-                }else if(month == 9){
-                  month = 'September';
-                  break;
-                }else if(month == 10){
-                  month = 'October';
-                  break;
-                }else if(month == 11){
-                  month = 'November';
-                  break;
-                }else if(month == 12){
-                  month = 'December';
-                  break;
-                }else{
-                  break;
-                }
-              }
+           
             var user = this.Person.find( x => x.Name == name);
             user.Month = month;
             user.Date = date;
@@ -241,7 +208,7 @@ function Fit() {
 
             //user.Reset = true;
 
-        }
+        } */
         this.RecordDay = (name, month, date, key) => {
             var user = this.Person.find( x => x.Name == name);
             var monthMatch= user.History.find( x => x.Month == month);

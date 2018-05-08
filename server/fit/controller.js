@@ -61,8 +61,11 @@ module.exports = app
     .post('/exercise/changeRequest', (req, res) => {
         fit.ChangeRequested(req.body.name);
     })
-    .post('/exercise/setDay', (req, res) => {
+/*     .post('/exercise/setDay', (req, res) => {
         res.send(fit.SetDay(req.body.month, req.body.date, req.body.name, req.body.key));
+    }) */
+    .post('/exercise/setDay', (req, res) => {
+        res.send(fit.SetDay(req.body.user));
     })
     .post('/exercise/recordDay', (req, res) => {
         res.send(fit.RecordDay(req.body.name, req.body.month, req.body.date, req.body.key));
