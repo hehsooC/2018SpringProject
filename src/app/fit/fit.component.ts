@@ -109,6 +109,7 @@ export class FitComponent implements OnInit {
     var user = this.Me;
     // user.Month = month;
     // user.Date = date;
+
     //if the recorded day already exists, set recorded day to a user
     if(!user.History.find(x => x.KeyDate == key)){
       console.log('_comp_ history not found, create one');
@@ -123,6 +124,7 @@ export class FitComponent implements OnInit {
       //this.Me.Month = month;
       //this.Me.Date = date;
       //var i = this.Me.History.find(x=> x.KeyDate == key).indexOf(key);
+
       console.log('_comp_history found, return one');
       var result = this.Me.History.find(x => x.KeyDate == key);
       console.log('_comp_ History exist is');
@@ -138,6 +140,7 @@ export class FitComponent implements OnInit {
 
   
     }
+    
     // create a history for specific month and date
     // var monthMatch = user.History.find(x=>x.Month == month);
     // var dateMatch = user.History.find(x=>x.Date == date);

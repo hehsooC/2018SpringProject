@@ -229,6 +229,13 @@ export class FitService {
     });
   }
 
+  getUserStatus(){
+    return this.http.get(this._api+'/exercise/user', {params:{name: this.Me.Name}})
+    .map((response:Response)=>response.json());
+
+  }
+
+
   /*   getDay(){
       return this.http.get(this._api+'/exercise/getDay', {params:{name: this.Me.Name}})
       .map((response:Response)=>response.json());
@@ -245,12 +252,7 @@ export class FitService {
       .subscribe();
     }
  */
-    getUserStatus(){
-      return this.http.get(this._api+'/exercise/user', {params:{name: this.Me.Name}})
-      .map((response:Response)=>response.json());
 
-    }
-  
 
 }
   

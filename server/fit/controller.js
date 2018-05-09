@@ -24,12 +24,12 @@ module.exports = app
     .get('/exercise/user', (req, res) => {
         res.send(fit.GiveUser(req.query.name));
     })
-    .get('/exercise/getDay', (req, res) => {
+/*     .get('/exercise/getDay', (req, res) => {
         res.send(fit.GetDay(req.query.name));
     })
     .get('/exercise/getMonth', (req, res) => {
         res.send(fit.GetDay(req.query.name));
-    })
+    }) */
     .get('/exercise/summary', (req, res) => {
         res.send(fit.GetSummary(req.query.user, req.query.key));
     })
@@ -71,23 +71,18 @@ module.exports = app
     .post('/exercise/changeRequest', (req, res) => {
         fit.ChangeRequested(req.body.name);
     })
-/*     .post('/exercise/setDay', (req, res) => {
-        res.send(fit.SetDay(req.body.month, req.body.date, req.body.name, req.body.key));
-    }) */
  
     .post('/exercise/recordDay', (req, res) => {
         fit.RecordDay(req.body.name, req.body.user, req.body.key);
     })
-    .post('/exercise/recordWorkout', (req, res) => {
+    
+    
+    ;
+  /*   .post('/exercise/recordWorkout', (req, res) => {
         fit.RecordWorkokut(req.body.name, req.body.done);
     })
- 
+  */
     
-  /*   .get('/exercise/share', (req, res) =>{
-        console.log('different user: ' + req.query)
-        // need to send different approach for different user
-        res.send(fit.SharingOthers(req.query.userId));
-       }) */
 
     // this works but couldn't find api database for workout
     //.post('/exercise/info', (req, res) => res.send( fit.GetHealthInfo()))
@@ -102,15 +97,5 @@ module.exports = app
         }
     })
    */
-    // need to work on this
-/*     .post('/exercise/choose', (req, res) => { 
-    
-        fit.DoneExercise(req.body.Text);
-        res.send( { success: true } );
-          
-    })
-    // need to work on this
- */; 
-  
  
  

@@ -84,13 +84,10 @@ function Fit() {
                 if(!user.PlanExercise.find(x => x.Text == text)){
                     user.PlanExercise.push({Text: text, Chosen: false});
                     var plan = user.PlanExercise;
-                    // return plan;
                 }
-                // return false;
             }
             else{
                 console.log('fail to push plan - model');
-                // return false;
             }
 
         }
@@ -225,8 +222,6 @@ function Fit() {
         }
 
         this.GetSummary = (user, key) => {
-            console.log('user name is');
-            console.log(user);
             var userFound = this.Person.find( x => x.Name == user);
             console.log('======');
             console.log(userFound);
@@ -238,49 +233,17 @@ function Fit() {
   
         }
         
-        /* this.SetDay = (month, date, name, key) => {
-            console.log('=======RecordDay server======');
-            console.log('month ' + month);  
-            console.log('date ' + date);
-           
-            var user = this.Person.find( x => x.Name == name);
-            user.Month = month;
-            user.Date = date;
-            // create a history for specific month and date
-            var monthMatch = user.History.find(x=>x.Month == month);
-            var dateMatch = user.History.find(x=>x.Date == date);
-            if(!monthMatch){
-                user.History.push({ Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: null, 
-                    Month: month, Date: date, KeyDate: key});
-                return user;
-            }
-            else{
-                // if the specific date history already existed, don't create a new one, but find this history and return it to user.
-                if(dateMatch){
-                    console.log('datematch is ');
-                    console.log(dateMatch);
-                    return dateMatch;
-                }
-                else{
-                    console.log('no history found');
-                    return false;
-                }
-            }
-
-            //user.Reset = true;
-
-        } */
+    
         
-            // user.Reset = true;
 
-        this.GetDay=(name)=>{
+        /* this.GetDay=(name)=>{
             var user = this.Person.find( x => x.Name == name);
             return user.Date;
         }
         this.GetMonth=(name)=>{
             var user = this.Person.find( x => x.Name == name);
             return user.Month;
-        }
+        } */
 
         this.RecordWorkokut = (month, date, name, done)=>{
             var user = this.Person.find( x => x.Name == name);
