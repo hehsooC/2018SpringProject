@@ -21,9 +21,9 @@ module.exports = app
     .get('/exercise/request/state', (req, res) => {
         res.send(fit.GiveRequestState(req.query.name));
     })
-    .get('/exercise/user', (req, res) => {
+  /*   .get('/exercise/user', (req, res) => {
         res.send(fit.GiveUser(req.query.name));
-    })
+    }) */
 /*     .get('/exercise/getDay', (req, res) => {
         res.send(fit.GetDay(req.query.name));
     })
@@ -78,11 +78,6 @@ module.exports = app
     
     
     ;
-  /*   .post('/exercise/recordWorkout', (req, res) => {
-        fit.RecordWorkokut(req.body.name, req.body.done);
-    })
-  */
-    
 
     // this works but couldn't find api database for workout
     //.post('/exercise/info', (req, res) => res.send( fit.GetHealthInfo()))

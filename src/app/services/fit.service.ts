@@ -46,6 +46,7 @@ export class FitService {
   } */
 
   
+  // initialize user's data when they sign-up.
   signUp(name: string, password: string){
     this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
     PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [], History: [],
@@ -53,11 +54,10 @@ export class FitService {
     this.http.get(this._api + "/exercise", { params : { name: name, password: password } })
     .subscribe(data=> {
       if(!data.json()){
-              // alert user name taken
+        // alert user name taken
         alert("User Name is taken, please try different name");
         return;
       }
-      //this.getUserList();
       this._Router.navigate(['/profile']);
     })
      
@@ -75,6 +75,7 @@ export class FitService {
     } */
   
     
+  // get user's information from the server.
   login(name: string, password: string){
     this.http.get(this._api + "/exercise/login", { params : { name: name, password: password } })
     .subscribe(data=> {
@@ -92,6 +93,7 @@ export class FitService {
   }
 
 
+  // add user's profile to server
   profileAdd(age: number, weight: number, height: number, goalWeight: number, bmi: number, goalBmi: number, name: string){
     this.http.post(this._api + "/exercise/profile", { Age: age, Weight: weight, Height: height, 
                                                               GoalWeight: goalWeight, BMI: bmi, 
@@ -114,6 +116,8 @@ export class FitService {
               } */);
 
   }
+
+  // post planned workout list to the History[] in server
   planHistory(text: string, key: string){
     this.http.post(this._api + "/exercise/planHistory", {user: this.Me, Text: text, key: key})
               .subscribe(/* data => {
@@ -137,7 +141,6 @@ export class FitService {
 
     // post selected workout to the server
     selectExercise(done){
-
       this.http.post(this._api + '/exercise/done', {name: this.Me.Name, list: done })
                 .subscribe(data => {
                   if(!data.json()){
@@ -162,22 +165,20 @@ export class FitService {
             .map((response:Response)=>response.json());
     }
 
+    // get the updated information from the server to refresh Share Component.
     getRequestState(){
       return this.http.get(this._api + '/exercise/request/state', {params: {name: this.Me.Name}})
             .map((response:Response)=>response.json());
 
     }
-    // Send a request notice to a selected user
+    // Send a request notice to a selected user.
     friendRequest(friendName: string){
-
       this.http.post(this._api + '/exercise/request', {friend: friendName, name: this.Me.Name})
       .subscribe();
-      
-
     }
 
+    // Add friends to this user's FriendList in the server when user accepts the request.
     addFriendList(friendName:string){
-      
       this.http.post(this._api+'/exercise/addFriend',{name: this.Me.Name, friend: friendName})
       .subscribe(data => {
         this.Me.FriendList = data.json();
@@ -187,6 +188,7 @@ export class FitService {
       
     }
 
+    // if user gets friend request, change the Requested status to inform the user that they have friend requests.
     changeRequested(name: string){
       this.http.post(this._api + '/exercise/changeRequest', {name: name})
       .subscribe();
@@ -205,6 +207,7 @@ export class FitService {
       .subscribe();
     }
 
+    // Update the Done Exercise List in History[] in the server.
     RecordDay(user: User, key: string){
      /*  var key = month +'/'+date;
       this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, month: month, date: date, key: key.toString() })
@@ -215,27 +218,28 @@ export class FitService {
 
     }
 
+    // get summary from the server to display it at History
     getSummary(key: string){
-      console.log('getSummary this.Me');
-      console.log(this.Me);
+      // console.log('getSummary this.Me');
+      // console.log(this.Me);
       this.http.get(this._api + "/exercise/summary", { params : { user: this.Me.Name, key: key } })
       .subscribe(data=> {
-        console.log('_service_ getSummary gets data.json()');
-        console.log(data.json());
+        // console.log('_service_ getSummary gets data.json()');
+        // console.log(data.json());
         this.Me.Summary = data.json();
-        console.log('Summary +++++');
-        console.log(this.Me.Summary);
+        // console.log('Summary +++++');
+        // console.log(this.Me.Summary);
 
     });
   }
 
-  getUserStatus(){
+/*   getUserStatus(){
     return this.http.get(this._api+'/exercise/user', {params:{name: this.Me.Name}})
     .map((response:Response)=>response.json());
 
   }
 
-
+ */
   /*   getDay(){
       return this.http.get(this._api+'/exercise/getDay', {params:{name: this.Me.Name}})
       .map((response:Response)=>response.json());

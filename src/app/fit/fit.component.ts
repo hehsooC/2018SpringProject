@@ -16,7 +16,6 @@ export class FitComponent implements OnInit {
     Me: User;
     ExerciseList: string[];
     // date: Date;
-    // added: boolean = false;
 
   constructor(private http: Http,
               private _Messages: MessagesService,
@@ -125,9 +124,8 @@ export class FitComponent implements OnInit {
       //this.Me.Date = date;
       //var i = this.Me.History.find(x=> x.KeyDate == key).indexOf(key);
 
-      console.log('_comp_history found, return one');
+      // find user's history from History[] then return to the user.
       var result = this.Me.History.find(x => x.KeyDate == key);
-      console.log('_comp_ History exist is');
       console.log(result);
       this.Me.Month = result.Month;
       this.Me.Date = result.Date;
@@ -161,8 +159,6 @@ export class FitComponent implements OnInit {
         }
     }
  */
-    // instead of this, how to disable date setting until user resets the list?
-    // this.added = !this.added;
 
   }
 
@@ -177,8 +173,8 @@ export class FitComponent implements OnInit {
       
     }
 
+    // find the user's plan history from History[] by key
     /* if(!this.Me.History.find(x => x.KeyDate == key)){
-      console.log('_comp_ history not found, create plan');
       
       this.Me.History.find(x=> x.KeyDate == key).PlanExercise = this.Me.PlanExercise;
 
@@ -197,11 +193,10 @@ export class FitComponent implements OnInit {
     
   }
 
- /* doneExercise() will track the completed workout that a user checks it as "done"
-    */
+ // doneExercise() will track the completed workout that a user checks it as "done"
   doneExercise(e: MouseEvent, text: string, time: number, set: number){
     e.preventDefault();
-    // fix this to client -> server
+    // fix this to client -> server ?
     this._Fit.makeChosen(text);
     var key = this.Me.Month+' / '+this.Me.Date;
     var totalTime = time * set;
@@ -236,6 +231,7 @@ export class FitComponent implements OnInit {
 
     var key = this.Me.Month+' / '+this.Me.Date;
 
+    // find user's complete exercise list  from History, and show it to user.
     if(this.Me.History.find(x => x.KeyDate == key)){
       this.Me.History.find(x => x.KeyDate == key).Name = this.Me.Name;
       this.Me.History.find(x => x.KeyDate == key).DoneExerciseList = this.Me.DoneExerciseList;
@@ -243,20 +239,20 @@ export class FitComponent implements OnInit {
       this.Me.History.find(x => x.KeyDate == key).TotalSetTime = this.Me.TotalSetTime;
       this.Me.History.find(x => x.KeyDate == key).Month = this.Me.Month;
       this.Me.History.find(x => x.KeyDate == key).Date = this.Me.Date;
+      // send this history to server 
       this._Fit.RecordDay(this.Me, key);
 
 
     }
-
-    
-    console.log('_comp_doneEx_this.Me.History');
-    console.log(this.Me.History);
-
-
-
-
+    // console.log('_comp_doneEx_this.Me.History');
+    // console.log(this.Me.History);
   }
 
+  // when user hits Reset button, reset the page (workout lists)
+  reset(e: MouseEvent){
+    
+
+  }
 
   
 }

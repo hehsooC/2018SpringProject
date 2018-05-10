@@ -212,7 +212,7 @@ module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 5
 /***/ "./src/app/fit/fit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\" >\n    <!-- Create Profile display-->\n    <div class=\"col-md-4\">\n        <div class=\"card\" >\n            <div class=\"card-header-own text-uppercase\">\n            {{Me.Name}}'s Profile\n            </div>\n\n            \n            <div class=\"card-body\">\n                <form>\n                    <div class=\"form-group row\">\n                        <label for=\"Name\" class=\"col-sm-10 col-form-label\">Name</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Name\" value= {{Me.Name}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Age\" class=\"col-sm-10 col-form-label\">Age</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Age\" value= {{Me.Profile.Age}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Height\" class=\"col-sm-10 col-form-label\">Height</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Height\" value= \"{{Me.Profile.Height}} cm\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Weight\" class=\"col-sm-10 col-form-label\">Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Weight\" value= \"{{Me.Profile.Weight}} kg\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"BMI\" class=\"col-sm-10 col-form-label\">BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"BMI\" value= {{Me.Profile.BMI}}>\n                        </div>\n                    </div>                    \n                    <div class=\"form-group row\">\n                        <label for=\"GoalWeight\" class=\"col-sm-10 col-form-label\">Goal Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalWeight\" value= \"{{Me.Profile.GoalWeight}} kg\">\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"GoalBMI\" class=\"col-sm-10 col-form-label\">Goal BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalBMI\" value= {{Me.Profile.GoalBMI}}>\n                        </div>\n                    </div>  \n                </form>\n            </div>\n        </div> \n    </div><!-- Saved Profile display ends-->\n\n\n\n    <div class =\"col-md-8\">\n        <div class=\"row-md-4\">\n            <div class=\"card display-none\" [ngClass]=\"{'display-none' : Me.Month}\">\n                <div class=\" card-header-own \">\n                    <div class=\"text-uppercase d-flex justify-content-center\" >\n                        Set Your Date\n                    </div>\n                    <div class=\" d-flex justify-content-center subtitle\">\n                        Record the Date You Worked Out Or Continue Where You Left\n                    </div>\n                </div>\n                    \n                    <div class=\"card-body d-flex justify-content-center\">\n                        <div class=\"row\">\n                            <div class=\"col\">\n                                <form>\n                                    <div class=\"row d-flex justify-content-center\">\n                                        <div class=\"col\">\n                                            <input #month type=\"number\" class=\"form-control\" placeholder=\"Month\">\n                                        </div>\n                                        <div class=\"col\">\n                                            <input #date type=\"number\" class=\"form-control\" placeholder=\"Date\">\n                                        </div>\n                                        <div class=\"col\">\n                                            <div class=\"d-flex justify-content-end\">\n                                                <button class=\"btn btn-primary\" \n                                                        type=\"submit\" \n                                                        (click)=\"addTime($event, month.value, date.value)\">\n                                                    Save\n                                                </button>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </form>\n                            </div>\n                            \n                        </div>\n                    </div>\n                        \n            </div>\n        </div>\n        <div class=\"row-md-4\">\n            <div class=\"card display-none\" [ngClass]=\"{'display-none': !Me.Month}\" >\n                <div class=\"card-header-own\">\n                    <div class=\"text-uppercase\">\n                        Workout List \n                    </div>\n                    <div class=\"subtitle\">Click to add workout to your plan</div>\n                </div>\n                <div class=\"card-body\">\n                    <form>\n                        <div class=\"form-group\">\n                            <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                            <option *ngFor=\"let list of ExerciseList\" (click)=\"submitWorkout($event, list)\">\n                                {{list}}\n                            </option>\n                            </select>\n                        </div>\n                    </form>\n                </div>\n            </div>\n\n        \n            <div class=\"card display-none\" [ngClass]=\"{'display-none': !Me.Month}\">\n                <div class=\"card-header-own heightAdjust\">\n                    <div class=\"text-uppercase today\" >\n                        {{Me.Month}} {{Me.Date}}\n                    </div>\n                    <div class=\"text-uppercase \">\n                        Workout Plan\n                    </div>\n    \n                    <div class=\"subtitle\">Add your time and sets.<br/> When you are done, click Done button</div>\n\n                </div>\n                \n                <div class=\"card-body\">\n                    <ul class=\"list-group list-group-flush \">\n                        <li *ngFor=\"let list of Me.PlanExercise\"\n                            [ngClass]=\"{ 'list-group-item-success': list.Chosen }\"                            \n                            class=\"list-group-item list-group-flush \">\n                            {{list.Text}}\n                            <form>\n                                <div class=\"row d-flex justify-content-end\">\n                                    <div class=\"col\">\n                                    <input #time type=\"number\" class=\"form-control\" placeholder=\"Minutes\">\n                                    </div>\n                                    <div class=\"col\">\n                                    <input #set type=\"number\" class=\"form-control\" placeholder=\"Sets\">\n                                    </div>\n                                </div>\n                            </form>\n                            <div class=\"d-flex justify-content-end\">\n                                <button (click)=\"doneExercise($event, list.Text, time.value, set.value)\"\n                                        class=\"col-sm-3 btn btn-sm btn-primary\">\n                                        Done\n                                </button>\n                            </div>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n\n\n        </div>\n\n        <div class = \"row-md-4\">\n            <div class=\"card tracking display-none\" [ngClass]=\"{'display-none': !Me.Month}\">\n                <div class=\"card-header-own heightAdjust-big date\">\n                    <div class=\"subtitle\"> Well Done, You Are The Best!  </div>\n                    <div class=\"text-uppercase subtitle\">\n                            You worked out on <br /> {{Me.Month}} {{Me.Date}}\n                    </div> \n                    <div class=\"text-uppercase\">\n                        Workout Log \n                    </div> \n                </div>\n                <div class=\"card-body\">\n                    <ul class=\"list-group list-group-flush\" *ngFor= \"let choice of Me.DoneExerciseList\">\n                        <li class=\"list-group-item \">\n                            {{choice.Text}}\n                            <!-- need to individually change total time.-->\n                            <div>\n                                <i class=\"badge float-right badge-info d-flex justify-content-end\" >\n                                    Total Cycle: {{choice.TotalTime}} min \n                                </i>\n                                <i class=\"badge float-right badge-light d-flex justify-content-end\" >\n                                    Total Set: {{choice.Set}} times\n                                </i>\n                                <i class=\"badge float-right badge-light d-flex justify-content-end\" >\n                                    Total Time: {{choice.Time}} min \n                                </i>\n                            </div>\n                            \n                        </li>\n                    </ul>\n                    <div class=\"card-body\">\n                        <i>\n                            Your Total Workout Time: {{Me.TotalSetTime}} minutes\n                        </i>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"row-md-4 display-none \" [ngClass]=\"{'display-none' : !Me.Month}\">\n            <div class=\"card-body \" style=\"border: 1px solid #7CACEA\" >\n                <div class=\"d-flex justify-content-center\"> Ready to track another workout? </div>\n                <div class=\"d-flex justify-content-center\">Reset your Workout List!</div>\n                <div class=\" d-flex justify-content-center\">\n                    <button class=\"btn btn-sm btn-primary\">Reset</button>\n                </div>\n            </div>\n        </div>\n        \n    </div>\n</div>"
+module.exports = "<div class=\"row\" >\n    <!-- Create Profile display-->\n    <div class=\"col-md-4\">\n        <div class=\"card\" >\n            <div class=\"card-header-own text-uppercase\">\n            {{Me.Name}}'s Profile\n            </div>\n\n            \n            <div class=\"card-body\">\n                <form>\n                    <div class=\"form-group row\">\n                        <label for=\"Name\" class=\"col-sm-10 col-form-label\">Name</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Name\" value= {{Me.Name}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Age\" class=\"col-sm-10 col-form-label\">Age</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Age\" value= {{Me.Profile.Age}}>\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Height\" class=\"col-sm-10 col-form-label\">Height</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Height\" value= \"{{Me.Profile.Height}} cm\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"Weight\" class=\"col-sm-10 col-form-label\">Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"Weight\" value= \"{{Me.Profile.Weight}} kg\"> \n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"BMI\" class=\"col-sm-10 col-form-label\">BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"BMI\" value= {{Me.Profile.BMI}}>\n                        </div>\n                    </div>                    \n                    <div class=\"form-group row\">\n                        <label for=\"GoalWeight\" class=\"col-sm-10 col-form-label\">Goal Weight</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalWeight\" value= \"{{Me.Profile.GoalWeight}} kg\">\n                        </div>\n                    </div>\n                    <div class=\"form-group row\">\n                        <label for=\"GoalBMI\" class=\"col-sm-10 col-form-label\">Goal BMI</label>\n                        <div class=\"col-sm-10\">\n                        <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"GoalBMI\" value= {{Me.Profile.GoalBMI}}>\n                        </div>\n                    </div>  \n                </form>\n            </div>\n        </div> \n    </div><!-- Saved Profile display ends-->\n\n\n\n    <div class =\"col-md-8\">\n        <div class=\"row-md-4\">\n            <div class=\"card display-none\" [ngClass]=\"{'display-none' : Me.Month}\">\n                <div class=\" card-header-own \">\n                    <div class=\"text-uppercase d-flex justify-content-center\" >\n                        Set Your Date\n                    </div>\n                    <div class=\" d-flex justify-content-center subtitle\">\n                        Record the Date You Worked Out Or Continue Where You Left\n                    </div>\n                </div>\n                    \n                    <div class=\"card-body d-flex justify-content-center\">\n                        <div class=\"row\">\n                            <div class=\"col\">\n                                <form>\n                                    <div class=\"row d-flex justify-content-center\">\n                                        <div class=\"col\">\n                                            <input #month type=\"number\" class=\"form-control\" placeholder=\"Month\">\n                                        </div>\n                                        <div class=\"col\">\n                                            <input #date type=\"number\" class=\"form-control\" placeholder=\"Date\">\n                                        </div>\n                                        <div class=\"col\">\n                                            <div class=\"d-flex justify-content-end\">\n                                                <button class=\"btn btn-primary\" \n                                                        type=\"submit\" \n                                                        (click)=\"addTime($event, month.value, date.value)\">\n                                                    Save\n                                                </button>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </form>\n                            </div>\n                            \n                        </div>\n                    </div>\n                        \n            </div>\n        </div>\n        <div class=\"row-md-4\">\n            <div class=\"card display-none\" [ngClass]=\"{'display-none': !Me.Month}\" >\n                <div class=\"card-header-own\">\n                    <div class=\"text-uppercase\">\n                        Workout List \n                    </div>\n                    <div class=\"subtitle\">Click to add workout to your plan</div>\n                </div>\n                <div class=\"card-body\">\n                    <form>\n                        <div class=\"form-group\">\n                            <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                            <option *ngFor=\"let list of ExerciseList\" (click)=\"submitWorkout($event, list)\">\n                                {{list}}\n                            </option>\n                            </select>\n                        </div>\n                    </form>\n                </div>\n            </div>\n\n        \n            <div class=\"card display-none\" [ngClass]=\"{'display-none': !Me.Month}\">\n                <div class=\"card-header-own heightAdjust\">\n                    <div class=\"text-uppercase today\" >\n                        {{Me.Month}} {{Me.Date}}\n                    </div>\n                    <div class=\"text-uppercase \">\n                        Workout Plan\n                    </div>\n    \n                    <div class=\"subtitle\">Add your time and sets.<br/> When you are done, click Done button</div>\n\n                </div>\n                \n                <div class=\"card-body\">\n                    <ul class=\"list-group list-group-flush \">\n                        <li *ngFor=\"let list of Me.PlanExercise\"\n                            [ngClass]=\"{ 'list-group-item-success': list.Chosen }\"                            \n                            class=\"list-group-item list-group-flush \">\n                            {{list.Text}}\n                            <form>\n                                <div class=\"row d-flex justify-content-end\">\n                                    <div class=\"col\">\n                                    <input #time type=\"number\" class=\"form-control\" placeholder=\"Minutes\">\n                                    </div>\n                                    <div class=\"col\">\n                                    <input #set type=\"number\" class=\"form-control\" placeholder=\"Sets\">\n                                    </div>\n                                </div>\n                            </form>\n                            <div class=\"d-flex justify-content-end\">\n                                <button (click)=\"doneExercise($event, list.Text, time.value, set.value)\"\n                                        class=\"col-sm-3 btn btn-sm btn-primary\">\n                                        Done\n                                </button>\n                            </div>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n\n\n        </div>\n\n        <div class = \"row-md-4\">\n            <div class=\"card tracking display-none\" [ngClass]=\"{'display-none': !Me.Month}\">\n                <div class=\"card-header-own heightAdjust-big date\">\n                    <div class=\"subtitle\"> Well Done, You Are The Best!  </div>\n                    <div class=\"text-uppercase subtitle\">\n                            You worked out on <br /> {{Me.Month}} {{Me.Date}}\n                    </div> \n                    <div class=\"text-uppercase\">\n                        Workout Log \n                    </div> \n                </div>\n                <div class=\"card-body\">\n                    <ul class=\"list-group list-group-flush\" *ngFor= \"let choice of Me.DoneExerciseList\">\n                        <li class=\"list-group-item \">\n                            {{choice.Text}}\n                            <div>\n                                <i class=\"badge float-right badge-info d-flex justify-content-end\" >\n                                    Total Cycle: {{choice.TotalTime}} min \n                                </i>\n                                <i class=\"badge float-right badge-light d-flex justify-content-end\" >\n                                    Total Set: {{choice.Set}} times\n                                </i>\n                                <i class=\"badge float-right badge-light d-flex justify-content-end\" >\n                                    Total Time: {{choice.Time}} min \n                                </i>\n                            </div>\n                            \n                        </li>\n                    </ul>\n                    <div class=\"card-body\">\n                        <i>\n                            Your Total Workout Time: {{Me.TotalSetTime}} minutes\n                        </i>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"row-md-4 display-none \" [ngClass]=\"{'display-none' : !Me.Month}\">\n            <div class=\"card-body \" style=\"border: 1px solid #7CACEA\" >\n                <div class=\"d-flex justify-content-center\"> Ready to track another workout? </div>\n                <div class=\"d-flex justify-content-center\">Reset your Workout List!</div>\n                <div class=\" d-flex justify-content-center\">\n                    <button class=\"btn btn-sm btn-primary\" (click)=\"reset($event)\">Reset</button>\n                </div>\n            </div>\n        </div>\n        \n    </div>\n</div>"
 
 /***/ }),
 
@@ -238,7 +238,6 @@ var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var FitComponent = /** @class */ (function () {
     // date: Date;
-    // added: boolean = false;
     function FitComponent(http, _Messages, _Fit, _Router) {
         this.http = http;
         this._Messages = _Messages;
@@ -341,9 +340,8 @@ var FitComponent = /** @class */ (function () {
             //this.Me.Month = month;
             //this.Me.Date = date;
             //var i = this.Me.History.find(x=> x.KeyDate == key).indexOf(key);
-            console.log('_comp_history found, return one');
+            // find user's history from History[] then return to the user.
             var result = this.Me.History.find(function (x) { return x.KeyDate == key; });
-            console.log('_comp_ History exist is');
             console.log(result);
             this.Me.Month = result.Month;
             this.Me.Date = result.Date;
@@ -372,8 +370,6 @@ var FitComponent = /** @class */ (function () {
             }
         }
      */
-        // instead of this, how to disable date setting until user resets the list?
-        // this.added = !this.added;
     };
     FitComponent.prototype.submitWorkout = function (e, text) {
         e.preventDefault();
@@ -384,8 +380,8 @@ var FitComponent = /** @class */ (function () {
         else {
             this.Me.PlanExercise.push({ Text: text, Chosen: false });
         }
+        // find the user's plan history from History[] by key
         /* if(!this.Me.History.find(x => x.KeyDate == key)){
-          console.log('_comp_ history not found, create plan');
           
           this.Me.History.find(x=> x.KeyDate == key).PlanExercise = this.Me.PlanExercise;
     
@@ -402,11 +398,10 @@ var FitComponent = /** @class */ (function () {
         this._Fit.chooseExercise(text);
         this._Fit.planHistory(text, key);
     };
-    /* doneExercise() will track the completed workout that a user checks it as "done"
-       */
+    // doneExercise() will track the completed workout that a user checks it as "done"
     FitComponent.prototype.doneExercise = function (e, text, time, set) {
         e.preventDefault();
-        // fix this to client -> server
+        // fix this to client -> server ?
         this._Fit.makeChosen(text);
         var key = this.Me.Month + ' / ' + this.Me.Date;
         var totalTime = time * set;
@@ -430,6 +425,7 @@ var FitComponent = /** @class */ (function () {
             //this._Fit.putHistory(this.Me.DoneExerciseList);
         }
         var key = this.Me.Month + ' / ' + this.Me.Date;
+        // find user's complete exercise list  from History, and show it to user.
         if (this.Me.History.find(function (x) { return x.KeyDate == key; })) {
             this.Me.History.find(function (x) { return x.KeyDate == key; }).Name = this.Me.Name;
             this.Me.History.find(function (x) { return x.KeyDate == key; }).DoneExerciseList = this.Me.DoneExerciseList;
@@ -437,10 +433,14 @@ var FitComponent = /** @class */ (function () {
             this.Me.History.find(function (x) { return x.KeyDate == key; }).TotalSetTime = this.Me.TotalSetTime;
             this.Me.History.find(function (x) { return x.KeyDate == key; }).Month = this.Me.Month;
             this.Me.History.find(function (x) { return x.KeyDate == key; }).Date = this.Me.Date;
+            // send this history to server 
             this._Fit.RecordDay(this.Me, key);
         }
-        console.log('_comp_doneEx_this.Me.History');
-        console.log(this.Me.History);
+        // console.log('_comp_doneEx_this.Me.History');
+        // console.log(this.Me.History);
+    };
+    // when user hits Reset button, reset the page (workout lists)
+    FitComponent.prototype.reset = function (e) {
     };
     FitComponent = __decorate([
         core_1.Component({
@@ -470,7 +470,7 @@ module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 5
 /***/ "./src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row-md-4\">\n  <div class=\"card\" >\n      <div class=\"card-header-own\">\n          <div class=\"text-uppercase\">\n              Workout Day\n          </div>\n          <div class=\"subtitle\">Select Your Date to See Your Workout History </div>\n      </div>\n      <div class=\"card-body\">\n          <form>\n              <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                  <option *ngFor=\"let list of Me.History\" (click)=\"submitLog($event, list.KeyDate)\">\n                      {{list.KeyDate}}\n                  </option>\n                  </select>\n              </div>\n          </form>\n      </div>\n  </div>\n\n\n  <div class=\"card display-none\" [ngClass]=\"{'display-none': !Me.Summary}\">\n      <div class=\"card-header-own heightAdjust\">\n          \n          <div class=\"text-uppercase \">\n              Workout Summary\n          </div>\n\n          <div class=\"subtitle\">Enjoy your Achievement!</div>\n\n      </div>\n      \n      <div class=\"card-body\">\n          <ul class=\"list-group list-group-flush \">\n              <li *ngFor=\"let list of Me.Summary.DoneExerciseList\"\n                  class=\"list-group-item list-group-flush \">\n                  {{list.Text}}\n                  <div class=\"d-flex justify-content-end\">\n                    <i class=\"badge float-right badge-info d-flex justify-content-end\" >\n                      Total Time: {{Me.Summary.TotalSetTime}} min \n                    </i>\n                  </div>\n              </li>\n          </ul>\n      </div>\n  </div>\n\n\n</div>\n"
+module.exports = "<div class=\"row-md-4\">\n  <div class=\"card\" >\n      <div class=\"card-header-own\">\n          <div class=\"text-uppercase\">\n              Workout Day\n          </div>\n          <div class=\"subtitle\">Select Your Date to See Your Workout History </div>\n      </div>\n      <div class=\"card-body\">\n          <form>\n              <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                  <option *ngFor=\"let list of Me.History\" (click)=\"submitLog($event, list.KeyDate)\">\n                      {{list.KeyDate}}\n                  </option>\n                  </select>\n              </div>\n          </form>\n      </div>\n  </div>\n\n\n  <div class=\"card display-none\" [ngClass]=\"{'display-none': !Me.Summary}\">\n      <div class=\"card-header-own heightAdjust\">\n          \n          <div class=\"text-uppercase \">\n              Workout Summary\n          </div>\n\n          <div class=\"subtitle\">Enjoy your Achievement!</div>\n\n      </div>\n      \n      <div class=\"card-body\">\n          <ul class=\"list-group list-group-flush \">\n              <li *ngFor=\"let list of Me.Summary.DoneExerciseList\"\n                  class=\"list-group-item list-group-flush \">\n                  {{list.Text}}\n              </li>\n          </ul>\n      </div>\n      <div class=\"card-text\">\n        <div class=\"d-flex justify-content-center\">\n            <i class=\"badge float-right badge-info\" >\n              Total Time: {{Me.Summary.TotalSetTime}} min <br />\n            </i>\n        </div>\n      </div>\n\n  </div>\n\n\n</div>\n"
 
 /***/ }),
 
@@ -935,6 +935,7 @@ var FitService = /** @class */ (function () {
        this.http.get(this._api + "/state")
            .subscribe(data=> this.Model = data.json())
      } */
+    // initialize user's data when they sign-up.
     FitService.prototype.signUp = function (name, password) {
         var _this = this;
         this.Me = { Name: name, Password: password, Profile: { Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null },
@@ -947,7 +948,6 @@ var FitService = /** @class */ (function () {
                 alert("User Name is taken, please try different name");
                 return;
             }
-            //this.getUserList();
             _this._Router.navigate(['/profile']);
         });
     };
@@ -959,6 +959,7 @@ var FitService = /** @class */ (function () {
       PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0};
       this._Router.navigate(['/fit']);
     } */
+    // get user's information from the server.
     FitService.prototype.login = function (name, password) {
         var _this = this;
         this.http.get(this._api + "/exercise/login", { params: { name: name, password: password } })
@@ -972,6 +973,7 @@ var FitService = /** @class */ (function () {
             _this._Router.navigate(['/fit']);
         });
     };
+    // add user's profile to server
     FitService.prototype.profileAdd = function (age, weight, height, goalWeight, bmi, goalBmi, name) {
         var _this = this;
         this.http.post(this._api + "/exercise/profile", { Age: age, Weight: weight, Height: height,
@@ -987,6 +989,7 @@ var FitService = /** @class */ (function () {
         this.http.post(this._api + "/exercise/choose", { name: this.Me.Name, Text: text })
             .subscribe();
     };
+    // post planned workout list to the History[] in server
     FitService.prototype.planHistory = function (text, key) {
         this.http.post(this._api + "/exercise/planHistory", { user: this.Me, Text: text, key: key })
             .subscribe();
@@ -1022,15 +1025,17 @@ var FitService = /** @class */ (function () {
         return this.http.get(this._api + '/exercise/people', { params: { name: this.Me.Name } })
             .map(function (response) { return response.json(); });
     };
+    // get the updated information from the server to refresh Share Component.
     FitService.prototype.getRequestState = function () {
         return this.http.get(this._api + '/exercise/request/state', { params: { name: this.Me.Name } })
             .map(function (response) { return response.json(); });
     };
-    // Send a request notice to a selected user
+    // Send a request notice to a selected user.
     FitService.prototype.friendRequest = function (friendName) {
         this.http.post(this._api + '/exercise/request', { friend: friendName, name: this.Me.Name })
             .subscribe();
     };
+    // Add friends to this user's FriendList in the server when user accepts the request.
     FitService.prototype.addFriendList = function (friendName) {
         var _this = this;
         this.http.post(this._api + '/exercise/addFriend', { name: this.Me.Name, friend: friendName })
@@ -1040,6 +1045,7 @@ var FitService = /** @class */ (function () {
             console.log(_this.Me.FriendList);
         });
     };
+    // if user gets friend request, change the Requested status to inform the user that they have friend requests.
     FitService.prototype.changeRequested = function (name) {
         this.http.post(this._api + '/exercise/changeRequest', { name: name })
             .subscribe();
@@ -1054,6 +1060,7 @@ var FitService = /** @class */ (function () {
         this.http.post(this._api + '/exercise/setDay', { user: user, key: key })
             .subscribe();
     };
+    // Update the Done Exercise List in History[] in the server.
     FitService.prototype.RecordDay = function (user, key) {
         /*  var key = month +'/'+date;
          this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, month: month, date: date, key: key.toString() })
@@ -1061,38 +1068,19 @@ var FitService = /** @class */ (function () {
         this.http.post(this._api + '/exercise/recordDay', { name: this.Me.Name, user: user, key: key })
             .subscribe();
     };
+    // get summary from the server to display it at History
     FitService.prototype.getSummary = function (key) {
         var _this = this;
-        console.log('getSummary this.Me');
-        console.log(this.Me);
+        // console.log('getSummary this.Me');
+        // console.log(this.Me);
         this.http.get(this._api + "/exercise/summary", { params: { user: this.Me.Name, key: key } })
             .subscribe(function (data) {
-            console.log('_service_ getSummary gets data.json()');
-            console.log(data.json());
+            // console.log('_service_ getSummary gets data.json()');
+            // console.log(data.json());
             _this.Me.Summary = data.json();
-            console.log('Summary +++++');
-            console.log(_this.Me.Summary);
+            // console.log('Summary +++++');
+            // console.log(this.Me.Summary);
         });
-    };
-    /*   getDay(){
-        return this.http.get(this._api+'/exercise/getDay', {params:{name: this.Me.Name}})
-        .map((response:Response)=>response.json());
-        
-      }
-      getMonth(){
-        return this.http.get(this._api+'/exercise/getMonth', {params:{name: this.Me.Name}})
-        .map((response:Response)=>response.json());
-        
-      }
-  
-      putHistory(done){
-        this.http.post(this._api + '/exercise/recordWorkout', {name: this.Me.Name, done: done})
-        .subscribe();
-      }
-   */
-    FitService.prototype.getUserStatus = function () {
-        return this.http.get(this._api + '/exercise/user', { params: { name: this.Me.Name } })
-            .map(function (response) { return response.json(); });
     };
     FitService = __decorate([
         core_1.Injectable(),
@@ -1143,7 +1131,7 @@ exports.MessagesService = MessagesService;
 /***/ "./src/app/share/share.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "ul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.btn{\n    margin-top: 2px;\n    margin-bottom: 5px;\n\n    \n    \n}\n\n.btn-color{\n    background-color: #F4C3D8;\n    border: none;\n    color: white;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    margin-bottom: 10px;\n    font-weight: 300;\n    padding: 0.2rem;\n    \n}\n\n.text-uppercase-own{\n    font-size: 12px;\n    color: white;\n}\n\n.heightAdjust{\n    height: 160px;\n}"
+module.exports = "ul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card{\n    margin: 10px;\n    color: #1C5F93;\n}\n\n.card-header{\n    background-color: #7CACEA;\n    height: 120px;\n    text-align: center;\n    border: none;\n    padding: 1.7rem 0;\n    font-size: 30px;\n    color: white;\n    \n    \n}\n\n.btn{\n    margin-top: 2px;\n    margin-bottom: 5px;\n    \n}\n\n.btn-color{\n    background-color: #F4C3D8;\n    border: none;\n    color: white;\n}\n\n.subtitle{\n    font-size: 15px;\n    margin: 1px;\n    margin-bottom: 10px;\n    font-weight: 300;\n    padding: 0.2rem;\n    \n}\n\n.text-uppercase-own{\n    font-size: 12px;\n    color: white;\n}\n\n.heightAdjust{\n    height: 160px;\n}"
 
 /***/ }),
 

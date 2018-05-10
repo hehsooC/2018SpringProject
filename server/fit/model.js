@@ -92,6 +92,7 @@ function Fit() {
 
         }
 
+        // put user's planned workout list into History[]
         this.PlanHistory = (user, text, key) => {
             var userFound = this.Person.find(x => x.Name == user.Name);
             var historyFound = userFound.History.find(x=>x.KeyDate == key);
@@ -107,6 +108,7 @@ function Fit() {
 
         }
 
+        // if a planned workout list is selected, make Chosen to true to indicate this exercise is done.
         this.MakeChosen = (name, text) => {
             var user = this.Person.find(x => x.Name == name);
             var chosenWorkout = user.PlanExercise.find(x=> x.Text == text)
@@ -114,15 +116,13 @@ function Fit() {
             return user.PlanExercise;
         }
 
-
+        // post selected workout to the server in Person[]
         this.DoneExercise = (name, list) => {
             var user = this.Person.find(x => x.Name == name);
 
             if(user){
-
                 user.DoneExerciseList = list;
                 return user.DoneExerciseList;
-                
             }
             else{
                 console.log('fail to done exercise - model');
@@ -131,6 +131,8 @@ function Fit() {
             
              
         }  
+
+        // Update the Done Exercise List in History[].
         this.RecordDay = (name, user, key) => {
 
             var userFound = this.Person.find(x => x.Name == user.Name);
@@ -140,49 +142,48 @@ function Fit() {
             }
             else{
                 historyFound.DoneExerciseList = user.DoneExerciseList;
-                
-                
             }
 
         }
 
+        // Update total workout time.
         this.GetTotalTime = (user, key, totalTime) => {
-
             var userFound = this.Person.find(x => x.Name == user.Name);
             var historyFound = userFound.History.find(x=> x.KeyDate == key);
+            
             if(!historyFound){
                 console.log('history not found');
             }
+            // if there is workout history, update it.
             else{
                 historyFound.TotalSetTime = totalTime;
                 
                 
             }
+            // update User's total workout time in Person[]
             userFound.TotalSetTime = totalTime;
 
             return userFound.TotalSetTime;
-
         }
 
+        // give other users' name to this user.
         this.GiveUserList = (name) => {
             if(!this.Share.find(x => x.Name == name)){
                 this.Share.push({Name: name});
                 return this.Share;
-
             }
             else{
                 return this.Share;
             }
         }
     
+        // Update the friend requested status to this user
         this.GiveRequestState = (name) =>{
-          
             var me = this.Person.find(x => x.Name == name);
-
             return me;
-
         }
 
+        // send a friend request to a selected other user.
         this.FriendRequest = (friend, name) => {
             console.log('_model_ friend request');
             var me = this.Person.find(x => x.Name == name);
@@ -196,15 +197,9 @@ function Fit() {
                 console.log('friend request already done!');
                 
             }
-        /*     if(this.Share.find(x=>x.Name == friend)){
-                var index = this.Share.indexOf(friend);
-                this.Share[index] = ({Name: friend, FriendRequest: true});
-            }
- */
-
-
-
         }
+
+        // if friend request is accepted, add that user to this user's friendList.
         this.AddFriend = (name, friend) =>{
             var user = this.Person.find(x=> x.Name == name);
 
@@ -216,21 +211,17 @@ function Fit() {
 
         }
 
+        // indicates if this user gets a friend request or not.
         this.ChangeRequested = ( name )=>{
             var user = this.Person.find( x => x.Name == name);
             user.Requested = false;
         }
 
+        // send a user's workout summary to History Component.
         this.GetSummary = (user, key) => {
             var userFound = this.Person.find( x => x.Name == user);
-            console.log('======');
-            console.log(userFound);
             var historyFound = userFound.History.find(x=> x.KeyDate == key);
-            console.log('_model_ GetSummary return');
-            console.log(historyFound);
             return historyFound;
-
-  
         }
         
     
@@ -245,15 +236,10 @@ function Fit() {
             return user.Month;
         } */
 
-        this.RecordWorkokut = (month, date, name, done)=>{
-            var user = this.Person.find( x => x.Name == name);
-            user.History.find(x => x.Month == month);
-
-        }
-        this.GiveUser=(name)=>{
+   /*      this.GiveUser=(name)=>{
             var user = this.Person.find( x => x.Name == name);
             return user;
-        }
+        } */
  
   /** Couldn't find the health information database yet. 
          // at Home, Give a user to a health information.

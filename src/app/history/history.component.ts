@@ -17,6 +17,8 @@ export class HistoryComponent implements OnInit {
     if(!this.Me){
       _Router.navigate(['/login']);
     } 
+
+    
   
    }
 

@@ -36,14 +36,17 @@
               <li *ngFor="let list of Me.Summary.DoneExerciseList"
                   class="list-group-item list-group-flush ">
                   {{list.Text}}
-                  <div class="d-flex justify-content-end">
-                    <i class="badge float-right badge-info d-flex justify-content-end" >
-                      Total Time: {{Me.Summary.TotalSetTime}} min 
-                    </i>
-                  </div>
               </li>
           </ul>
       </div>
+      <div class="card-text">
+        <div class="d-flex justify-content-center">
+            <i class="badge float-right badge-info" >
+              Total Time: {{Me.Summary.TotalSetTime}} min <br />
+            </i>
+        </div>
+      </div>
+
   </div>
 
 
