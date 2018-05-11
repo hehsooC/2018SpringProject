@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FitService } from '../services/fit.service';
 import { Fit } from '../models/exercise';
-import { MessagesService } from '../services/messages.service';
 
 declare var googleyolo: any
 
@@ -12,12 +11,12 @@ declare var googleyolo: any
 })
 export class LoginComponent implements OnInit {
 
-  Model = new Fit();
-  constructor(private _Fit: FitService, private _Messages: MessagesService) { }
+  constructor(private _Fit: FitService) { }
 
   ngOnInit() {
   }
 
+  // pass name and password to Service for a user to sign-in
   login(name:string, password: string){
     this._Fit.login(name, password);
   }

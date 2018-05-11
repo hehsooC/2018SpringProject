@@ -9,7 +9,6 @@ import { MessagesService } from '../services/messages.service';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-  loginName: string;
 
   Me: User;
   constructor( private _Fit: FitService, private _Messages: MessagesService) { 
@@ -20,7 +19,7 @@ export class SignUpComponent implements OnInit {
   ngOnInit() {
   }
 
-
+  // send name and password to Service to create a new user
     newUser(name: string, password: string){
         this._Fit.signUp(name, password);
         console.log('Sign Up Yay');

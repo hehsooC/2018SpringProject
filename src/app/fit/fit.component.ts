@@ -251,7 +251,7 @@ export class FitComponent implements OnInit {
   // when user hits Reset button, reset the page (workout lists)
   reset(e: MouseEvent){
     
-
+    // call set day retrieve history
   }
 
   

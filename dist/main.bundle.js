@@ -441,6 +441,7 @@ var FitComponent = /** @class */ (function () {
     };
     // when user hits Reset button, reset the page (workout lists)
     FitComponent.prototype.reset = function (e) {
+        // call set day retrieve history
     };
     FitComponent = __decorate([
         core_1.Component({
@@ -597,7 +598,7 @@ module.exports = ".login-form{\n    margin-top: 10px;\n    margin-bottom: 2px;\n
 /***/ "./src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"d-flex justify-content-center\">\n    <div class=\"card text-center\" style=\"width: 30rem\">\n        <div class=\"card-header\">\n            <div class=\"text-uppercase title\">Please Sign In</div>\n        </div>\n        <div class =\"text-uppercase black\">\n            Already a user? \n        </div>\n        <div class=\"font-margin\">\n            Please Sign In\n        </div> \n        <div class=\"login-form\" >\n            <input #Name type =\"text\" placeholder =\"User Name\"/><br/>\n            <input #Password type =\"text\" placeholder =\"Password\" />\n        </div>\n    \n        <div class=\"row justify-content-center\">\n            <div class=\"col-sm-2\">\n                <button class=\" btn btn-margin\" (click)=\"login(Name.value, Password.value)\" >Sign In</button>\n            </div>\n            <div class=\"col-sm-2\">\n                <button class=\"btn btn-margin\" (click)=\"googleLogin()\" >Sign In with Google</button>\n            </div>\n        </div>\n        <div class=\"card-link\">\n            <div class =\"text-uppercase black\">\n                New to Here?\n            </div>\n            \n            <button type=\"submit\" class=\"btn btn-sm\">\n                <div class=\"nav-link\" routerLink=\"/sign-up\" >\n                    Please Sign Up\n                </div> \n            </button>\n        </div>\n    </div>\n</div>\n"
+module.exports = "<!-- existing user sign in here -->\n<div class=\"d-flex justify-content-center\">\n    <div class=\"card text-center\" style=\"width: 30rem\">\n        <div class=\"card-header\">\n            <div class=\"text-uppercase title\">Please Sign In</div>\n        </div>\n        <div class =\"text-uppercase black\">\n            Already a user? \n        </div>\n        <div class=\"font-margin\">\n            Please Sign In\n        </div> \n        <div class=\"login-form\" >\n            <input #Name type =\"text\" placeholder =\"User Name\"/><br/>\n            <input #Password type =\"text\" placeholder =\"Password\" />\n        </div>\n    \n        <div class=\"row justify-content-center\">\n            <div class=\"col-sm-2\">\n                <button class=\" btn btn-margin\" (click)=\"login(Name.value, Password.value)\" >Sign In</button>\n            </div>\n            <div class=\"col-sm-2\">\n                <button class=\"btn btn-margin\" (click)=\"googleLogin()\" >Sign In with Google</button>\n            </div>\n        </div>\n        <div class=\"card-link\">\n            <div class =\"text-uppercase black\">\n                New to Here?\n            </div>\n            \n            <button type=\"submit\" class=\"btn btn-sm\">\n                <div class=\"nav-link\" routerLink=\"/sign-up\" >\n                    Please Sign Up\n                </div> \n            </button>\n        </div>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -618,16 +619,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
-var exercise_1 = __webpack_require__("./src/app/models/exercise.ts");
-var messages_service_1 = __webpack_require__("./src/app/services/messages.service.ts");
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(_Fit, _Messages) {
+    function LoginComponent(_Fit) {
         this._Fit = _Fit;
-        this._Messages = _Messages;
-        this.Model = new exercise_1.Fit();
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
+    // pass name and password to Service for a user to sign-in
     LoginComponent.prototype.login = function (name, password) {
         this._Fit.login(name, password);
     };
@@ -637,7 +635,7 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/login/login.component.html"),
             styles: [__webpack_require__("./src/app/login/login.component.css")]
         }),
-        __metadata("design:paramtypes", [fit_service_1.FitService, messages_service_1.MessagesService])
+        __metadata("design:paramtypes", [fit_service_1.FitService])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -697,80 +695,6 @@ var MessagesComponent = /** @class */ (function () {
     return MessagesComponent;
 }());
 exports.MessagesComponent = MessagesComponent;
-
-
-/***/ }),
-
-/***/ "./src/app/models/exercise.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Fit = /** @class */ (function () {
-    function Fit() {
-        this.Person = [];
-        this.Share = [];
-        /** Need to find health info database api
-        HealthInfo: {
-            url: string;
-        }
-        */
-    }
-    return Fit;
-}());
-exports.Fit = Fit;
-var User = /** @class */ (function () {
-    function User() {
-        this.PlanExercise = [];
-        this.DoneExerciseList = [];
-        this.Record = [];
-        this.EachShare = [];
-        this.FriendList = [];
-        this.History = [];
-    }
-    return User;
-}());
-exports.User = User;
-var Log = /** @class */ (function () {
-    function Log() {
-        this.DoneExerciseList = [];
-        this.PlanExercise = [];
-    }
-    return Log;
-}());
-exports.Log = Log;
-var People = /** @class */ (function () {
-    function People() {
-    }
-    return People;
-}());
-exports.People = People;
-var Friend = /** @class */ (function () {
-    function Friend() {
-    }
-    return Friend;
-}());
-exports.Friend = Friend;
-var Exercise = /** @class */ (function () {
-    function Exercise() {
-        this.Chosen = false;
-    }
-    return Exercise;
-}());
-exports.Exercise = Exercise;
-var Done = /** @class */ (function () {
-    function Done() {
-    }
-    return Done;
-}());
-exports.Done = Done;
-var Info = /** @class */ (function () {
-    function Info() {
-    }
-    return Info;
-}());
-exports.Info = Info;
 
 
 /***/ }),
@@ -837,7 +761,7 @@ module.exports = ".login-form{\n    margin: 10px;\n}\n\n.btn-own{\n    margin: 1
 /***/ "./src/app/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card\"  >\n  <div class=\"card-header-own\">\n  <div class=\"text-uppercase-own\">Please Create Your Profile Before Tracking Your Workout!</div> \n  <div class=\"text-uppercase\">Profile</div>\n  \n\n  </div>\n  <form>\n      <div class=\"form-row\">\n  \n      <div class=\"form-group col-md-4\">\n          <label for=\"inputName\">Name</label>\n          <input #name type=\"text\" class=\"form-control\" id=\"inputName\" [value]=\"Me.Name\">\n      </div>\n  \n      <div class=\"form-group col-md-4\">\n          <label for=\"inputAge\">Age</label>\n          <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" placeholder=\"Age\" >\n      </div>\n      </div>\n  \n      <div class=\"form-group\">\n          <label for=\"inputHeight\">Height</label>\n          <input #height type=\"number\" class=\"form-control\" id=\"inputHeight\" placeholder=\"cm\">\n      </div>\n\n      <div class=\"form-group\">\n          <label for=\"inputWeight\">Weight</label>\n          <input #weight type=\"number\" class=\"form-control\" id=\"inputWeight\" placeholder=\"kg\">\n      </div>\n  \n      <div class=\"form-group\">\n          <label for=\"inputGoalWeight\">Goal Weight</label>\n          <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" placeholder=\"kg\">\n      </div>\n      </form>\n  <div>\n      <button class=\"btn btn-primary btn-sm btn-own\" (click)=\"adding(age.value, weight.value, height.value, goalWeight.value, name.value)\">Save</button>\n  </div> \n</div> <!-- Profile Form ends-->\n\n\n\n        "
+module.exports = "<div class=\"card\"  >\n  <div class=\"card-header-own\">\n  <div class=\"text-uppercase-own\">Please Create Your Profile Before Tracking Your Workout!</div> \n  <div class=\"text-uppercase\">Profile</div>\n  \n\n  </div>\n  <form>\n      <div class=\"form-row\">\n  \n      <div class=\"form-group col-md-4\">\n          <label for=\"inputName\">Name</label>\n          <input #name disabled type=\"text\" class=\"form-control\" id=\"inputName\" [value]=\"Me.Name\">\n      </div>\n  \n      <div class=\"form-group col-md-4\">\n          <label for=\"inputAge\">Age</label>\n          <input #age type=\"number\" class=\"form-control\" id=\"inputAge\" placeholder=\"Age\" >\n      </div>\n      </div>\n  \n      <div class=\"form-group\">\n          <label for=\"inputHeight\">Height</label>\n          <input #height type=\"number\" class=\"form-control\" id=\"inputHeight\" placeholder=\"cm\">\n      </div>\n\n      <div class=\"form-group\">\n          <label for=\"inputWeight\">Weight</label>\n          <input #weight type=\"number\" class=\"form-control\" id=\"inputWeight\" placeholder=\"kg\">\n      </div>\n  \n      <div class=\"form-group\">\n          <label for=\"inputGoalWeight\">Goal Weight</label>\n          <input #goalWeight type=\"number\" class=\"form-control\" id=\"inputGoalWeight\" placeholder=\"kg\">\n      </div>\n      </form>\n  <div>\n      <button class=\"btn btn-primary btn-sm btn-own\" (click)=\"adding(age.value, weight.value, height.value, goalWeight.value, name.value)\">Save</button>\n  </div> \n</div> <!-- Profile Form ends-->\n\n\n\n        "
 
 /***/ }),
 
@@ -865,12 +789,13 @@ var ProfileComponent = /** @class */ (function () {
     }
     ProfileComponent.prototype.ngOnInit = function () {
     };
+    // pass user's profile information to Service after calculating all bmi.
     ProfileComponent.prototype.adding = function (age, weight, height, goalWeight, name) {
         var goalBmi = this.calculateBMI(goalWeight, height);
         var bmi = this.calculateBMI(weight, height);
-        console.log('profile component');
         this._Fit.profileAdd(age, weight, height, goalWeight, bmi, goalBmi, name);
     };
+    // calculate BMI.
     ProfileComponent.prototype.calculateBMI = function (weight, height) {
         return Math.round((weight / height / height * 10000) * 100) / 100;
     };
@@ -941,7 +866,7 @@ var FitService = /** @class */ (function () {
         this.Me = { Name: name, Password: password, Profile: { Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null },
             PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [], History: [],
             Month: null, Date: null, Summary: { Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, Month: 0, Date: 0, KeyDate: null } };
-        this.http.get(this._api + "/exercise", { params: { name: name, password: password } })
+        this.http.get(this._api + "/sign-up", { params: { name: name, password: password } })
             .subscribe(function (data) {
             if (!data.json()) {
                 // alert user name taken
@@ -965,10 +890,12 @@ var FitService = /** @class */ (function () {
         this.http.get(this._api + "/exercise/login", { params: { name: name, password: password } })
             .subscribe(function (data) {
             var check = data.json();
+            // if there is no username or password matching in the server, alert.
             if (!check) {
                 alert('Username or Password doesn\'t match in our system! - service ');
                 return;
             }
+            // if there is a user, set Me to received data.
             _this.Me = data.json();
             _this._Router.navigate(['/fit']);
         });
@@ -1058,7 +985,9 @@ var FitService = /** @class */ (function () {
             this.http.post(this._api + '/exercise/setDay', {month: month, date: date, name: this.Me.Name, key: key.toString()})
             .subscribe(); */
         this.http.post(this._api + '/exercise/setDay', { user: user, key: key })
-            .subscribe();
+            .subscribe(function (data) {
+            // this.Me.History = data;
+        });
     };
     // Update the Done Exercise List in History[] in the server.
     FitService.prototype.RecordDay = function (user, key) {
@@ -1138,7 +1067,7 @@ module.exports = "ul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card
 /***/ "./src/app/share/share.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\">\n  <div class=\"col-md-3\">\n    <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n    <button class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event)\">You Have a Friend Request</button>\n  </div>\n</div>\n<div class=\"row justify-content-md-center\">\n  <!-- Choose a user to share workout log-->\n  <div class=\"col-md-4\">\n      <div class=\"card\" >\n          <div class=\"card-header heightAdjust\">\n            <div class=\"text-uppercase\">Users List</div>\n            <div class=\"subtitle\"> Please choose a user you want to share your workout summary</div>\n          </div>\n          <div class=\"card-body\">\n            <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n                <li  >User Name: {{users.Name}}\n                  <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" *ngIf = \"!users.Requested\"> Request Friend </button>\n                  <button class=\"btn btn-sm btn-light d-flex justify-content-end\" disabled *ngIf = \"users.Requested\"> Requested </button>\n                </li>\n    \n            </ul>\n          </div>\n      </div> \n    </div>\n\n  <div class=\"col-md-4\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n          <li>users name and workout summary will be here</li>\n        </ul>\n    </div> \n  </div>\n\n    \n  <div class=\"col\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div>\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of Me.FriendList\">\n          <li > {{friend.Name}}\n            <button class=\"btn btn-sm d-flex justify-content-end\" (click) = \"acceptFriend()\"> Share </button>\n\n          </li>\n        </ul>\n      </div>\n    </div> \n  </div> \n</div>\n\n\n"
+module.exports = "<div class=\"row justify-content-md-center\">\n  <div class=\"col-md-3\">\n    <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n    <button class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event)\">You Have a Friend Request</button>\n  </div>\n</div>\n<div class=\"row justify-content-md-center\">\n  <!-- Choose a user to share workout log-->\n  <div class=\"col-md-4\">\n      <div class=\"card\" >\n          <div class=\"card-header heightAdjust\">\n            <div class=\"text-uppercase\">Users List</div>\n            <div class=\"subtitle\"> Please choose a user you want to share your workout summary</div>\n          </div>\n          <div class=\"card-body\">\n            <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n                <li  >User Name: {{users.Name}}\n                  <button class=\"btn btn-color btn-sm d-flex justify-content-end display-none\" (click) = \"friendRequest($event, users.Name)\" [ngClass]=\"{'display-none': !users.Requested}\" > Request Friend </button>\n                  <button class=\"btn btn-sm btn-light d-flex justify-content-end display-none\" disabled [ngClass]=\"{'display-none': users.Requested}\"> Requested </button>\n                </li>\n    \n            </ul>\n          </div>\n      </div> \n    </div>\n\n  <div class=\"col-md-4\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div>\n        <ul class=\"list-group list-group-flush list\">\n          <li>users name and workout summary will be here</li>\n        </ul>\n    </div> \n  </div>\n\n    \n  <div class=\"col\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div>\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of Me.FriendList\">\n          <li > {{friend.Name}}\n            <button class=\"btn btn-sm d-flex justify-content-end\" (click) = \"acceptFriend()\"> Share </button>\n\n          </li>\n        </ul>\n      </div>\n    </div> \n  </div> \n</div>\n\n\n"
 
 /***/ }),
 
@@ -1233,7 +1162,7 @@ module.exports = ".login-form{\n    margin-top: 10px;\n    margin-bottom: 2px;\n
 /***/ "./src/app/sign-up/sign-up.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"row justify-content-center\">\n    <div class=\"card text-center\" style =\"width: 20rem\">\n        <div class=\"card-header\">\n            <div class=\"text-uppercase title\">Welcome!</div>\n        </div>\n            <div class=\"text-uppercase black\">New to Here?</div>\n            <div class=\"font-margin \">\n                Please Sign Up\n            </div>  \n            <div class=\"login-form\" >\n                <input #Name type =\"text\" placeholder =\"User Name\" /><br/>\n                <input #Password type =\"text\" placeholder =\"Password\" />\n            \n            </div>\n            <div class=\"btn-margin\">\n                <button class=\"btn\" (click)=\"newUser(Name.value, Password.value)\" >Sign Up</button>\n            </div>\n        </div>\n</div>\n"
+module.exports = "<!-- user sign up here -->\n<div class=\"row justify-content-center\">\n    <div class=\"card text-center\" style =\"width: 20rem\">\n        <div class=\"card-header\">\n            <div class=\"text-uppercase title\">Welcome!</div>\n        </div>\n            <div class=\"text-uppercase black\">New to Here?</div>\n            <div class=\"font-margin \">\n                Please Sign Up\n            </div>  \n            <div class=\"login-form\" >\n                <input #Name type =\"text\" placeholder =\"User Name\" /><br/>\n                <input #Password type =\"text\" placeholder =\"Password\" />\n            \n            </div>\n            <div class=\"btn-margin\">\n                <button class=\"btn\" (click)=\"newUser(Name.value, Password.value)\" >Sign Up</button>\n            </div>\n        </div>\n</div>\n"
 
 /***/ }),
 
@@ -1263,6 +1192,7 @@ var SignUpComponent = /** @class */ (function () {
     }
     SignUpComponent.prototype.ngOnInit = function () {
     };
+    // send name and password to Service to create a new user
     SignUpComponent.prototype.newUser = function (name, password) {
         this._Fit.signUp(name, password);
         console.log('Sign Up Yay');

@@ -1,10 +1,7 @@
 export class Fit {
     
     Person: User[] = [];
-
     Share: People[] = [];
-
-    
     
     /** Need to find health info database api
     HealthInfo: {
@@ -14,8 +11,6 @@ export class Fit {
  
  
 }
-
-
 
 export class User {
     Name: string;
@@ -36,7 +31,6 @@ export class User {
     
 }
 
-
 export class Log{
     Name: string;
     DoneExerciseList: Done[] = [];
@@ -52,8 +46,6 @@ export class Log{
 export class People {
     Name: string;
     FriendRequest: boolean;
-
-    
 }
 
 export class Friend{
@@ -72,7 +64,6 @@ export class Done {
     Time: number;
     Set: number;
     TotalTime: number;
-
 }
 
 export class Info {

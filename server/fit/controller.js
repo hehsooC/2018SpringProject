@@ -7,8 +7,10 @@ var fit = new Fit();
      
   
 module.exports = app
+    // get state of server
     .get('/state', (req, res) => res.send(fit))
-    .get('/exercise', (req, res) =>{
+    // create a new user
+    .get('/sign-up', (req, res) =>{
      res.send( fit.SignUp(req.query.name, req.query.password) );
     })
     .get('/exercise/login', (req, res) =>{
@@ -40,7 +42,7 @@ module.exports = app
         res.send(profile);
     })
     .post('/exercise/setDay', (req, res) => {
-        fit.SetDay(req.body.user, req.body.key);
+        res.send(fit.SetDay(req.body.user, req.body.key));
      })
     .post('/exercise/choose', (req, res) =>{
         var plan = fit.PlanWorkout(req.body.name, req.body.Text);

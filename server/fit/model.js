@@ -20,22 +20,25 @@ function Fit() {
         this.Share = [];
         //this.HealthInfo = null; 
         
-     
+     // creates a new user in the server.
         this.SignUp = (name, password) => {
-        
+            // if there is a username in the server, return false.
             if(this.Person.find(x => x.Name == name)){
                 return false;
             }else{
+                // if there is no username matched, create a new Person object.
                 this.Person.push({ Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null},
                     PlanExercise: [], DoneExerciseList: [], Notice: [], TotalSetTime: 0, Requested: false, FriendList:[], History: [], Month: null, Date: null});
                 return true;
             }
-             
         }        
-
+    
+    // send the user's information to server 
         this.LogIn = (name, password) => {
+            // if there is a user in the server, send the information.
             if(this.Person.find(x => x.Name == name)){
                 var user = this.Person.find( x => x.Name == name);
+                // check if username and password is matching
                 if(user.Name == name && user.Password == password){
                     return user;
                 } 
@@ -63,11 +66,12 @@ function Fit() {
             
             var historyFound = userFound.History.find(x=>x.KeyDate == key);
             if(!historyFound){
-                userFound.History.push(user.History.find(x=>x.KeyDate == key));
-                
+                var newDay = {KeyDate : key}
+                userFound.History.push(newDay);
+                return newDay;
             }
             else{
-                console.log('_model_ history already exist');
+                return historyFound;
                 
             }
 

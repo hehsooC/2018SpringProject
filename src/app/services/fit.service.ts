@@ -51,7 +51,7 @@ export class FitService {
     this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
     PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [], History: [],
     Month: null, Date: null, Summary: {Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, Month: 0, Date: 0, KeyDate: null}};
-    this.http.get(this._api + "/exercise", { params : { name: name, password: password } })
+    this.http.get(this._api + "/sign-up", { params : { name: name, password: password } })
     .subscribe(data=> {
       if(!data.json()){
         // alert user name taken
@@ -60,9 +60,7 @@ export class FitService {
       }
       this._Router.navigate(['/profile']);
     })
-     
-      
-    }
+  }
 
 
     /* oAuthLogin(name: string, token: string, pic: string){
@@ -80,16 +78,15 @@ export class FitService {
     this.http.get(this._api + "/exercise/login", { params : { name: name, password: password } })
     .subscribe(data=> {
       var check = data.json()
+      // if there is no username or password matching in the server, alert.
       if(!check){
         alert('Username or Password doesn\'t match in our system! - service ');
         return;
       }
+      // if there is a user, set Me to received data.
       this.Me = data.json()
       this._Router.navigate(['/fit']);
-
-    
     })
-   
   }
 
 
@@ -204,7 +201,11 @@ export class FitService {
       .subscribe(); */
 
       this.http.post(this._api + '/exercise/setDay', {user: user, key: key})
-      .subscribe();
+      .subscribe(data=>{
+       // this.Me.History = data;
+      }
+
+      );
     }
 
     // Update the Done Exercise List in History[] in the server.
