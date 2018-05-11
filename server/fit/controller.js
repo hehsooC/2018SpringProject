@@ -16,10 +16,11 @@ module.exports = app
     .get('/exercise/login', (req, res) =>{
         res.send( fit.LogIn(req.query.name, req.query.password));
     })
-
+    // Give other users' name to Me
     .get('/exercise/people', (req, res) => {
         res.send(fit.GiveUserList(req.query.name));
     })
+    // Give Me's requested status 
     .get('/exercise/request/state', (req, res) => {
         res.send(fit.GiveRequestState(req.query.name));
     })
@@ -32,24 +33,27 @@ module.exports = app
     .get('/exercise/getMonth', (req, res) => {
         res.send(fit.GetDay(req.query.name));
     }) */
+    // Give summary of a user
     .get('/exercise/summary', (req, res) => {
         res.send(fit.GetSummary(req.query.user, req.query.key));
     })
+    // post profile to a server
     .post('/exercise/profile', (req, res) =>{
         var profile = fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 
                         req.body.GoalWeight, req.body.BMI, req.body.GoalBMI, 
                         req.body.name);
         res.send(profile);
     })
+    // post set date and month to the server
     .post('/exercise/setDay', (req, res) => {
-        res.send(fit.SetDay(req.body.user, req.body.key));
+        res.send(fit.SetDay(req.body.name, req.body.key, req.body.month, req.body.date));
      })
     .post('/exercise/choose', (req, res) =>{
         var plan = fit.PlanWorkout(req.body.name, req.body.Text);
         res.send(plan);
     })
     .post('/exercise/planHistory', (req, res) =>{
-        var plan = fit.PlanHistory(req.body.user, req.body.Text, req.body.key);
+        var plan = fit.PlanHistory(req.body.name, req.body.Text, req.body.key);
         res.send(plan);
     })
     .post('/exercise/chosen', (req,res) => {

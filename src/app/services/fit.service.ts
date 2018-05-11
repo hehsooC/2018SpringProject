@@ -102,27 +102,41 @@ export class FitService {
     
   }
 
+  // set the month and the date of user's log in the server.
+  SetDay(name: string, key: string, month: string, date: number){
+        this.http.post(this._api + '/exercise/setDay', {name: name, key: key, month: month, date: date})
+        .subscribe(data=>{
+          if(!data.json()){
+            return;
+          }
+         this.Me.History = data.json();
+        }
+  
+        );
+      }
+  
+
   // post planned workout list to the server
   chooseExercise(text: string){
     this.http.post(this._api + "/exercise/choose", {name: this.Me.Name, Text: text})
-              .subscribe(/* data => {
+              .subscribe( data => {
                 if(!data.json()){
                   return;
                 }
                 this.Me.PlanExercise = data.json();
-              } */);
+              } );
 
   }
 
   // post planned workout list to the History[] in server
   planHistory(text: string, key: string){
-    this.http.post(this._api + "/exercise/planHistory", {user: this.Me, Text: text, key: key})
-              .subscribe(/* data => {
+    this.http.post(this._api + "/exercise/planHistory", {name: this.Me.Name, Text: text, key: key})
+              .subscribe(data => {
                 if(!data.json()){
                   return;
                 }
                 this.Me.PlanExercise = data.json();
-              } */);
+              });
 
   }
   
@@ -192,22 +206,7 @@ export class FitService {
 
       
     }
-    // set the month and the date of user's log in the server.
-    SetDay(user: User, key: string){
-  /*     console.log('month: ' + month);
-      console.log('date ' + date);
-      var key = month +'/'+date;
-      this.http.post(this._api + '/exercise/setDay', {month: month, date: date, name: this.Me.Name, key: key.toString()})
-      .subscribe(); */
-
-      this.http.post(this._api + '/exercise/setDay', {user: user, key: key})
-      .subscribe(data=>{
-       // this.Me.History = data;
-      }
-
-      );
-    }
-
+    
     // Update the Done Exercise List in History[] in the server.
     RecordDay(user: User, key: string){
      /*  var key = month +'/'+date;

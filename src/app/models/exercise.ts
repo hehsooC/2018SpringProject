@@ -31,6 +31,7 @@ export class User {
     
 }
 
+// For keeping the user's workout record
 export class Log{
     Name: string;
     DoneExerciseList: Done[] = [];

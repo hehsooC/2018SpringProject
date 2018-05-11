@@ -61,6 +61,10 @@ export class FitComponent implements OnInit {
   // Record the month and the date ((user input)) of completed workout
   addTime(e: MouseEvent, month: any, date: number){
     e.preventDefault();
+    if(!date || !month){
+      alert('Please input month and date');
+      return;
+    }
     while(true){
       if(month == 1){
         month = 'January';
@@ -100,96 +104,83 @@ export class FitComponent implements OnInit {
         break;
       }else{
         alert('Please input between 1 - 12');
-        break;
+        return;
       }
     }
 
-    var key = month +' / '+date;
-    var user = this.Me;
-    // user.Month = month;
-    // user.Date = date;
+    if(date < 1 || date > 31){
+      alert('Please input between 1 - 31');
+      return;
+    }
 
-    //if the recorded day already exists, set recorded day to a user
-    if(!user.History.find(x => x.KeyDate == key)){
-      console.log('_comp_ history not found, create one');
-      user.Month = month;
-      user.Date = date;
-      user.History.push({ Name: this.Me.Name, DoneExerciseList: this.Me.DoneExerciseList, PlanExercise: this.Me.PlanExercise, TotalSetTime: this.Me.TotalSetTime, 
+    var key = month +' / '+date;
+
+    // create a new date history
+    if(!this.Me.History.find(x => x.KeyDate == key)){
+
+      console.log('--------------');
+      
+      this.Me.PlanExercise = [];
+      console.log('===================');
+      
+      this.Me.Month = month;
+      this.Me.Date = date;
+      this.Me.History.push({ Name: this.Me.Name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, 
         Month: month, Date: date, KeyDate: key.toString()});
-      this._Fit.SetDay(user, key);
+      this._Fit.SetDay(this.Me.Name, key, month, date);
 
     }
+    //if the recorded day already exists, set recorded day to a user
     else{
-      //this.Me.Month = month;
-      //this.Me.Date = date;
-      //var i = this.Me.History.find(x=> x.KeyDate == key).indexOf(key);
-
+      
       // find user's history from History[] then return to the user.
       var result = this.Me.History.find(x => x.KeyDate == key);
-      console.log(result);
+
       this.Me.Month = result.Month;
       this.Me.Date = result.Date;
       this.Me.DoneExerciseList = result.DoneExerciseList;
       this.Me.PlanExercise = result.PlanExercise;
       this.Me.TotalSetTime = result.TotalSetTime;
-      this._Fit.SetDay(user, key);
-
       
-
-  
+      this._Fit.SetDay(this.Me.Name, key, month, date);
     }
     
-    // create a history for specific month and date
-    // var monthMatch = user.History.find(x=>x.Month == month);
-    // var dateMatch = user.History.find(x=>x.Date == date);
-    /* if(!monthMatch){
-        user.History.push({ Name: this.Me.Name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: null, 
-            Month: month, Date: date, KeyDate: key.toString()});
-    }
-    else{
-        // if the specific date history already existed, don't create a new one, but find this history and return it to user.
-        if(dateMatch){
-            console.log('datematch is ');
-            console.log(dateMatch);
-            this.Me.History = dateMatch;
-          }
 
-        else{
-            console.log('no history found');
-        }
-    }
- */
 
   }
 
   submitWorkout(e: MouseEvent, text: string){
     e.preventDefault();
-    var key = this.Me.Month+' / '+this.Me.Date;
-    if(this.Me.PlanExercise.find(y => y.Text == text)){
+    // prevent submitting same list again and again.
+    if(this.Me.PlanExercise.find(x => x.Text == text)){
       return;
     }
     else{
+      // to display current date and Me's workout list
       this.Me.PlanExercise.push({Text: text, Chosen: false});
-      
     }
+    this._Fit.chooseExercise(text);
+
+    var key = this.Me.Month+' / '+this.Me.Date;
+
+    console.log(this.Me.History.find(x => x.KeyDate == key).PlanExercise);
 
     // find the user's plan history from History[] by key
-    /* if(!this.Me.History.find(x => x.KeyDate == key)){
-      
-      this.Me.History.find(x=> x.KeyDate == key).PlanExercise = this.Me.PlanExercise;
+    if(this.Me.History.find(x => x.KeyDate == key).PlanExercise.length == 0){
+      this.Me.History.find( x => x.KeyDate == key).PlanExercise.push({Text:text, Chosen: false});
+      this._Fit.planHistory(text, key);
 
     }
     else{
-      console.log('_comp_history found, return plan');
+     
       var result = this.Me.History.find(x => x.KeyDate == key);
       this.Me.Month = result.Month;
       this.Me.Date = result.Date;
       this.Me.DoneExerciseList = result.DoneExerciseList;
       this.Me.PlanExercise = result.PlanExercise;
       this.Me.TotalSetTime = result.TotalSetTime;
-    } */
-    this._Fit.chooseExercise(text);
-    this._Fit.planHistory(text, key);
+      this._Fit.planHistory(text, key);
+    }
     
   }
 

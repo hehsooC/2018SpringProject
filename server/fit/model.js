@@ -61,23 +61,27 @@ function Fit() {
         }
 
         // set the date of this workout date.
-        this.SetDay = (user, key) => {
-            var userFound = this.Person.find( x => x.Name == user.Name);
-            
+        this.SetDay = (name, key, month, date) => {
+            var userFound = this.Person.find( x => x.Name == name);
             var historyFound = userFound.History.find(x=>x.KeyDate == key);
+            // console.log(historyFound);
+            // create a new History object (initializing)
             if(!historyFound){
-                var newDay = {KeyDate : key}
-                userFound.History.push(newDay);
-                return newDay;
+                console.log('create a new history object with key')
+                // var newDay = {KeyDate : key}
+                userFound.History.push({ DoneExerciseList:[],PlanExercise: [], TotalSetTime: 0,  Month: month, Date: date, KeyDate: key});
+                return false;
             }
+            // return found history to Me
             else{
+                console.log('return user history');
                 return historyFound;
                 
             }
 
         }
 
-        // push the list of planned workout to the PlanExercise.
+        // push the list of planned workout to the PlanExercise in Me.
         this.PlanWorkout = (name, text) => {
             var user = this.Person.find(x => x.Name == name);
 
@@ -88,29 +92,41 @@ function Fit() {
                 if(!user.PlanExercise.find(x => x.Text == text)){
                     user.PlanExercise.push({Text: text, Chosen: false});
                     var plan = user.PlanExercise;
+                    return plan;
                 }
             }
             else{
                 console.log('fail to push plan - model');
+                return false;
             }
 
         }
 
-        // put user's planned workout list into History[]
-        this.PlanHistory = (user, text, key) => {
-            var userFound = this.Person.find(x => x.Name == user.Name);
+        // put user's planned workout list into PlanExercise in History[]
+        this.PlanHistory = (name, text, key) => {
+            var userFound = this.Person.find(x => x.Name == name);
             var historyFound = userFound.History.find(x=>x.KeyDate == key);
-            if(!historyFound){
-                console.log('history not found');
+            
+            if(!historyFound.PlanExercise.length == 0){
+                var plan = historyFound.PlanExercise;
+                if(!plan.find(x => x.Text == text)){
+                    plan.push({Text: text, Chosen: false});
+                    return plan;
+                }
+                return;
             }
             else{
-                historyFound.PlanExercise = user.PlanExercise;
-                
-                
+                historyFound.PlanExercise.push({Text: text, Chosen: false});
+                return historyFound.PlanExercise;
+
             }
-
-
+            
+            
+           
         }
+
+
+        
 
         // if a planned workout list is selected, make Chosen to true to indicate this exercise is done.
         this.MakeChosen = (name, text) => {
