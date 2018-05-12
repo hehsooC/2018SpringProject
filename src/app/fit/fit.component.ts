@@ -158,11 +158,8 @@ export class FitComponent implements OnInit {
       // to display current date and Me's workout list
       this.Me.PlanExercise.push({Text: text, Chosen: false});
     }
-    // this._Fit.chooseExercise(text);
 
     var key = this.Me.Month+' / '+this.Me.Date;
-
-    console.log(this.Me.History.find(x => x.KeyDate == key).PlanExercise);
 
     // find the user's plan history from History[] by key
     if(this.Me.History.find(x => x.KeyDate == key).PlanExercise.length == 0){
@@ -186,10 +183,11 @@ export class FitComponent implements OnInit {
  // doneExercise() will track the completed workout that a user checks it as "done"
   doneExercise(e: MouseEvent, text: string, time: number, set: number){
     e.preventDefault();
-    // if text is chosen, change the color by submitting the text to server and changing Chosen to true.
-    this._Fit.makeChosen(text);
     var key = this.Me.Month+' / '+this.Me.Date;
     var totalTime = time * set;
+    // if text is chosen, change the color by submitting the text to server and changing Chosen to true.
+    this._Fit.makeChosen(text, key);
+    
 
     // if the workout list is already exist, don't push it
     if(this.Me.DoneExerciseList.find(x => x.Text == text)){

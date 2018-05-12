@@ -48,23 +48,18 @@ module.exports = app
     .post('/exercise/setDay', (req, res) => {
         res.send(fit.SetDay(req.body.name, req.body.key, req.body.month, req.body.date));
      })
-    .post('/exercise/choose', (req, res) =>{
-        var plan = fit.PlanWorkout(req.body.name, req.body.Text);
-        res.send(plan);
-    })
     .post('/exercise/planHistory', (req, res) =>{
         var plan = fit.PlanHistory(req.body.name, req.body.Text, req.body.key);
         res.send(plan);
     })
     .post('/exercise/chosen', (req,res) => {
-        res.send(fit.MakeChosen(req.body.name, req.body.text));
+        res.send(fit.MakeChosen(req.body.name, req.body.text, req.body.key));
     })
     .post('/exercise/done', (req, res) => {
         res.send(fit.DoneExercise(req.body.name, req.body.text, req.body.time, req.body.set, req.body.total));
     })
     .post('/exercise/totaltime', (req, res) => {
-        var time = fit.GetTotalTime(req.body.name, req.body.key, req.body.totalTime);
-        res.send(time.toString());
+        res.send(String(fit.GetTotalTime(req.body.name, req.body.key, req.body.totalTime)));
     }) 
     .post('/exercise/recordDay', (req, res) => {
         res.send(fit.RecordDay(req.body.name, req.body.key, req.body.text, req.body.time, req.body.set, req.body.total));

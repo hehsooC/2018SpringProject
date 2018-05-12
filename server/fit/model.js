@@ -28,7 +28,7 @@ function Fit() {
             }else{
                 // if there is no username matched, create a new Person object.
                 this.Person.push({ Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null},
-                    PlanExercise: [], DoneExerciseList: [], Notice: [], TotalSetTime: 0, Requested: false, FriendList:[], History: []});
+                     DoneExerciseList: [], Notice: [], Requested: false, FriendList:[], History: []});
                 return true;
             }
         }        
@@ -81,26 +81,6 @@ function Fit() {
 
         }
 
-        // push the list of planned workout to the PlanExercise in Me.
-        this.PlanWorkout = (name, text) => {
-            var user = this.Person.find(x => x.Name == name);
-
-            // Find user, and if a user exists, 
-            //find if there is selected workout list in the PlanExercise, if doesn't exist, push the list
-            if(user){
-
-                if(!user.PlanExercise.find(x => x.Text == text)){
-                    user.PlanExercise.push({Text: text, Chosen: false});
-                    var plan = user.PlanExercise;
-                    return plan;
-                }
-            }
-            else{
-                console.log('fail to push plan - model');
-                return false;
-            }
-
-        }
 
         // put user's planned workout list into PlanExercise in History[]
         this.PlanHistory = (name, text, key) => {
@@ -129,11 +109,12 @@ function Fit() {
         
 
         // if a planned workout list is selected, make Chosen to true to indicate this exercise is done.
-        this.MakeChosen = (name, text) => {
+        this.MakeChosen = (name, text, key) => {
             var user = this.Person.find(x => x.Name == name);
-            var chosenWorkout = user.PlanExercise.find(x=> x.Text == text);
+            var history = user.History.find(x => x.KeyDate == key);
+            var chosenWorkout = history.PlanExercise.find(x=> x.Text == text);
             chosenWorkout.Chosen = true;
-            return user.PlanExercise;
+            return history.PlanExercise;
         }
 
         // post selected workout to the server in Person[]
@@ -177,6 +158,8 @@ function Fit() {
             // if there is workout history, update it.
             else{
                 historyFound.TotalSetTime = totalTime;
+                console.log('.... total set time');
+                console.log(historyFound.TotalSetTime);
                 return historyFound.TotalSetTime;
                 
             }

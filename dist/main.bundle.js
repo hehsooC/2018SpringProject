@@ -363,9 +363,7 @@ var FitComponent = /** @class */ (function () {
             // to display current date and Me's workout list
             this.Me.PlanExercise.push({ Text: text, Chosen: false });
         }
-        // this._Fit.chooseExercise(text);
         var key = this.Me.Month + ' / ' + this.Me.Date;
-        console.log(this.Me.History.find(function (x) { return x.KeyDate == key; }).PlanExercise);
         // find the user's plan history from History[] by key
         if (this.Me.History.find(function (x) { return x.KeyDate == key; }).PlanExercise.length == 0) {
             this.Me.History.find(function (x) { return x.KeyDate == key; }).PlanExercise.push({ Text: text, Chosen: false });
@@ -384,10 +382,10 @@ var FitComponent = /** @class */ (function () {
     // doneExercise() will track the completed workout that a user checks it as "done"
     FitComponent.prototype.doneExercise = function (e, text, time, set) {
         e.preventDefault();
-        // if text is chosen, change the color by submitting the text to server and changing Chosen to true.
-        this._Fit.makeChosen(text);
         var key = this.Me.Month + ' / ' + this.Me.Date;
         var totalTime = time * set;
+        // if text is chosen, change the color by submitting the text to server and changing Chosen to true.
+        this._Fit.makeChosen(text, key);
         // if the workout list is already exist, don't push it
         if (this.Me.DoneExerciseList.find(function (x) { return x.Text == text; })) {
             var user = this.Me.DoneExerciseList.find(function (x) { return x.Text == text; });
@@ -927,17 +925,6 @@ var FitService = /** @class */ (function () {
             _this.Me.History = data.json();
         });
     };
-    // post planned workout list to the server
-    FitService.prototype.chooseExercise = function (text) {
-        var _this = this;
-        this.http.post(this._api + "/exercise/choose", { name: this.Me.Name, Text: text })
-            .subscribe(function (data) {
-            if (!data.json()) {
-                return;
-            }
-            _this.Me.PlanExercise = data.json();
-        });
-    };
     // post planned workout list to the History[] in server
     FitService.prototype.planHistory = function (text, key) {
         var _this = this;
@@ -950,9 +937,9 @@ var FitService = /** @class */ (function () {
         });
     };
     // set the selected workout list to the server and make Chosen to true
-    FitService.prototype.makeChosen = function (text) {
+    FitService.prototype.makeChosen = function (text, key) {
         var _this = this;
-        this.http.post(this._api + "/exercise/chosen", { name: this.Me.Name, text: text })
+        this.http.post(this._api + "/exercise/chosen", { name: this.Me.Name, text: text, key: key })
             .subscribe(function (data) {
             _this.Me.PlanExercise = data.json();
         });

@@ -116,18 +116,6 @@ export class FitService {
       }
   
 
-  // post planned workout list to the server
-  chooseExercise(text: string){
-    this.http.post(this._api + "/exercise/choose", {name: this.Me.Name, Text: text})
-              .subscribe( data => {
-               
-                if(!data.json()){
-                  return;
-                }
-                this.Me.PlanExercise = data.json();
-              } );
-
-  }
 
   // post planned workout list to the History[] in server
   planHistory(text: string, key: string){
@@ -143,8 +131,8 @@ export class FitService {
   
 
   // set the selected workout list to the server and make Chosen to true
-    makeChosen(text: string){
-      this.http.post(this._api + "/exercise/chosen", {name: this.Me.Name, text: text})
+    makeChosen(text: string, key: string){
+      this.http.post(this._api + "/exercise/chosen", {name: this.Me.Name, text: text, key: key})
       .subscribe(data => {
         this.Me.PlanExercise = data.json();
       })
