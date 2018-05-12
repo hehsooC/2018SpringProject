@@ -26,15 +26,11 @@ export class HistoryComponent implements OnInit {
   ngOnInit() {
   }
 
+  // find workout summary via key.
   submitLog(e: MouseEvent, key: string){
-    console.log('submit log');
     if(this.Me.History.find(x => x.KeyDate == key)){
       console.log('history found');
-      
       this._Fit.getSummary(key);
-      console.log('this.Me.Summary');
-      console.log(this.Me.Summary);
-
 
     }
     else{

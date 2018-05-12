@@ -189,11 +189,13 @@ export class FitService {
             .map((response:Response)=>response.json());
 
     }
+    ///////////////
     // Send a request notice to a selected user.
     friendRequest(friendName: string){
       this.http.post(this._api + '/exercise/request', {friend: friendName, name: this.Me.Name})
       .subscribe();
     }
+/////////////////
 
     // Add friends to this user's FriendList in the server when user accepts the request.
     addFriendList(friendName:string){
@@ -206,14 +208,13 @@ export class FitService {
       
     }
 
+    ////////////////////
     // if user gets friend request, change the Requested status to inform the user that they have friend requests.
     changeRequested(name: string){
       this.http.post(this._api + '/exercise/changeRequest', {name: name})
       .subscribe();
-
-      
     }
-    
+    ////////////////////
 
 
     // get summary from the server to display it at History

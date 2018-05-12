@@ -1,58 +1,92 @@
 <div class="row justify-content-md-center">
-  <div class="col-md-3">
-    <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
-    <button class="btn btn-warning"  *ngIf="Me.Requested" (click)="requestBox($event)">You Have a Friend Request</button>
-  </div>
-</div>
-<div class="row justify-content-md-center">
-  <!-- Choose a user to share workout log-->
-  <div class="col-md-4">
-      <div class="card" >
-          <div class="card-header heightAdjust">
-            <div class="text-uppercase">Users List</div>
-            <div class="subtitle"> Please choose a user you want to share your workout summary</div>
-          </div>
-          <div class="card-body">
-            <ul class="list-group-item list-group-flush list" *ngFor =" let users of Me.EachShare">
-                <li  >User Name: {{users.Name}}
-                  <button class="btn btn-color btn-sm d-flex justify-content-end display-none" (click) = "friendRequest($event, users.Name)" [ngClass]="{'display-none': !users.Requested}" > Request Friend </button>
-                  <button class="btn btn-sm btn-light d-flex justify-content-end display-none" disabled [ngClass]="{'display-none': users.Requested}"> Requested </button>
-                </li>
-    
-            </ul>
-          </div>
-      </div> 
-    </div>
 
+</div><!-- row -->
+
+<div class="row justify-content-md-center">
+<!-- Choose a user to share workout log-->
   <div class="col-md-4">
     <div class="card" >
-        <div class="card-header">
-          Other user's Workout Achievement
-        </div>
-        <ul class="list-group list-group-flush list">
-          <li>users name and workout summary will be here</li>
+      <div class="card-header heightAdjust">
+        <div class="text-uppercase">Other Users</div>
+        <div class="subtitle"> Send a Friend Request to Other Users!</div>
+      </div> <!-- card header -->
+      <div class="card-body">
+        <ul class="list-group-item list-group-flush list" *ngFor =" let users of Me.EachShare">
+          <div class="row justify-content-md-center">
+            <div class="col">
+              <li  >{{users.Name}} </li>
+            </div>
+            <div class="col">
+              <button class="btn btn-color btn-sm d-flex justify-content-end" (click) = "friendRequest($event, users.Name)" > Request </button>
+            </div>
+          </div>  
         </ul>
-    </div> 
+      </div> <!-- card-body -->
+    </div> <!-- card -->
+  </div><!-- col -->
+<!-- Choose a user to share workout log-->
+
+<!-- Received Friend Requests-->
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header">
+        <div class="text-uppercase">Friend Request</div>
+        <div class="subtitle"> You've Got Friend Requests!</div>
+      </div>
+      <div class="card-body">
+        <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
+        <button class="btn btn-warning"  *ngIf="Me.Requested" (click)="requestBox($event)">You Have a Friend Request</button>
+        <ul class="list-group-item list-group-flush list" *ngFor = "let friend of Me.FriendList">
+          <div class = "row justify-content-md-center">
+            <div class="col">
+              <li > {{friend.Name}} </li>
+            </div>
+            <div class="col">
+              <button class="btn btn-sm d-flex justify-content-end btn-color" (click) = "friendHistory($event)"> Read </button>
+            </div>
+            
+          </div>
+        </ul>
+      </div>
+    </div>
   </div>
 
-    
-  <div class="col">
+<!-- Friends List-->
+  <div class="col-md-4">
     <div class="card" >
       <div class="card-header">
         <div class="text-uppercase">
           Friends List
         </div>
-      </div>
+      </div> <!-- card header -->
       <div class="card-body">
         <ul class="list-group-item list-group-flush list" *ngFor = "let friend of Me.FriendList">
-          <li > {{friend.Name}}
-            <button class="btn btn-sm d-flex justify-content-end" (click) = "acceptFriend()"> Share </button>
-
-          </li>
+          <div class = "row justify-content-md-center">
+            <div class="col">
+              <li > {{friend.Name}} </li>
+            </div>
+            <div class="col">
+              <button class="btn btn-sm d-flex justify-content-end btn-color" (click) = "friendHistory($event)"> Display </button>
+            </div>
+           
+          </div>
         </ul>
-      </div>
-    </div> 
-  </div> 
-</div>
+      </div> <!-- card body-->
+    </div> <!-- card -->
+  </div> <!-- col -->
+<!-- Friends List-->
+
+</div><!-- row -->
+
+<div class="row-md-3">
+    <div class="card" >
+        <div class="card-header">
+          Other user's Workout Achievement
+        </div> <!-- card header-->
+        <ul class="list-group list-group-flush list">
+          <li>users name and workout summary will be here</li>
+        </ul>
+    </div>  <!-- card -->
+  </div> <!-- row -->
 
 

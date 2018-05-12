@@ -61,19 +61,25 @@ export class ShareComponent implements OnInit {
 
   }
 
-  
+  // multiple Request?
 
   requestBox(e: MouseEvent) {
     var friend = this.Me.Notice[0].Friend;
     console.log('friend name** ' + friend);
-    if (confirm(this.Me.Notice.find(x=>x.Name == this.Me.Name).Msg + '\n Hit Ok to Accept or Cancel to Decline.')) {
+    if (confirm(this.Me.Notice.find(x=>x.Name == this.Me.Name).Msg + '\nHit Ok to Accept or Cancel to Decline.')) {
         this._Fit.addFriendList(friend);
     } else {
         // dismiss request
+        return;
     }
     this.Me.Notice.unshift();
     this._Fit.changeRequested(this.Me.Name);
 
-}
+  }
+
+  friendHistory(e: MouseEvent){
+    // get other user's summary and display
+
+  }
 
 }
