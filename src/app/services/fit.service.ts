@@ -193,7 +193,14 @@ export class FitService {
     // Send a request notice to a selected user.
     friendRequest(friendName: string){
       this.http.post(this._api + '/exercise/request', {friend: friendName, name: this.Me.Name})
-      .subscribe();
+      .subscribe(data => {
+        if(!data.json()){
+          return;
+        }
+        // this.Me.Notice = data.json();
+        // console.log('this.Me.Notice in ' + this.Me.Name);
+        // console.log(this.Me.Notice);
+      });
     }
 /////////////////
 
@@ -249,6 +256,17 @@ export class FitService {
   });
 }
 
+  refreshNotice(){
+    return this.http.get(this._api + "/exercise/refreshNotice", { params : { name: this.Me.Name }})
+    .map((response:Response)=>response.json()); 
+
+  }
+  refreshFriendList(){
+    return this.http.get(this._api + "/exercise/refreshFriendList", { params : { name: this.Me.Name }})
+    .map((response:Response)=>response.json()); 
+
+
+  }
   /* getOthers(friend: string){
     // return this.http.get(this._api + "/exercise/getOthers", { params : { name: this.Me.Name, friend: null} })
     // .map((response:Response)=>response.json()); 

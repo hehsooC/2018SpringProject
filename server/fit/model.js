@@ -204,7 +204,14 @@ function Fit() {
         // Update the friend requested status to this user
         this.GiveRequestState = (name) =>{
             var me = this.Person.find(x => x.Name == name);
-            return me;
+            if(me.Notice.length == 0){
+                me.Requested = false;
+              
+              }
+              else{
+                me.Requested = true;
+              }
+            return me.Requested;
         }
 
         // send a friend request to a selected other user.
@@ -213,12 +220,14 @@ function Fit() {
             var me = this.Person.find(x => x.Name == name);
             var msg = me.Name + ' sent a friend request!'
             var friendUser = this.Person.find(x => x.Name == friend);
-            if(!friendUser.Notice.find(x=> x.Name == friend) && !friendUser.FriendList.find(x=>x.Name == name)){
+            if(!friendUser.Notice.find(x=> x.Friend == name) && !friendUser.FriendList.find(x=>x.Name == name)){
                 friendUser.Notice.push({Name: friend, Friend: name, Msg: msg});
-                friendUser.Requested = true;
+                return true;
+                // friendUser.Requested = true;
             }
             else{
                 console.log('friend request already done!');
+                return false;
                 
             }
         }
@@ -227,10 +236,11 @@ function Fit() {
         this.AddFriend = (name, friend) =>{
             var user = this.Person.find(x=> x.Name == name);
 
+            console.log('friend name '+ friend);
             var friendN = this.Person.find(x=> x.Name == friend);
             user.FriendList.push({Name: friend});
             friendN.FriendList.push({Name: name});
-            user.Notice.splice(user.Notice.indexOf(name), 1);
+            user.Notice.splice(user.Notice.findIndex(x => x.Friend == friend), 1);
             return user.FriendList;
 
         }
@@ -279,6 +289,7 @@ function Fit() {
         this.ChangeRequested = ( name )=>{
             var user = this.Person.find( x => x.Name == name);
             user.Requested = false;
+            return user.Requested;
         }
 
         // send a user's workout summary to History Component.
@@ -321,9 +332,19 @@ function Fit() {
 
           
         }
+        this.RefreshNotice = (name) => {
+            var user = this.Person.find(x=> x.Name == name);
+            return user.Notice;
+
+        }
         
 
  
+        this.RefreshFriendList = (name) => {
+            var user = this.Person.find(x=> x.Name == name);
+            return user.FriendList;
+
+        }
   /** Couldn't find the health information database yet. 
          // at Home, Give a user to a health information.
         this.GetHealthInfo = () => {

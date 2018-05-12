@@ -38,6 +38,12 @@ module.exports = app
         res.send(fit.GetOthers(req.query.name, req.query.friend));
     }) */
 
+    .get('/exercise/refreshNotice', (req,res)=>{
+        res.send(fit.RefreshNotice(req.query.name));
+    })
+    .get('/exercise/refreshFriendList', (req,res)=>{
+        res.send(fit.RefreshFriendList(req.query.name));
+    })
     // post profile to a server
     .post('/exercise/profile', (req, res) =>{
         var profile = fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 

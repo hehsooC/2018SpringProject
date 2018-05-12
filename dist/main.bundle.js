@@ -975,7 +975,14 @@ var FitService = /** @class */ (function () {
     // Send a request notice to a selected user.
     FitService.prototype.friendRequest = function (friendName) {
         this.http.post(this._api + '/exercise/request', { friend: friendName, name: this.Me.Name })
-            .subscribe();
+            .subscribe(function (data) {
+            if (!data.json()) {
+                return;
+            }
+            // this.Me.Notice = data.json();
+            // console.log('this.Me.Notice in ' + this.Me.Name);
+            // console.log(this.Me.Notice);
+        });
     };
     /////////////////
     // Add friends to this user's FriendList in the server when user accepts the request.
@@ -1023,6 +1030,14 @@ var FitService = /** @class */ (function () {
             _this.Me.Month = history.Month;
             _this.Me.Date = history.Date;
         });
+    };
+    FitService.prototype.refreshNotice = function () {
+        return this.http.get(this._api + "/exercise/refreshNotice", { params: { name: this.Me.Name } })
+            .map(function (response) { return response.json(); });
+    };
+    FitService.prototype.refreshFriendList = function () {
+        return this.http.get(this._api + "/exercise/refreshFriendList", { params: { name: this.Me.Name } })
+            .map(function (response) { return response.json(); });
     };
     FitService = __decorate([
         core_1.Injectable(),
@@ -1080,7 +1095,7 @@ module.exports = "ul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card
 /***/ "./src/app/share/share.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\">\n\n</div><!-- row -->\n\n<div class=\"row justify-content-md-center\">\n<!-- Choose a user to share workout log-->\n  <div class=\"col-md-4\">\n    <div class=\"card\" >\n      <div class=\"card-header heightAdjust\">\n        <div class=\"text-uppercase\">Other Users</div>\n        <div class=\"subtitle\"> Send a Friend Request to Other Users!</div>\n      </div> <!-- card header -->\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n          <div class=\"row justify-content-md-center\">\n            <div class=\"col\">\n              <li  >{{users.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" > Request </button>\n            </div>\n          </div>  \n        </ul>\n      </div> <!-- card-body -->\n    </div> <!-- card -->\n  </div><!-- col -->\n<!-- Choose a user to share workout log-->\n\n<!-- Received Friend Requests-->\n  <div class=\"col-md-3\">\n    <div class=\"card\">\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">Friend Request</div>\n        <div class=\"subtitle\"> You've Got Friend Requests!</div>\n      </div>\n      <div class=\"card-body\">\n        <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n        <button class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event)\">You Have a Friend Request</button>\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of _Fit.Me.Notice\">\n          <div class = \"row justify-content-md-center\">\n            <div class=\"col\">\n              <li > {{friend.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-sm d-flex justify-content-end btn-color\" (click) = \"friendHistory($event)\"> Read </button>\n            </div>\n            \n          </div>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n<!-- Friends List-->\n  <div class=\"col-md-4\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div> <!-- card header -->\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of Me.FriendList\">\n          <div class = \"row justify-content-md-center\">\n            <div class=\"col\">\n              <li > {{friend.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-sm d-flex justify-content-end btn-color\" (click) = \"friendHistory($event, friend.Name)\"> Display </button>\n            </div>\n           \n          </div>\n        </ul>\n      </div> <!-- card body-->\n    </div> <!-- card -->\n  </div> <!-- col -->\n<!-- Friends List-->\n\n</div><!-- row -->\n\n<div class=\"row-md-3\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div> <!-- card header-->\n        <div class=\"card-body\" >\n          <form>\n              <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                  <option *ngFor=\"let friend of _Fit.Me.Record\">\n                      {{friend.KeyDate}}\n                  </option>\n                  <option >\n                      something?\n                  </option>\n                  </select>\n              </div>\n          </form>\n        </div> <!-- card body -->\n        \n    </div>  <!-- card -->\n  </div> <!-- row -->\n\n\n"
+module.exports = "<div class=\"row justify-content-md-center\">\n\n</div><!-- row -->\n\n<div class=\"row justify-content-md-center\">\n<!-- Choose a user to share workout log-->\n  <div class=\"col-md-4\">\n    <div class=\"card\" >\n      <div class=\"card-header heightAdjust\">\n        <div class=\"text-uppercase\">Other Users</div>\n        <div class=\"subtitle\"> Send a Friend Request to Other Users!</div>\n      </div> <!-- card header -->\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n          <div class=\"row justify-content-md-center\">\n            <div class=\"col\">\n              <li  >{{users.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" > Request </button>\n            </div>\n          </div>  \n        </ul>\n      </div> <!-- card-body -->\n    </div> <!-- card -->\n  </div><!-- col -->\n<!-- Choose a user to share workout log-->\n\n<!-- Received Friend Requests-->\n  <div class=\"col-md-3\">\n    <div class=\"card\">\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">Friend Request</div>\n        <div class=\"subtitle\"> You've Got Friend Requests!</div>\n      </div>\n      <div class=\"card-body\">\n        <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n        <button class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event, friend.Friend)\">You Have a Friend Request</button>\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of _Fit.Me.Notice\">\n          <div class = \"row justify-content-md-center\">\n            <div class=\"col\">\n              <li > {{friend.Friend}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-sm d-flex justify-content-end btn-color\" disabled *ngIf=\"!Me.Requested\" (click) = \"requestBox($event, friend.Friend)\"> Confirm </button>\n              <button class=\"btn btn-sm d-flex justify-content-end btn-warning\" *ngIf=\"Me.Requested\" (click) = \"requestBox($event, friend.Friend)\"> Confirm </button>\n\n            </div>\n\n            \n          </div>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n<!-- Friends List-->\n  <div class=\"col-md-4\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div> <!-- card header -->\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of Me.FriendList\">\n          <div class = \"row justify-content-md-center\">\n            <div class=\"col\">\n              <li > {{friend.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-sm d-flex justify-content-end btn-color\" (click) = \"friendHistory($event, friend.Name)\"> Display </button>\n            </div>\n           \n          </div>\n        </ul>\n      </div> <!-- card body-->\n    </div> <!-- card -->\n  </div> <!-- col -->\n<!-- Friends List-->\n\n</div><!-- row -->\n\n<div class=\"row-md-3\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div> <!-- card header-->\n        <div class=\"card-body\" >\n          <form>\n              <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                  <option *ngFor=\"let friend of _Fit.Me.Record\">\n                      {{friend.KeyDate}}\n                  </option>\n                  </select>\n              </div>\n          </form>\n        </div> <!-- card body -->\n        \n    </div>  <!-- card -->\n  </div> <!-- row -->\n\n\n"
 
 /***/ }),
 
@@ -1109,19 +1124,26 @@ var ShareComponent = /** @class */ (function () {
         this._Router = _Router;
         this.Me = _Fit.Me;
         // if there user is not logged in or not signed up, direct user to login.
-        if (!this.Me) {
+        if (!_Fit.Me) {
             _Router.navigate(['/login']);
         }
         setInterval(function () { return _this.refreshList(); }, 1000);
+        /*    if(!_Fit.Me.Notice){
+             console.log('nothing in Notice yet ');
+             this.Me.Notice = [];
+       
+           } */
     }
     ShareComponent.prototype.ngOnInit = function () {
     };
     ShareComponent.prototype.refreshList = function () {
         var _this = this;
-        // refresh user's data 
-        this._Fit.getRequestState().subscribe(function (data) {
-            _this.Me = data;
-        });
+        if (this.Me.Notice) {
+            // refresh user's data 
+            this._Fit.getRequestState().subscribe(function (data) {
+                _this.Me.Requested = data;
+            });
+        }
         // create other users list to share and refresh to update
         this._Fit.getUserList().subscribe(function (data) {
             _this.Me.EachShare = data;
@@ -1129,8 +1151,14 @@ var ShareComponent = /** @class */ (function () {
             _this.Me.EachShare.splice(_this.Me.EachShare.indexOf(_this.Me.EachShare.find(function (x) { return x.Name == _this.Me.Name; })), 1);
             //console.log(this.Me.EachShare);
         });
+        this._Fit.refreshNotice().subscribe(function (data) {
+            _this.Me.Notice = data;
+        });
+        this._Fit.refreshFriendList().subscribe(function (data) {
+            _this.Me.FriendList = data;
+        });
         /*     this._Fit.getOthers().subscribe(data => {
-              this.Me.Record = data;
+              this.Me.Notice = data;
             }) */
     };
     ShareComponent.prototype.friendRequest = function (e, friendName) {
@@ -1141,19 +1169,18 @@ var ShareComponent = /** @class */ (function () {
         // this.Me.EachShare.find(x=> x.Name == friendName).FriendRequest = true;
     };
     // multiple Request?
-    ShareComponent.prototype.requestBox = function (e) {
-        var _this = this;
-        var friend = this.Me.Notice[0].Friend;
-        console.log('friend name** ' + friend);
-        if (confirm(this.Me.Notice.find(function (x) { return x.Name == _this.Me.Name; }).Msg + '\nHit Ok to Accept or Cancel to Decline.')) {
-            this._Fit.addFriendList(friend);
+    ShareComponent.prototype.requestBox = function (e, friendName) {
+        var friend = this.Me.Notice.find(function (x) { return x.Friend == friendName; });
+        console.log('friend name** ' + friendName);
+        if (confirm(friend.Msg + '\nHit Ok to Accept or Cancel to Decline.')) {
+            this._Fit.addFriendList(friendName);
         }
         else {
             // dismiss request
             return;
         }
         /////
-        this.Me.Notice.unshift();
+        // this.Me.Notice.unshift();
         /////
         this._Fit.changeRequested(this.Me.Name);
     };

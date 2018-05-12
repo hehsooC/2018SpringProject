@@ -17,13 +17,17 @@ export class ShareComponent implements OnInit {
 
   constructor(private _Fit: FitService, private _Router: Router) { 
     this.Me = _Fit.Me;
-    
+
     // if there user is not logged in or not signed up, direct user to login.
-    if(!this.Me){
+    if(!_Fit.Me){
       _Router.navigate(['/login']);
     } 
     setInterval(()=> this.refreshList(), 1000)
+ /*    if(!_Fit.Me.Notice){
+      console.log('nothing in Notice yet ');
+      this.Me.Notice = [];
 
+    } */
 
   }
 
@@ -35,10 +39,14 @@ export class ShareComponent implements OnInit {
 
   refreshList(){
 
-    // refresh user's data 
+
+    if(this.Me.Notice){
+      // refresh user's data 
     this._Fit.getRequestState().subscribe(data => {
-      this.Me = data;
+      this.Me.Requested = data;
     });
+    }
+    
 
     // create other users list to share and refresh to update
     this._Fit.getUserList().subscribe(data => {
@@ -47,11 +55,18 @@ export class ShareComponent implements OnInit {
       this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
       //console.log(this.Me.EachShare);
     });
+
+    this._Fit.refreshNotice().subscribe(data => {
+      this.Me.Notice = data;
+    })
+
+    this._Fit.refreshFriendList().subscribe(data =>{
+      this.Me.FriendList = data;
+    })
 /*     this._Fit.getOthers().subscribe(data => {
-      this.Me.Record = data;
+      this.Me.Notice = data;
     }) */
   }
-
 
   friendRequest(e: MouseEvent, friendName: string){
     this._Fit.friendRequest(friendName);
@@ -64,18 +79,18 @@ export class ShareComponent implements OnInit {
 
   // multiple Request?
 
-  requestBox(e: MouseEvent) {
-    var friend = this.Me.Notice[0].Friend;
-    console.log('friend name** ' + friend);
-    if (confirm(this.Me.Notice.find(x=>x.Name == this.Me.Name).Msg + '\nHit Ok to Accept or Cancel to Decline.')) {
-        this._Fit.addFriendList(friend);
+  requestBox(e: MouseEvent, friendName: string) {
+    var friend = this.Me.Notice.find(x=>x.Friend == friendName);
+    console.log('friend name** ' + friendName);
+    if (confirm(friend.Msg + '\nHit Ok to Accept or Cancel to Decline.')) {
+        this._Fit.addFriendList(friendName);
         
     } else {
         // dismiss request
         return;
     }
     /////
-    this.Me.Notice.unshift();
+    // this.Me.Notice.unshift();
     /////
     this._Fit.changeRequested(this.Me.Name);
 
