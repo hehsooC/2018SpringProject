@@ -292,6 +292,10 @@ export class FitService {
     }); */
 
 
+    refreshMe(){
+      return this.http.get(this._api + "/exercise/refreshMe", { params : { name: this.Me.Name }})
+      .map((response:Response)=>response.json()); 
+    }
     
 
   }

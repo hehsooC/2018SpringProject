@@ -1037,6 +1037,32 @@ var FitService = /** @class */ (function () {
         return this.http.get(this._api + "/exercise/refreshFriendList", { params: { name: this.Me.Name } })
             .map(function (response) { return response.json(); });
     };
+    /* getOthers(friend: string){
+      // return this.http.get(this._api + "/exercise/getOthers", { params : { name: this.Me.Name, friend: null} })
+      // .map((response:Response)=>response.json());
+  
+      return this.http.get(this._api + "/exercise/getOthers", { params : { name: this.Me.Name, friend: friend} })
+      .subscribe(data=> {
+        if(!data.json()){
+          return;
+        }
+        console.log('set Friend History to Record');
+        var history = data.json();
+        this.Me.Record = history;
+  
+        console.log('Record Has ');
+        console.log(this.Me.Record);
+        // this.Me.Record.PlanExercise = history.PlanExercise;
+        // this.Me.Record.DoneExerciseList = history.DoneExerciseList;
+        // this.Me.Record.Month = history.Month;
+        // this.Me.Record.Date = history.Date;
+        // this.Me.Record.TotalSetTime = history.TotalSetTime;
+  
+      }); */
+    FitService.prototype.refreshMe = function () {
+        return this.http.get(this._api + "/exercise/refreshMe", { params: { name: this.Me.Name } })
+            .map(function (response) { return response.json(); });
+    };
     FitService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http,
@@ -1136,12 +1162,17 @@ var ShareComponent = /** @class */ (function () {
     };
     ShareComponent.prototype.refreshList = function () {
         var _this = this;
-        if (this.Me.Notice) {
-            // refresh user's data 
-            this._Fit.getRequestState().subscribe(function (data) {
-                _this.Me.Requested = data;
-            });
-        }
+        this._Fit.refreshMe().subscribe(function (data) {
+            _this.Me.Notice = data.Notice;
+            _this.Me.FriendList = data.FriendList;
+            _this.Me.Requested = data.Requested;
+        });
+        /* if(this.Me.Notice){
+          // refresh user's data
+        this._Fit.getRequestState().subscribe(data => {
+          this.Me.Requested = data;
+        });
+        } */
         // create other users list to share and refresh to update
         this._Fit.getUserList().subscribe(function (data) {
             _this.Me.EachShare = data;
@@ -1149,12 +1180,13 @@ var ShareComponent = /** @class */ (function () {
             _this.Me.EachShare.splice(_this.Me.EachShare.indexOf(_this.Me.EachShare.find(function (x) { return x.Name == _this.Me.Name; })), 1);
             //console.log(this.Me.EachShare);
         });
-        this._Fit.refreshNotice().subscribe(function (data) {
-            _this.Me.Notice = data;
-        });
-        this._Fit.refreshFriendList().subscribe(function (data) {
-            _this.Me.FriendList = data;
-        });
+        /* this._Fit.refreshNotice().subscribe(data => {
+          this.Me.Notice = data;
+        })
+    
+        this._Fit.refreshFriendList().subscribe(data =>{
+          this.Me.FriendList = data;
+        }) */
         /*     this._Fit.getOthers().subscribe(data => {
               this.Me.Notice = data;
             }) */

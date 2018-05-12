@@ -40,12 +40,20 @@ export class ShareComponent implements OnInit {
   refreshList(){
 
 
-    if(this.Me.Notice){
+    this._Fit.refreshMe().subscribe(data => {
+      this.Me.Notice = data.Notice;
+      this.Me.FriendList = data.FriendList;
+      this.Me.Requested = data.Requested;
+
+    
+
+    });
+    /* if(this.Me.Notice){
       // refresh user's data 
     this._Fit.getRequestState().subscribe(data => {
       this.Me.Requested = data;
     });
-    }
+    } */
     
 
     // create other users list to share and refresh to update
@@ -56,13 +64,13 @@ export class ShareComponent implements OnInit {
       //console.log(this.Me.EachShare);
     });
 
-    this._Fit.refreshNotice().subscribe(data => {
+    /* this._Fit.refreshNotice().subscribe(data => {
       this.Me.Notice = data;
     })
 
     this._Fit.refreshFriendList().subscribe(data =>{
       this.Me.FriendList = data;
-    })
+    }) */
 /*     this._Fit.getOthers().subscribe(data => {
       this.Me.Notice = data;
     }) */

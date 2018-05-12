@@ -44,6 +44,10 @@ module.exports = app
     .get('/exercise/refreshFriendList', (req,res)=>{
         res.send(fit.RefreshFriendList(req.query.name));
     })
+
+    .get('/exercise/refreshMe', (req,res)=>{
+        res.send(fit.RefreshMe(req.query.name));
+    })
     // post profile to a server
     .post('/exercise/profile', (req, res) =>{
         var profile = fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 

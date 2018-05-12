@@ -211,7 +211,7 @@ function Fit() {
             }
         }
         // Update the friend requested status to this user
-        this.GiveRequestState = (name) =>{
+        /* this.GiveRequestState = (name) =>{
             var me = this.Person.find(x => x.Name == name);
             if(me.Notice.length == 0){
                 me.Requested = false;
@@ -221,7 +221,7 @@ function Fit() {
                 me.Requested = true;
               }
             return me.Requested;
-        }
+        } */
 
         // send a friend request to a selected other user.
         this.FriendRequest = (friend, name) => {
@@ -314,47 +314,33 @@ function Fit() {
             return historyFound;
         }
         
-        this.GetOthers = (name, friend) => {
-
-           /*  var friendFound = this.Person.find(x => x.Name == friend);
-            var user = this.Person.find(x => x.Name == name );
-
-            if( user){
-                console.log('put user Friend History');
-                user.Record.push({ Name: friend, DoneExerciseList: friendFound.History.DoneExerciseList, 
-                    TotalSetTime: friendFound.History.TotalSetTime, KeyDate: friendFound.History.KeyDate });
-                console.log(user.Record);
-
-            }
-           
-            if( friendFound){
-                console.log('Friend Found in server');
-                console.log('Friend History: ');
-                friend.Record.push({ Name: friend, DoneExerciseList: friendFound.History.DoneExerciseList, 
-                    TotalSetTime: friendFound.History.TotalSetTime, KeyDate: friendFound.History.KeyDate });
-                console.log(friendFound.Record);
-                return friendFound.Record;
-            }
-            else{
-                return false;
-            } */
-
-          
-        }
-        this.RefreshNotice = (name) => {
+       
+/*         this.RefreshNotice = (name) => {
             var user = this.Person.find(x=> x.Name == name);
             return user.Notice;
 
-        }
+        } */
         
 
- 
+ /* 
         this.RefreshFriendList = (name) => {
             var user = this.Person.find(x=> x.Name == name);
             return user.FriendList;
 
         }
-        
+         */
+
+        this.RefreshMe = (name) => {
+            var user = this.Person.find(x => x.Name == name);
+            if(user.Notice.length == 0){
+                user.Requested = false;
+              
+              }
+              else{
+                user.Requested = true;
+              }
+            return user;
+        }
   /** Couldn't find the health information database yet. 
          // at Home, Give a user to a health information.
         this.GetHealthInfo = () => {
