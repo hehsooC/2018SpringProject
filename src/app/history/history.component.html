@@ -1,53 +1,55 @@
-<div class="row-md-4">
-  <div class="card" >
-      <div class="card-header-own">
-          <div class="text-uppercase">
-              Workout Day
-          </div>
-          <div class="subtitle">Select Your Date to See Your Workout History </div>
-      </div>
-      <div class="card-body">
-          <form>
-              <div class="form-group">
-                  <select multiple class="form-control" id="exampleFormControlSelect2" >
-                  <option *ngFor="let list of Me.History" (click)="submitLog($event, list.KeyDate)">
-                      {{list.KeyDate}}
-                  </option>
-                  </select>
-              </div>
-          </form>
-      </div>
-  </div>
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+        <div class="card" >
+            <div class="card-header-own">
+                <div class="text-uppercase">
+                    Workout Day
+                </div>
+                <div class="subtitle">Select Your Date to See Your Workout History </div>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <select multiple class="form-control" id="exampleFormControlSelect2" >
+                        <option *ngFor="let list of Me.History" (click)="submitLog($event, list.KeyDate)">
+                            {{list.KeyDate}}
+                        </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div><!-- card-->
+    </div><!-- col -->
 
+    <div class="col-md-6">
+        <div class="card display-none" [ngClass]="{'display-none': !Me.Summary}">
+            <div class="card-header-own">
+                
+                <div class="text-uppercase ">
+                    Workout Summary
+                </div>
 
-  <div class="card display-none" [ngClass]="{'display-none': !Me.Summary}">
-      <div class="card-header-own heightAdjust">
-          
-          <div class="text-uppercase ">
-              Workout Summary
-          </div>
+                <div class="subtitle">Enjoy your Achievement!</div>
 
-          <div class="subtitle">Enjoy your Achievement!</div>
+            </div>
+            
+            <div class="card-body">
+                <ul class="list-group list-group-flush ">
+                    <li *ngFor="let list of Me.Summary.DoneExerciseList"
+                        class="list-group-item list-group-flush ">
+                        {{list.Text}}
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-center">
+                    <i class="badge float-right badge-info" >
+                    Total Time: {{Me.Summary.TotalSetTime}} min <br />
+                    </i>
+                </div>
+            </div>
 
-      </div>
-      
-      <div class="card-body">
-          <ul class="list-group list-group-flush ">
-              <li *ngFor="let list of Me.Summary.DoneExerciseList"
-                  class="list-group-item list-group-flush ">
-                  {{list.Text}}
-              </li>
-          </ul>
-      </div>
-      <div class="card-text">
-        <div class="d-flex justify-content-center">
-            <i class="badge float-right badge-info" >
-              Total Time: {{Me.Summary.TotalSetTime}} min <br />
-            </i>
-        </div>
-      </div>
+        </div><!-- card -->
+    </div><!-- col -->
 
-  </div>
-
-
-</div>
+</div><!-- row -->

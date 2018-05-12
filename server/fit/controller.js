@@ -24,15 +24,6 @@ module.exports = app
     .get('/exercise/request/state', (req, res) => {
         res.send(fit.GiveRequestState(req.query.name));
     })
-  /*   .get('/exercise/user', (req, res) => {
-        res.send(fit.GiveUser(req.query.name));
-    }) */
-/*     .get('/exercise/getDay', (req, res) => {
-        res.send(fit.GetDay(req.query.name));
-    })
-    .get('/exercise/getMonth', (req, res) => {
-        res.send(fit.GetDay(req.query.name));
-    }) */
     // Give summary of a user
     .get('/exercise/summary', (req, res) => {
         res.send(fit.GetSummary(req.query.user, req.query.key));

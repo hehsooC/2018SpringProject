@@ -28,7 +28,7 @@ function Fit() {
             }else{
                 // if there is no username matched, create a new Person object.
                 this.Person.push({ Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null},
-                     DoneExerciseList: [], Notice: [], Requested: false, FriendList:[], History: []});
+                      Notice: [], Requested: false, FriendList:[], History: []});
                 return true;
             }
         }        
@@ -256,19 +256,6 @@ function Fit() {
         
         
 
-        /* this.GetDay=(name)=>{
-            var user = this.Person.find( x => x.Name == name);
-            return user.Date;
-        }
-        this.GetMonth=(name)=>{
-            var user = this.Person.find( x => x.Name == name);
-            return user.Month;
-        } */
-
-   /*      this.GiveUser=(name)=>{
-            var user = this.Person.find( x => x.Name == name);
-            return user;
-        } */
  
   /** Couldn't find the health information database yet. 
          // at Home, Give a user to a health information.

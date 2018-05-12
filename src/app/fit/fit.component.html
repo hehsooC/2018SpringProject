@@ -71,10 +71,9 @@
                         <form>
                             <div class="form-group">
                                 <select multiple class="form-control" id="exampleFormControlSelect2" >
-                                <option *ngFor="let list of Me.History" (click)="submitDate($event, list.KeyDate)">
-                                    {{list.KeyDate}}
-                                </option>
-                                <option *ngIf = "!Me.Month">There is no workout history yet!</option>
+                                    <option *ngFor="let list of Me.History" (click)="submitDate($event, list.KeyDate)">
+                                        {{list.KeyDate}}
+                                    </option>
                                 </select>
                             </div>
                         </form>

@@ -237,30 +237,8 @@ export class FitService {
 
   });
 }
-/*   getUserStatus(){
-    return this.http.get(this._api+'/exercise/user', {params:{name: this.Me.Name}})
-    .map((response:Response)=>response.json());
 
-  }
-
- */
-  /*   getDay(){
-      return this.http.get(this._api+'/exercise/getDay', {params:{name: this.Me.Name}})
-      .map((response:Response)=>response.json());
-      
-    }
-    getMonth(){
-      return this.http.get(this._api+'/exercise/getMonth', {params:{name: this.Me.Name}})
-      .map((response:Response)=>response.json());
-      
-    }
-
-    putHistory(done){
-      this.http.post(this._api + '/exercise/recordWorkout', {name: this.Me.Name, done: done})
-      .subscribe();
-    }
- */
-
+  
 
 }
   
