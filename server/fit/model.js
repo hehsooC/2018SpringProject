@@ -157,10 +157,6 @@ function Fit() {
                 return historyFound.TotalSetTime;
                 
             }
-            // update User's total workout time in Person[]
-            // userFound.TotalSetTime = totalTime;
-
-            // return userFound.TotalSetTime;
         }
 
         // Update the Done Exercise List in History[].

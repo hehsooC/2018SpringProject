@@ -213,8 +213,9 @@ export class FitComponent implements OnInit {
     } */
 
     // Find user's history and return to the user so that user can see each date's data.
-    if(this.Me.History.find(x => x.KeyDate == key).DoneExerciseList.length == 0){
-      this.Me.TotalSetTime = Number(totalTime);
+    if(!this.Me.History.find(x => x.KeyDate == key).DoneExerciseList.find(x=> x.Text == text)){
+      console.log('//// create history done ///');
+      this.Me.TotalSetTime = this.Me.TotalSetTime + Number(totalTime);
       this.Me.History.find(x => x.KeyDate == key).TotalSetTime = Number(totalTime);
       this.Me.History.find(x => x.KeyDate == key).DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: totalTime});
 
@@ -222,6 +223,8 @@ export class FitComponent implements OnInit {
       this._Fit.RecordDay(text, key, time, set, totalTime);
     }
     else{
+      console.log('//// find history done ///');
+
       var user = this.Me.History.find(x=>x.KeyDate == key).DoneExerciseList.find(x=> x.Text == text);
       this.Me.History.find(x => x.KeyDate == key).TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
 
@@ -233,6 +236,8 @@ export class FitComponent implements OnInit {
       this.Me.Month = result.Month;
       this.Me.Date = result.Date;
       this.Me.DoneExerciseList = result.DoneExerciseList;
+      console.log('============ Me.DoneEx ==== ');
+      console.log(this.Me.DoneExerciseList);
       this.Me.PlanExercise = result.PlanExercise;
       this.Me.TotalSetTime = result.TotalSetTime;
 
