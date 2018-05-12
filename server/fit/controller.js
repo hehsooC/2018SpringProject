@@ -60,12 +60,15 @@ module.exports = app
         res.send(fit.MakeChosen(req.body.name, req.body.text));
     })
     .post('/exercise/done', (req, res) => {
-        res.send(fit.DoneExercise(req.body.name, req.body.list, req.body.total));
+        res.send(fit.DoneExercise(req.body.name, req.body.text, req.body.time, req.body.set, req.body.total));
     })
     .post('/exercise/totaltime', (req, res) => {
-        var time = fit.GetTotalTime(req.body.user, req.body.key, req.body.totalTime);
+        var time = fit.GetTotalTime(req.body.name, req.body.key, req.body.totalTime);
         res.send(time.toString());
     }) 
+    .post('/exercise/recordDay', (req, res) => {
+        res.send(fit.RecordDay(req.body.name, req.body.key, req.body.text, req.body.time, req.body.set, req.body.total));
+    })
     .post('/exercise/request', (req,res) => {
        res.send( fit.FriendRequest(req.body.friend, req.body.name));
     })
@@ -78,9 +81,7 @@ module.exports = app
         fit.ChangeRequested(req.body.name);
     })
  
-    .post('/exercise/recordDay', (req, res) => {
-        fit.RecordDay(req.body.name, req.body.user, req.body.key);
-    })
+ 
     
     
     ;

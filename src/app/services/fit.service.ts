@@ -120,6 +120,7 @@ export class FitService {
   chooseExercise(text: string){
     this.http.post(this._api + "/exercise/choose", {name: this.Me.Name, Text: text})
               .subscribe( data => {
+               
                 if(!data.json()){
                   return;
                 }
@@ -149,27 +150,45 @@ export class FitService {
       })
     }
 
+    
 
     // post selected workout to the server
-    selectExercise(done){
-      this.http.post(this._api + '/exercise/done', {name: this.Me.Name, list: done })
+    doneExercise(text: string, time: number, set: number, totalTime: number){
+      console.log('--------------');
+      this.http.post(this._api + '/exercise/done', {name: this.Me.Name, text: text, time: time, set: set, total: totalTime })
                 .subscribe(data => {
+                  console.log('/// data.json() ///');
+                  console.log(data.json());
                   if(!data.json()){
-                    console.log('done data is false - service');
                     return;
                   }
+                  this.Me.DoneExerciseList = data.json();
                 });
     }
 
 
     // post total workout time to the server
-    getTotalTime(user: User, key: string, totalTime: number){
-      this.http.post(this._api + "/exercise/totaltime",{user: user, key: key, totalTime: totalTime})
+    getTotalTime(name: String, key: string, totalTime: number){
+      console.log('///// Get Total Time Service ////');
+      this.http.post(this._api + "/exercise/totaltime",{name: name, key: key, totalTime: totalTime})
       .subscribe(data => {
         this.Me.TotalSetTime = Number(data.json());
       })
     }
 
+    // Update the Done Exercise List in History[] in the server.
+    RecordDay(text: string, key: string, time: number, set: number, totalTime: number){
+        this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, key: key, text: text, time: time, set: set, total: totalTime })
+        .subscribe(data => {
+          if(!data.json()){
+            return;
+          }
+          this.Me.DoneExerciseList = data.json();
+        }
+
+        );
+  
+      }
     // get the list of other users from the server
     getUserList(){
       return this.http.get(this._api + '/exercise/people', { params: {name: this.Me.Name}})
@@ -207,16 +226,7 @@ export class FitService {
       
     }
     
-    // Update the Done Exercise List in History[] in the server.
-    RecordDay(user: User, key: string){
-     /*  var key = month +'/'+date;
-      this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, month: month, date: date, key: key.toString() })
-      .subscribe(); */
-      this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, user: user, key: key })
-      .subscribe();
 
-
-    }
 
     // get summary from the server to display it at History
     getSummary(key: string){

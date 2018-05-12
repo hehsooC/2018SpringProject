@@ -334,9 +334,8 @@ var FitComponent = /** @class */ (function () {
         var key = month + ' / ' + date;
         // create a new date history
         if (!this.Me.History.find(function (x) { return x.KeyDate == key; })) {
-            console.log('--------------');
             this.Me.PlanExercise = [];
-            console.log('===================');
+            this.Me.DoneExerciseList = [];
             this.Me.Month = month;
             this.Me.Date = date;
             this.Me.History.push({ Name: this.Me.Name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0,
@@ -364,7 +363,7 @@ var FitComponent = /** @class */ (function () {
             // to display current date and Me's workout list
             this.Me.PlanExercise.push({ Text: text, Chosen: false });
         }
-        this._Fit.chooseExercise(text);
+        // this._Fit.chooseExercise(text);
         var key = this.Me.Month + ' / ' + this.Me.Date;
         console.log(this.Me.History.find(function (x) { return x.KeyDate == key; }).PlanExercise);
         // find the user's plan history from History[] by key
@@ -385,41 +384,63 @@ var FitComponent = /** @class */ (function () {
     // doneExercise() will track the completed workout that a user checks it as "done"
     FitComponent.prototype.doneExercise = function (e, text, time, set) {
         e.preventDefault();
-        // fix this to client -> server ?
+        // if text is chosen, change the color by submitting the text to server and changing Chosen to true.
         this._Fit.makeChosen(text);
         var key = this.Me.Month + ' / ' + this.Me.Date;
         var totalTime = time * set;
-        // if the workout list is a newly selected, add it to DoneExerciseList
-        if (!this.Me.DoneExerciseList.find(function (x) { return x.Text == text; })) {
-            this.Me.DoneExerciseList.push({ Text: text, Time: time, Set: set, TotalTime: totalTime });
-            // tracking the total workout time 
-            this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
-            this._Fit.getTotalTime(this.Me, key, this.Me.TotalSetTime);
-            this._Fit.selectExercise(this.Me.DoneExerciseList);
-        }
-        else {
+        // if the workout list is already exist, don't push it
+        if (this.Me.DoneExerciseList.find(function (x) { return x.Text == text; })) {
             var user = this.Me.DoneExerciseList.find(function (x) { return x.Text == text; });
             // keep tracking of total workout time
             user.Time = Number(user.Time) + Number(time);
             user.Set = Number(user.Set) + Number(set);
             user.TotalTime = Number(user.TotalTime) + Number(totalTime);
             this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
-            this._Fit.getTotalTime(this.Me, key, this.Me.TotalSetTime);
-            this._Fit.selectExercise(this.Me.DoneExerciseList);
-            //this._Fit.putHistory(this.Me.DoneExerciseList);
+            this._Fit.getTotalTime(this.Me.Name, key, this.Me.TotalSetTime);
+            this._Fit.doneExercise(text, time, set, totalTime);
         }
-        var key = this.Me.Month + ' / ' + this.Me.Date;
-        // find user's complete exercise list  from History, and show it to user.
-        if (this.Me.History.find(function (x) { return x.KeyDate == key; })) {
-            this.Me.History.find(function (x) { return x.KeyDate == key; }).Name = this.Me.Name;
-            this.Me.History.find(function (x) { return x.KeyDate == key; }).DoneExerciseList = this.Me.DoneExerciseList;
-            this.Me.History.find(function (x) { return x.KeyDate == key; }).PlanExercise = this.Me.PlanExercise;
-            this.Me.History.find(function (x) { return x.KeyDate == key; }).TotalSetTime = this.Me.TotalSetTime;
-            this.Me.History.find(function (x) { return x.KeyDate == key; }).Month = this.Me.Month;
-            this.Me.History.find(function (x) { return x.KeyDate == key; }).Date = this.Me.Date;
-            // send this history to server 
-            this._Fit.RecordDay(this.Me, key);
+        else {
+            // to display current date and Me's workout list
+            this.Me.DoneExerciseList.push({ Text: text, Time: time, Set: set, TotalTime: totalTime });
+            // tracking the total workout time 
+            this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
+            this._Fit.getTotalTime(this.Me.Name, key, this.Me.TotalSetTime);
+            this._Fit.doneExercise(text, time, set, totalTime);
         }
+        // Find user's history and return to the user so that user can see each date's data.
+        if (this.Me.History.find(function (x) { return x.KeyDate == key; }).DoneExerciseList.length == 0) {
+            console.log('+++++++++++++++++ If there is no history for this date');
+            console.log(this.Me);
+            this.Me.History.find(function (x) { return x.KeyDate == key; }).DoneExerciseList.push({ Text: text, Time: time, Set: set, TotalTime: totalTime });
+            this._Fit.getTotalTime(this.Me.Name, key, this.Me.TotalSetTime);
+            this._Fit.RecordDay(text, key, time, set, totalTime);
+        }
+        else {
+            var result = this.Me.History.find(function (x) { return x.KeyDate == key; });
+            this.Me.Month = result.Month;
+            this.Me.Date = result.Date;
+            this.Me.DoneExerciseList = result.DoneExerciseList;
+            console.log('......... Here? ');
+            console.log(this.Me);
+            this.Me.PlanExercise = result.PlanExercise;
+            this.Me.TotalSetTime = result.TotalSetTime;
+            this._Fit.getTotalTime(this.Me.Name, key, this.Me.TotalSetTime);
+            this._Fit.RecordDay(text, key, time, set, totalTime);
+        }
+        /*
+            // find user's complete exercise list  from History, and show it to user.
+            if(this.Me.History.find(x => x.KeyDate == key)){
+              this.Me.History.find(x => x.KeyDate == key).Name = this.Me.Name;
+              this.Me.History.find(x => x.KeyDate == key).DoneExerciseList = this.Me.DoneExerciseList;
+              this.Me.History.find(x => x.KeyDate == key).PlanExercise = this.Me.PlanExercise;
+              this.Me.History.find(x => x.KeyDate == key).TotalSetTime = this.Me.TotalSetTime;
+              this.Me.History.find(x => x.KeyDate == key).Month = this.Me.Month;
+              this.Me.History.find(x => x.KeyDate == key).Date = this.Me.Date;
+              // send this history to server
+              this._Fit.RecordDay(this.Me, key);
+        
+        
+            } */
         // console.log('_comp_doneEx_this.Me.History');
         // console.log(this.Me.History);
     };
@@ -937,21 +958,37 @@ var FitService = /** @class */ (function () {
         });
     };
     // post selected workout to the server
-    FitService.prototype.selectExercise = function (done) {
-        this.http.post(this._api + '/exercise/done', { name: this.Me.Name, list: done })
+    FitService.prototype.doneExercise = function (text, time, set, totalTime) {
+        var _this = this;
+        console.log('--------------');
+        this.http.post(this._api + '/exercise/done', { name: this.Me.Name, text: text, time: time, set: set, total: totalTime })
             .subscribe(function (data) {
+            console.log('/// data.json() ///');
+            console.log(data.json());
             if (!data.json()) {
-                console.log('done data is false - service');
                 return;
             }
+            _this.Me.DoneExerciseList = data.json();
         });
     };
     // post total workout time to the server
-    FitService.prototype.getTotalTime = function (user, key, totalTime) {
+    FitService.prototype.getTotalTime = function (name, key, totalTime) {
         var _this = this;
-        this.http.post(this._api + "/exercise/totaltime", { user: user, key: key, totalTime: totalTime })
+        console.log('///// Get Total Time Service ////');
+        this.http.post(this._api + "/exercise/totaltime", { name: name, key: key, totalTime: totalTime })
             .subscribe(function (data) {
             _this.Me.TotalSetTime = Number(data.json());
+        });
+    };
+    // Update the Done Exercise List in History[] in the server.
+    FitService.prototype.RecordDay = function (text, key, time, set, totalTime) {
+        var _this = this;
+        this.http.post(this._api + '/exercise/recordDay', { name: this.Me.Name, key: key, text: text, time: time, set: set, total: totalTime })
+            .subscribe(function (data) {
+            if (!data.json()) {
+                return;
+            }
+            _this.Me.DoneExerciseList = data.json();
         });
     };
     // get the list of other users from the server
@@ -982,14 +1019,6 @@ var FitService = /** @class */ (function () {
     // if user gets friend request, change the Requested status to inform the user that they have friend requests.
     FitService.prototype.changeRequested = function (name) {
         this.http.post(this._api + '/exercise/changeRequest', { name: name })
-            .subscribe();
-    };
-    // Update the Done Exercise List in History[] in the server.
-    FitService.prototype.RecordDay = function (user, key) {
-        /*  var key = month +'/'+date;
-         this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, month: month, date: date, key: key.toString() })
-         .subscribe(); */
-        this.http.post(this._api + '/exercise/recordDay', { name: this.Me.Name, user: user, key: key })
             .subscribe();
     };
     // get summary from the server to display it at History

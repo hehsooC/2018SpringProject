@@ -28,7 +28,7 @@ function Fit() {
             }else{
                 // if there is no username matched, create a new Person object.
                 this.Person.push({ Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null},
-                    PlanExercise: [], DoneExerciseList: [], Notice: [], TotalSetTime: 0, Requested: false, FriendList:[], History: [], Month: null, Date: null});
+                    PlanExercise: [], DoneExerciseList: [], Notice: [], TotalSetTime: 0, Requested: false, FriendList:[], History: []});
                 return true;
             }
         }        
@@ -131,60 +131,93 @@ function Fit() {
         // if a planned workout list is selected, make Chosen to true to indicate this exercise is done.
         this.MakeChosen = (name, text) => {
             var user = this.Person.find(x => x.Name == name);
-            var chosenWorkout = user.PlanExercise.find(x=> x.Text == text)
+            var chosenWorkout = user.PlanExercise.find(x=> x.Text == text);
             chosenWorkout.Chosen = true;
             return user.PlanExercise;
         }
 
         // post selected workout to the server in Person[]
-        this.DoneExercise = (name, list) => {
+        this.DoneExercise = (name, text, time, set, total) => {
+
+            
             var user = this.Person.find(x => x.Name == name);
 
             if(user){
-                user.DoneExerciseList = list;
-                return user.DoneExerciseList;
+                if(!user.DoneExerciseList.find(x => x.Text == text)){
+                    user.DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: total});
+                    var plan = user.DoneExerciseList;
+                    return plan;
+                }
+                else{
+                    var done = user.DoneExerciseList.find(x => x.Text == text);
+                    done.Time = Number(done.Time) + Number(time);
+                    done.Set = Number(done.Set) + Number(set);
+                    done.TotalTime = Number(done.TotalTime) + Number(total);
+                    
+                    return user.DoneExerciseList;
+
+                }
             }
             else{
                 console.log('fail to done exercise - model');
                 return false;
             }
             
-             
-        }  
-
-        // Update the Done Exercise List in History[].
-        this.RecordDay = (name, user, key) => {
-
-            var userFound = this.Person.find(x => x.Name == user.Name);
-            var historyFound = userFound.History.find(x=> x.KeyDate == key);
-            if(!historyFound){
-                console.log('history not found');
-            }
-            else{
-                historyFound.DoneExerciseList = user.DoneExerciseList;
-            }
-
-        }
+        } 
 
         // Update total workout time.
-        this.GetTotalTime = (user, key, totalTime) => {
-            var userFound = this.Person.find(x => x.Name == user.Name);
+        this.GetTotalTime = (name, key, totalTime) => {
+            var userFound = this.Person.find(x => x.Name == name);
             var historyFound = userFound.History.find(x=> x.KeyDate == key);
             
             if(!historyFound){
                 console.log('history not found');
+                return false;
             }
             // if there is workout history, update it.
             else{
                 historyFound.TotalSetTime = totalTime;
-                
+                return historyFound.TotalSetTime;
                 
             }
             // update User's total workout time in Person[]
-            userFound.TotalSetTime = totalTime;
+            // userFound.TotalSetTime = totalTime;
 
-            return userFound.TotalSetTime;
+            // return userFound.TotalSetTime;
         }
+
+        // Update the Done Exercise List in History[].
+        this.RecordDay = (name, key, text, time, set, total) => {
+
+            var userFound = this.Person.find(x => x.Name == name);
+            var historyFound = userFound.History.find(x=> x.KeyDate == key);
+            if(!historyFound.DoneExerciseList.length == 0){
+                console.log('history not found');
+                var done = historyFound.DoneExerciseList;
+                if(!done.find(x => x.Text == text)){
+                    done.push({Text: text, Time: time, Set: set, TotalTime: total});
+                    return done;
+                }
+                else{
+                    var done2 = historyFound.DoneExerciseList.find(x => x.Text == text);
+                    done2.Time = Number(done2.Time) + Number(time);
+                    done2.Set = Number(done2.Set) + Number(set);
+                    done2.TotalTime = Number(done2.TotalTime) + Number(total);
+                    
+                    return historyFound.DoneExerciseList;
+
+                }
+            }
+            else{
+                console.log('hit Done button First time');
+                historyFound.DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: total});
+                return historyFound.DoneExerciseList;
+            }
+
+        }
+
+
+    
 
         // give other users' name to this user.
         this.GiveUserList = (name) => {
