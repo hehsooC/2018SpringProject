@@ -64,11 +64,7 @@ function Fit() {
         this.SetDay = (name, key, month, date) => {
             var userFound = this.Person.find( x => x.Name == name);
             var historyFound = userFound.History.find(x=>x.KeyDate == key);
-            // console.log(historyFound);
-            // create a new History object (initializing)
             if(!historyFound){
-                console.log('create a new history object with key')
-                // var newDay = {KeyDate : key}
                 userFound.History.push({ DoneExerciseList:[],PlanExercise: [], TotalSetTime: 0,  Month: month, Date: date, KeyDate: key});
                 return false;
             }
@@ -158,8 +154,6 @@ function Fit() {
             // if there is workout history, update it.
             else{
                 historyFound.TotalSetTime = totalTime;
-                console.log('.... total set time');
-                console.log(historyFound.TotalSetTime);
                 return historyFound.TotalSetTime;
                 
             }
@@ -175,7 +169,6 @@ function Fit() {
             var userFound = this.Person.find(x => x.Name == name);
             var historyFound = userFound.History.find(x=> x.KeyDate == key);
             if(!historyFound.DoneExerciseList.length == 0){
-                console.log('history not found');
                 var done = historyFound.DoneExerciseList;
                 if(!done.find(x => x.Text == text)){
                     done.push({Text: text, Time: time, Set: set, TotalTime: total});
@@ -192,7 +185,6 @@ function Fit() {
                 }
             }
             else{
-                console.log('hit Done button First time');
                 historyFound.DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: total});
                 return historyFound.DoneExerciseList;
             }
