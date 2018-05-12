@@ -31,6 +31,12 @@ module.exports = app
     .get('/exercise/getHistory', (req, res) => {
         res.send(fit.GetHistory(req.query.user, req.query.key));
     })
+    .get('/exercise/addFriendHistory', (req,res)=>{
+        res.send(fit.AddFriendHistory(req.query.name, req.query.friend));
+    })
+ /*    .get('/exercise/getOthers', (req, res) => {
+        res.send(fit.GetOthers(req.query.name, req.query.friend));
+    }) */
 
     // post profile to a server
     .post('/exercise/profile', (req, res) =>{
@@ -64,9 +70,8 @@ module.exports = app
     })
     .post('/exercise/addFriend', (req,res)=>{
         res.send(fit.AddFriend(req.body.name, req.body.friend));
-
-
     })
+  
     .post('/exercise/changeRequest', (req, res) => {
         fit.ChangeRequested(req.body.name);
     })

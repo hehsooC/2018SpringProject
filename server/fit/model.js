@@ -28,7 +28,7 @@ function Fit() {
             }else{
                 // if there is no username matched, create a new Person object.
                 this.Person.push({ Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null},
-                      Notice: [], Requested: false, FriendList:[], History: []});
+                      Notice: [], Record:[], Requested: false, FriendList:[], History: []});
                 return true;
             }
         }        
@@ -65,7 +65,7 @@ function Fit() {
             var userFound = this.Person.find( x => x.Name == name);
             var historyFound = userFound.History.find(x=>x.KeyDate == key);
             if(!historyFound){
-                userFound.History.push({ DoneExerciseList:[],PlanExercise: [], TotalSetTime: 0,  Month: month, Date: date, KeyDate: key});
+                userFound.History.push({ Name: name, DoneExerciseList:[],PlanExercise: [], TotalSetTime: 0,  Month: month, Date: date, KeyDate: key});
                 return false;
             }
             // return found history to Me
@@ -235,6 +235,46 @@ function Fit() {
 
         }
 
+  /*       this.GetFriendHistory = (friend) => {
+            var friendFound = this.Person.find( x => x.Name == friend);
+            var historyFound = friendFound.History.find(x=> x.KeyDate == key);
+            return historyFound;
+        } */
+        this.AddFriendHistory = (name, friend) =>{
+            var friendFound = this.Person.find(x => x.Name == friend);
+            // var user = this.Person.find(x => x.Name == name );
+            if(friendFound){
+                return friendFound.History;
+            }
+
+            /* if( user){
+                console.log('put user Friend History');
+                // user.Record.push({ Name: friend, DoneExerciseList: friendFound.History.DoneExerciseList, 
+                //     TotalSetTime: friendFound.History.TotalSetTime, KeyDate: friendFound.History.KeyDate });
+                user.Record.push(friendFound.History);
+                console.log(user.Record);
+
+            }
+           
+            if( friendFound){
+                console.log('Friend Found in server');
+                console.log('Friend History: ');
+                // friendFound.Record.push({ Name: friend, DoneExerciseList: friendFound.History.DoneExerciseList, 
+                //     TotalSetTime: friendFound.History.TotalSetTime, KeyDate: friendFound.History.KeyDate });
+                friendFound.Record.push( user.History);
+
+                console.log(friendFound.Record);
+
+                return friendFound.Record;
+            }
+            else{
+                return false;
+            } */
+
+        }
+
+
+
         // indicates if this user gets a friend request or not.
         this.ChangeRequested = ( name )=>{
             var user = this.Person.find( x => x.Name == name);
@@ -254,6 +294,33 @@ function Fit() {
             return historyFound;
         }
         
+        this.GetOthers = (name, friend) => {
+
+           /*  var friendFound = this.Person.find(x => x.Name == friend);
+            var user = this.Person.find(x => x.Name == name );
+
+            if( user){
+                console.log('put user Friend History');
+                user.Record.push({ Name: friend, DoneExerciseList: friendFound.History.DoneExerciseList, 
+                    TotalSetTime: friendFound.History.TotalSetTime, KeyDate: friendFound.History.KeyDate });
+                console.log(user.Record);
+
+            }
+           
+            if( friendFound){
+                console.log('Friend Found in server');
+                console.log('Friend History: ');
+                friend.Record.push({ Name: friend, DoneExerciseList: friendFound.History.DoneExerciseList, 
+                    TotalSetTime: friendFound.History.TotalSetTime, KeyDate: friendFound.History.KeyDate });
+                console.log(friendFound.Record);
+                return friendFound.Record;
+            }
+            else{
+                return false;
+            } */
+
+          
+        }
         
 
  

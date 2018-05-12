@@ -46,9 +46,10 @@ export class ShareComponent implements OnInit {
       // remove myself from the share list
       this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
       //console.log(this.Me.EachShare);
-
-      
     });
+/*     this._Fit.getOthers().subscribe(data => {
+      this.Me.Record = data;
+    }) */
   }
 
 
@@ -68,17 +69,34 @@ export class ShareComponent implements OnInit {
     console.log('friend name** ' + friend);
     if (confirm(this.Me.Notice.find(x=>x.Name == this.Me.Name).Msg + '\nHit Ok to Accept or Cancel to Decline.')) {
         this._Fit.addFriendList(friend);
+        
     } else {
         // dismiss request
         return;
     }
+    /////
     this.Me.Notice.unshift();
+    /////
     this._Fit.changeRequested(this.Me.Name);
 
   }
 
-  friendHistory(e: MouseEvent){
+  friendHistory(e: MouseEvent, friend: string){
+    console.log('send friend name to service');
     // get other user's summary and display
+    // this._Fit.getOthers(friend);
+
+    var friendHistory = this.Me.Record.find(x=> x.Name == friend);
+    if(friendHistory){
+      console.log('friend history is here');
+      return;
+    }
+    else{
+      console.log('adding Friends data');
+      this._Fit.addFriendHistory(friend);;
+    }
+    console.log('Record in Comp');
+    console.log(this._Fit.Me.Record);
 
   }
 

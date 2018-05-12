@@ -209,6 +209,16 @@ export class FitService {
     }
 
     ////////////////////
+
+    addFriendHistory(friend: string){
+      this.http.get(this._api+'/exercise/addFriendHistory',{params: {name: this.Me.Name, friend: friend}})
+      .subscribe(data => {
+        var history = data.json();
+        this.Me.Record = history;
+        console.log('FriendHistory ---');
+        console.log(this.Me.Record);
+      });
+    }
     // if user gets friend request, change the Requested status to inform the user that they have friend requests.
     changeRequested(name: string){
       this.http.post(this._api + '/exercise/changeRequest', {name: name})
@@ -239,8 +249,32 @@ export class FitService {
   });
 }
 
-  
+  /* getOthers(friend: string){
+    // return this.http.get(this._api + "/exercise/getOthers", { params : { name: this.Me.Name, friend: null} })
+    // .map((response:Response)=>response.json()); 
 
-}
+    return this.http.get(this._api + "/exercise/getOthers", { params : { name: this.Me.Name, friend: friend} })
+    .subscribe(data=> {
+      if(!data.json()){
+        return;
+      }
+      console.log('set Friend History to Record');
+      var history = data.json();
+      this.Me.Record = history;
+
+      console.log('Record Has ');
+      console.log(this.Me.Record);
+      // this.Me.Record.PlanExercise = history.PlanExercise;
+      // this.Me.Record.DoneExerciseList = history.DoneExerciseList;
+      // this.Me.Record.Month = history.Month;
+      // this.Me.Record.Date = history.Date;
+      // this.Me.Record.TotalSetTime = history.TotalSetTime;
+
+    }); */
+
+
+    
+
+  }
   
 

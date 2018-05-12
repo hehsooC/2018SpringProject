@@ -36,7 +36,7 @@
       <div class="card-body">
         <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
         <button class="btn btn-warning"  *ngIf="Me.Requested" (click)="requestBox($event)">You Have a Friend Request</button>
-        <ul class="list-group-item list-group-flush list" *ngFor = "let friend of Me.FriendList">
+        <ul class="list-group-item list-group-flush list" *ngFor = "let friend of _Fit.Me.Notice">
           <div class = "row justify-content-md-center">
             <div class="col">
               <li > {{friend.Name}} </li>
@@ -66,7 +66,7 @@
               <li > {{friend.Name}} </li>
             </div>
             <div class="col">
-              <button class="btn btn-sm d-flex justify-content-end btn-color" (click) = "friendHistory($event)"> Display </button>
+              <button class="btn btn-sm d-flex justify-content-end btn-color" (click) = "friendHistory($event, friend.Name)"> Display </button>
             </div>
            
           </div>
@@ -83,9 +83,21 @@
         <div class="card-header">
           Other user's Workout Achievement
         </div> <!-- card header-->
-        <ul class="list-group list-group-flush list">
-          <li>users name and workout summary will be here</li>
-        </ul>
+        <div class="card-body" >
+          <form>
+              <div class="form-group">
+                  <select multiple class="form-control" id="exampleFormControlSelect2" >
+                  <option *ngFor="let friend of _Fit.Me.Record">
+                      {{friend.KeyDate}}
+                  </option>
+                  <option >
+                      something?
+                  </option>
+                  </select>
+              </div>
+          </form>
+        </div> <!-- card body -->
+        
     </div>  <!-- card -->
   </div> <!-- row -->
 

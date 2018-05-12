@@ -123,7 +123,7 @@ export class FitComponent implements OnInit {
       
       this.Me.PlanExercise = [];
       this.Me.DoneExerciseList = [];
-      
+      this.Me.TotalSetTime = 0;
       this.Me.Month = month;
       this.Me.Date = date;
       this.Me.History.push({ Name: this.Me.Name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, 

@@ -338,6 +338,7 @@ var FitComponent = /** @class */ (function () {
         if (!this.Me.History.find(function (x) { return x.KeyDate == key; })) {
             this.Me.PlanExercise = [];
             this.Me.DoneExerciseList = [];
+            this.Me.TotalSetTime = 0;
             this.Me.Month = month;
             this.Me.Date = date;
             this.Me.History.push({ Name: this.Me.Name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0,
@@ -988,6 +989,16 @@ var FitService = /** @class */ (function () {
         });
     };
     ////////////////////
+    FitService.prototype.addFriendHistory = function (friend) {
+        var _this = this;
+        this.http.get(this._api + '/exercise/addFriendHistory', { params: { name: this.Me.Name, friend: friend } })
+            .subscribe(function (data) {
+            var history = data.json();
+            _this.Me.Record = history;
+            console.log('FriendHistory ---');
+            console.log(_this.Me.Record);
+        });
+    };
     // if user gets friend request, change the Requested status to inform the user that they have friend requests.
     FitService.prototype.changeRequested = function (name) {
         this.http.post(this._api + '/exercise/changeRequest', { name: name })
@@ -1069,7 +1080,7 @@ module.exports = "ul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card
 /***/ "./src/app/share/share.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\">\n\n</div><!-- row -->\n\n<div class=\"row justify-content-md-center\">\n<!-- Choose a user to share workout log-->\n  <div class=\"col-md-4\">\n    <div class=\"card\" >\n      <div class=\"card-header heightAdjust\">\n        <div class=\"text-uppercase\">Other Users</div>\n        <div class=\"subtitle\"> Send a Friend Request to Other Users!</div>\n      </div> <!-- card header -->\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n          <div class=\"row justify-content-md-center\">\n            <div class=\"col\">\n              <li  >{{users.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" > Request </button>\n            </div>\n          </div>  \n        </ul>\n      </div> <!-- card-body -->\n    </div> <!-- card -->\n  </div><!-- col -->\n<!-- Choose a user to share workout log-->\n\n<!-- Received Friend Requests-->\n  <div class=\"col-md-3\">\n    <div class=\"card\">\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">Friend Request</div>\n        <div class=\"subtitle\"> You've Got Friend Requests!</div>\n      </div>\n      <div class=\"card-body\">\n        <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n        <button class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event)\">You Have a Friend Request</button>\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of Me.FriendList\">\n          <div class = \"row justify-content-md-center\">\n            <div class=\"col\">\n              <li > {{friend.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-sm d-flex justify-content-end btn-color\" (click) = \"friendHistory($event)\"> Read </button>\n            </div>\n            \n          </div>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n<!-- Friends List-->\n  <div class=\"col-md-4\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div> <!-- card header -->\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of Me.FriendList\">\n          <div class = \"row justify-content-md-center\">\n            <div class=\"col\">\n              <li > {{friend.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-sm d-flex justify-content-end btn-color\" (click) = \"friendHistory($event)\"> Display </button>\n            </div>\n           \n          </div>\n        </ul>\n      </div> <!-- card body-->\n    </div> <!-- card -->\n  </div> <!-- col -->\n<!-- Friends List-->\n\n</div><!-- row -->\n\n<div class=\"row-md-3\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div> <!-- card header-->\n        <ul class=\"list-group list-group-flush list\">\n          <li>users name and workout summary will be here</li>\n        </ul>\n    </div>  <!-- card -->\n  </div> <!-- row -->\n\n\n"
+module.exports = "<div class=\"row justify-content-md-center\">\n\n</div><!-- row -->\n\n<div class=\"row justify-content-md-center\">\n<!-- Choose a user to share workout log-->\n  <div class=\"col-md-4\">\n    <div class=\"card\" >\n      <div class=\"card-header heightAdjust\">\n        <div class=\"text-uppercase\">Other Users</div>\n        <div class=\"subtitle\"> Send a Friend Request to Other Users!</div>\n      </div> <!-- card header -->\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n          <div class=\"row justify-content-md-center\">\n            <div class=\"col\">\n              <li  >{{users.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" > Request </button>\n            </div>\n          </div>  \n        </ul>\n      </div> <!-- card-body -->\n    </div> <!-- card -->\n  </div><!-- col -->\n<!-- Choose a user to share workout log-->\n\n<!-- Received Friend Requests-->\n  <div class=\"col-md-3\">\n    <div class=\"card\">\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">Friend Request</div>\n        <div class=\"subtitle\"> You've Got Friend Requests!</div>\n      </div>\n      <div class=\"card-body\">\n        <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n        <button class=\"btn btn-warning\"  *ngIf=\"Me.Requested\" (click)=\"requestBox($event)\">You Have a Friend Request</button>\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of _Fit.Me.Notice\">\n          <div class = \"row justify-content-md-center\">\n            <div class=\"col\">\n              <li > {{friend.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-sm d-flex justify-content-end btn-color\" (click) = \"friendHistory($event)\"> Read </button>\n            </div>\n            \n          </div>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n<!-- Friends List-->\n  <div class=\"col-md-4\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          Friends List\n        </div>\n      </div> <!-- card header -->\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of Me.FriendList\">\n          <div class = \"row justify-content-md-center\">\n            <div class=\"col\">\n              <li > {{friend.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-sm d-flex justify-content-end btn-color\" (click) = \"friendHistory($event, friend.Name)\"> Display </button>\n            </div>\n           \n          </div>\n        </ul>\n      </div> <!-- card body-->\n    </div> <!-- card -->\n  </div> <!-- col -->\n<!-- Friends List-->\n\n</div><!-- row -->\n\n<div class=\"row-md-3\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          Other user's Workout Achievement\n        </div> <!-- card header-->\n        <div class=\"card-body\" >\n          <form>\n              <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                  <option *ngFor=\"let friend of _Fit.Me.Record\">\n                      {{friend.KeyDate}}\n                  </option>\n                  <option >\n                      something?\n                  </option>\n                  </select>\n              </div>\n          </form>\n        </div> <!-- card body -->\n        \n    </div>  <!-- card -->\n  </div> <!-- row -->\n\n\n"
 
 /***/ }),
 
@@ -1118,6 +1129,9 @@ var ShareComponent = /** @class */ (function () {
             _this.Me.EachShare.splice(_this.Me.EachShare.indexOf(_this.Me.EachShare.find(function (x) { return x.Name == _this.Me.Name; })), 1);
             //console.log(this.Me.EachShare);
         });
+        /*     this._Fit.getOthers().subscribe(data => {
+              this.Me.Record = data;
+            }) */
     };
     ShareComponent.prototype.friendRequest = function (e, friendName) {
         this._Fit.friendRequest(friendName);
@@ -1138,11 +1152,27 @@ var ShareComponent = /** @class */ (function () {
             // dismiss request
             return;
         }
+        /////
         this.Me.Notice.unshift();
+        /////
         this._Fit.changeRequested(this.Me.Name);
     };
-    ShareComponent.prototype.friendHistory = function (e) {
+    ShareComponent.prototype.friendHistory = function (e, friend) {
+        console.log('send friend name to service');
         // get other user's summary and display
+        // this._Fit.getOthers(friend);
+        var friendHistory = this.Me.Record.find(function (x) { return x.Name == friend; });
+        if (friendHistory) {
+            console.log('friend history is here');
+            return;
+        }
+        else {
+            console.log('adding Friends data');
+            this._Fit.addFriendHistory(friend);
+            ;
+        }
+        console.log('Record in Comp');
+        console.log(this._Fit.Me.Record);
     };
     ShareComponent = __decorate([
         core_1.Component({
