@@ -4,9 +4,9 @@
 
 <div class="row justify-content-md-center">
 <!-- Choose a user to share workout log-->
-  <div class="col-md-4">
+  <div class="col-lg-4">
     <div class="card" >
-      <div class="card-header heightAdjust">
+      <div class="card-header">
         <div class="text-uppercase">Other Users</div>
         <div class="subtitle"> Send a Friend Request to Other Users!</div>
       </div> <!-- card header -->
@@ -27,15 +27,17 @@
 <!-- Choose a user to share workout log-->
 
 <!-- Received Friend Requests-->
-  <div class="col-md-3">
+  <div class="col-lg-4">
     <div class="card">
       <div class="card-header">
         <div class="text-uppercase">Friend Request</div>
         <div class="subtitle"> You've Got Friend Requests!</div>
       </div>
       <div class="card-body">
-        <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
-        <button class="btn btn-warning"  *ngIf="Me.Requested" (click)="requestBox($event, friend.Friend)">You Have a Friend Request</button>
+        <div class="d-flex justify-content-md-center">
+          <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
+          <button class="btn btn-warning"  *ngIf="Me.Requested" (click)="requestBox($event, friend.Friend)">You Have a Friend Request</button>
+        </div>
         <ul class="list-group-item list-group-flush list" *ngFor = "let friend of _Fit.Me.Notice">
           <div class = "row justify-content-md-center">
             <div class="col">
@@ -45,8 +47,6 @@
               <button class="btn btn-sm d-flex justify-content-end btn-warning"  (click) = "requestBox($event, friend.Friend)"> Confirm </button>
 
             </div>
-
-            
           </div>
         </ul>
       </div>
@@ -54,11 +54,12 @@
   </div>
 
 <!-- Friends List-->
-  <div class="col-md-4">
+  <div class="col-lg-4">
     <div class="card" >
       <div class="card-header">
         <div class="text-uppercase">
-          Friends List
+          <div class="text-uppercase">Friends List</div>
+          <div class="subtitle"> Look Who is Your Friend.</div>
         </div>
       </div> <!-- card header -->
       <div class="card-body">
@@ -80,10 +81,12 @@
 
 </div><!-- row -->
 
-<div class="row-md-3">
+<div class="row d-flex justify-content-md-center">
+  <div class="col-lg-4">
     <div class="card" >
         <div class="card-header">
-          Other user's Workout Achievement
+          <div class="text-uppercase">Friend's Workout Date</div>
+          <div class="subtitle"> Select Date to See Friend's Achievement</div>
         </div> <!-- card header-->
         <div class="card-body" >
           <form>
@@ -98,6 +101,28 @@
         </div> <!-- card body -->
         
     </div>  <!-- card -->
-  </div> <!-- row -->
+  </div> <!-- col -->
+
+  <div class="col-lg-6">
+      <div class="card" >
+          <div class="card-header">
+            <div class="text-uppercase">Friend's Workout Achievement</div>
+            <div class="subtitle"> Here's Friend's Awesome Achievements!</div>
+          </div> <!-- card header-->
+          <div class="card-body" >
+            <form>
+                <div class="form-group">
+                    <select multiple class="form-control" id="exampleFormControlSelect2" >
+                    <option *ngFor="let friend of _Fit.Me.Record">
+                        {{friend.KeyDate}}
+                    </option>
+                    </select>
+                </div>
+            </form>
+          </div> <!-- card body -->
+          
+      </div>  <!-- card -->
+    </div> <!-- col -->
+</div> <!-- row -->
 
 
