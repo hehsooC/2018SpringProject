@@ -218,15 +218,9 @@ export class FitService {
 
     // get summary from the server to display it at History
     getSummary(key: string){
-      // console.log('getSummary this.Me');
-      // console.log(this.Me);
       this.http.get(this._api + "/exercise/summary", { params : { user: this.Me.Name, key: key } })
       .subscribe(data=> {
-        // console.log('_service_ getSummary gets data.json()');
-        // console.log(data.json());
         this.Me.Summary = data.json();
-        // console.log('Summary +++++');
-        // console.log(this.Me.Summary);
 
     });
   }
@@ -234,18 +228,12 @@ export class FitService {
   getHistory(key: string){
     this.http.get(this._api + "/exercise/getHistory", { params : { user: this.Me.Name, key: key } })
     .subscribe(data=> {
-      console.log('+++++data.json');
-      console.log(data.json());
       var history = data.json();
 
-      console.log('/a/a/a/a//a');
-      console.log(history.PlanExercise);
       this.Me.PlanExercise = history.PlanExercise;
       this.Me.DoneExerciseList = history.DoneExerciseList;
       this.Me.Month = history.Month;
       this.Me.Date = history.Date;
-      // console.log('Summary +++++');
-      // console.log(this.Me.Summary);
 
   });
 }
