@@ -119,4 +119,16 @@ export class ShareComponent implements OnInit {
 
   }
 
+  displayHistory(e: MouseEvent, key: string){
+    var summary = this.Me.Record.find(x=>x.KeyDate == key);
+    if(summary){
+      this.Me.Summary.DoneExerciseList = summary.DoneExerciseList;
+      this.Me.Summary.TotalSetTime = summary.TotalSetTime;
+    }
+    else{
+      return;
+    }
+
+  }
+
 }

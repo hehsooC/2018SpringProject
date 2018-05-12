@@ -36,7 +36,7 @@
       <div class="card-body">
         <div class="d-flex justify-content-md-center">
           <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
-          <button class="btn btn-warning"  *ngIf="Me.Requested" (click)="requestBox($event, friend.Friend)">You Have a Friend Request</button>
+          <button class="btn btn-warning"  disabled *ngIf="Me.Requested">You Have a Friend Request</button>
         </div>
         <ul class="list-group-item list-group-flush list" *ngFor = "let friend of _Fit.Me.Notice">
           <div class = "row justify-content-md-center">
@@ -92,7 +92,7 @@
           <form>
               <div class="form-group">
                   <select multiple class="form-control" id="exampleFormControlSelect2" >
-                  <option *ngFor="let friend of _Fit.Me.Record">
+                  <option *ngFor="let friend of _Fit.Me.Record" (click)="displayHistory($event, friend.KeyDate)">
                       {{friend.KeyDate}}
                   </option>
                   </select>
@@ -103,24 +103,29 @@
     </div>  <!-- card -->
   </div> <!-- col -->
 
+
   <div class="col-lg-6">
       <div class="card" >
-          <div class="card-header">
-            <div class="text-uppercase">Friend's Workout Achievement</div>
-            <div class="subtitle"> Here's Friend's Awesome Achievements!</div>
-          </div> <!-- card header-->
-          <div class="card-body" >
-            <form>
-                <div class="form-group">
-                    <select multiple class="form-control" id="exampleFormControlSelect2" >
-                    <option *ngFor="let friend of _Fit.Me.Record">
-                        {{friend.KeyDate}}
-                    </option>
-                    </select>
-                </div>
-            </form>
-          </div> <!-- card body -->
-          
+        <div class="card-header">
+          <div class="text-uppercase">Friend's Workout Achievement</div>
+          <div class="subtitle"> Here's Friend's Awesome Achievements!</div>
+        </div> <!-- card header-->
+        <div class="card-body" >
+          <ul class="list-group list-group-flush ">
+            <li *ngFor="let list of Me.Summary.DoneExerciseList"
+                class="list-group-item list-group-flush ">
+                {{list.Text}}
+            </li>
+          </ul>
+        </div> <!-- card body -->
+
+        <div class="card-body">
+          <div class="d-flex justify-content-center">
+              <i class="badge float-right badge-info" >
+              Total Time: {{Me.Summary.TotalSetTime}} min <br />
+              </i>
+          </div>
+        </div> <!-- card body -->
       </div>  <!-- card -->
     </div> <!-- col -->
 </div> <!-- row -->
