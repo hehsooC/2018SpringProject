@@ -269,10 +269,12 @@ var FitComponent = /** @class */ (function () {
     // Record the month and the date ((user input)) of completed workout
     FitComponent.prototype.addTime = function (e, month, date) {
         e.preventDefault();
+        // prevent empty submit.
         if (!date || !month) {
             alert('Please input month and date');
             return;
         }
+        // convert month to corresponding string.
         while (true) {
             if (month == 1) {
                 month = 'January';
@@ -386,44 +388,18 @@ var FitComponent = /** @class */ (function () {
         var totalTime = time * set;
         // if text is chosen, change the color by submitting the text to server and changing Chosen to true.
         this._Fit.makeChosen(text, key);
-        /*
-            // if the workout list is already exist, don't push it
-            if(this.Me.DoneExerciseList.find(x => x.Text == text)){
-              var user = this.Me.DoneExerciseList.find(x=> x.Text == text);
-        
-              // keep tracking of total workout time
-              user.Time = Number(user.Time) + Number(time);
-              user.Set = Number(user.Set) + Number(set);
-              user.TotalTime = Number(user.TotalTime) + Number(totalTime);
-              this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
-              this._Fit.getTotalTime(this.Me.Name, key, this.Me.TotalSetTime);
-              this._Fit.doneExercise(text, time, set, totalTime);
-            }
-            // if a new list is submitted, push it to DoneExerciseList[]
-            else{
-              // to display current date and Me's workout list
-              this.Me.DoneExerciseList.push({Text:text, Time:time, Set:set, TotalTime:totalTime});
-        
-              // tracking the total workout time
-              this.Me.TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
-              this._Fit.getTotalTime(this.Me.Name, key, this.Me.TotalSetTime);
-              this._Fit.doneExercise(text, time, set, totalTime);
-            } */
         // Find user's history and return to the user so that user can see each date's data.
-        if (this.Me.History.find(function (x) { return x.KeyDate == key; }).DoneExerciseList.length == 0) {
-            console.log('totalTime: ' + totalTime);
-            this.Me.TotalSetTime = Number(totalTime);
+        if (!this.Me.History.find(function (x) { return x.KeyDate == key; }).DoneExerciseList.find(function (x) { return x.Text == text; })) {
+            this.Me.TotalSetTime = this.Me.TotalSetTime + Number(totalTime);
             this.Me.History.find(function (x) { return x.KeyDate == key; }).TotalSetTime = Number(totalTime);
             this.Me.History.find(function (x) { return x.KeyDate == key; }).DoneExerciseList.push({ Text: text, Time: time, Set: set, TotalTime: totalTime });
-            console.log('+++++++++++++++++ If there is no history for this date');
-            console.log(this.Me);
             this._Fit.getTotalTime(this.Me.Name, key, this.Me.TotalSetTime);
             this._Fit.RecordDay(text, key, time, set, totalTime);
         }
         else {
+            // if the workout list is already submitted, find the data via key.
             var user = this.Me.History.find(function (x) { return x.KeyDate == key; }).DoneExerciseList.find(function (x) { return x.Text == text; });
             this.Me.History.find(function (x) { return x.KeyDate == key; }).TotalSetTime = Number(this.Me.TotalSetTime) + Number(totalTime);
-            // this.Me.TotalSetTime = Number(totalTime);
             user.Time = Number(user.Time) + Number(time);
             user.Set = Number(user.Set) + Number(set);
             user.TotalTime = Number(user.TotalTime) + Number(totalTime);
@@ -434,31 +410,15 @@ var FitComponent = /** @class */ (function () {
             this.Me.DoneExerciseList = result.DoneExerciseList;
             this.Me.PlanExercise = result.PlanExercise;
             this.Me.TotalSetTime = result.TotalSetTime;
-            console.log('......... Here? ');
-            console.log(this.Me);
             this._Fit.getTotalTime(this.Me.Name, key, this.Me.TotalSetTime);
             this._Fit.RecordDay(text, key, time, set, totalTime);
         }
-        /*
-            // find user's complete exercise list  from History, and show it to user.
-            if(this.Me.History.find(x => x.KeyDate == key)){
-              this.Me.History.find(x => x.KeyDate == key).Name = this.Me.Name;
-              this.Me.History.find(x => x.KeyDate == key).DoneExerciseList = this.Me.DoneExerciseList;
-              this.Me.History.find(x => x.KeyDate == key).PlanExercise = this.Me.PlanExercise;
-              this.Me.History.find(x => x.KeyDate == key).TotalSetTime = this.Me.TotalSetTime;
-              this.Me.History.find(x => x.KeyDate == key).Month = this.Me.Month;
-              this.Me.History.find(x => x.KeyDate == key).Date = this.Me.Date;
-              // send this history to server
-              this._Fit.RecordDay(this.Me, key);
-        
-        
-            } */
-        // console.log('_comp_doneEx_this.Me.History');
-        // console.log(this.Me.History);
     };
-    // when user hits Reset button, reset the page (workout lists)
+    // when user hits Reset button, reset the page.
     FitComponent.prototype.reset = function (e) {
-        // call set day retrieve history
+        // call set day to either start a new date or to retrieve history
+        this.Me.Month = null;
+        this.Me.Date = null;
     };
     FitComponent = __decorate([
         core_1.Component({
