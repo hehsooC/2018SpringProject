@@ -37,6 +37,10 @@ module.exports = app
     .get('/exercise/summary', (req, res) => {
         res.send(fit.GetSummary(req.query.user, req.query.key));
     })
+    .get('/exercise/getHistory', (req, res) => {
+        res.send(fit.GetHistory(req.query.user, req.query.key));
+    })
+
     // post profile to a server
     .post('/exercise/profile', (req, res) =>{
         var profile = fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 

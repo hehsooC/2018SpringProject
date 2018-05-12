@@ -231,6 +231,24 @@ export class FitService {
     });
   }
 
+  getHistory(key: string){
+    this.http.get(this._api + "/exercise/getHistory", { params : { user: this.Me.Name, key: key } })
+    .subscribe(data=> {
+      console.log('+++++data.json');
+      console.log(data.json());
+      var history = data.json();
+
+      console.log('/a/a/a/a//a');
+      console.log(history.PlanExercise);
+      this.Me.PlanExercise = history.PlanExercise;
+      this.Me.DoneExerciseList = history.DoneExerciseList;
+      this.Me.Month = history.Month;
+      this.Me.Date = history.Date;
+      // console.log('Summary +++++');
+      // console.log(this.Me.Summary);
+
+  });
+}
 /*   getUserStatus(){
     return this.http.get(this._api+'/exercise/user', {params:{name: this.Me.Name}})
     .map((response:Response)=>response.json());

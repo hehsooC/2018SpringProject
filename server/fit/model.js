@@ -248,7 +248,12 @@ function Fit() {
             return historyFound;
         }
         
-    
+        this.GetHistory = (user, key) => {
+            var userFound = this.Person.find( x => x.Name == user);
+            var historyFound = userFound.History.find(x=> x.KeyDate == key);
+            return historyFound;
+        }
+        
         
 
         /* this.GetDay=(name)=>{

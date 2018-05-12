@@ -57,10 +57,10 @@ export class FitComponent implements OnInit {
   }
 
 
-
   // Record the month and the date ((user input)) of completed workout
   addTime(e: MouseEvent, month: any, date: number){
     e.preventDefault();
+    
     // prevent empty submit.
     if(!date || !month){
       alert('Please input month and date');
@@ -147,6 +147,20 @@ export class FitComponent implements OnInit {
     }
     
 
+
+  }
+
+  
+  submitDate(e: MouseEvent, key: string){
+    if(this.Me.History.find(x => x.KeyDate == key)){
+      console.log('history found');
+      this._Fit.getHistory(key);
+      var thisHistory = this.Me.History.find(x=> x.KeyDate == key);
+      
+    }
+    else{
+      console.log('no history found');
+    }
 
   }
 
