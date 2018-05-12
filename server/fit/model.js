@@ -201,6 +201,15 @@ function Fit() {
             }
         }
     
+        this.ChangeFriendRequestButtonerList = (name, friend) => {
+            if(this.Share.find(x => x.Name == friend)){
+                this.Share.find(x => x.Name == friend).FriendRequest = true; 
+                return this.Share.find(x => x.Name == friend).FriendRequest;
+            }
+            else{
+                return false;
+            }
+        }
         // Update the friend requested status to this user
         this.GiveRequestState = (name) =>{
             var me = this.Person.find(x => x.Name == name);
@@ -345,6 +354,7 @@ function Fit() {
             return user.FriendList;
 
         }
+        
   /** Couldn't find the health information database yet. 
          // at Home, Give a user to a health information.
         this.GetHealthInfo = () => {

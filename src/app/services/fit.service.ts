@@ -189,6 +189,8 @@ export class FitService {
             .map((response:Response)=>response.json());
 
     }
+
+
     ///////////////
     // Send a request notice to a selected user.
     friendRequest(friendName: string){
@@ -202,25 +204,24 @@ export class FitService {
         // console.log(this.Me.Notice);
       });
     }
-/////////////////
 
     // Add friends to this user's FriendList in the server when user accepts the request.
     addFriendList(friendName:string){
       this.http.post(this._api+'/exercise/addFriend',{name: this.Me.Name, friend: friendName})
       .subscribe(data => {
         this.Me.FriendList = data.json();
-        console.log('FriendList ---');
-        console.log(this.Me.FriendList);
       });
       
     }
 
-    ////////////////////
+    
 
     addFriendHistory(friend: string){
       this.http.get(this._api+'/exercise/addFriendHistory',{params: {name: this.Me.Name, friend: friend}})
       .subscribe(data => {
         var history = data.json();
+        console.log('data json');
+        console.log(data.json());
         this.Me.Record = history;
         console.log('FriendHistory ---');
         console.log(this.Me.Record);

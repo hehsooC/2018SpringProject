@@ -42,8 +42,7 @@
               <li > {{friend.Friend}} </li>
             </div>
             <div class="col">
-              <button class="btn btn-sm d-flex justify-content-end btn-color" disabled *ngIf="!Me.Requested" (click) = "requestBox($event, friend.Friend)"> Confirm </button>
-              <button class="btn btn-sm d-flex justify-content-end btn-warning" *ngIf="Me.Requested" (click) = "requestBox($event, friend.Friend)"> Confirm </button>
+              <button class="btn btn-sm d-flex justify-content-end btn-warning"  (click) = "requestBox($event, friend.Friend)"> Confirm </button>
 
             </div>
 

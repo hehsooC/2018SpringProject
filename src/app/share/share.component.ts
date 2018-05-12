@@ -70,6 +70,10 @@ export class ShareComponent implements OnInit {
 
   friendRequest(e: MouseEvent, friendName: string){
     this._Fit.friendRequest(friendName);
+    if(this.Me.EachShare.find(x=> x.Name == friendName)){
+      this.Me.EachShare.splice(this.Me.EachShare.findIndex(x => x.Name == friendName), 1);
+
+    }
     /* console.log('friendName is ' + friendName);
     console.log('###EachShare');
     console.log(this.Me.EachShare); */
