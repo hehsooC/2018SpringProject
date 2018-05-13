@@ -225,11 +225,10 @@ function Fit() {
                 // remove that request from Me
                 me.Notice.splice(me.Notice.indexOf(me.Notice.find( x => x.Friend == friend )), 1); 
             }
-
-
             return true;
 
         }
+
         // send a friend request to a selected other user.
         this.FriendRequest = (friend, name) => {
             var me = this.Person.find(x => x.Name == name);
@@ -255,7 +254,10 @@ function Fit() {
             var friendN = this.Person.find(x=> x.Name == friend);
             user.FriendList.push({Name: friend});
             friendN.FriendList.push({Name: name});
+            // remove this request from the notice
             user.Notice.splice(user.Notice.findIndex(x => x.Friend == friend), 1);
+            // remove user who sent the request fron Me's user list
+            this.SentRequestChange(friend, name, true);
             return user.FriendList;
 
         }
