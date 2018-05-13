@@ -92,7 +92,7 @@
           <form>
               <div class="form-group">
                   <select multiple class="form-control" id="exampleFormControlSelect2" >
-                  <option *ngFor="let friend of _Fit.Me.Record" (click)="displayHistory($event, friend.KeyDate)">
+                  <option *ngFor="let friend of Me.Record" (click)="displayHistory($event, friend.KeyDate, friend.Name)">
                       {{friend.KeyDate}}
                   </option>
                   </select>
@@ -112,7 +112,7 @@
         </div> <!-- card header-->
         <div class="card-body" >
           <ul class="list-group list-group-flush ">
-            <li *ngFor="let list of Me.Summary.DoneExerciseList"
+            <li *ngFor="let list of Me.FriendSummary.DoneExerciseList"
                 class="list-group-item list-group-flush ">
                 {{list.Text}}
             </li>
@@ -122,7 +122,7 @@
         <div class="card-body">
           <div class="d-flex justify-content-center">
               <i class="badge float-right badge-info" >
-              Total Time: {{Me.Summary.TotalSetTime}} min <br />
+              Total Time: {{Me.FriendSummary.TotalSetTime}} min <br />
               </i>
           </div>
         </div> <!-- card body -->

@@ -18,7 +18,7 @@ export class User {
     Profile: Info;
     PlanExercise: Exercise[] = [];
     DoneExerciseList: Done[] = [];
-    Record: FriendHistory[] = [];
+    Record: Log[] = [];
     TotalSetTime: number;
     EachShare: People[] = [];
     Notice: Friend[];
@@ -28,6 +28,7 @@ export class User {
     Month: any;
     Date: number;
     Summary: Log;
+    FriendSummary: Log;
 }
 
 export class FriendHistory{

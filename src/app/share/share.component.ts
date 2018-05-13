@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 export class ShareComponent implements OnInit {
   
   Me: User;
-  
 
   constructor(private _Fit: FitService, private _Router: Router) { 
     this.Me = _Fit.Me;
@@ -96,7 +95,6 @@ export class ShareComponent implements OnInit {
     console.log('friend name** ' + friendName);
     if (confirm(friend.Msg + '\nHit Ok to Accept or Cancel to Decline.')) {
         this._Fit.addFriendList(friendName);
-
         
     } else {
         // dismiss request
@@ -113,30 +111,34 @@ export class ShareComponent implements OnInit {
     console.log('friend Name : ' + friend + '00000000');
 
     console.log('add friend\'s history');
-    var friendHistory = this.Me.Record.find(x=> x.Name == friend);
+    this._Fit.addFriendHistory(friend);
+/*     var friendHistory = this.Me.Record.find(x=> x.Name == friend);
     if(friendHistory){
       console.log('friend history is here');
       return;
     }
     else{
-      this._Fit.addFriendHistory(friend);
-    }
+      
+    } */
 
   }
 
-  displayHistory(e: MouseEvent, key: string){
-    var summary = this._Fit.Me.Record.find(x=>x.KeyDate == key);
-    var friendName = summary.Name;
-    console.log('Summary in Record');
-    console.log(summary);
-    if(summary){
-      this._Fit.addFriendHistory(friendName);
+  displayHistory(e: MouseEvent, key: string, friend: string){
+    var friendFound = this.Me.Record.find( x => x.Name == name);
+   
+    if(friendFound){
+      var summary = this.Me.Record.find(x=>x.KeyDate == key);
+      this.Me.FriendSummary.DoneExerciseList = summary.DoneExerciseList;
+      this.Me.FriendSummary.TotalSetTime = summary.TotalSetTime;
+
+
+      // this._Fit.addFriendHistory(friendName);
       // console.log('you have a record');
       // console.log('Summary ----');
       // this._Fit.getFriendSummary(key);
       // console.log(this.Me.Summary);
-      this.Me.Summary.DoneExerciseList = summary.DoneExerciseList;
-      this.Me.Summary.TotalSetTime = summary.TotalSetTime;
+      // this.Me.Summary.DoneExerciseList = summary.DoneExerciseList;
+      // this.Me.Summary.TotalSetTime = summary.TotalSetTime;
     }
     else{
       return;

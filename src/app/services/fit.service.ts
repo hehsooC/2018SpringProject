@@ -50,7 +50,7 @@ export class FitService {
   signUp(name: string, password: string){
     this.Me = {Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
     PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [], History: [],
-    Month: null, Date: null, Summary: {Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, Month: 0, Date: 0, KeyDate: null}};
+    Month: null, Date: null, Summary: {Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, Month: 0, Date: 0, KeyDate: null}, FriendSummary:{Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, Month: 0, Date: 0, KeyDate: null}};
     this.http.get(this._api + "/sign-up", { params : { name: name, password: password } })
     .subscribe(data=> {
       if(!data.json()){
@@ -110,6 +110,7 @@ export class FitService {
             return;
           }
          this.Me.History = data.json();
+         
         }
   
         );
@@ -281,28 +282,6 @@ export class FitService {
 
 
   }
-  /* getOthers(friend: string){
-    // return this.http.get(this._api + "/exercise/getOthers", { params : { name: this.Me.Name, friend: null} })
-    // .map((response:Response)=>response.json()); 
-
-    return this.http.get(this._api + "/exercise/getOthers", { params : { name: this.Me.Name, friend: friend} })
-    .subscribe(data=> {
-      if(!data.json()){
-        return;
-      }
-      console.log('set Friend History to Record');
-      var history = data.json();
-      this.Me.Record = history;
-
-      console.log('Record Has ');
-      console.log(this.Me.Record);
-      // this.Me.Record.PlanExercise = history.PlanExercise;
-      // this.Me.Record.DoneExerciseList = history.DoneExerciseList;
-      // this.Me.Record.Month = history.Month;
-      // this.Me.Record.Date = history.Date;
-      // this.Me.Record.TotalSetTime = history.TotalSetTime;
-
-    }); */
 
 
     refreshMe(){

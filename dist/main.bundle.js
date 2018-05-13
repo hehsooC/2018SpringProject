@@ -854,7 +854,7 @@ var FitService = /** @class */ (function () {
         var _this = this;
         this.Me = { Name: name, Password: password, Profile: { Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null },
             PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0, EachShare: [], Notice: [], Requested: false, FriendList: [], History: [],
-            Month: null, Date: null, Summary: { Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, Month: 0, Date: 0, KeyDate: null } };
+            Month: null, Date: null, Summary: { Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, Month: 0, Date: 0, KeyDate: null }, FriendSummary: { Name: name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, Month: 0, Date: 0, KeyDate: null } };
         this.http.get(this._api + "/sign-up", { params: { name: name, password: password } })
             .subscribe(function (data) {
             if (!data.json()) {
@@ -1051,28 +1051,6 @@ var FitService = /** @class */ (function () {
         return this.http.get(this._api + "/exercise/refreshFriendList", { params: { name: this.Me.Name } })
             .map(function (response) { return response.json(); });
     };
-    /* getOthers(friend: string){
-      // return this.http.get(this._api + "/exercise/getOthers", { params : { name: this.Me.Name, friend: null} })
-      // .map((response:Response)=>response.json());
-  
-      return this.http.get(this._api + "/exercise/getOthers", { params : { name: this.Me.Name, friend: friend} })
-      .subscribe(data=> {
-        if(!data.json()){
-          return;
-        }
-        console.log('set Friend History to Record');
-        var history = data.json();
-        this.Me.Record = history;
-  
-        console.log('Record Has ');
-        console.log(this.Me.Record);
-        // this.Me.Record.PlanExercise = history.PlanExercise;
-        // this.Me.Record.DoneExerciseList = history.DoneExerciseList;
-        // this.Me.Record.Month = history.Month;
-        // this.Me.Record.Date = history.Date;
-        // this.Me.Record.TotalSetTime = history.TotalSetTime;
-  
-      }); */
     FitService.prototype.refreshMe = function () {
         return this.http.get(this._api + "/exercise/refreshMe", { params: { name: this.Me.Name } })
             .map(function (response) { return response.json(); });
@@ -1133,7 +1111,7 @@ module.exports = "ul{\n    list-style-type: none;\n    margin: 10px;\n}\n\n.card
 /***/ "./src/app/share/share.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\">\n\n</div><!-- row -->\n\n<div class=\"row justify-content-md-center\">\n<!-- Choose a user to share workout log-->\n  <div class=\"col-lg-4\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">Other Users</div>\n        <div class=\"subtitle\"> Send a Friend Request to Other Users!</div>\n      </div> <!-- card header -->\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n          <div class=\"row justify-content-md-center\">\n            <div class=\"col\">\n              <li  >{{users.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" > Request </button>\n            </div>\n          </div>  \n        </ul>\n      </div> <!-- card-body -->\n    </div> <!-- card -->\n  </div><!-- col -->\n<!-- Choose a user to share workout log-->\n\n<!-- Received Friend Requests-->\n  <div class=\"col-lg-4\">\n    <div class=\"card\">\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">Friend Request</div>\n        <div class=\"subtitle\"> You've Got Friend Requests!</div>\n      </div>\n      <div class=\"card-body\">\n        <div class=\"d-flex justify-content-md-center\">\n          <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n          <button class=\"btn btn-warning\"  disabled *ngIf=\"Me.Requested\">You Have a Friend Request</button>\n        </div>\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of _Fit.Me.Notice\">\n          <div class = \"row justify-content-md-center\">\n            <div class=\"col\">\n              <li > {{friend.Friend}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-sm d-flex justify-content-end btn-warning\"  (click) = \"requestBox($event, friend.Friend)\"> Confirm </button>\n\n            </div>\n          </div>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n<!-- Friends List-->\n  <div class=\"col-lg-4\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          <div class=\"text-uppercase\">Friends List</div>\n          <div class=\"subtitle\"> Look Who is Your Friend.</div>\n        </div>\n      </div> <!-- card header -->\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of Me.FriendList\">\n          <div class = \"row justify-content-md-center\">\n            <div class=\"col\">\n              <li > {{friend.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-sm d-flex justify-content-end btn-color\" (click) = \"friendHistory($event, friend.Name)\"> Display </button>\n            </div>\n           \n          </div>\n        </ul>\n      </div> <!-- card body-->\n    </div> <!-- card -->\n  </div> <!-- col -->\n<!-- Friends List-->\n\n</div><!-- row -->\n\n<div class=\"row d-flex justify-content-md-center\">\n  <div class=\"col-lg-4\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          <div class=\"text-uppercase\">Friend's Workout Date</div>\n          <div class=\"subtitle\"> Select Date to See Friend's Achievement</div>\n        </div> <!-- card header-->\n        <div class=\"card-body\" >\n          <form>\n              <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                  <option *ngFor=\"let friend of _Fit.Me.Record\" (click)=\"displayHistory($event, friend.KeyDate)\">\n                      {{friend.KeyDate}}\n                  </option>\n                  </select>\n              </div>\n          </form>\n        </div> <!-- card body -->\n        \n    </div>  <!-- card -->\n  </div> <!-- col -->\n\n\n  <div class=\"col-lg-6\">\n      <div class=\"card\" >\n        <div class=\"card-header\">\n          <div class=\"text-uppercase\">Friend's Workout Achievement</div>\n          <div class=\"subtitle\"> Here's Friend's Awesome Achievements!</div>\n        </div> <!-- card header-->\n        <div class=\"card-body\" >\n          <ul class=\"list-group list-group-flush \">\n            <li *ngFor=\"let list of Me.Summary.DoneExerciseList\"\n                class=\"list-group-item list-group-flush \">\n                {{list.Text}}\n            </li>\n          </ul>\n        </div> <!-- card body -->\n\n        <div class=\"card-body\">\n          <div class=\"d-flex justify-content-center\">\n              <i class=\"badge float-right badge-info\" >\n              Total Time: {{Me.Summary.TotalSetTime}} min <br />\n              </i>\n          </div>\n        </div> <!-- card body -->\n      </div>  <!-- card -->\n    </div> <!-- col -->\n</div> <!-- row -->\n\n\n"
+module.exports = "<div class=\"row justify-content-md-center\">\n\n</div><!-- row -->\n\n<div class=\"row justify-content-md-center\">\n<!-- Choose a user to share workout log-->\n  <div class=\"col-lg-4\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">Other Users</div>\n        <div class=\"subtitle\"> Send a Friend Request to Other Users!</div>\n      </div> <!-- card header -->\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor =\" let users of Me.EachShare\">\n          <div class=\"row justify-content-md-center\">\n            <div class=\"col\">\n              <li  >{{users.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-color btn-sm d-flex justify-content-end\" (click) = \"friendRequest($event, users.Name)\" > Request </button>\n            </div>\n          </div>  \n        </ul>\n      </div> <!-- card-body -->\n    </div> <!-- card -->\n  </div><!-- col -->\n<!-- Choose a user to share workout log-->\n\n<!-- Received Friend Requests-->\n  <div class=\"col-lg-4\">\n    <div class=\"card\">\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">Friend Request</div>\n        <div class=\"subtitle\"> You've Got Friend Requests!</div>\n      </div>\n      <div class=\"card-body\">\n        <div class=\"d-flex justify-content-md-center\">\n          <button class=\"btn btn-color\" disabled *ngIf=\"!Me.Requested\">No Friend Request</button>\n          <button class=\"btn btn-warning\"  disabled *ngIf=\"Me.Requested\">You Have a Friend Request</button>\n        </div>\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of _Fit.Me.Notice\">\n          <div class = \"row justify-content-md-center\">\n            <div class=\"col\">\n              <li > {{friend.Friend}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-sm d-flex justify-content-end btn-warning\"  (click) = \"requestBox($event, friend.Friend)\"> Confirm </button>\n\n            </div>\n          </div>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n<!-- Friends List-->\n  <div class=\"col-lg-4\">\n    <div class=\"card\" >\n      <div class=\"card-header\">\n        <div class=\"text-uppercase\">\n          <div class=\"text-uppercase\">Friends List</div>\n          <div class=\"subtitle\"> Look Who is Your Friend.</div>\n        </div>\n      </div> <!-- card header -->\n      <div class=\"card-body\">\n        <ul class=\"list-group-item list-group-flush list\" *ngFor = \"let friend of Me.FriendList\">\n          <div class = \"row justify-content-md-center\">\n            <div class=\"col\">\n              <li > {{friend.Name}} </li>\n            </div>\n            <div class=\"col\">\n              <button class=\"btn btn-sm d-flex justify-content-end btn-color\" (click) = \"friendHistory($event, friend.Name)\"> Display </button>\n            </div>\n           \n          </div>\n        </ul>\n      </div> <!-- card body-->\n    </div> <!-- card -->\n  </div> <!-- col -->\n<!-- Friends List-->\n\n</div><!-- row -->\n\n<div class=\"row d-flex justify-content-md-center\">\n  <div class=\"col-lg-4\">\n    <div class=\"card\" >\n        <div class=\"card-header\">\n          <div class=\"text-uppercase\">Friend's Workout Date</div>\n          <div class=\"subtitle\"> Select Date to See Friend's Achievement</div>\n        </div> <!-- card header-->\n        <div class=\"card-body\" >\n          <form>\n              <div class=\"form-group\">\n                  <select multiple class=\"form-control\" id=\"exampleFormControlSelect2\" >\n                  <option *ngFor=\"let friend of Me.Record\" (click)=\"displayHistory($event, friend.KeyDate, friend.Name)\">\n                      {{friend.KeyDate}}\n                  </option>\n                  </select>\n              </div>\n          </form>\n        </div> <!-- card body -->\n        \n    </div>  <!-- card -->\n  </div> <!-- col -->\n\n\n  <div class=\"col-lg-6\">\n      <div class=\"card\" >\n        <div class=\"card-header\">\n          <div class=\"text-uppercase\">Friend's Workout Achievement</div>\n          <div class=\"subtitle\"> Here's Friend's Awesome Achievements!</div>\n        </div> <!-- card header-->\n        <div class=\"card-body\" >\n          <ul class=\"list-group list-group-flush \">\n            <li *ngFor=\"let list of Me.FriendSummary.DoneExerciseList\"\n                class=\"list-group-item list-group-flush \">\n                {{list.Text}}\n            </li>\n          </ul>\n        </div> <!-- card body -->\n\n        <div class=\"card-body\">\n          <div class=\"d-flex justify-content-center\">\n              <i class=\"badge float-right badge-info\" >\n              Total Time: {{Me.FriendSummary.TotalSetTime}} min <br />\n              </i>\n          </div>\n        </div> <!-- card body -->\n      </div>  <!-- card -->\n    </div> <!-- col -->\n</div> <!-- row -->\n\n\n"
 
 /***/ }),
 
@@ -1234,28 +1212,29 @@ var ShareComponent = /** @class */ (function () {
     ShareComponent.prototype.friendHistory = function (e, friend) {
         console.log('friend Name : ' + friend + '00000000');
         console.log('add friend\'s history');
-        var friendHistory = this.Me.Record.find(function (x) { return x.Name == friend; });
-        if (friendHistory) {
-            console.log('friend history is here');
-            return;
-        }
-        else {
-            this._Fit.addFriendHistory(friend);
-        }
+        this._Fit.addFriendHistory(friend);
+        /*     var friendHistory = this.Me.Record.find(x=> x.Name == friend);
+            if(friendHistory){
+              console.log('friend history is here');
+              return;
+            }
+            else{
+              
+            } */
     };
-    ShareComponent.prototype.displayHistory = function (e, key) {
-        var summary = this._Fit.Me.Record.find(function (x) { return x.KeyDate == key; });
-        var friendName = summary.Name;
-        console.log('Summary in Record');
-        console.log(summary);
-        if (summary) {
-            this._Fit.addFriendHistory(friendName);
+    ShareComponent.prototype.displayHistory = function (e, key, friend) {
+        var friendFound = this.Me.Record.find(function (x) { return x.Name == name; });
+        if (friendFound) {
+            var summary = this.Me.Record.find(function (x) { return x.KeyDate == key; });
+            this.Me.FriendSummary.DoneExerciseList = summary.DoneExerciseList;
+            this.Me.FriendSummary.TotalSetTime = summary.TotalSetTime;
+            // this._Fit.addFriendHistory(friendName);
             // console.log('you have a record');
             // console.log('Summary ----');
             // this._Fit.getFriendSummary(key);
             // console.log(this.Me.Summary);
-            this.Me.Summary.DoneExerciseList = summary.DoneExerciseList;
-            this.Me.Summary.TotalSetTime = summary.TotalSetTime;
+            // this.Me.Summary.DoneExerciseList = summary.DoneExerciseList;
+            // this.Me.Summary.TotalSetTime = summary.TotalSetTime;
         }
         else {
             return;

@@ -255,6 +255,7 @@ function Fit() {
 
         }
 
+        // copy friend's history to Record
         this.AddFriendHistory = (name, friend) =>{
             console.log('friend name is ' + friend);
             console.log('adding friend history ');
@@ -264,8 +265,8 @@ function Fit() {
             var user = this.Person.find(x => x.Name == name );
             if(friendFound){
                 console.log('pushing friend history');
-                user.Record.push(friendFound.History);
-                return friendFound.History;
+                user.Record = (friendFound.History);
+                return user.Record;
             }
             else{
                 console.log('history pushing fail! ');
