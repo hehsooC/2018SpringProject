@@ -20,7 +20,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /***/ "./src/app/app.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".center{\n    margin: 0 auto;\n    max-width: 100%;\n    width: 1000px;\n    padding: 1rem;\n    -ms-flex-line-pack: center;\n        align-content: center;\n}"
+module.exports = ""
 
 /***/ }),
 
@@ -769,6 +769,11 @@ var ProfileComponent = /** @class */ (function () {
     };
     // pass user's profile information to Service after calculating all bmi.
     ProfileComponent.prototype.adding = function (age, weight, height, goalWeight, name) {
+        // prevent empty profile submit
+        if (!weight || !height || !goalWeight || !age) {
+            alert('Please Fill All Information Above');
+            return;
+        }
         var goalBmi = this.calculateBMI(goalWeight, height);
         var bmi = this.calculateBMI(weight, height);
         this._Fit.profileAdd(age, weight, height, goalWeight, bmi, goalBmi, name);
@@ -946,7 +951,6 @@ var FitService = /** @class */ (function () {
         return this.http.get(this._api + '/exercise/request/state', { params: { name: this.Me.Name } })
             .map(function (response) { return response.json(); });
     };
-    ///////////////
     // Send a request notice to a selected user.
     FitService.prototype.friendRequest = function (friendName) {
         this.http.post(this._api + '/exercise/request', { friend: friendName, name: this.Me.Name })
@@ -954,9 +958,17 @@ var FitService = /** @class */ (function () {
             if (!data.json()) {
                 return;
             }
-            // this.Me.Notice = data.json();
-            // console.log('this.Me.Notice in ' + this.Me.Name);
-            // console.log(this.Me.Notice);
+        });
+    };
+    // indicate if a user send a friend request to another user to remove that user from User's list
+    FitService.prototype.changeSentRequest = function (friendName) {
+        console.log('Change Sent Request ');
+        this.http.post(this._api + '/exercise/sentRequestChange', { friend: friendName, name: this.Me.Name })
+            .subscribe(function (data) {
+            console.log('change request works?');
+            if (!data.json()) {
+                return;
+            }
         });
     };
     // Add friends to this user's FriendList in the server when user accepts the request.
@@ -1103,6 +1115,7 @@ var ShareComponent = /** @class */ (function () {
         var _this = this;
         this._Fit = _Fit;
         this._Router = _Router;
+        this.requested = false;
         this.Me = _Fit.Me;
         // if there user is not logged in or not signed up, direct user to login.
         if (!_Fit.Me) {
@@ -1126,16 +1139,15 @@ var ShareComponent = /** @class */ (function () {
             _this.Me.EachShare.splice(_this.Me.EachShare.indexOf(_this.Me.EachShare.find(function (x) { return x.Name == _this.Me.Name; })), 1);
         });
     };
+    // Send a friend request via friend's name
     ShareComponent.prototype.friendRequest = function (e, friendName) {
+        this._Fit.changeSentRequest(friendName);
         this._Fit.friendRequest(friendName);
-        if (this.Me.EachShare.find(function (x) { return x.Name == friendName; })) {
-            this.Me.EachShare.splice(this.Me.EachShare.findIndex(function (x) { return x.Name == friendName; }), 1);
-        }
+        // var friend = this.Me.EachShare.find(x => x.Name == friendName);
     };
-    // multiple Request?
+    // Accept or Decline Friend's request. 
     ShareComponent.prototype.requestBox = function (e, friendName) {
         var friend = this.Me.Notice.find(function (x) { return x.Friend == friendName; });
-        console.log('friend name** ' + friendName);
         if (confirm(friend.Msg + '\nHit Ok to Accept or Cancel to Decline.')) {
             this._Fit.addFriendList(friendName);
         }
@@ -1143,9 +1155,7 @@ var ShareComponent = /** @class */ (function () {
             // dismiss request
             return;
         }
-        /////
-        // this.Me.Notice.unshift();
-        /////
+        // change the request state of Me
         this._Fit.changeRequested(this.Me.Name);
     };
     ShareComponent.prototype.friendHistory = function (e, friend) {

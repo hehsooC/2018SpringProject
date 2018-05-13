@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class ShareComponent implements OnInit {
   
   Me: User;
+  requested: boolean = false;
 
   constructor(private _Fit: FitService, private _Router: Router) { 
     this.Me = _Fit.Me;
@@ -48,24 +49,22 @@ export class ShareComponent implements OnInit {
       this.Me.EachShare = data;
       // remove myself from the share list
       this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
+      
     });
 
+  
   }
 
+  // Send a friend request via friend's name
   friendRequest(e: MouseEvent, friendName: string){
+    this._Fit.changeSentRequest(friendName);
     this._Fit.friendRequest(friendName);
-    if(this.Me.EachShare.find(x=> x.Name == friendName)){
-      this.Me.EachShare.splice(this.Me.EachShare.findIndex(x => x.Name == friendName), 1);
-
-    }
-
+    // var friend = this.Me.EachShare.find(x => x.Name == friendName);
   }
 
-  // multiple Request?
-
+  // Accept or Decline Friend's request. 
   requestBox(e: MouseEvent, friendName: string) {
     var friend = this.Me.Notice.find(x=>x.Friend == friendName);
-    console.log('friend name** ' + friendName);
     if (confirm(friend.Msg + '\nHit Ok to Accept or Cancel to Decline.')) {
         this._Fit.addFriendList(friendName);
         
@@ -73,9 +72,8 @@ export class ShareComponent implements OnInit {
         // dismiss request
         return;
     }
-    /////
-    // this.Me.Notice.unshift();
-    /////
+
+    // change the request state of Me
     this._Fit.changeRequested(this.Me.Name);
 
   }

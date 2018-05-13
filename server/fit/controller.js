@@ -68,6 +68,9 @@ module.exports = app
     .post('/exercise/request', (req,res) => {
        res.send( fit.FriendRequest(req.body.friend, req.body.name));
     })
+    .post('/exercise/sentRequestChange', (req,res) => {
+        res.send( fit.SentRequestChange(req.body.friend, req.body.name));
+     })
     .post('/exercise/addFriend', (req,res)=>{
         res.send(fit.AddFriend(req.body.name, req.body.friend));
     })

@@ -31,17 +31,6 @@ export class User {
     FriendSummary: Log;
 }
 
-export class FriendHistory{
-    Name: string;
-    DoneExerciseList: Done[] = [];
-    TotalSetTime: number;
-    Month: any;
-    Date: number;
-    KeyDate: string;
-
-
-}
-
 // For keeping the user's workout record
 export class Log{
     Name: string;
@@ -51,12 +40,10 @@ export class Log{
     Month: any;
     Date: number;
     KeyDate: string;
-
-
 }
 export class People {
     Name: string;
-    FriendRequest: boolean;
+    RequestSent: boolean;
 }
 
 export class Friend{

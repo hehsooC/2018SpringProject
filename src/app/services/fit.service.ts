@@ -170,7 +170,6 @@ export class FitService {
     }
 
 
-    ///////////////
     // Send a request notice to a selected user.
     friendRequest(friendName: string){
       this.http.post(this._api + '/exercise/request', {friend: friendName, name: this.Me.Name})
@@ -178,9 +177,18 @@ export class FitService {
         if(!data.json()){
           return;
         }
-        // this.Me.Notice = data.json();
-        // console.log('this.Me.Notice in ' + this.Me.Name);
-        // console.log(this.Me.Notice);
+      });
+    }
+
+    // indicate if a user send a friend request to another user to remove that user from User's list
+    changeSentRequest(friendName: string ){
+      console.log('Change Sent Request ');
+      this.http.post(this._api + '/exercise/sentRequestChange', {friend: friendName, name: this.Me.Name})
+      .subscribe(data => {
+        console.log('change request works?');
+        if(!data.json()){
+          return;
+        }
       });
     }
 

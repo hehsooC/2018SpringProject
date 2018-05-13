@@ -28,7 +28,7 @@ function Fit() {
             }else{
                 // if there is no username matched, create a new Person object.
                 this.Person.push({ Name: name, Password: password, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null},
-                      Notice: [], Record:[], Requested: false, FriendList:[], History: []});
+                      Notice: [], EachShare:[], Record:[], Requested: false, FriendList:[], History: []});
                 return true;
             }
         }        
@@ -191,48 +191,68 @@ function Fit() {
     
 
         // give other users' name to this user.
-        this.GiveUserList = (name) => {
+/*         this.GiveUserList = (name) => {
             if(!this.Share.find(x => x.Name == name)){
-                this.Share.push({Name: name});
+                this.Share.push({Name: name, RequestSent: false});
                 return this.Share;
             }
             else{
                 return this.Share;
             }
-        }
-    
-        this.ChangeFriendRequestButtonerList = (name, friend) => {
-            if(this.Share.find(x => x.Name == friend)){
-                this.Share.find(x => x.Name == friend).FriendRequest = true; 
-                return this.Share.find(x => x.Name == friend).FriendRequest;
-            }
-            else{
-                return false;
-            }
-        }
-        // Update the friend requested status to this user
-        /* this.GiveRequestState = (name) =>{
-            var me = this.Person.find(x => x.Name == name);
-            if(me.Notice.length == 0){
-                me.Requested = false;
-              
-              }
-              else{
-                me.Requested = true;
-              }
-            return me.Requested;
         } */
+    
+        this.GiveUserList = (name) => {
+            var user = this.Person.find(x=>x.Name == name);
+            // if global Share doesn't have this person, push it. 
+            if(!this.Share.find(x => x.Name == name)){
+                this.Share.push({Name: name, RequestSent: false});
+               
+                /* if(user.EachShare.find(x => x.Name == name)){
+                    console.log('excluding me');
+                    user.EachShare.splice(user.EachShare.findIndex(user.EachShare.find(x => x.Name == name)), 1 );
+                } */
+            }
+            console.log('+++++++ before copy this.Share');
+            console.log(user.EachShare); 
+            console.log('+++++++');
+
+            // copy user names to Each Person's object
+            // user.EachShare = this.Share.slice();
+            var sentTrue = user.EachShare.find(x => x.RequestSent == true);
+            console.log('True Sent');
+            console.log(sentTrue);
+            // var sentFalse = user.EachShare.filter(x => x.RequestSent == false);
+            // user.EachShare = JSON.parse(JSON.stringify( this.Share ));
+            // user.EachShare.find(x => x.Name == sentTrue.Name).Requested = true;
+          
+
+
+            
+    
+            console.log('=====');
+            console.log(user.EachShare);
+            console.log('=====');
+
+
+            // if this friend 
+            if(user.EachShare.find(x => x.RequestSent == true)){
+                // user.EachShare = this.Share.slice();
+                user.EachShare.splice(user.EachShare.indexOf(user.EachShare.find(x=> x.RequestSent == true)), 1);
+
+                return user.EachShare;
+            }
+            return user.EachShare;
+                
+        }
 
         // send a friend request to a selected other user.
         this.FriendRequest = (friend, name) => {
-            console.log('_model_ friend request');
             var me = this.Person.find(x => x.Name == name);
             var msg = me.Name + ' sent a friend request!'
             var friendUser = this.Person.find(x => x.Name == friend);
             if(!friendUser.Notice.find(x=> x.Friend == name) && !friendUser.FriendList.find(x=>x.Name == name)){
                 friendUser.Notice.push({Name: friend, Friend: name, Msg: msg});
                 return true;
-                // friendUser.Requested = true;
             }
             else{
                 console.log('friend request already done!');
@@ -241,15 +261,27 @@ function Fit() {
             }
         }
 
+        this.SentRequestChange = (friend, name)=> {
+            var me = this.Person.find(x => x.Name == name);
+            console.log('splice this user ' + friend);
+            var each = me.EachShare.find( x => x.Name == friend);
+
+            each.RequestSent = true;
+
+            // me.EachShare.splice(me.EachShare.indexOf(me.EachShare.find(x=> x.Name == friend)), 1);
+            console.log('now eachshare is ');
+            console.log(me.EachShare);
+            return true;
+
+        }
+
         // if friend request is accepted, add that user to this user's friendList.
         this.AddFriend = (name, friend) =>{
             var user = this.Person.find(x=> x.Name == name);
 
-            console.log('friend name '+ friend);
             var friendN = this.Person.find(x=> x.Name == friend);
             user.FriendList.push({Name: friend});
             friendN.FriendList.push({Name: name});
-            // this.AddFriendHistory(name, friend);
             user.Notice.splice(user.Notice.findIndex(x => x.Friend == friend), 1);
             return user.FriendList;
 
@@ -257,14 +289,9 @@ function Fit() {
 
         // copy friend's history to Record
         this.AddFriendHistory = (name, friend) =>{
-            console.log('friend name is ' + friend);
-            console.log('adding friend history ');
             var friendFound = this.Person.find(x => x.Name == friend);
-            console.log('friendFound');
-            console.log(friendFound);
             var user = this.Person.find(x => x.Name == name );
             if(friendFound){
-                console.log('pushing friend history');
                 user.Record = (friendFound.History);
                 return user.Record;
             }
@@ -300,8 +327,6 @@ function Fit() {
         this.GetFriendSummary = (name, key, friend) => {
             var userFound = this.Person.find( x => x.Name == friend);
             var historyFound = userFound.History.find(x=> x.KeyDate == key);
-            console.log('FriendSummary Send History Found is');
-            console.log(historyFound);
             return historyFound;
         }
         
@@ -318,6 +343,7 @@ function Fit() {
               }
             return user;
         }
+
   /** Couldn't find the health information database yet. 
          // at Home, Give a user to a health information.
         this.GetHealthInfo = () => {
