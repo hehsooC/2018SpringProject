@@ -217,9 +217,15 @@ export class FitService {
     
 
     addFriendHistory(friend: string){
-      this.http.get(this._api+'/exercise/addFriendHistory',{params: {name: this.Me.Name, friend: friend}})
+      console.log('friend Name : ' + friend + '11111111');
+
+      this.http.post(this._api+'/exercise/addFriendHistory',{name: this.Me.Name, friend: friend})
       .subscribe(data => {
+        if(!data.json()){
+          return;
+        }
         var history = data.json();
+
         console.log('data json');
         console.log(data.json());
         this.Me.Record = history;
@@ -257,6 +263,13 @@ export class FitService {
   });
 }
 
+  getFriendSummary(key: string){
+    this.http.get(this._api + "/exercise/friendSummary", { params : { user: this.Me.Name, key: key } })
+    .subscribe(data=> {
+      this.Me.Summary = data.json();
+
+  });
+  }
   refreshNotice(){
     return this.http.get(this._api + "/exercise/refreshNotice", { params : { name: this.Me.Name }})
     .map((response:Response)=>response.json()); 

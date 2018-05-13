@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -36,6 +38,7 @@ import { HistoryComponent } from './history/history.component';
   imports: [
     BrowserModule,
     HttpModule,
+    NgbModule,
     RouterModule.forRoot([
         { path: 'home', component: HomeComponent },
         { path: 'fit', component: FitComponent },

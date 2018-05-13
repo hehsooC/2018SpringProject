@@ -78,6 +78,7 @@ var platform_browser_1 = __webpack_require__("./node_modules/@angular/platform-b
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var ng_bootstrap_1 = __webpack_require__("./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
 var app_component_1 = __webpack_require__("./src/app/app.component.ts");
 var nav_component_1 = __webpack_require__("./src/app/nav/nav.component.ts");
 var messages_component_1 = __webpack_require__("./src/app/messages/messages.component.ts");
@@ -112,6 +113,7 @@ var AppModule = /** @class */ (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 http_1.HttpModule,
+                ng_bootstrap_1.NgbModule,
                 router_1.RouterModule.forRoot([
                     { path: 'home', component: home_component_1.HomeComponent },
                     { path: 'fit', component: fit_component_1.FitComponent },
@@ -688,14 +690,14 @@ exports.MessagesComponent = MessagesComponent;
 /***/ "./src/app/nav/nav.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".navbar {\n    padding: 0 1rem;\n    height: 120px;\n  }\n  \n  .nav-back{\n    background-color: #7CACEA;\n}\n  \n  .navbar-brand{\n  font-size: 20px;\n}\n  \n  .navbar-nav\n{\n  font-size:20px;\n \n}"
+module.exports = ".bg-color{\n  background-color:  #7CACEA;\n  color: white;\n}\n.btn{\n  background-color: #F5F5F5;\n}"
 
 /***/ }),
 
 /***/ "./src/app/nav/nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark nav-back\">\n  <div class=\"container\">\n    <div>\n        <a class=\"navbar-brand\" routerLink=\"/fit\">Fitness Tracker</a>\n    </div>\n    <button class=\"navbar-toggler\" type=\"button\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse navbar-nav\" id=\"#navbarNav\">\n      <ul class=\"navbar-nav navbarNav\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\" >Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/editProfile\" routerLinkActive=\"active\" >Profile</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\" >Fitness</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/history\" routerLinkActive=\"active\">History</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">Share</a>\n        </li>\n       \n\n      </ul>\n    </div>\n\n    \n\n    <div class=\"d-flex justify-content-end\">\n      <ul class=\"navbar-nav\">\n        <li class=\"nav-item \">\n          <a class=\"nav-link\" routerLink=\"/sign-up\" routerLinkActive=\"active\">Sign Up</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Sign In</a>\n        </li>\n      </ul>\n    </div>\n  </div><!-- navbar container -->\n</nav><!-- nav bar -->\n\n\n"
+module.exports = "\n\n\n<nav class=\"navbar navbar-expand-md bg-color navbar-dark \">\n        <a class=\"navbar-brand\" routerLink = \"/fit\">Fitness Tracker</a>\n        <button (click)=\"isCollapsed = !isCollapsed\" class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n          <span class=\"navbar-toggler-icon\"></span>\n        </button>\n    \n        <div [ngbCollapse]=\"isCollapsed\" class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n          <ul class=\"navbar-nav mr-auto\">\n            <li class=\"nav-item\">\n              <a class=\"nav-link\" routerLink=\"/home\" routerLinkActive=\"active\">Home<span class=\"sr-only\">(current)</span></a>\n            </li>\n            <li class=\"nav-item\">\n              <a class=\"nav-link\" routerLink=\"/editProfile\" routerLinkActive=\"active\">Profile</a>\n            </li>\n            <li class=\"nav-item\">\n              <a class=\"nav-link\" routerLink=\"/fit\" routerLinkActive=\"active\">Fitness</a>\n            </li>\n            <li class=\"nav-item\">\n              <a class=\"nav-link\" routerLink=\"/history\" routerLinkActive=\"active\">History</a>\n            </li>\n            <li class=\"nav-item\">\n              <a class=\"nav-link\" routerLink=\"/share\" routerLinkActive=\"active\">Share</a>\n            </li>\n          </ul>\n          <button class=\"btn btn-sm nav-item justify-content:between\"><a class=\"nav-link\" routerLink=\"/sign-up\" routerLinkActive=\"active\">Sign up</a></button>\n          <button class=\"btn btn-sm nav-item justify-content:between\"><a class=\"nav-link\" routerLink=\"/login\" routerLinkActive=\"active\">Sign in</a></button>\n        </div>\n    </nav>"
 
 /***/ }),
 
@@ -719,6 +721,7 @@ var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
 var NavComponent = /** @class */ (function () {
     function NavComponent(_Fit) {
         this._Fit = _Fit;
+        this.isCollapsed = true;
     }
     NavComponent.prototype.ngOnInit = function () {
     };
@@ -994,8 +997,12 @@ var FitService = /** @class */ (function () {
     };
     FitService.prototype.addFriendHistory = function (friend) {
         var _this = this;
-        this.http.get(this._api + '/exercise/addFriendHistory', { params: { name: this.Me.Name, friend: friend } })
+        console.log('friend Name : ' + friend + '11111111');
+        this.http.post(this._api + '/exercise/addFriendHistory', { name: this.Me.Name, friend: friend })
             .subscribe(function (data) {
+            if (!data.json()) {
+                return;
+            }
             var history = data.json();
             console.log('data json');
             console.log(data.json());
@@ -1027,6 +1034,13 @@ var FitService = /** @class */ (function () {
             _this.Me.DoneExerciseList = history.DoneExerciseList;
             _this.Me.Month = history.Month;
             _this.Me.Date = history.Date;
+        });
+    };
+    FitService.prototype.getFriendSummary = function (key) {
+        var _this = this;
+        this.http.get(this._api + "/exercise/friendSummary", { params: { user: this.Me.Name, key: key } })
+            .subscribe(function (data) {
+            _this.Me.Summary = data.json();
         });
     };
     FitService.prototype.refreshNotice = function () {
@@ -1218,25 +1232,28 @@ var ShareComponent = /** @class */ (function () {
         this._Fit.changeRequested(this.Me.Name);
     };
     ShareComponent.prototype.friendHistory = function (e, friend) {
-        console.log('send friend name to service');
-        // get other user's summary and display
-        // this._Fit.getOthers(friend);
+        console.log('friend Name : ' + friend + '00000000');
+        console.log('add friend\'s history');
         var friendHistory = this.Me.Record.find(function (x) { return x.Name == friend; });
         if (friendHistory) {
             console.log('friend history is here');
             return;
         }
         else {
-            console.log('adding Friends data');
             this._Fit.addFriendHistory(friend);
-            ;
         }
-        console.log('Record in Comp');
-        console.log(this._Fit.Me.Record);
     };
     ShareComponent.prototype.displayHistory = function (e, key) {
-        var summary = this.Me.Record.find(function (x) { return x.KeyDate == key; });
+        var summary = this._Fit.Me.Record.find(function (x) { return x.KeyDate == key; });
+        var friendName = summary.Name;
+        console.log('Summary in Record');
+        console.log(summary);
         if (summary) {
+            this._Fit.addFriendHistory(friendName);
+            // console.log('you have a record');
+            // console.log('Summary ----');
+            // this._Fit.getFriendSummary(key);
+            // console.log(this.Me.Summary);
             this.Me.Summary.DoneExerciseList = summary.DoneExerciseList;
             this.Me.Summary.TotalSetTime = summary.TotalSetTime;
         }

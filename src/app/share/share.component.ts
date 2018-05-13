@@ -96,6 +96,7 @@ export class ShareComponent implements OnInit {
     console.log('friend name** ' + friendName);
     if (confirm(friend.Msg + '\nHit Ok to Accept or Cancel to Decline.')) {
         this._Fit.addFriendList(friendName);
+
         
     } else {
         // dismiss request
@@ -109,27 +110,31 @@ export class ShareComponent implements OnInit {
   }
 
   friendHistory(e: MouseEvent, friend: string){
-    console.log('send friend name to service');
-    // get other user's summary and display
-    // this._Fit.getOthers(friend);
+    console.log('friend Name : ' + friend + '00000000');
 
+    console.log('add friend\'s history');
     var friendHistory = this.Me.Record.find(x=> x.Name == friend);
     if(friendHistory){
       console.log('friend history is here');
       return;
     }
     else{
-      console.log('adding Friends data');
-      this._Fit.addFriendHistory(friend);;
+      this._Fit.addFriendHistory(friend);
     }
-    console.log('Record in Comp');
-    console.log(this._Fit.Me.Record);
 
   }
 
   displayHistory(e: MouseEvent, key: string){
-    var summary = this.Me.Record.find(x=>x.KeyDate == key);
+    var summary = this._Fit.Me.Record.find(x=>x.KeyDate == key);
+    var friendName = summary.Name;
+    console.log('Summary in Record');
+    console.log(summary);
     if(summary){
+      this._Fit.addFriendHistory(friendName);
+      // console.log('you have a record');
+      // console.log('Summary ----');
+      // this._Fit.getFriendSummary(key);
+      // console.log(this.Me.Summary);
       this.Me.Summary.DoneExerciseList = summary.DoneExerciseList;
       this.Me.Summary.TotalSetTime = summary.TotalSetTime;
     }

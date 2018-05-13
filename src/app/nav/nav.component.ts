@@ -8,6 +8,7 @@ import { User } from '../models/exercise';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+  public isCollapsed = true;
   constructor(private _Fit: FitService) { 
   
   }

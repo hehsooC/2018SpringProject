@@ -1,18 +1,7 @@
-.navbar {
-    padding: 0 1rem;
-    height: 120px;
-  }
-  
-  .nav-back{
-    background-color: #7CACEA;
+.bg-color{
+  background-color:  #7CACEA;
+  color: white;
 }
-
-.navbar-brand{
-  font-size: 20px;
-}
-
-.navbar-nav
-{
-  font-size:20px;
- 
+.btn{
+  background-color: #F5F5F5;
 }

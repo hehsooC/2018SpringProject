@@ -249,46 +249,28 @@ function Fit() {
             var friendN = this.Person.find(x=> x.Name == friend);
             user.FriendList.push({Name: friend});
             friendN.FriendList.push({Name: name});
+            // this.AddFriendHistory(name, friend);
             user.Notice.splice(user.Notice.findIndex(x => x.Friend == friend), 1);
             return user.FriendList;
 
         }
 
-  /*       this.GetFriendHistory = (friend) => {
-            var friendFound = this.Person.find( x => x.Name == friend);
-            var historyFound = friendFound.History.find(x=> x.KeyDate == key);
-            return historyFound;
-        } */
         this.AddFriendHistory = (name, friend) =>{
+            console.log('friend name is ' + friend);
+            console.log('adding friend history ');
             var friendFound = this.Person.find(x => x.Name == friend);
-            // var user = this.Person.find(x => x.Name == name );
+            console.log('friendFound');
+            console.log(friendFound);
+            var user = this.Person.find(x => x.Name == name );
             if(friendFound){
+                console.log('pushing friend history');
+                user.Record.push(friendFound.History);
                 return friendFound.History;
             }
-
-            /* if( user){
-                console.log('put user Friend History');
-                // user.Record.push({ Name: friend, DoneExerciseList: friendFound.History.DoneExerciseList, 
-                //     TotalSetTime: friendFound.History.TotalSetTime, KeyDate: friendFound.History.KeyDate });
-                user.Record.push(friendFound.History);
-                console.log(user.Record);
-
-            }
-           
-            if( friendFound){
-                console.log('Friend Found in server');
-                console.log('Friend History: ');
-                // friendFound.Record.push({ Name: friend, DoneExerciseList: friendFound.History.DoneExerciseList, 
-                //     TotalSetTime: friendFound.History.TotalSetTime, KeyDate: friendFound.History.KeyDate });
-                friendFound.Record.push( user.History);
-
-                console.log(friendFound.Record);
-
-                return friendFound.Record;
-            }
             else{
+                console.log('history pushing fail! ');
                 return false;
-            } */
+            }
 
         }
 
@@ -309,6 +291,12 @@ function Fit() {
         }
         
         this.GetHistory = (user, key) => {
+            var userFound = this.Person.find( x => x.Name == user);
+            var historyFound = userFound.History.find(x=> x.KeyDate == key);
+            return historyFound;
+        }
+
+        this.GetFriendSummary = (user, key) => {
             var userFound = this.Person.find( x => x.Name == user);
             var historyFound = userFound.History.find(x=> x.KeyDate == key);
             return historyFound;

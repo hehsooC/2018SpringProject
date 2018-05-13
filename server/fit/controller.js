@@ -31,12 +31,15 @@ module.exports = app
     .get('/exercise/getHistory', (req, res) => {
         res.send(fit.GetHistory(req.query.user, req.query.key));
     })
-    .get('/exercise/addFriendHistory', (req,res)=>{
-        res.send(fit.AddFriendHistory(req.query.name, req.query.friend));
-    })
+
  /*    .get('/exercise/getOthers', (req, res) => {
         res.send(fit.GetOthers(req.query.name, req.query.friend));
     }) */
+
+    .get('/exercise/friendSummary', (req, res) => {
+        res.send(fit.GetSummary(req.query.user, req.query.key));
+    })
+
 
     .get('/exercise/refreshNotice', (req,res)=>{
         res.send(fit.RefreshNotice(req.query.name));
@@ -82,6 +85,9 @@ module.exports = app
         res.send(fit.AddFriend(req.body.name, req.body.friend));
     })
   
+    .post('/exercise/addFriendHistory', (req,res)=>{
+        res.send(fit.AddFriendHistory(req.body.name, req.body.friend));
+    })
     .post('/exercise/changeRequest', (req, res) => {
         fit.ChangeRequested(req.body.name);
     })
