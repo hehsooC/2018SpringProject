@@ -933,11 +933,8 @@ var FitService = /** @class */ (function () {
     // post selected workout to the server
     FitService.prototype.doneExercise = function (text, time, set, totalTime) {
         var _this = this;
-        console.log('--------------');
         this.http.post(this._api + '/exercise/done', { name: this.Me.Name, text: text, time: time, set: set, total: totalTime })
             .subscribe(function (data) {
-            console.log('/// data.json() ///');
-            console.log(data.json());
             if (!data.json()) {
                 return;
             }
@@ -947,7 +944,6 @@ var FitService = /** @class */ (function () {
     // post total workout time to the server
     FitService.prototype.getTotalTime = function (name, key, totalTime) {
         var _this = this;
-        console.log('///// Get Total Time Service ////');
         this.http.post(this._api + "/exercise/totaltime", { name: name, key: key, totalTime: totalTime })
             .subscribe(function (data) {
             _this.Me.TotalSetTime = Number(data.json());
@@ -997,18 +993,13 @@ var FitService = /** @class */ (function () {
     };
     FitService.prototype.addFriendHistory = function (friend) {
         var _this = this;
-        console.log('friend Name : ' + friend + '11111111');
         this.http.post(this._api + '/exercise/addFriendHistory', { name: this.Me.Name, friend: friend })
             .subscribe(function (data) {
             if (!data.json()) {
                 return;
             }
             var history = data.json();
-            console.log('data json');
-            console.log(data.json());
             _this.Me.Record = history;
-            console.log('FriendHistory ---');
-            console.log(_this.Me.Record);
         });
     };
     // if user gets friend request, change the Requested status to inform the user that they have friend requests.
@@ -1036,11 +1027,13 @@ var FitService = /** @class */ (function () {
             _this.Me.Date = history.Date;
         });
     };
-    FitService.prototype.getFriendSummary = function (key) {
+    FitService.prototype.getFriendSummary = function (key, friend) {
         var _this = this;
-        this.http.get(this._api + "/exercise/friendSummary", { params: { user: this.Me.Name, key: key } })
+        this.http.get(this._api + "/exercise/friendSummary", { params: { name: this.Me.Name, key: key, friend: friend } })
             .subscribe(function (data) {
-            _this.Me.Summary = data.json();
+            _this.Me.FriendSummary = data.json();
+            console.log('friend summary is =====');
+            console.log(_this.Me.FriendSummary);
         });
     };
     FitService.prototype.refreshNotice = function () {
@@ -1223,22 +1216,28 @@ var ShareComponent = /** @class */ (function () {
             } */
     };
     ShareComponent.prototype.displayHistory = function (e, key, friend) {
-        var friendFound = this.Me.Record.find(function (x) { return x.Name == name; });
-        if (friendFound) {
-            var summary = this.Me.Record.find(function (x) { return x.KeyDate == key; });
-            this.Me.FriendSummary.DoneExerciseList = summary.DoneExerciseList;
-            this.Me.FriendSummary.TotalSetTime = summary.TotalSetTime;
-            // this._Fit.addFriendHistory(friendName);
-            // console.log('you have a record');
-            // console.log('Summary ----');
-            // this._Fit.getFriendSummary(key);
-            // console.log(this.Me.Summary);
-            // this.Me.Summary.DoneExerciseList = summary.DoneExerciseList;
-            // this.Me.Summary.TotalSetTime = summary.TotalSetTime;
+        console.log('display history');
+        this._Fit.getFriendSummary(key, friend);
+        /*
+        var friendFound = this.Me.Record.find( x => x.Name == name);
+       
+        if(friendFound){
+          var summary = this.Me.Record.find(x=>x.KeyDate == key);
+          this.Me.FriendSummary.DoneExerciseList = summary.DoneExerciseList;
+          this.Me.FriendSummary.TotalSetTime = summary.TotalSetTime;
+    
+    
+          // this._Fit.addFriendHistory(friendName);
+          // console.log('you have a record');
+          // console.log('Summary ----');
+          // this._Fit.getFriendSummary(key);
+          // console.log(this.Me.Summary);
+          // this.Me.Summary.DoneExerciseList = summary.DoneExerciseList;
+          // this.Me.Summary.TotalSetTime = summary.TotalSetTime;
         }
-        else {
-            return;
-        }
+        else{
+          return;
+        } */
     };
     ShareComponent = __decorate([
         core_1.Component({

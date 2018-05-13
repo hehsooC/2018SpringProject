@@ -143,11 +143,8 @@ export class FitService {
 
     // post selected workout to the server
     doneExercise(text: string, time: number, set: number, totalTime: number){
-      console.log('--------------');
       this.http.post(this._api + '/exercise/done', {name: this.Me.Name, text: text, time: time, set: set, total: totalTime })
                 .subscribe(data => {
-                  console.log('/// data.json() ///');
-                  console.log(data.json());
                   if(!data.json()){
                     return;
                   }
@@ -158,7 +155,6 @@ export class FitService {
 
     // post total workout time to the server
     getTotalTime(name: String, key: string, totalTime: number){
-      console.log('///// Get Total Time Service ////');
       this.http.post(this._api + "/exercise/totaltime",{name: name, key: key, totalTime: totalTime})
       .subscribe(data => {
         this.Me.TotalSetTime = Number(data.json());
@@ -218,20 +214,13 @@ export class FitService {
     
 
     addFriendHistory(friend: string){
-      console.log('friend Name : ' + friend + '11111111');
-
       this.http.post(this._api+'/exercise/addFriendHistory',{name: this.Me.Name, friend: friend})
       .subscribe(data => {
         if(!data.json()){
           return;
         }
         var history = data.json();
-
-        console.log('data json');
-        console.log(data.json());
         this.Me.Record = history;
-        console.log('FriendHistory ---');
-        console.log(this.Me.Record);
       });
     }
     // if user gets friend request, change the Requested status to inform the user that they have friend requests.
@@ -264,10 +253,12 @@ export class FitService {
   });
 }
 
-  getFriendSummary(key: string){
-    this.http.get(this._api + "/exercise/friendSummary", { params : { user: this.Me.Name, key: key } })
+  getFriendSummary(key: string, friend: string){
+    this.http.get(this._api + "/exercise/friendSummary", { params : { name: this.Me.Name, key: key , friend: friend} })
     .subscribe(data=> {
-      this.Me.Summary = data.json();
+      this.Me.FriendSummary = data.json();
+      console.log('friend summary is =====');
+      console.log(this.Me.FriendSummary);
 
   });
   }

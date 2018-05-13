@@ -297,9 +297,11 @@ function Fit() {
             return historyFound;
         }
 
-        this.GetFriendSummary = (user, key) => {
-            var userFound = this.Person.find( x => x.Name == user);
+        this.GetFriendSummary = (name, key, friend) => {
+            var userFound = this.Person.find( x => x.Name == friend);
             var historyFound = userFound.History.find(x=> x.KeyDate == key);
+            console.log('FriendSummary Send History Found is');
+            console.log(historyFound);
             return historyFound;
         }
         

@@ -37,7 +37,7 @@ module.exports = app
     }) */
 
     .get('/exercise/friendSummary', (req, res) => {
-        res.send(fit.GetSummary(req.query.user, req.query.key));
+        res.send(fit.GetFriendSummary(req.query.name, req.query.key, req.query.friend));
     })
 
 

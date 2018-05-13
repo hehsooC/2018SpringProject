@@ -124,6 +124,10 @@ export class ShareComponent implements OnInit {
   }
 
   displayHistory(e: MouseEvent, key: string, friend: string){
+
+    console.log('display history');
+    this._Fit.getFriendSummary(key, friend);
+    /* 
     var friendFound = this.Me.Record.find( x => x.Name == name);
    
     if(friendFound){
@@ -142,7 +146,7 @@ export class ShareComponent implements OnInit {
     }
     else{
       return;
-    }
+    } */
 
   }
 
