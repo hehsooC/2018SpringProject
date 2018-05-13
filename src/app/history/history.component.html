@@ -11,6 +11,7 @@
                 <form>
                     <div class="form-group">
                         <select multiple class="form-control" id="exampleFormControlSelect2" >
+                        <option *ngIf ="Me.History.length == 0">No Workout History Yet!</option>
                         <option *ngFor="let list of Me.History" (click)="submitLog($event, list.KeyDate)">
                             {{list.KeyDate}}
                         </option>
@@ -22,7 +23,7 @@
     </div><!-- col -->
 
     <div class="col-md-6">
-        <div class="card display-none" [ngClass]="{'display-none': !Me.Summary}">
+        <div class="card">
             <div class="card-header-own">
                 
                 <div class="text-uppercase ">
@@ -35,6 +36,8 @@
             
             <div class="card-body">
                 <ul class="list-group list-group-flush ">
+                    <li *ngIf ="Me.History.length == 0">No Workout History Yet!</li>
+
                     <li *ngFor="let list of Me.Summary.DoneExerciseList"
                         class="list-group-item list-group-flush ">
                         {{list.Text}}

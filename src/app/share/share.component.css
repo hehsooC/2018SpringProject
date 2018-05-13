@@ -9,7 +9,6 @@ ul{
 }
 .card-header{
     background-color: #7CACEA;
-    height: 120px;
     text-align: center;
     border: none;
     padding: 1.7rem 0;
@@ -39,7 +38,4 @@ ul{
 .text-uppercase-own{
     font-size: 12px;
     color: white;
-}
-.heightAdjust{
-    height: 160px;
 }

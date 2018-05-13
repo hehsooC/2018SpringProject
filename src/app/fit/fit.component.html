@@ -112,6 +112,7 @@
                         <form>
                             <div class="form-group">
                                 <select multiple class="form-control" id="exampleFormControlSelect2" >
+                                    <option *ngIf ="Me.History.length == 0">No Workout History Yet!</option>
                                     <option *ngFor="let list of Me.History" (click)="submitDate($event, list.KeyDate)">
                                         {{list.KeyDate}}
                                     </option>

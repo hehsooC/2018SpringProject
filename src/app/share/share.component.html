@@ -14,6 +14,8 @@
         <ul class="list-group-item list-group-flush list" *ngFor =" let users of Me.EachShare">
           <div class="row justify-content-md-center">
             <div class="col">
+              <li *ngIf ="Me.EachShare.length == 0">No Other Users</li>
+
               <li  >{{users.Name}} </li>
             </div>
             <div class="col">
@@ -59,13 +61,14 @@
       <div class="card-header">
         <div class="text-uppercase">
           <div class="text-uppercase">Friends List</div>
-          <div class="subtitle"> Look Who is Your Friend.</div>
+          <div class="subtitle"> Click the Display to See Friend's Workout Date.</div>
         </div>
       </div> <!-- card header -->
       <div class="card-body">
         <ul class="list-group-item list-group-flush list" *ngFor = "let friend of Me.FriendList">
           <div class = "row justify-content-md-center">
             <div class="col">
+              <li *ngIf ="Me.FriendList.length == 0" > No Friends Yet! </li>
               <li > {{friend.Name}} </li>
             </div>
             <div class="col">
@@ -92,9 +95,10 @@
           <form>
               <div class="form-group">
                   <select multiple class="form-control" id="exampleFormControlSelect2" >
-                  <option *ngFor="let friend of Me.Record" (click)="displayHistory($event, friend.KeyDate, friend.Name)">
-                      {{friend.KeyDate}}
-                  </option>
+                    <option *ngIf ="Me.Record.length == 0">No Friend's Workout Yet!</option>
+                    <option *ngFor="let friend of Me.Record" (click)="displayHistory($event, friend.KeyDate, friend.Name)">
+                        {{friend.KeyDate}}
+                    </option>
                   </select>
               </div>
           </form>
@@ -112,6 +116,7 @@
         </div> <!-- card header-->
         <div class="card-body" >
           <ul class="list-group list-group-flush ">
+            <li *ngIf ="Me.FriendSummary.DoneExerciseList.length == 0">No Friend's Workout History Yet!</li>
             <li *ngFor="let list of Me.FriendSummary.DoneExerciseList"
                 class="list-group-item list-group-flush ">
                 {{list.Text}}
