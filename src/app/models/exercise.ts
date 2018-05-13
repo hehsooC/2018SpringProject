@@ -4,6 +4,7 @@ export class Fit {
     Share: People[] = [];
 }
 
+// Each User (Me)'s interface
 export class User {
     Name: string;
     Password: string;
@@ -33,22 +34,23 @@ export class Log{
     Date: number;
     KeyDate: string;
 }
+// For Other Users in the server
 export class People {
     Name: string;
     RequestSent: boolean;
 }
-
+// for Friend Request
 export class Friend{
     Name: string;
     Friend: string;
     Msg: string;
 }
-
+// for planned exercise lists
 export class Exercise {
     Text: string;
     Chosen: boolean = false;
 }
-
+// for completed exercise lists
 export class Done {
     Text: string;
     Time: number;

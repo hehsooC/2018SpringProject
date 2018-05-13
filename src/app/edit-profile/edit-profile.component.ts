@@ -13,8 +13,7 @@ export class EditProfileComponent implements OnInit {
 
   Me: User;
 
-  constructor(private _Fit: FitService, private _Router: Router
-  ) {
+  constructor(private _Fit: FitService, private _Router: Router) {
     this.Me = this._Fit.Me;
     if(!this.Me){
       _Router.navigate(['/login']);

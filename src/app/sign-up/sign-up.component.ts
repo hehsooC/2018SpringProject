@@ -29,5 +29,5 @@ export class SignUpComponent implements OnInit {
        this._Messages.Messages.push('Successfully Signed Up! Welcome, ' + name + '!');
     }
   
-    
+ 
 }

@@ -118,116 +118,106 @@ export class FitService {
   
 
   // set the selected workout list to the server and make Chosen to true
-    makeChosen(text: string, key: string){
-      this.http.post(this._api + "/exercise/chosen", {name: this.Me.Name, text: text, key: key})
-      .subscribe(data => {
-        this.Me.PlanExercise = data.json();
-      })
-    }
+  makeChosen(text: string, key: string){
+    this.http.post(this._api + "/exercise/chosen", {name: this.Me.Name, text: text, key: key})
+    .subscribe(data => {
+      this.Me.PlanExercise = data.json();
+    })
+  }
 
     
 
-    // post selected workout to the server
-    doneExercise(text: string, time: number, set: number, totalTime: number){
-      this.http.post(this._api + '/exercise/done', {name: this.Me.Name, text: text, time: time, set: set, total: totalTime })
-                .subscribe(data => {
-                  if(!data.json()){
-                    return;
-                  }
-                  this.Me.DoneExerciseList = data.json();
-                });
-    }
+  // post selected workout to the server
+  doneExercise(text: string, time: number, set: number, totalTime: number){
+    this.http.post(this._api + '/exercise/done', {name: this.Me.Name, text: text, time: time, set: set, total: totalTime })
+              .subscribe(data => {
+                if(!data.json()){
+                  return;
+                }
+                this.Me.DoneExerciseList = data.json();
+              });
+  }
 
 
-    // post total workout time to the server
-    getTotalTime(name: String, key: string, totalTime: number){
-      this.http.post(this._api + "/exercise/totaltime",{name: name, key: key, totalTime: totalTime})
+  // post total workout time to the server
+  getTotalTime(name: String, key: string, totalTime: number){
+    this.http.post(this._api + "/exercise/totaltime",{name: name, key: key, totalTime: totalTime})
+    .subscribe(data => {
+      this.Me.TotalSetTime = Number(data.json());
+    })
+  }
+
+  // Update the Done Exercise List in History[] in the server.
+  RecordDay(text: string, key: string, time: number, set: number, totalTime: number){
+      this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, key: key, text: text, time: time, set: set, total: totalTime })
       .subscribe(data => {
-        this.Me.TotalSetTime = Number(data.json());
-      })
-    }
-
-    // Update the Done Exercise List in History[] in the server.
-    RecordDay(text: string, key: string, time: number, set: number, totalTime: number){
-        this.http.post(this._api + '/exercise/recordDay', {name: this.Me.Name, key: key, text: text, time: time, set: set, total: totalTime })
-        .subscribe(data => {
-          if(!data.json()){
-            return;
-          }
-          this.Me.DoneExerciseList = data.json();
+        if(!data.json()){
+          return;
         }
+        this.Me.DoneExerciseList = data.json();
+      });
 
-        );
-  
+  }
+  // get the list of other users from the server
+  getUserList(){
+    return this.http.get(this._api + '/exercise/people', { params: {name: this.Me.Name}})
+          .map((response:Response)=>response.json());
+  }
+
+  // Send a request notice to a selected user.
+  friendRequest(friendName: string){
+    this.http.post(this._api + '/exercise/request', {friend: friendName, name: this.Me.Name})
+    .subscribe(data => {
+      if(!data.json()){
+        return;
       }
-    // get the list of other users from the server
-    getUserList(){
-      return this.http.get(this._api + '/exercise/people', { params: {name: this.Me.Name}})
-            .map((response:Response)=>response.json());
-    }
+    });
+  }
 
-    // Send a request notice to a selected user.
-    friendRequest(friendName: string){
-      this.http.post(this._api + '/exercise/request', {friend: friendName, name: this.Me.Name})
-      .subscribe(data => {
-        if(!data.json()){
-          return;
-        }
-      });
-    }
-
-    // indicate if a user send a friend request to another user to remove that user from User's list
-    changeSentRequest(friendName: string, status: boolean ){
-      console.log('Change Sent Request ');
-      this.http.post(this._api + '/exercise/sentRequestChange', {friend: friendName, name: this.Me.Name, status: status})
-      .subscribe(data => {
-        console.log('change request works?');
-        if(!data.json()){
-          return;
-        }
-
-      });
-    }
-
-    // Add friends to this user's FriendList in the server when user accepts the request.
-    addFriendList(friendName:string){
-      this.http.post(this._api+'/exercise/addFriend',{name: this.Me.Name, friend: friendName})
-      .subscribe(data => {
-        this.Me.FriendList = data.json();
-      });
-      
-    }
-
-    
-    // add Friend's Workout Summary to Record
-    addFriendHistory(friend: string){
-      this.http.post(this._api+'/exercise/addFriendHistory',{name: this.Me.Name, friend: friend})
-      .subscribe(data => {
-        if(!data.json()){
-          return;
-        }
-        var history = data.json();
-        this.Me.Record = history;
-      });
-    }
-
-    // if user gets friend request, change the Requested status to inform the user that they have friend requests.
-    changeRequested(name: string){
-      this.http.post(this._api + '/exercise/changeRequest', {name: name})
-      .subscribe(data =>{
-        this.Me.Requested = data.json();
-      });
-    }
-
-    // get summary from the server to display it at History
-    getSummary(key: string){
-      this.http.get(this._api + "/exercise/summary", { params : { user: this.Me.Name, key: key } })
-      .subscribe(data=> {
-        this.Me.Summary = data.json();
+  // indicate if a user send a friend request to another user to remove that user from User's list
+  changeSentRequest(friendName: string, status: boolean ){
+    console.log('Change Sent Request ');
+    this.http.post(this._api + '/exercise/sentRequestChange', {friend: friendName, name: this.Me.Name, status: status})
+    .subscribe(data => {
+      console.log('change request works?');
+      if(!data.json()){
+        return;
+      }
 
     });
   }
 
+  // Add friends to this user's FriendList in the server when user accepts the request.
+  addFriendList(friendName:string){
+    this.http.post(this._api+'/exercise/addFriend',{name: this.Me.Name, friend: friendName})
+    .subscribe(data => {
+      this.Me.FriendList = data.json();
+    });
+    
+  }
+
+  
+  // add Friend's Workout Summary to Record
+  addFriendHistory(friend: string){
+    this.http.post(this._api+'/exercise/addFriendHistory',{name: this.Me.Name, friend: friend})
+    .subscribe(data => {
+      if(!data.json()){
+        return;
+      }
+      var history = data.json();
+      this.Me.Record = history;
+    });
+  }
+
+  // if user gets friend request, change the Requested status to inform the user that they have friend requests.
+  changeRequested(name: string){
+    this.http.post(this._api + '/exercise/changeRequest', {name: name})
+    .subscribe(data =>{
+      this.Me.Requested = data.json();
+    });
+  }
+
+  // retrieve previous date's workout data
   getHistory(key: string){
     this.http.get(this._api + "/exercise/getHistory", { params : { user: this.Me.Name, key: key } })
     .subscribe(data=> {
@@ -237,21 +227,19 @@ export class FitService {
       this.Me.DoneExerciseList = history.DoneExerciseList;
       this.Me.Month = history.Month;
       this.Me.Date = history.Date;
-
+      this.Me.TotalSetTime = history.TotalSetTime;
+      this.Me.Summary = data.json();
     });
   }
-
+  // get friend's workout summary
   getFriendSummary(key: string, friend: string){
     this.http.get(this._api + "/exercise/friendSummary", { params : { name: this.Me.Name, key: key , friend: friend} })
     .subscribe(data=> {
       this.Me.FriendSummary = data.json();
-      console.log('friend summary is =====');
-      console.log(this.Me.FriendSummary);
-
     });
   }
 
-  // refresh Me Object to update in Share component.
+  // refresh Me Object to update Share component.
   refreshMe(){
     return this.http.get(this._api + "/exercise/refreshMe", { params : { name: this.Me.Name }})
     .map((response:Response)=>response.json()); 

@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 export class ShareComponent implements OnInit {
   
   Me: User;
-  requested: boolean = false;
 
   constructor(private _Fit: FitService, private _Router: Router) { 
     this.Me = _Fit.Me;
@@ -33,15 +32,11 @@ export class ShareComponent implements OnInit {
   
 
   refreshList(){
-
-
+    // refresh Me object - receive Notice, FriendList, Requested status to update
     this._Fit.refreshMe().subscribe(data => {
       this.Me.Notice = data.Notice;
       this.Me.FriendList = data.FriendList;
       this.Me.Requested = data.Requested;
-
-    
-
     });
 
     // create other users list to share and refresh to update
@@ -53,10 +48,7 @@ export class ShareComponent implements OnInit {
       if((this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.RequestSent == true)))!= -1){
         this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.RequestSent == true)), 1);
       }
-
     });
-
-  
   }
 
   // Send a friend request via friend's name
@@ -69,6 +61,7 @@ export class ShareComponent implements OnInit {
   // Accept or Decline Friend's request. 
   requestBox(e: MouseEvent, friendName: string) {
     var friend = this.Me.Notice.find(x=>x.Friend == friendName);
+    // accept request
     if (confirm(friend.Msg + '\nHit Ok to Accept or Cancel to Decline.')) {
         this._Fit.addFriendList(friendName);
         
@@ -78,18 +71,17 @@ export class ShareComponent implements OnInit {
        this._Fit.changeSentRequest(friendName, decline);
         return;
     }
-
     // change the request state of Me
     this._Fit.changeRequested(this.Me.Name);
-
   }
 
+  // update friend's history if hits Display button
   friendHistory(e: MouseEvent, friend: string){
     this._Fit.addFriendHistory(friend);
   }
 
+  // display friend's history if date is selected
   displayHistory(e: MouseEvent, key: string, friend: string){
-
     this._Fit.getFriendSummary(key, friend);
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FitService } from '../services/fit.service';
 import { Fit, User } from '../models/exercise';
+import { MessagesService } from '../services/messages.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,8 +12,10 @@ export class ProfileComponent implements OnInit {
 
   Me: User;
 
-  constructor( private _Fit: FitService) {
+  constructor( private _Fit: FitService, private _Messages: MessagesService) {
     this.Me = this._Fit.Me;
+    this._Messages.Messages.push('Complete your Profile before you begin to plan your workout.');
+    
    }
 
   ngOnInit() {

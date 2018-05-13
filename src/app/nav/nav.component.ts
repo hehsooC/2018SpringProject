@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FitService } from '../services/fit.service';
-import { User } from '../models/exercise';
 
 @Component({
   selector: 'app-nav',
@@ -9,7 +7,7 @@ import { User } from '../models/exercise';
 })
 export class NavComponent implements OnInit {
   public isCollapsed = true;
-  constructor(private _Fit: FitService) { 
+  constructor() { 
   
   }
 

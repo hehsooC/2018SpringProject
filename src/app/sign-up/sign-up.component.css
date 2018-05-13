@@ -9,12 +9,10 @@
     margin-bottom: 5px;
 
     color: white;
+    background-color: #F4C3D8;
+    border: none;
 }
 
-ul{
-    list-style-type: none;
-    margin: 10px;
-}
 
 .card{
     margin: 10px;
@@ -36,17 +34,6 @@ form{
 }
 
 
-.btn{
-    background-color: #F4C3D8;
-    border: none;
-}
-.subtitle{
-    font-size: 15px;
-    margin: 1px;
-    font-weight: 300;
-    
-}
-
 .text-uppercase{
     font-size: 12px;
     color: white;
@@ -63,15 +50,15 @@ form{
     margin-bottom: 2px;
     color: #7CACEA;
 }
-.selected{
-    background-color:#FBE9C1;
-}
+
 .font-margin{
     margin-bottom: 5px;
     margin-left: 10px;
 }
 .btn-margin{
-    margin-left:98px;
-    margin-top: 0px;
-
+    margin:0px;
+}
+.col-sm-2{
+    margin: 2px;
+    padding: 0.2rem;
 }

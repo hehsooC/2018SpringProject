@@ -37,7 +37,7 @@ function Fit() {
             });
         }
 
-     // creates a new user in the server.
+        // creates a new user in the server.
         this.SignUp = (name, password) => {
             // if there is a username in the server, return false.
             if(this.Person.find(x => x.Name == name)){
@@ -50,7 +50,7 @@ function Fit() {
             }
         }        
     
-    // send the user's information to server 
+        // send the user's information to server 
         this.LogIn = (name, password) => {
             // if there is a user in the server, send the information.
             if(this.Person.find(x => x.Name == name)){
@@ -77,7 +77,7 @@ function Fit() {
             }  
         }
 
-        // set the date of this workout date.
+        // set the date of workout to record.
         this.SetDay = (name, key, month, date) => {
             var userFound = this.Person.find( x => x.Name == name);
             var historyFound = userFound.History.find(x=>x.KeyDate == key);
@@ -91,7 +91,6 @@ function Fit() {
                 return historyFound;
                 
             }
-
         }
 
 
@@ -111,17 +110,11 @@ function Fit() {
             else{
                 historyFound.PlanExercise.push({Text: text, Chosen: false});
                 return historyFound.PlanExercise;
-
             }
-            
-            
-           
         }
 
-
-        
-
         // if a planned workout list is selected, make Chosen to true to indicate this exercise is done.
+        // this will change the color of planned history list if it's chosen.
         this.MakeChosen = (name, text, key) => {
             var user = this.Person.find(x => x.Name == name);
             var history = user.History.find(x => x.KeyDate == key);
@@ -129,35 +122,6 @@ function Fit() {
             chosenWorkout.Chosen = true;
             return history.PlanExercise;
         }
-
-        // post selected workout to the server in Person[]
-        this.DoneExercise = (name, text, time, set, total) => {
-
-            
-            var user = this.Person.find(x => x.Name == name);
-
-            if(user){
-                if(!user.DoneExerciseList.find(x => x.Text == text)){
-                    user.DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: total});
-                    var plan = user.DoneExerciseList;
-                    return plan;
-                }
-                else{
-                    var done = user.DoneExerciseList.find(x => x.Text == text);
-                    done.Time = Number(done.Time) + Number(time);
-                    done.Set = Number(done.Set) + Number(set);
-                    done.TotalTime = Number(done.TotalTime) + Number(total);
-                    
-                    return user.DoneExerciseList;
-
-                }
-            }
-            else{
-                console.log('fail to done exercise - model');
-                return false;
-            }
-            
-        } 
 
         // Update total workout time.
         this.GetTotalTime = (name, key, totalTime) => {
@@ -172,7 +136,6 @@ function Fit() {
             else{
                 historyFound.TotalSetTime = totalTime;
                 return historyFound.TotalSetTime;
-                
             }
         }
 
@@ -181,12 +144,15 @@ function Fit() {
 
             var userFound = this.Person.find(x => x.Name == name);
             var historyFound = userFound.History.find(x=> x.KeyDate == key);
+            // if this key date has some done exercise lists, execute below.
             if(!historyFound.DoneExerciseList.length == 0){
                 var done = historyFound.DoneExerciseList;
+                // if there is no texts in DoneExerciseList, push it.
                 if(!done.find(x => x.Text == text)){
                     done.push({Text: text, Time: time, Set: set, TotalTime: total});
                     return done;
                 }
+                // if the text exists, update the time, set, and total time.
                 else{
                     var done2 = historyFound.DoneExerciseList.find(x => x.Text == text);
                     done2.Time = Number(done2.Time) + Number(time);
@@ -194,9 +160,9 @@ function Fit() {
                     done2.TotalTime = Number(done2.TotalTime) + Number(total);
                     
                     return historyFound.DoneExerciseList;
-
                 }
             }
+            // if this key date has no done exercise list, push the text.
             else{
                 historyFound.DoneExerciseList.push({Text: text, Time: time, Set: set, TotalTime: total});
                 return historyFound.DoneExerciseList;
@@ -237,7 +203,7 @@ function Fit() {
                 each.RequestSent = true;
             }
             else{
-                // if friend request is declined, give back requested user into user's list
+                // if a friend request is declined, give back removed user request button to user's list
                 eachFriend.RequestSent = false;
                 // remove that request from Me
                 me.Notice.splice(me.Notice.indexOf(me.Notice.find( x => x.Friend == friend )), 1); 
@@ -262,18 +228,17 @@ function Fit() {
             }
         }
 
-    
 
-        // if friend request is accepted, add that user to this user's friendList.
+        // if friend request is accepted, add that user to this Me's friendList.
         this.AddFriend = (name, friend) =>{
             var user = this.Person.find(x=> x.Name == name);
 
             var friendN = this.Person.find(x=> x.Name == friend);
             user.FriendList.push({Name: friend});
             friendN.FriendList.push({Name: name});
-            // remove this request from the notice
+            // remove this request from Me's Notice
             user.Notice.splice(user.Notice.findIndex(x => x.Friend == friend), 1);
-            // remove user who sent the request fron Me's user list
+            // remove user who sent the request from Me's user list
             this.SentRequestChange(friend, name, true);
             return user.FriendList;
 
@@ -295,40 +260,34 @@ function Fit() {
         }
 
 
-
-        // indicates if this user gets a friend request or not.
+        // indicate if this user gets a friend request or not.
         this.ChangeRequested = ( name )=>{
             var user = this.Person.find( x => x.Name == name);
             user.Requested = false;
             return user.Requested;
         }
 
-        // send a user's workout summary to History Component.
-        this.GetSummary = (user, key) => {
-            var userFound = this.Person.find( x => x.Name == user);
-            var historyFound = userFound.History.find(x=> x.KeyDate == key);
-            return historyFound;
-        }
-        
+        // send a user's previous workout history by key date.
         this.GetHistory = (user, key) => {
             var userFound = this.Person.find( x => x.Name == user);
             var historyFound = userFound.History.find(x=> x.KeyDate == key);
             return historyFound;
         }
 
+        // send a friend's workout history
         this.GetFriendSummary = (name, key, friend) => {
             var userFound = this.Person.find( x => x.Name == friend);
             var historyFound = userFound.History.find(x=> x.KeyDate == key);
             return historyFound;
         }
         
-       
-
+        // refresh Me to update
         this.RefreshMe = (name) => {
             var user = this.Person.find(x => x.Name == name);
+            // if there is no friend request to Me, set Requested false
+            // this will change the button of Friend Request Notification
             if(user.Notice.length == 0){
                 user.Requested = false;
-              
               }
               else{
                 user.Requested = true;

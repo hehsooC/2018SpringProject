@@ -6,7 +6,7 @@ export class MessagesService {
 
   Messages = [];
   constructor(private _Fit: FitService) { 
-    this.Messages = ['Complete your Profile before you begin to plan your workout.', 'You can choose your workout plan.'];
+    this.Messages = ['Welcome to Fitness Tracker! You can record your workout plan.'];
  }
 
 

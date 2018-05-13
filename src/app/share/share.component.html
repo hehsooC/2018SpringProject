@@ -1,9 +1,6 @@
+<!-- Users can send a friend request and share their workout history -->
 <div class="row justify-content-md-center">
-
-</div><!-- row -->
-
-<div class="row justify-content-md-center">
-<!-- Choose a user to share workout log-->
+  <!-- Choose a user to share workout log-->
   <div class="col-lg-4">
     <div class="card" >
       <div class="card-header">
@@ -15,7 +12,6 @@
           <div class="row justify-content-md-center">
             <div class="col">
               <li *ngIf ="Me.EachShare.length == 0">No Other Users</li>
-
               <li  >{{users.Name}} </li>
             </div>
             <div class="col">
@@ -26,15 +22,15 @@
       </div> <!-- card-body -->
     </div> <!-- card -->
   </div><!-- col -->
-<!-- Choose a user to share workout log-->
+  <!-- Choose a user to share workout log-->
 
-<!-- Received Friend Requests-->
+  <!-- Received Friend Requests-->
   <div class="col-lg-4">
     <div class="card">
       <div class="card-header">
         <div class="text-uppercase">Friend Request</div>
         <div class="subtitle"> You've Got Friend Requests!</div>
-      </div>
+      </div> <!-- card header-->
       <div class="card-body">
         <div class="d-flex justify-content-md-center">
           <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
@@ -47,15 +43,15 @@
             </div>
             <div class="col">
               <button class="btn btn-sm d-flex justify-content-end btn-warning"  (click) = "requestBox($event, friend.Friend)"> Confirm </button>
-
             </div>
           </div>
         </ul>
-      </div>
+      </div> <!-- card body-->
     </div>
-  </div>
+  </div> <!-- col -->
+  <!-- Received Friend Requests-->
 
-<!-- Friends List-->
+  <!-- Friends List-->
   <div class="col-lg-4">
     <div class="card" >
       <div class="card-header">
@@ -80,11 +76,12 @@
       </div> <!-- card body-->
     </div> <!-- card -->
   </div> <!-- col -->
-<!-- Friends List-->
-
+  <!-- Friends List-->
 </div><!-- row -->
 
+
 <div class="row d-flex justify-content-md-center">
+  <!-- Friend's Workout Date -->
   <div class="col-lg-4">
     <div class="card" >
         <div class="card-header">
@@ -106,8 +103,9 @@
         
     </div>  <!-- card -->
   </div> <!-- col -->
+  <!-- Friend's Workout Date -->
 
-
+  <!-- Friend's Workout History by Date-->
   <div class="col-lg-6">
       <div class="card" >
         <div class="card-header">
@@ -133,6 +131,8 @@
         </div> <!-- card body -->
       </div>  <!-- card -->
     </div> <!-- col -->
+    <!-- Friend's Workout History by Date-->
+
 </div> <!-- row -->
 
 

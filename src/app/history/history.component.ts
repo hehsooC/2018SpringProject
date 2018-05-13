@@ -29,8 +29,7 @@ export class HistoryComponent implements OnInit {
   // find workout summary via key.
   submitLog(e: MouseEvent, key: string){
     if(this.Me.History.find(x => x.KeyDate == key)){
-      console.log('history found');
-      this._Fit.getSummary(key);
+      this._Fit.getHistory(key);
 
     }
     else{

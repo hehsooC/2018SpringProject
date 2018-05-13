@@ -1,3 +1,4 @@
+<!-- User's Workout Summary -->
 <div class="row d-flex justify-content-center">
     <div class="col-md-4">
         <div class="card" >
@@ -6,7 +7,7 @@
                     Workout Day
                 </div>
                 <div class="subtitle">Select Your Date to See Your Workout History </div>
-            </div>
+            </div> <!-- card header-->
             <div class="card-body">
                 <form>
                     <div class="form-group">
@@ -18,32 +19,28 @@
                         </select>
                     </div>
                 </form>
-            </div>
+            </div> <!-- card body -->
         </div><!-- card-->
     </div><!-- col -->
 
     <div class="col-md-6">
         <div class="card">
             <div class="card-header-own">
-                
                 <div class="text-uppercase ">
                     Workout Summary
                 </div>
-
                 <div class="subtitle">Enjoy your Achievement!</div>
-
-            </div>
+            </div> <!-- card header-->
             
             <div class="card-body">
                 <ul class="list-group list-group-flush ">
                     <li *ngIf ="Me.History.length == 0">No Workout History Yet!</li>
-
                     <li *ngFor="let list of Me.Summary.DoneExerciseList"
                         class="list-group-item list-group-flush ">
                         {{list.Text}}
                     </li>
                 </ul>
-            </div>
+            </div> <!-- card body -->
             <div class="card-body">
                 <div class="d-flex justify-content-center">
                     <i class="badge float-right badge-info" >

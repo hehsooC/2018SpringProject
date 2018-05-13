@@ -1,14 +1,3 @@
-.login-form{
-    margin: 10px;
-}
-
-.btn-own{
-    margin: 5px;
-    color: white;
-    background-color: #F4C3D8;
-    border: none;
-}
-
 ul{
     list-style-type: none;
     margin: 10px;
@@ -25,8 +14,6 @@ ul{
     padding: 1.7rem 0;
     font-size: 30px;
     color: white;
-    
-    
 }
 
 
@@ -44,37 +31,7 @@ form{
     
 }
 
-.text-uppercase-own{
-    font-size: 12px;
-    color: white;
-}
-
-.title{
-    font-size: 20px;
-    padding: 0.4rem 0rem;
-}
-
-.black{
-    margin-top: 10px;
-    margin-bottom: 2px;
-    margin-left: 10px;
-    color: #7CACEA;
-}
-.list-group-item-success{
-    background-color:#FBE9C1;
-}
-.font-margin{
-    margin-bottom: 5px;
-    margin-left: 10px;
-}
 
 .badge{
     margin-left: 5px;
-}
-.display-none{
-    display: none;
-}
-.today{
-    color: white;
-    font-size: 15px;
 }

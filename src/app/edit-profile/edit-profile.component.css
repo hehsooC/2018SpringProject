@@ -1,17 +1,9 @@
-.login-form{
-    margin: 10px;
-}
 
 .btn-own{
     margin: 15px;
     color: white;
     background-color: #F4C3D8;
     border: none;
-}
-
-ul{
-    list-style-type: none;
-    margin: 10px;
 }
 
 .card{
@@ -29,21 +21,11 @@ ul{
     
     
 }
-.textWrap{
-    height: 150px;
-   padding: 1.2rem;
-}
+
 form{
     padding: 1rem;
 }
 
-
-.subtitle{
-    font-size: 15px;
-    margin: 1px;
-    font-weight: 300;
-    
-}
 
 .text-uppercase-own{
     text-transform: uppercase;
@@ -51,21 +33,3 @@ form{
     color: white;
 }
 
-.title{
-    font-size: 20px;
-    padding: 0.4rem 0rem;
-}
-
-.black{
-    margin-top: 10px;
-    margin-bottom: 2px;
-    margin-left: 10px;
-    color: #7CACEA;
-}
-.selected{
-    background-color:#FBE9C1;
-}
-.font-margin{
-    margin-bottom: 5px;
-    margin-left: 10px;
-}

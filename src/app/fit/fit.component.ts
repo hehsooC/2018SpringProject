@@ -28,9 +28,6 @@ export class FitComponent implements OnInit {
     if(!this.Me){
       _Router.navigate(['/login']);
     } 
-    
-
-
   } 
 
   ngOnInit() {
@@ -91,6 +88,7 @@ export class FitComponent implements OnInit {
       }
     }
 
+    // set number range for date
     if(date < 1 || date > 31){
       alert('Please input between 1 - 31');
       return;
@@ -100,8 +98,6 @@ export class FitComponent implements OnInit {
 
     // create a new date history
     if(!this.Me.History.find(x => x.KeyDate == key)){
-
-      
       this.Me.PlanExercise = [];
       this.Me.DoneExerciseList = [];
       this.Me.TotalSetTime = 0;
@@ -110,11 +106,9 @@ export class FitComponent implements OnInit {
       this.Me.History.push({ Name: this.Me.Name, DoneExerciseList: [], PlanExercise: [], TotalSetTime: 0, 
         Month: month, Date: date, KeyDate: key.toString()});
       this._Fit.SetDay(this.Me.Name, key, month, date);
-
     }
     //if the recorded day already exists, set recorded day to a user
     else{
-      
       // find user's history from History[] then return to the user.
       var result = this.Me.History.find(x => x.KeyDate == key);
 
@@ -126,25 +120,19 @@ export class FitComponent implements OnInit {
       
       this._Fit.SetDay(this.Me.Name, key, month, date);
     }
-    
-
-
   }
 
-  
+  // submit previous date to get workout history of that day
   submitDate(e: MouseEvent, key: string){
     if(this.Me.History.find(x => x.KeyDate == key)){
-      console.log('history found');
       this._Fit.getHistory(key);
-      var thisHistory = this.Me.History.find(x=> x.KeyDate == key);
-      
     }
     else{
       console.log('no history found');
     }
-
   }
 
+  // submit planned workout list 
   submitWorkout(e: MouseEvent, text: string){
     e.preventDefault();
     // prevent submitting same list again and again.
@@ -162,10 +150,8 @@ export class FitComponent implements OnInit {
     if(this.Me.History.find(x => x.KeyDate == key).PlanExercise.length == 0){
       this.Me.History.find( x => x.KeyDate == key).PlanExercise.push({Text:text, Chosen: false});
       this._Fit.planHistory(text, key);
-
     }
     else{
-     
       var result = this.Me.History.find(x => x.KeyDate == key);
       this.Me.Month = result.Month;
       this.Me.Date = result.Date;
@@ -177,15 +163,18 @@ export class FitComponent implements OnInit {
     
   }
 
- // doneExercise() will track the completed workout that a user checks it as "done"
+  // doneExercise() will track the completed workout that a user checks it as "done"
   doneExercise(e: MouseEvent, text: string, time: number, set: number){
     e.preventDefault();
+    if(!time || !set){
+      alert('Please enter time and set');
+      return;
+    }
     var key = this.Me.Month+' / '+this.Me.Date;
     var totalTime = time * set;
     // if text is chosen, change the color by submitting the text to server and changing Chosen to true.
     this._Fit.makeChosen(text, key);
     
-
     // Find user's history and return to the user so that user can see each date's data.
     if(!this.Me.History.find(x => x.KeyDate == key).DoneExerciseList.find(x=> x.Text == text)){
       this.Me.TotalSetTime = this.Me.TotalSetTime + Number(totalTime);

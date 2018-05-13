@@ -1,5 +1,6 @@
 <!-- Display Saved Profile -->
 <div class="row" >
+    <!-- Saved Profile Display -->
     <div class="col-md-4">
         <div class="card" >
             <div class="card-header-own text-uppercase">
@@ -69,59 +70,61 @@
                     </div>
                 </div> <!-- card header -->
                     
-                    <div class="card-body d-flex justify-content-center">
-                        <div class="row">
-                            <div class="col">
-                                <form>
-                                    <div class="row d-flex justify-content-center">
-                                        <div class="col">
-                                            <input #month type="number" class="form-control" placeholder="Month">
-                                        </div> 
-                                        <div class="col">
-                                            <input #date type="number" class="form-control" placeholder="Date">
+                <div class="card-body d-flex justify-content-center">
+                    <div class="row">
+                        <div class="col">
+                            <form>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col">
+                                        <input #month type="number" class="form-control" placeholder="Month">
+                                    </div> 
+                                    <div class="col">
+                                        <input #date type="number" class="form-control" placeholder="Date">
+                                    </div>
+                                    <div class="col">
+                                        <div class="d-flex justify-content-end">
+                                            <button class="btn btn-primary" 
+                                                    type="submit" 
+                                                    (click)="addTime($event, month.value, date.value)" >
+                                                Save
+                                            </button>
                                         </div>
-                                        <div class="col">
-                                            <div class="d-flex justify-content-end">
-                                                <button class="btn btn-primary" 
-                                                        type="submit" 
-                                                        (click)="addTime($event, month.value, date.value)" >
-                                                    Save
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div> <!-- row -->
-                                </form>
-                            </div> <!-- col -->
+                                    </div>
+                                </div> <!-- row -->
+                            </form>
+                        </div> <!-- col -->
+                        
+                    </div> <!-- row -->
+                </div> <!-- card body -->
                             
-                        </div> <!-- row -->
-                    </div> <!-- card body -->
-                            
-                </div> <!-- card -->
-            </div> <!-- row -->
-            <!-- Set Workout -->
+            </div> <!-- card -->
+        </div> <!-- row -->
+        <!-- Set Workout Date -->
+
         <!-- Recorded Date List -->
         <div class="row-md-4">
-                <div class="card"  >
-                    <div class="card-header-own">
-                        <div class="text-uppercase">
-                            Workout Record 
+            <div class="card"  >
+                <div class="card-header-own">
+                    <div class="text-uppercase">
+                        Workout Record 
+                    </div>
+                    <div class="subtitle">Click to retrieve workout data on selected date.</div>
+                </div> <!-- card header -->
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <select multiple class="form-control" id="exampleFormControlSelect2" >
+                                <option *ngIf ="Me.History.length == 0">No Workout History Yet!</option>
+                                <option *ngFor="let list of Me.History" (click)="submitDate($event, list.KeyDate)">
+                                    {{list.KeyDate}}
+                                </option>
+                            </select>
                         </div>
-                        <div class="subtitle">Click to retrieve workout data on selected date.</div>
-                    </div> <!-- card header -->
-                    <div class="card-body">
-                        <form>
-                            <div class="form-group">
-                                <select multiple class="form-control" id="exampleFormControlSelect2" >
-                                    <option *ngIf ="Me.History.length == 0">No Workout History Yet!</option>
-                                    <option *ngFor="let list of Me.History" (click)="submitDate($event, list.KeyDate)">
-                                        {{list.KeyDate}}
-                                    </option>
-                                </select>
-                            </div>
-                        </form>
-                    </div> <!-- card body -->
-                </div> <!-- card -->
-            <!-- Recorded Date List -->
+                    </form>
+                </div> <!-- card body -->
+            </div> <!-- card -->
+        </div> <!-- row -->
+        <!-- Recorded Date List -->
  
 
         <!-- Workout List -->
@@ -145,18 +148,19 @@
                     </form>
                 </div> <!-- card body -->
             </div> <!-- card -->
+        </div><!-- row -->
         <!-- Workout List -->
         
         <!-- Workout Plan-->
+        <div class="row-md-4">
             <div class="card display-none" [ngClass]="{'display-none': !Me.Month && !Me.Date}">
-                <div class="card-header-own heightAdjust">
+                <div class="card-header-own">
                     <div class="text-uppercase today" >
                         {{Me.Month}} {{Me.Date}}
                     </div>
                     <div class="text-uppercase ">
                         Workout Plan
                     </div>
-    
                     <div class="subtitle">Add your time and sets.<br/> When you are done, click Done button</div>
 
                 </div> <!-- card header -->
@@ -187,15 +191,13 @@
                     </ul>
                 </div> <!-- card body -->
             </div> <!-- card -->
-
-
         </div> <!-- row -->
         <!-- Workout Plan-->
 
         <!-- Workout Log -->
         <div class = "row-md-4">
             <div class="card tracking display-none" [ngClass]="{'display-none': !Me.Month && !Me.Date}">
-                <div class="card-header-own heightAdjust-big date">
+                <div class="card-header-own date">
                     <div class="text-uppercase subtitle">
                             You worked out on <br /> {{Me.Month}} {{Me.Date}}
                     </div> 
@@ -230,9 +232,9 @@
                 </div> <!-- card body -->
             </div> <!-- card -->
         </div> <!-- row -->
-    <!-- Workout Log -->
+        <!-- Workout Log -->
 
-    <!-- Reset -->
+        <!-- Reset -->
         <div class="row-md-4 display-none " [ngClass]="{'display-none' : !Me.Month && !Me.Date}">
             <div class="card-body " style="border: 1px solid #7CACEA" >
                 <div class="d-flex justify-content-center"> Ready to track another workout? </div>
@@ -242,7 +244,6 @@
                 </div>
             </div> <!-- card body -->
         </div> <!-- row -->
-    <!-- Reset -->
-
-    </div> <!-- column -->
+        <!-- Reset -->
+    </div><!-- col -->
 </div> <!-- row -->
