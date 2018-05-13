@@ -946,11 +946,13 @@ var FitService = /** @class */ (function () {
         return this.http.get(this._api + '/exercise/people', { params: { name: this.Me.Name } })
             .map(function (response) { return response.json(); });
     };
-    // get the updated information from the server to refresh Share Component.
-    FitService.prototype.getRequestState = function () {
-        return this.http.get(this._api + '/exercise/request/state', { params: { name: this.Me.Name } })
-            .map(function (response) { return response.json(); });
-    };
+    /*
+        // get the updated information from the server to refresh Share Component.
+        getRequestState(){
+          return this.http.get(this._api + '/exercise/request/state', {params: {name: this.Me.Name}})
+                .map((response:Response)=>response.json());
+    
+        } */
     // Send a request notice to a selected user.
     FitService.prototype.friendRequest = function (friendName) {
         this.http.post(this._api + '/exercise/request', { friend: friendName, name: this.Me.Name })
@@ -1137,6 +1139,10 @@ var ShareComponent = /** @class */ (function () {
             _this.Me.EachShare = data;
             // remove myself from the share list
             _this.Me.EachShare.splice(_this.Me.EachShare.indexOf(_this.Me.EachShare.find(function (x) { return x.Name == _this.Me.Name; })), 1);
+            // if a user send a friend request, remove that friend from the user list.
+            if ((_this.Me.EachShare.indexOf(_this.Me.EachShare.find(function (x) { return x.RequestSent == true; }))) != -1) {
+                _this.Me.EachShare.splice(_this.Me.EachShare.indexOf(_this.Me.EachShare.find(function (x) { return x.RequestSent == true; })), 1);
+            }
         });
     };
     // Send a friend request via friend's name

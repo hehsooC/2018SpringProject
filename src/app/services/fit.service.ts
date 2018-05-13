@@ -161,13 +161,13 @@ export class FitService {
       return this.http.get(this._api + '/exercise/people', { params: {name: this.Me.Name}})
             .map((response:Response)=>response.json());
     }
-
+/* 
     // get the updated information from the server to refresh Share Component.
     getRequestState(){
       return this.http.get(this._api + '/exercise/request/state', {params: {name: this.Me.Name}})
             .map((response:Response)=>response.json());
 
-    }
+    } */
 
 
     // Send a request notice to a selected user.
@@ -189,6 +189,7 @@ export class FitService {
         if(!data.json()){
           return;
         }
+
       });
     }
 

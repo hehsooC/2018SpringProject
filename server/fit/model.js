@@ -191,60 +191,34 @@ function Fit() {
     
 
         // give other users' name to this user.
-/*         this.GiveUserList = (name) => {
-            if(!this.Share.find(x => x.Name == name)){
-                this.Share.push({Name: name, RequestSent: false});
-                return this.Share;
-            }
-            else{
-                return this.Share;
-            }
-        } */
-    
         this.GiveUserList = (name) => {
             var user = this.Person.find(x=>x.Name == name);
             // if global Share doesn't have this person, push it. 
             if(!this.Share.find(x => x.Name == name)){
                 this.Share.push({Name: name, RequestSent: false});
-               
-                /* if(user.EachShare.find(x => x.Name == name)){
-                    console.log('excluding me');
-                    user.EachShare.splice(user.EachShare.findIndex(user.EachShare.find(x => x.Name == name)), 1 );
-                } */
             }
-            console.log('+++++++ before copy this.Share');
-            console.log(user.EachShare); 
-            console.log('+++++++');
 
-            // copy user names to Each Person's object
-            // user.EachShare = this.Share.slice();
-            var sentTrue = user.EachShare.find(x => x.RequestSent == true);
-            console.log('True Sent');
-            console.log(sentTrue);
-            // var sentFalse = user.EachShare.filter(x => x.RequestSent == false);
-            // user.EachShare = JSON.parse(JSON.stringify( this.Share ));
-            // user.EachShare.find(x => x.Name == sentTrue.Name).Requested = true;
-          
-
-
-            
-    
-            console.log('=====');
-            console.log(user.EachShare);
-            console.log('=====');
-
-
-            // if this friend 
-            if(user.EachShare.find(x => x.RequestSent == true)){
-                // user.EachShare = this.Share.slice();
-                user.EachShare.splice(user.EachShare.indexOf(user.EachShare.find(x=> x.RequestSent == true)), 1);
-
-                return user.EachShare;
-            }
+            // if there are same name in EachShare with Share, exclude that names.
+            var x = this.Share.filter(x=>
+                !user.EachShare.find(y=> y.Name == x.Name)
+            );
+            // update EachShare with Changed RequestSent status
+            var y = user.EachShare.concat(JSON.parse(JSON.stringify( x )));
+            user.EachShare = JSON.parse(JSON.stringify( y ));
             return user.EachShare;
                 
         }
 
+        // if Me sends a friend request to other user, indicate that the friend request is sent.
+        this.SentRequestChange = (friend, name)=> {
+            var me = this.Person.find(x => x.Name == name);
+            var each = me.EachShare.find( x => x.Name == friend);
+
+            each.RequestSent = true;
+
+            return true;
+
+        }
         // send a friend request to a selected other user.
         this.FriendRequest = (friend, name) => {
             var me = this.Person.find(x => x.Name == name);
@@ -261,19 +235,7 @@ function Fit() {
             }
         }
 
-        this.SentRequestChange = (friend, name)=> {
-            var me = this.Person.find(x => x.Name == name);
-            console.log('splice this user ' + friend);
-            var each = me.EachShare.find( x => x.Name == friend);
-
-            each.RequestSent = true;
-
-            // me.EachShare.splice(me.EachShare.indexOf(me.EachShare.find(x=> x.Name == friend)), 1);
-            console.log('now eachshare is ');
-            console.log(me.EachShare);
-            return true;
-
-        }
+    
 
         // if friend request is accepted, add that user to this user's friendList.
         this.AddFriend = (name, friend) =>{

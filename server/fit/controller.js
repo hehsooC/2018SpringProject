@@ -21,9 +21,9 @@ module.exports = app
         res.send(fit.GiveUserList(req.query.name));
     })
     // Give Me's requested status 
-    .get('/exercise/request/state', (req, res) => {
+/*     .get('/exercise/request/state', (req, res) => {
         res.send(fit.GiveRequestState(req.query.name));
-    })
+    }) */
     // Give summary of a user
     .get('/exercise/summary', (req, res) => {
         res.send(fit.GetSummary(req.query.user, req.query.key));

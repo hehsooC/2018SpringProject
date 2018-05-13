@@ -49,7 +49,11 @@ export class ShareComponent implements OnInit {
       this.Me.EachShare = data;
       // remove myself from the share list
       this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
-      
+      // if a user send a friend request, remove that friend from the user list.
+      if((this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.RequestSent == true)))!= -1){
+        this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.RequestSent == true)), 1);
+      }
+
     });
 
   
