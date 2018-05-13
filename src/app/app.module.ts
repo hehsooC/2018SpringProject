@@ -38,7 +38,7 @@ import { HistoryComponent } from './history/history.component';
   imports: [
     BrowserModule,
     HttpModule,
-    NgbModule,
+    NgbModule.forRoot(),
     RouterModule.forRoot([
         { path: 'home', component: HomeComponent },
         { path: 'fit', component: FitComponent },

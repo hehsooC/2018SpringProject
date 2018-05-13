@@ -9,6 +9,7 @@ var fit = new Fit();
 module.exports = app
     // get state of server
     .get('/state', (req, res) => res.send(fit))
+    .get('/home/getImage', (req, res) => res.send(fit.SendPic()))
     // create a new user
     .get('/sign-up', (req, res) =>{
      res.send( fit.SignUp(req.query.name, req.query.password) );
@@ -20,10 +21,6 @@ module.exports = app
     .get('/exercise/people', (req, res) => {
         res.send(fit.GiveUserList(req.query.name));
     })
-    // Give Me's requested status 
-/*     .get('/exercise/request/state', (req, res) => {
-        res.send(fit.GiveRequestState(req.query.name));
-    }) */
     // Give summary of a user
     .get('/exercise/summary', (req, res) => {
         res.send(fit.GetSummary(req.query.user, req.query.key));
@@ -86,19 +83,4 @@ module.exports = app
     
     
     ;
-
-    // this works but couldn't find api database for workout
-    //.post('/exercise/info', (req, res) => res.send( fit.GetHealthInfo()))
-/*     .post('/exercise', (req, res) => {
-        
-        try {
-            console.log('text body is ' + req.body.Text);
-            fit.SubmitWorkout(req.body.Text, req.body.UserId);
-            res.send( { success: true } );            
-        } catch (error) {
-            res.status(403).send({ success: false, message: error.message }); 
-        }
-    })
-   */
- 
  

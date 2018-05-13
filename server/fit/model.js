@@ -1,25 +1,42 @@
+const images = [
+    "https://images.pexels.com/photos/864990/pexels-photo-864990.jpeg?cs=srgb&dl=active-adult-aerobic-864990.jpg&fm=jpg",
+    "https://images.pexels.com/photos/685530/pexels-photo-685530.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/374694/pexels-photo-374694.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/42069/belly-body-calories-diet-42069.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/601177/pexels-photo-601177.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/3235/sport-fitness-workout-resolution.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/703012/pexels-photo-703012.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/892682/pexels-photo-892682.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/698502/pexels-photo-698502.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/196640/pexels-photo-196640.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/416809/pexels-photo-416809.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/136410/pexels-photo-136410.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/685531/pexels-photo-685531.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/703019/pexels-photo-703019.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/267977/pexels-photo-267977.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/19936/breakfast-orange-lemon-oranges.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/834893/pexels-photo-834893.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/793759/pexels-photo-793759.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+
+];
 
 
-/**
-// this works but couldn't find api database for workout
-var axios = require("axios");
-var HealthInfoStack = [];
+var currentPic = 0;
 
-axios.get('https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=best&phrase=fitness')
-    .then(
-        response => HealthInfoStack = response.data,
-        err => console.log(err)
-    ); 
- 
-var currentInfo = 0;
-      
- */       
-  
 function Fit() {  
         this.Person = [];
         this.Share = [];
-        //this.HealthInfo = null; 
         
+        // send a random image to home component
+        this.SendPic = () =>{
+            return [1, 2, 3, 4, 5].map(() => {
+                const randomPic = images[currentPic = (currentPic + 1) % images.length];
+                return randomPic;
+            });
+        }
+
      // creates a new user in the server.
         this.SignUp = (name, password) => {
             // if there is a username in the server, return false.
@@ -318,15 +335,6 @@ function Fit() {
               }
             return user;
         }
-
-  /** Couldn't find the health information database yet. 
-         // at Home, Give a user to a health information.
-        this.GetHealthInfo = () => {
-            this.HealthInfo = HealthInfoStack[currentInfo = (currentInfo+1) % HealthInfoStack.length];
-        }
-         */ 
-
-       
   
 }   
  

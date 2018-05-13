@@ -64,7 +64,6 @@ export class ShareComponent implements OnInit {
     var sendRequest = true;
     this._Fit.changeSentRequest(friendName, sendRequest);
     this._Fit.friendRequest(friendName);
-    // var friend = this.Me.EachShare.find(x => x.Name == friendName);
   }
 
   // Accept or Decline Friend's request. 

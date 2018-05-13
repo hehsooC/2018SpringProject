@@ -113,7 +113,7 @@ var AppModule = /** @class */ (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 http_1.HttpModule,
-                ng_bootstrap_1.NgbModule,
+                ng_bootstrap_1.NgbModule.forRoot(),
                 router_1.RouterModule.forRoot([
                     { path: 'home', component: home_component_1.HomeComponent },
                     { path: 'fit', component: fit_component_1.FitComponent },
@@ -507,14 +507,14 @@ exports.HistoryComponent = HistoryComponent;
 /***/ "./src/app/home/home.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".btn{\n    margin-top: 10px;\n}\n.center{\n    margin: 0 auto;\n    max-width: 100%;\n    width: 100px;\n    padding: 1rem;\n}\n.list{\n    list-style-type: none;\n}\n.center-img{\n\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n    width: 500px;\n}\n.lead{\n    color:  #1C5F93;\n}\n@media only screen and (max-width: 480px) {\n    /*change to vertical nav bar*/\n    .navbar{\n        \n    }\n}"
+module.exports = ".btn{\n    margin-top: 10px;\n}\n.center{\n    margin: 0 auto;\n    max-width: 100%;\n    width: 100px;\n    padding: 1rem;\n}\n.list{\n    list-style-type: none;\n}\n.center-img{\n\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n    width: 80%;\n}\n.lead{\n    color:  #1C5F93;\n}\n@media only screen and (max-width: 480px) {\n    /*change to vertical nav bar*/\n    .navbar{\n        \n    }\n}"
 
 /***/ }),
 
 /***/ "./src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--Need to find health info database api-->\n<!-- <div class=\"card\">\n    <img class=\"card-img-top card-img-bottom\" *ngIf=\"Model.HealthInfo\" [src]=\"Model.HealthInfo.url\" /> \n    <div class = \"card-img-overlay\" style=\"text-align: center\">\n      <button class=\"btn btn-success btn-lg\" (click)=\"getHealthInfo($event)\">\n              Get Health Information\n      </button>\n    </div>\n</div> \n -->\n\n<div class=\"jumbotron\">\n  <h1 class=\" d-flex justify-content-center display-4\">Welcome to Fitness Tracker!</h1>\n  <div class=\"d-flex justify-content-center\">\n    <p class=\"lead\">This is a simple fitness tracker app. You can use it as if it's your workout journal! </p>\n  </div>\n  <div class=\"d-flex justify-content-center\">\n    <p class=\"lead\">You can record your date and workout lists to be proud of your awesome achievement!</p>\n  </div>\n  <hr class=\"my-4\">\n  <img src=\"https://images.pexels.com/photos/864990/pexels-photo-864990.jpeg?cs=srgb&dl=active-adult-aerobic-864990.jpg&fm=jpg\" \n      class = \"center-img\">\n  <span class=\"d-flex justify-content-center\">\n      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>\n  </span>\n  <span class=\"d-flex justify-content-center\">\n    <a class=\"btn btn-primary btn-lg\" href=\"/sign-up\" role=\"button\">Get Started</a>\n  </span>\n</div>"
+module.exports = "<div class=\"jumbotron justify-content-center\">\n  <h1 class=\" d-flex justify-content-center display-4\">Welcome to Fitness Tracker!</h1>\n  <div class=\"d-flex justify-content-center\">\n    <p class=\"lead\">This is a simple fitness tracker app. You can use it as if it's your workout journal! </p>\n  </div>\n  <div class=\"d-flex justify-content-center\">\n    <p class=\"lead\">You can record your date and workout lists to be proud of your awesome achievement!</p>\n  </div>\n  <hr class=\"my-4\">\n\n  <ngb-carousel>\n    <ng-template ngbSlide>\n      <img *ngIf =\"images\" class=\"center-img\"  [src]=\"images|| ''\" alt=\"Random first slide\">\n      <div class=\"carousel-caption\">\n        <h3>\n          Motivate\n        </h3>\n        <p>\n          Fitness motivates you to live a full life.\n        </p>\n      </div>\n    </ng-template>\n    <ng-template ngbSlide>\n      <img *ngIf =\"images\" class=\"center-img\" [src]=\"images[1] || ''\" alt=\"Random second slide\">\n      <div class=\"carousel-caption\">\n        <h3>Mind</h3>\n        <p>Fitness is not just for your physical body, it's also for your mind and soul.  </p>\n      </div>\n    </ng-template>\n    <ng-template ngbSlide>\n      <img *ngIf =\"images\" class=\"center-img\" [src]=\"images[3]|| ''\" alt=\"Random third slide\">\n      <div class=\"carousel-caption\">\n        <h3>More</h3>\n        <p>You can do more with healthy body and soul!</p>\n      </div>\n    </ng-template>\n  </ngb-carousel>\n  \n  <span class=\"d-flex justify-content-center\">\n    <a class=\"btn btn-primary btn-lg\" href=\"/sign-up\" role=\"button\">Get Started</a>\n  </span>\n</div>"
 
 /***/ }),
 
@@ -536,13 +536,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 var fit_service_1 = __webpack_require__("./src/app/services/fit.service.ts");
+var ng_bootstrap_1 = __webpack_require__("./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(http, _Fit) {
+    function HomeComponent(http, _Fit, config) {
+        var _this = this;
         this.http = http;
         this._Fit = _Fit;
         this._api = "http://localhost:8080/fit";
+        this.images = [];
+        _Fit.getPic().subscribe(function (data) {
+            _this.images = data;
+        });
+        config.interval = 10000;
+        config.wrap = false;
+        config.keyboard = false;
         this.Me = _Fit.Me;
-        // setInterval(()=> this.refresh(), 1000)
     }
     HomeComponent.prototype.ngOnInit = function () {
     };
@@ -552,7 +560,7 @@ var HomeComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/home/home.component.html"),
             styles: [__webpack_require__("./src/app/home/home.component.css")]
         }),
-        __metadata("design:paramtypes", [http_1.Http, fit_service_1.FitService])
+        __metadata("design:paramtypes", [http_1.Http, fit_service_1.FitService, ng_bootstrap_1.NgbCarouselConfig])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -838,6 +846,11 @@ var FitService = /** @class */ (function () {
             "Push Up"
         ];
     }
+    // send random images to home component.
+    FitService.prototype.getPic = function () {
+        return this.http.get(this._api + "/home/getImage", {})
+            .map(function (response) { return response.json(); });
+    };
     // initialize user's data when they sign-up.
     FitService.prototype.signUp = function (name, password) {
         var _this = this;
@@ -946,13 +959,6 @@ var FitService = /** @class */ (function () {
         return this.http.get(this._api + '/exercise/people', { params: { name: this.Me.Name } })
             .map(function (response) { return response.json(); });
     };
-    /*
-        // get the updated information from the server to refresh Share Component.
-        getRequestState(){
-          return this.http.get(this._api + '/exercise/request/state', {params: {name: this.Me.Name}})
-                .map((response:Response)=>response.json());
-    
-        } */
     // Send a request notice to a selected user.
     FitService.prototype.friendRequest = function (friendName) {
         this.http.post(this._api + '/exercise/request', { friend: friendName, name: this.Me.Name })
@@ -1150,7 +1156,6 @@ var ShareComponent = /** @class */ (function () {
         var sendRequest = true;
         this._Fit.changeSentRequest(friendName, sendRequest);
         this._Fit.friendRequest(friendName);
-        // var friend = this.Me.EachShare.find(x => x.Name == friendName);
     };
     // Accept or Decline Friend's request. 
     ShareComponent.prototype.requestBox = function (e, friendName) {

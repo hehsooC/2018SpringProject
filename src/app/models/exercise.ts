@@ -2,14 +2,6 @@ export class Fit {
     
     Person: User[] = [];
     Share: People[] = [];
-    
-    /** Need to find health info database api
-    HealthInfo: {
-        url: string;
-    }
-    */
- 
- 
 }
 
 export class User {
