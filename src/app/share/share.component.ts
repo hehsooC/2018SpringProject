@@ -22,11 +22,6 @@ export class ShareComponent implements OnInit {
       _Router.navigate(['/login']);
     } 
     setInterval(()=> this.refreshList(), 1000)
- /*    if(!_Fit.Me.Notice){
-      console.log('nothing in Notice yet ');
-      this.Me.Notice = [];
-
-    } */
 
   }
 
@@ -47,32 +42,14 @@ export class ShareComponent implements OnInit {
     
 
     });
-    /* if(this.Me.Notice){
-      // refresh user's data 
-    this._Fit.getRequestState().subscribe(data => {
-      this.Me.Requested = data;
-    });
-    } */
-    
 
     // create other users list to share and refresh to update
     this._Fit.getUserList().subscribe(data => {
       this.Me.EachShare = data;
       // remove myself from the share list
       this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
-      //console.log(this.Me.EachShare);
     });
 
-    /* this._Fit.refreshNotice().subscribe(data => {
-      this.Me.Notice = data;
-    })
-
-    this._Fit.refreshFriendList().subscribe(data =>{
-      this.Me.FriendList = data;
-    }) */
-/*     this._Fit.getOthers().subscribe(data => {
-      this.Me.Notice = data;
-    }) */
   }
 
   friendRequest(e: MouseEvent, friendName: string){
@@ -81,10 +58,6 @@ export class ShareComponent implements OnInit {
       this.Me.EachShare.splice(this.Me.EachShare.findIndex(x => x.Name == friendName), 1);
 
     }
-    /* console.log('friendName is ' + friendName);
-    console.log('###EachShare');
-    console.log(this.Me.EachShare); */
-    // this.Me.EachShare.find(x=> x.Name == friendName).FriendRequest = true;
 
   }
 
@@ -108,46 +81,12 @@ export class ShareComponent implements OnInit {
   }
 
   friendHistory(e: MouseEvent, friend: string){
-    console.log('friend Name : ' + friend + '00000000');
-
-    console.log('add friend\'s history');
     this._Fit.addFriendHistory(friend);
-/*     var friendHistory = this.Me.Record.find(x=> x.Name == friend);
-    if(friendHistory){
-      console.log('friend history is here');
-      return;
-    }
-    else{
-      
-    } */
-
   }
 
   displayHistory(e: MouseEvent, key: string, friend: string){
 
-    console.log('display history');
     this._Fit.getFriendSummary(key, friend);
-    /* 
-    var friendFound = this.Me.Record.find( x => x.Name == name);
-   
-    if(friendFound){
-      var summary = this.Me.Record.find(x=>x.KeyDate == key);
-      this.Me.FriendSummary.DoneExerciseList = summary.DoneExerciseList;
-      this.Me.FriendSummary.TotalSetTime = summary.TotalSetTime;
-
-
-      // this._Fit.addFriendHistory(friendName);
-      // console.log('you have a record');
-      // console.log('Summary ----');
-      // this._Fit.getFriendSummary(key);
-      // console.log(this.Me.Summary);
-      // this.Me.Summary.DoneExerciseList = summary.DoneExerciseList;
-      // this.Me.Summary.TotalSetTime = summary.TotalSetTime;
-    }
-    else{
-      return;
-    } */
-
   }
 
 }

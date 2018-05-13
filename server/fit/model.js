@@ -306,20 +306,6 @@ function Fit() {
         }
         
        
-/*         this.RefreshNotice = (name) => {
-            var user = this.Person.find(x=> x.Name == name);
-            return user.Notice;
-
-        } */
-        
-
- /* 
-        this.RefreshFriendList = (name) => {
-            var user = this.Person.find(x=> x.Name == name);
-            return user.FriendList;
-
-        }
-         */
 
         this.RefreshMe = (name) => {
             var user = this.Person.find(x => x.Name == name);

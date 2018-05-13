@@ -58,28 +58,6 @@
 
     <!-- Set Workout Date -->
     <div class ="col-md-8">
-        <!-- Recorded Date List -->
-        <div class="row-md-4">
-                <div class="card"  >
-                    <div class="card-header-own">
-                        <div class="text-uppercase">
-                            Workout Record 
-                        </div>
-                        <div class="subtitle">Click to retrieve workout data on selected date.</div>
-                    </div> <!-- card header -->
-                    <div class="card-body">
-                        <form>
-                            <div class="form-group">
-                                <select multiple class="form-control" id="exampleFormControlSelect2" >
-                                    <option *ngFor="let list of Me.History" (click)="submitDate($event, list.KeyDate)">
-                                        {{list.KeyDate}}
-                                    </option>
-                                </select>
-                            </div>
-                        </form>
-                    </div> <!-- card body -->
-                </div> <!-- card -->
-            <!-- Recorded Date List -->
         <div class="row-md-4">
             <div class="card display-none" [ngClass]="{'display-none' : Me.Month && Me.Date}">
                 <div class=" card-header-own ">
@@ -117,10 +95,33 @@
                             
                         </div> <!-- row -->
                     </div> <!-- card body -->
-                        
-            </div> <!-- card -->
-        </div> <!-- row -->
-        <!-- Set Workout -->
+                            
+                </div> <!-- card -->
+            </div> <!-- row -->
+            <!-- Set Workout -->
+        <!-- Recorded Date List -->
+        <div class="row-md-4">
+                <div class="card"  >
+                    <div class="card-header-own">
+                        <div class="text-uppercase">
+                            Workout Record 
+                        </div>
+                        <div class="subtitle">Click to retrieve workout data on selected date.</div>
+                    </div> <!-- card header -->
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <select multiple class="form-control" id="exampleFormControlSelect2" >
+                                    <option *ngFor="let list of Me.History" (click)="submitDate($event, list.KeyDate)">
+                                        {{list.KeyDate}}
+                                    </option>
+                                </select>
+                            </div>
+                        </form>
+                    </div> <!-- card body -->
+                </div> <!-- card -->
+            <!-- Recorded Date List -->
+ 
 
         <!-- Workout List -->
         <div class="row-md-4">

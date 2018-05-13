@@ -15,7 +15,6 @@ export class FitComponent implements OnInit {
     Model: Fit;
     Me: User;
     ExerciseList: string[];
-    // date: Date;
 
   constructor(private http: Http,
               private _Messages: MessagesService,
@@ -29,9 +28,7 @@ export class FitComponent implements OnInit {
     if(!this.Me){
       _Router.navigate(['/login']);
     } 
-     // setInterval(()=> this.refreshList(), 1000);
     
-    //  this.date = new Date();
 
 
   } 
@@ -39,22 +36,6 @@ export class FitComponent implements OnInit {
   ngOnInit() {
   }
 
-
-  refreshList(){
-   
-   /*    this._Fit.getDay().subscribe(data=>{
-        this.Me.Date = data;
-      })
-      this._Fit.getMonth().subscribe(data=>{
-        this.Me.Month = data;
-      })
-    */
-      /* this._Fit.getUserStatus().subscribe(data=>{
-        this.Me = data;
-      })  */
-    
-
-  }
 
 
   // Record the month and the date ((user input)) of completed workout

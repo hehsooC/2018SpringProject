@@ -34,16 +34,11 @@ export class FitService {
                    "Gentle Yoga",
                    "Push Up"
                    ];
- //   setInterval(()=> this.refresh(), 1000)
     
                 
 
   }
 
- /*  refresh(){
-    this.http.get(this._api + "/state")
-        .subscribe(data=> this.Model = data.json())
-  } */
 
   
   // initialize user's data when they sign-up.
@@ -62,17 +57,6 @@ export class FitService {
     })
   }
 
-
-    /* oAuthLogin(name: string, token: string, pic: string){
-      // this.Me = { Name: name };
-      // this.pic = pic;
-      // this.token = token; 
-      this.Me = {Name: name, Password: null, Profile: {Age: null, Weight: null, Height: null, GoalWeight: null, BMI: null, GoalBMI: null }, 
-      PlanExercise: [], DoneExerciseList: [], Record: [], TotalSetTime: 0};
-      this._Router.navigate(['/fit']);
-    } */
-  
-    
   // get user's information from the server.
   login(name: string, password: string){
     this.http.get(this._api + "/exercise/login", { params : { name: name, password: password } })
@@ -111,10 +95,8 @@ export class FitService {
           }
          this.Me.History = data.json();
          
-        }
-  
-        );
-      }
+        });
+  }
   
 
 
@@ -212,7 +194,7 @@ export class FitService {
     }
 
     
-
+    // add Friend's Workout Summary to Record
     addFriendHistory(friend: string){
       this.http.post(this._api+'/exercise/addFriendHistory',{name: this.Me.Name, friend: friend})
       .subscribe(data => {
@@ -223,13 +205,14 @@ export class FitService {
         this.Me.Record = history;
       });
     }
+
     // if user gets friend request, change the Requested status to inform the user that they have friend requests.
     changeRequested(name: string){
       this.http.post(this._api + '/exercise/changeRequest', {name: name})
-      .subscribe();
+      .subscribe(data =>{
+        this.Me.Requested = data.json();
+      });
     }
-    ////////////////////
-
 
     // get summary from the server to display it at History
     getSummary(key: string){
@@ -250,8 +233,8 @@ export class FitService {
       this.Me.Month = history.Month;
       this.Me.Date = history.Date;
 
-  });
-}
+    });
+  }
 
   getFriendSummary(key: string, friend: string){
     this.http.get(this._api + "/exercise/friendSummary", { params : { name: this.Me.Name, key: key , friend: friend} })
@@ -260,27 +243,16 @@ export class FitService {
       console.log('friend summary is =====');
       console.log(this.Me.FriendSummary);
 
-  });
+    });
   }
-  refreshNotice(){
-    return this.http.get(this._api + "/exercise/refreshNotice", { params : { name: this.Me.Name }})
+
+  // refresh Me Object to update in Share component.
+  refreshMe(){
+    return this.http.get(this._api + "/exercise/refreshMe", { params : { name: this.Me.Name }})
     .map((response:Response)=>response.json()); 
-
   }
-  refreshFriendList(){
-    return this.http.get(this._api + "/exercise/refreshFriendList", { params : { name: this.Me.Name }})
-    .map((response:Response)=>response.json()); 
-
-
-  }
-
-
-    refreshMe(){
-      return this.http.get(this._api + "/exercise/refreshMe", { params : { name: this.Me.Name }})
-      .map((response:Response)=>response.json()); 
-    }
     
 
-  }
+}
   
 
