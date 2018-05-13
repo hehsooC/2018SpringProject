@@ -210,11 +210,22 @@ function Fit() {
         }
 
         // if Me sends a friend request to other user, indicate that the friend request is sent.
-        this.SentRequestChange = (friend, name)=> {
+        this.SentRequestChange = (friend, name, status)=> {
             var me = this.Person.find(x => x.Name == name);
             var each = me.EachShare.find( x => x.Name == friend);
+            var friendN = this.Person.find( x=> x.Name == friend);
+            var eachFriend = friendN.EachShare.find( x => x.Name == name);
 
-            each.RequestSent = true;
+            if(status){
+                each.RequestSent = true;
+            }
+            else{
+                // if friend request is declined, give back requested user into user's list
+                eachFriend.RequestSent = false;
+                // remove that request from Me
+                me.Notice.splice(me.Notice.indexOf(me.Notice.find( x => x.Friend == friend )), 1); 
+            }
+
 
             return true;
 

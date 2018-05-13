@@ -963,9 +963,9 @@ var FitService = /** @class */ (function () {
         });
     };
     // indicate if a user send a friend request to another user to remove that user from User's list
-    FitService.prototype.changeSentRequest = function (friendName) {
+    FitService.prototype.changeSentRequest = function (friendName, status) {
         console.log('Change Sent Request ');
-        this.http.post(this._api + '/exercise/sentRequestChange', { friend: friendName, name: this.Me.Name })
+        this.http.post(this._api + '/exercise/sentRequestChange', { friend: friendName, name: this.Me.Name, status: status })
             .subscribe(function (data) {
             console.log('change request works?');
             if (!data.json()) {
@@ -1147,7 +1147,8 @@ var ShareComponent = /** @class */ (function () {
     };
     // Send a friend request via friend's name
     ShareComponent.prototype.friendRequest = function (e, friendName) {
-        this._Fit.changeSentRequest(friendName);
+        var sendRequest = true;
+        this._Fit.changeSentRequest(friendName, sendRequest);
         this._Fit.friendRequest(friendName);
         // var friend = this.Me.EachShare.find(x => x.Name == friendName);
     };
@@ -1159,6 +1160,8 @@ var ShareComponent = /** @class */ (function () {
         }
         else {
             // dismiss request
+            var decline = false;
+            this._Fit.changeSentRequest(friendName, decline);
             return;
         }
         // change the request state of Me

@@ -61,7 +61,8 @@ export class ShareComponent implements OnInit {
 
   // Send a friend request via friend's name
   friendRequest(e: MouseEvent, friendName: string){
-    this._Fit.changeSentRequest(friendName);
+    var sendRequest = true;
+    this._Fit.changeSentRequest(friendName, sendRequest);
     this._Fit.friendRequest(friendName);
     // var friend = this.Me.EachShare.find(x => x.Name == friendName);
   }
@@ -73,7 +74,9 @@ export class ShareComponent implements OnInit {
         this._Fit.addFriendList(friendName);
         
     } else {
-        // dismiss request
+      // dismiss request
+       var decline = false;
+       this._Fit.changeSentRequest(friendName, decline);
         return;
     }
 

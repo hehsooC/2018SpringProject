@@ -181,9 +181,9 @@ export class FitService {
     }
 
     // indicate if a user send a friend request to another user to remove that user from User's list
-    changeSentRequest(friendName: string ){
+    changeSentRequest(friendName: string, status: boolean ){
       console.log('Change Sent Request ');
-      this.http.post(this._api + '/exercise/sentRequestChange', {friend: friendName, name: this.Me.Name})
+      this.http.post(this._api + '/exercise/sentRequestChange', {friend: friendName, name: this.Me.Name, status: status})
       .subscribe(data => {
         console.log('change request works?');
         if(!data.json()){
