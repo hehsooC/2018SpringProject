@@ -17,6 +17,10 @@ export class LoginComponent implements OnInit {
 
   // pass name and password to Service for a user to sign-in
   login(name:string, password: string){
+    if(!name || !password){
+      alert('Please Enter Username and Password');
+      return;
+    }
     this._Fit.login(name, password);
   }
 

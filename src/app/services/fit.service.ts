@@ -64,7 +64,7 @@ export class FitService {
       var check = data.json()
       // if there is no username or password matching in the server, alert.
       if(!check){
-        alert('Username or Password doesn\'t match in our system! - service ');
+        alert('Username or Password doesn\'t match in our system! ');
         return;
       }
       // if there is a user, set Me to received data.

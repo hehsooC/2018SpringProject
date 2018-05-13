@@ -21,9 +21,12 @@ export class SignUpComponent implements OnInit {
 
   // send name and password to Service to create a new user
     newUser(name: string, password: string){
+      if(!name || !password){
+        alert('Please Enter Username and Password');
+        return;
+      }
         this._Fit.signUp(name, password);
-        console.log('Sign Up Yay');
-       // this._Messages.Messages.push('Successfully Signed Up! Welcome, ' + name + '!');
+       this._Messages.Messages.push('Successfully Signed Up! Welcome, ' + name + '!');
     }
   
     
