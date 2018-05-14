@@ -74,7 +74,7 @@
                     <div class="card-body d-flex justify-content-center setDate">
                         <div class="row">
                             <div class="col">
-                                <form>
+                                <form #setDate = "ngForm">
                                     <div class="row d-flex justify-content-center">
                                         <div class="col">
                                             <input #month type="number" class="form-control" placeholder="Month">
@@ -86,7 +86,7 @@
                                     <br/>
                                     <div class="row d-flex justify-content-end" >
                                         <button class="btn btn-primary btn-margin" type="submit" 
-                                                (click)="addTime($event, month.value, date.value)" >
+                                                (click)="addTime($event, month.value, date.value); setDate.reset();" >
                                             Save
                                         </button>
                                     </div>
