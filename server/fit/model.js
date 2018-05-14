@@ -22,6 +22,8 @@ const images = [
 
 ];
 
+var userNameStack = [];
+
 
 var currentPic = 0;
 
@@ -192,6 +194,10 @@ function Fit() {
             // if global Share doesn't have this person, push it. 
             if(!this.Share.find(x => x.Name == name)){
                 this.Share.push({Name: name, RequestSent: false});
+                // for Type ahead, store user names
+                userNameStack.push(name);
+                console.log('userName stack has ');
+                console.log(userNameStack);
             }
 
             // if there are same name in EachShare with Share, exclude that names.
@@ -311,6 +317,21 @@ function Fit() {
               }
             return user;
         }
+
+        // Type Ahead
+        this.TypeAhead = (text) =>{
+            console.log('model Search is executed');
+            // console.log('text in Search: ' + text);
+            var user = this.Person.find(x => x.Name == name);
+            if( userNameStack.find(x => x == text)){
+                term => term.length < 2 ? []
+                : userNameStack.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10);
+                return text;
+            }
+            //return text;
+        }
+        
+    
   
 }   
  

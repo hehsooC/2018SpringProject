@@ -8,6 +8,14 @@
         <div class="subtitle text-uppercase"> Send a Friend Request to Other Users!</div>
       </div> <!-- card header -->
       <div class="card-body">
+
+        <!-- Type ahead-->
+        <label for="typeahead-basic">Search for a user:</label>
+        <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"/>
+        <hr>
+        <!-- type ahead-->
+
+
         <ul class="list-group list-group-flush" >
           <li *ngIf ="Me.EachShare.length == 0">No Other Users</li>
           <li class = "list-group-item d-flex justify-content-between align-items-center" *ngFor =" let users of Me.EachShare">

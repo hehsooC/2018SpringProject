@@ -3,7 +3,18 @@ import { Http } from "@angular/http";
 import { FitService } from '../services/fit.service';
 import {Fit, User, People } from '../models/exercise';
 import { Router } from '@angular/router';
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 
+
+const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
+  'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
+  'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
+  'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
+  'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+  'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
+  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
+  'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 @Component({
   selector: 'app-share',
   templateUrl: './share.component.html',
@@ -12,6 +23,7 @@ import { Router } from '@angular/router';
 
 export class ShareComponent implements OnInit {
   
+  public model: any;
   Me: User;
 
   constructor(private _Fit: FitService, private _Router: Router) { 
@@ -21,6 +33,7 @@ export class ShareComponent implements OnInit {
       _Router.navigate(['/login']);
     } 
     setInterval(()=> this.refreshList(), 1000)
+    
 
   }
 
@@ -89,4 +102,23 @@ export class ShareComponent implements OnInit {
     this._Fit.getFriendSummary(key, friend);
   }
 
-}
+  // Type ahead implementation (In-class Final)
+  /* search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 2 ? []
+        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    ); */
+    search(text$){
+      console.log(text$);
+      this._Fit.search(text$)
+      .debounceTime(200)
+      .distinctUntilChanged()
+      .subscribe(
+        
+        // data => this.term = data;
+          
+      );
+    }
+  }

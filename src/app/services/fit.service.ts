@@ -256,6 +256,14 @@ export class FitService {
     .map((response:Response)=>response.json()); 
   }
     
+  search(term){
+    return this.http.get(this._api + "/share/typeAhead", {params: {text: term}})
+    .map(res => {
+        return res.json().map(item => {
+            return item.word
+        })
+    })
+}
 
 }
   

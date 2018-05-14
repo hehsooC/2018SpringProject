@@ -35,6 +35,10 @@ module.exports = app
     .get('/exercise/refreshMe', (req,res)=>{
         res.send(fit.RefreshMe(req.query.name));
     })
+    //Type ahead
+    .get('/share/typeAhead', (req, res) => {
+        res.send(fit.TypeAhead(req.query.text));
+    })
     // post profile to a server
     .post('/exercise/profile', (req, res) =>{
         var profile = fit.ProfileAdd(req.body.Age, req.body.Weight, req.body.Height, 
