@@ -2,7 +2,7 @@
 ### Heh-Soo Choi
 
 ## Project: Fitness Tracker App
-***
+
 ###### Please read the comments which are above each function if you have any confusion on the codes.
 
 ###### There may be a little delay or glitch due to the refreshing the local server. So please make sure that you click the button.
@@ -41,8 +41,11 @@ ___
 
 ## Project Structure
 
+###### I used Model-View-Controller design pattern.
+
 The client model is called *"Fit"*. This "Fit" has *"Person,"* which contains *"Name, Password, Profile, PlanExercise, DoneExerciseList, Record, TotalSetTime, EachShare, Notice, Requested, FriendList, History, Month, Date, Summary, and FriendSummary."*
 ___
+
 
 
 ### These Properties are for Local Me (client side) to show the data:
@@ -75,7 +78,7 @@ ___
 
 **FriendList**: contains a list of friends.
 
-**History**: this will keep tracking of workout history by month and date (key).
+**History**: this will keep tracking of workout history by month and date (key). It contains *Name, PlanExercise, DoneExerciseList, TotalSetTime, Month, Date, KeyDate* to track workout for each day that the user set.
 
 
 

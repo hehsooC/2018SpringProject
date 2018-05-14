@@ -18,7 +18,6 @@ export class HistoryComponent implements OnInit {
       _Router.navigate(['/login']);
     } 
 
-    
   
    }
 
