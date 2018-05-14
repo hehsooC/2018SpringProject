@@ -1,6 +1,13 @@
 # 2018Spring: Web Programming Project
 ### Heh-Soo Choi
 
+## For In class Final
+
+I tried to store the users' names whenever a user comes into the Share component, 
+and model.js will find the user name and return that name to the client side.
+But it didn't work well. 
+So I commented it for sake of my other functions.
+
 ## Project: Fitness Tracker App
 
 ###### Please read the comments which are above each function if you have any confusion on the codes.
@@ -35,7 +42,7 @@ ___
 
 **"HistoryComponent"**: user can review their workout history. If the user clicks the date, the corresponding workout history will be displayed. If the user updates their workout list on the specific date, the user can click the date again to see the updates.
 
-**"ShareComponent"**: user can see other users in the same server in *'Other Users.'* user can send a friend request by clicking *'Request'* button. If the userA send a friend request to another userB, userB will have a notice on the *'Friend Request,'* and userB's name will be removed from the 'Other Users.' userB can accept or decline by clicking *'Confirm' * button. If userB clicks *'Ok'* button to accept the friend request, that userA will be added to *'Friends List.'* If userB clicks *'Cancel'* button to decline the friend request, userB name will be added to *'Other Users'* again. In *'Friends List,'* user can click *'Display'* button, the workout days will be added to *'Friend's Workout Date.'* If the user clicks the specific date, the user can see friend's workout summary in 'Friend's Workout Achievement.' 
+**"ShareComponent"**: Whenever a user enters to Share Component, the user list is created. The user can see other users in the same server in *'Other Users.'* user can send a friend request by clicking *'Request'* button. If the userA send a friend request to another userB, userB will have a notice on the *'Friend Request,'* and userB's name will be removed from the 'Other Users.' userB can accept or decline by clicking *'Confirm' * button. If userB clicks *'Ok'* button to accept the friend request, that userA will be added to *'Friends List.'* If userB clicks *'Cancel'* button to decline the friend request, userB name will be added to *'Other Users'* again. In *'Friends List,'* user can click *'Display'* button, the workout days will be added to *'Friend's Workout Date.'* If the user clicks the specific date, the user can see friend's workout summary in 'Friend's Workout Achievement.' 
 
 ###### The design concept for this app is simple and minimalistic.
 
