@@ -46,3 +46,10 @@ form{
     color: white;
     font-size: 15px;
 }
+
+.setDate{
+    height: 175px;
+}
+.btn-margin{
+    margin-right: 15px;
+}

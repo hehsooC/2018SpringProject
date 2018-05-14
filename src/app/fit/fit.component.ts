@@ -110,7 +110,7 @@ export class FitComponent implements OnInit {
     //if the recorded day already exists, set recorded day to a user
     else{
       // find user's history from History[] then return to the user.
-      var result = this.Me.History.find(x => x.KeyDate == key);
+/*       var result = this.Me.History.find(x => x.KeyDate == key);
 
       this.Me.Month = result.Month;
       this.Me.Date = result.Date;
@@ -118,7 +118,8 @@ export class FitComponent implements OnInit {
       this.Me.PlanExercise = result.PlanExercise;
       this.Me.TotalSetTime = result.TotalSetTime;
       
-      this._Fit.SetDay(this.Me.Name, key, month, date);
+      this._Fit.SetDay(this.Me.Name, key, month, date); */
+      alert('It seems you already have a workout record on that day');
     }
   }
 

@@ -97,6 +97,7 @@ export class FitService {
           if(!data.json()){
             return;
           }
+          
          this.Me.History = data.json();
          
         });
