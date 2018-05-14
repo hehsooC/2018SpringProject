@@ -17,23 +17,23 @@
             
                 <div class="form-group col-md-4">
                     <label for="inputAge">Age</label>
-                    <input #age type="number" class="form-control" id="inputAge" [value]="Me.Profile.Age" placeholder="Age">
+                    <input #age type="number" min="1" max="150" class="form-control" id="inputAge" [value]="Me.Profile.Age" placeholder="Age">
                 </div>
             </div>
         
             <div class="form-group">
                 <label for="Height">Height</label>
-                <input #height type="number" class="form-control" id="Height" [value]="Me.Profile.Height" placeholder="cm">
+                <input #height type="number" min="90" max="350"  class="form-control" id="Height" [value]="Me.Profile.Height" placeholder="cm">
             </div>
         
             <div class="form-group">
                 <label for="Weight">Weight</label>
-                <input #weight type="number" class="form-control" id="Weight" [value]="Me.Profile.Weight" placeholder="kg">
+                <input #weight type="number" min="0" class="form-control" id="Weight" [value]="Me.Profile.Weight" placeholder="kg">
             </div>
         
             <div class="form-group">
                 <label for="inputGoalWeight">Goal Weight</label>
-                <input #goalWeight type="number" class="form-control" id="inputGoalWeight" [value]="Me.Profile.GoalWeight" placeholder="kg">
+                <input #goalWeight type="number" min ="0" class="form-control" id="inputGoalWeight" [value]="Me.Profile.GoalWeight" placeholder="kg">
             </div>
         </form>
         <div>
