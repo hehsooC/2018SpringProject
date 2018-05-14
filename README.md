@@ -3,10 +3,12 @@
 
 ## For In class Final
 
-I tried to store the users' names whenever a user comes into the Share component, 
+I tried to store the users' names whenever a user comes into the Share component (this works), 
 and model.js will find the user name and return that name to the client side.
 But it didn't work well. 
-So I commented it for sake of my other functions.
+So I commented it for the sake of my other functions because it gives me an error.
+Also, there is a weird error "ShareComponent.html:14 ERROR TypeError: func is not a function" I couldn't find why this is an error.. since it's not in my components. 
+
 
 ## Project: Fitness Tracker App
 
