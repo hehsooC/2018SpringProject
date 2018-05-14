@@ -8,16 +8,12 @@
         <div class="subtitle"> Send a Friend Request to Other Users!</div>
       </div> <!-- card header -->
       <div class="card-body">
-        <ul class="list-group-item list-group-flush list" *ngFor =" let users of Me.EachShare">
-          <div class="row justify-content-md-center">
-            <div class="col">
-              <li *ngIf ="Me.EachShare.length == 0">No Other Users</li>
-              <li  >{{users.Name}} </li>
-            </div>
-            <div class="col">
-              <button class="btn btn-color btn-sm d-flex justify-content-end" (click) = "friendRequest($event, users.Name)" > Request </button>
-            </div>
-          </div>  
+        <ul class="list-group list-group-flush" >
+          <li *ngIf ="Me.EachShare.length == 0">No Other Users</li>
+          <li class = "list-group-item d-flex justify-content-between align-items-center" *ngFor =" let users of Me.EachShare">
+            {{users.Name}} 
+            <button class="btn btn-color btn-sm" (click) = "friendRequest($event, users.Name)" > Request </button>
+          </li>
         </ul>
       </div> <!-- card-body -->
     </div> <!-- card -->
@@ -36,7 +32,7 @@
           <button class="btn btn-color" disabled *ngIf="!Me.Requested">No Friend Request</button>
           <button class="btn btn-warning"  disabled *ngIf="Me.Requested">You Have a Friend Request</button>
         </div>
-        <ul class="list-group-item list-group-flush list" *ngFor = "let friend of _Fit.Me.Notice">
+        <ul class="list-group-item list-group-flush list" *ngFor = "let friend of Me.Notice">
           <div class = "row justify-content-md-center">
             <div class="col">
               <li > {{friend.Friend}} </li>
@@ -61,17 +57,12 @@
         </div>
       </div> <!-- card header -->
       <div class="card-body">
-        <ul class="list-group-item list-group-flush list" *ngFor = "let friend of Me.FriendList">
-          <div class = "row justify-content-md-center">
-            <div class="col">
-              <li *ngIf ="Me.FriendList.length == 0" > No Friends Yet! </li>
-              <li > {{friend.Name}} </li>
-            </div>
-            <div class="col">
-              <button class="btn btn-sm d-flex justify-content-end btn-color" (click) = "friendHistory($event, friend.Name)"> Display </button>
-            </div>
-           
-          </div>
+        <ul class="list-group list-group-flush" >
+          <li *ngIf ="Me.FriendList.length == 0" > No Friends Yet! </li>
+          <li class = "list-group-item d-flex justify-content-between align-items-center" *ngFor = "let friend of Me.FriendList"> 
+            {{friend.Name}} 
+            <button class="btn btn-sm d-flex justify-content-end btn-color" (click) = "friendHistory($event, friend.Name)"> Display </button>
+          </li>
         </ul>
       </div> <!-- card body-->
     </div> <!-- card -->

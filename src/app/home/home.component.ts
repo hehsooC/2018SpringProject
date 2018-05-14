@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     _Fit.getPic().subscribe(data => {
       this.images = data;
     });
-    config.interval = 10000;
+    config.interval = 5000;
     config.wrap = false;
     config.keyboard = false;
   

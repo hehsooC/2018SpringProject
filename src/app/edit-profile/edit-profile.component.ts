@@ -27,7 +27,6 @@ export class EditProfileComponent implements OnInit {
   editing(age: number, weight: number, height: number, goalWeight: number, name: string ){
     const goalBmi = this.calculateBMI(goalWeight, height);
     const bmi = this.calculateBMI(weight, height);
-    console.log('profile component');
     this._Fit.profileAdd(age, weight, height, goalWeight, bmi, goalBmi, name);
   
   

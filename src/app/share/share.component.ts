@@ -16,7 +16,6 @@ export class ShareComponent implements OnInit {
 
   constructor(private _Fit: FitService, private _Router: Router) { 
     this.Me = _Fit.Me;
-
     // if there user is not logged in or not signed up, direct user to login.
     if(!_Fit.Me){
       _Router.navigate(['/login']);
@@ -33,22 +32,27 @@ export class ShareComponent implements OnInit {
 
   refreshList(){
     // refresh Me object - receive Notice, FriendList, Requested status to update
-    this._Fit.refreshMe().subscribe(data => {
-      this.Me.Notice = data.Notice;
-      this.Me.FriendList = data.FriendList;
-      this.Me.Requested = data.Requested;
-    });
+    if(this.Me){
 
-    // create other users list to share and refresh to update
-    this._Fit.getUserList().subscribe(data => {
-      this.Me.EachShare = data;
-      // remove myself from the share list
-      this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
-      // if a user send a friend request, remove that friend from the user list.
-      if((this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.RequestSent == true)))!= -1){
-        this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.RequestSent == true)), 1);
-      }
-    });
+      this._Fit.refreshMe().subscribe(data => {
+        this.Me.Notice = data.Notice;
+        this.Me.FriendList = data.FriendList;
+        this.Me.Requested = data.Requested;
+      });
+  
+    
+
+      // create other users list to share and refresh to update
+      this._Fit.getUserList().subscribe(data => {
+        this.Me.EachShare = data;
+        // remove myself from the share list
+        this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.Name == this.Me.Name)), 1);
+        // if a user send a friend request, remove that friend from the user list.
+        if((this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.RequestSent == true)))!= -1){
+          this.Me.EachShare.splice(this.Me.EachShare.indexOf(this.Me.EachShare.find(x=> x.RequestSent == true)), 1);
+        }
+      });
+    }
   }
 
   // Send a friend request via friend's name
