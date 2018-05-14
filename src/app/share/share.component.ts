@@ -94,16 +94,14 @@ export class ShareComponent implements OnInit {
     this._Fit.getFriendSummary(key, friend);
   }
 
-  // Type ahead implementation (In-class Final)
-
+  // Type ahead implementation (In-class Final) 
     /* search(text$){
       console.log(text$);
       this._Fit.search(text$)
       .debounceTime(200)
       .distinctUntilChanged()
       .subscribe(
-        
-        // data => this.term = data;
+        data => this.model = data;
           
       ); */
     }
