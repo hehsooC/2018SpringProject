@@ -95,14 +95,14 @@ export class ShareComponent implements OnInit {
   }
 
   // Type ahead implementation (In-class Final) 
-    /* search(text$){
+/*     search(text$){
       console.log(text$);
       this._Fit.search(text$)
       .debounceTime(200)
       .distinctUntilChanged()
       .subscribe(
-        data => this.model = data;
-          
-      ); */
-    }
+        data => this.model = data
+      );
+    } */
+  }
   
