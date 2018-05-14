@@ -249,6 +249,10 @@ function Fit() {
             var friendN = this.Person.find(x=> x.Name == friend);
             user.FriendList.push({Name: friend});
             friendN.FriendList.push({Name: name});
+            if(friendN.Notice.find(x=>x.Friend == name)){
+                friendN.Notice.splice(friendN.Notice.findIndex(x => x.Friend == name), 1);
+
+            }
             // remove this request from Me's Notice
             user.Notice.splice(user.Notice.findIndex(x => x.Friend == friend), 1);
             // remove user who sent the request from Me's user list
