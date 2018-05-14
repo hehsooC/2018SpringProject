@@ -1,13 +1,13 @@
 # 2018Spring: Web Programming Project
-###Heh-Soo Choi
+### Heh-Soo Choi
 
 ## Project: Fitness Tracker App
 ***
-######Please read the comments which are above each function if you have any confusion on the codes.
+###### Please read the comments which are above each function if you have any confusion on the codes.
 
-######There may be a little delay or glitch due to the refreshing the local server. So please make sure that you click the button.
+###### There may be a little delay or glitch due to the refreshing the local server. So please make sure that you click the button.
 
-######If something is not responding, it might be that the button or the list is not clicked properly. 
+###### If something is not responding, it might be that the button or the list is not clicked properly. 
 
 
 ## Features Required
@@ -23,7 +23,7 @@
  
  The goal of this project is to create a fitness tracker app. This app will manage a user's profile, keep tracking of exercise log (e.g. exercise time, what kind of exercise, etc.), and share the progress with friends who are using the same app (or the local server in our case). 
 ___
-######A user can use this app as if it's a workout diary. 
+###### A user can use this app as if it's a workout diary. 
 ___
 
  **"SignUpComponent"**, **"LoginComponent"**: user can sign-up if a user is new to the app, or sign-in if a user is already signed up. 
@@ -37,7 +37,7 @@ ___
 
 **"ShareComponent"**: user can see other users in the same server in *'Other Users.'* user can send a friend request by clicking *'Request'* button. If the userA send a friend request to another userB, userB will have a notice on the *'Friend Request,'* and userB's name will be removed from the 'Other Users.' userB can accept or decline by clicking *'Confirm' * button. If userB clicks *'Ok'* button to accept the friend request, that userA will be added to *'Friends List.'* If userB clicks *'Cancel'* button to decline the friend request, userB name will be added to *'Other Users'* again. In *'Friends List,'* user can click *'Display'* button, the workout days will be added to *'Friend's Workout Date.'* If the user clicks the specific date, the user can see friend's workout summary in 'Friend's Workout Achievement.' 
 
-######The design concept for this app is simple and minimalistic.
+###### The design concept for this app is simple and minimalistic.
 
 ## Project Structure
 
