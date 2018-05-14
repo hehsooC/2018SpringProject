@@ -48,8 +48,12 @@ form{
 }
 
 .setDate{
-    height: 175px;
+    height: 200px;
 }
 .btn-margin{
     margin-right: 15px;
+}
+
+p{
+  margin: 0px;  
 }
