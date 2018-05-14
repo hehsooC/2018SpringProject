@@ -51,6 +51,10 @@ module.exports = app
         var plan = fit.PlanHistory(req.body.name, req.body.Text, req.body.key);
         res.send(plan);
     })
+    .post('/exercise/dismissPlan', (req, res) =>{
+        var plan = fit.DismissPlan(req.body.name, req.body.Text, req.body.key);
+        res.send(plan);
+    })
     // change the status of Chosen - this will change the color of planned history list if it's chosen.
     .post('/exercise/chosen', (req,res) => {
         res.send(fit.MakeChosen(req.body.name, req.body.text, req.body.key));

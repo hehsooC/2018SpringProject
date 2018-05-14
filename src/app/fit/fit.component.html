@@ -137,7 +137,7 @@
                         </div>
                         <div class="subtitle">Click to add workout to your plan</div>
                     </div> <!-- card header -->
-                    <div class="card-body setDate">
+                    <div class="card-body ">
                         <form>
                             <div class="form-group">
                                 <select multiple class="form-control" id="exampleFormControlSelect2" >
@@ -183,10 +183,15 @@
                                     </div>
                                 </form>
                                 <div class="d-flex justify-content-end">
-                                    <button (click)="doneExercise($event, list.Text, time.value, set.value)"
+                                    <button class=""(click)="doneExercise($event, list.Text, time.value, set.value)"
                                             class="col-sm-3 btn btn-sm btn-primary">
                                             Done
+                                    </button> &nbsp;
+                                    <button class=""(click)="dismiss($event, list.Text, time.value, set.value)"
+                                    class="col-sm-4 btn btn-sm btn-primary">
+                                        Dismiss
                                     </button>
+
                                 </div>
                             </li>
                         </ul>

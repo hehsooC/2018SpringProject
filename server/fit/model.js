@@ -113,6 +113,19 @@ function Fit() {
             }
         }
 
+        // splice off the planed workout list
+        this.DismissPlan = (name, text, key) => {
+            var userFound = this.Person.find(x => x.Name == name);
+            var historyFound = userFound.History.find(x=>x.KeyDate == key);
+            if(historyFound){
+                historyFound.PlanExercise.splice(historyFound.PlanExercise.findIndex(x => x.Text == text), 1);
+                return historyFound.PlanExercise;
+            }
+            else{
+                return false;
+            }
+        }
+
         // if a planned workout list is selected, make Chosen to true to indicate this exercise is done.
         // this will change the color of planned history list if it's chosen.
         this.MakeChosen = (name, text, key) => {

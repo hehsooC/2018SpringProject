@@ -208,6 +208,13 @@ export class FitComponent implements OnInit {
     }
   }
 
+
+  dismiss(e: MouseEvent, text: string, time: number, set: number){
+    var key = this.Me.Month+' / '+this.Me.Date;
+
+    console.log('dismiss');
+    this._Fit.dissmissPlan(text, key);
+  }
   // when user hits Reset button, reset the page.
   reset(e: MouseEvent){
     

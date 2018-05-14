@@ -139,6 +139,16 @@ export class FitService {
               });
   }
 
+  dissmissPlan(text: string, key: string){
+    this.http.post(this._api + "/exercise/dismissPlan", {name: this.Me.Name, Text: text, key: key})
+    .subscribe(data => {
+      if(!data.json()){
+        return;
+      }
+      this.Me.PlanExercise = data.json();
+    });
+
+  }
 
   // post total workout time to the server
   getTotalTime(name: String, key: string, totalTime: number){
