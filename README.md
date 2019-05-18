@@ -13,7 +13,6 @@
 
 ## Features Required
 
-
 1) Profile Management
 
 2) Exercise Log
