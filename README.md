@@ -1,6 +1,9 @@
 # 2018 Spring: Web Programming Project
 ### Hyesoo Choi
+<<<<<<< HEAD
 
+=======
+>>>>>>> 23726e8753fe7b940d71f4aaaf1be98338dbe779
 
 ## Project: Fitness Tracker App
 
