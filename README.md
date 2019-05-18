@@ -1,4 +1,4 @@
-# 2018Spring: Web Programming Project
+# 2018 Spring: Web Programming Project
 ### Hyesoo Choi
 
 
