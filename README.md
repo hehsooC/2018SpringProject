@@ -1,9 +1,8 @@
 # 2018 Spring: Web Programming Project
 ### Hyesoo Choi
-<<<<<<< HEAD
 
-=======
->>>>>>> 23726e8753fe7b940d71f4aaaf1be98338dbe779
+Redirect to Main Page:
+https://hehsooc.github.io/Fitness-App/src/index.html
 
 ## Project: Fitness Tracker App
 
