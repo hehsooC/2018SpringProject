@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+
+import {APP_BASE_HREF} from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -54,7 +56,7 @@ import { HistoryComponent } from './history/history.component';
 
     ])
   ],
-  providers: [MessagesService, FitService],
+  providers: [MessagesService, FitService, {provide: APP_BASE_HREF, useValue: '/src/app'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
