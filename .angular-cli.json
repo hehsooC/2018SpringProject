@@ -5,7 +5,7 @@
   },
   "apps": [
     {
-      "name": "app-production",
+      "name": "Fitness-App",
       "root": "./",
       "outDir": "dist",
       "assets": [
