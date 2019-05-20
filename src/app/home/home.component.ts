@@ -9,7 +9,11 @@ import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
+
 export class HomeComponent implements OnInit {
+
+  
 
   Me: User;
   private _api = "http://localhost:8080/fit";
@@ -17,7 +21,7 @@ export class HomeComponent implements OnInit {
 
 
   constructor(private http: Http, private _Fit: FitService, config: NgbCarouselConfig) {
-   
+    
     _Fit.getPic().subscribe(data => {
       this.images = data;
     });
