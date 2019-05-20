@@ -5,36 +5,36 @@
   },
   "apps": [
     {
-      "root": "src",
+      "root": "./",
       "outDir": "dist",
       "assets": [
         "assets",
         "favicon.ico"
       ],
-      "index": "../index.html",
-      "main": "main.ts",
-      "polyfills": "polyfills.ts",
-      "test": "test.ts",
-      "tsconfig": "tsconfig.app.json",
-      "testTsconfig": "tsconfig.spec.json",
+      "index": "index.html",
+      "main": "src/main.ts",
+      "polyfills": "src/polyfills.ts",
+      "test": "src/test.ts",
+      "tsconfig": "src/tsconfig.app.json",
+      "testTsconfig": "src/tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.css",
-        "../src/styles.css"
+        "node_modules/bootstrap/dist/css/bootstrap.css",
+        "src/styles.css"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.min.js"
+        "node_modules/jquery/dist/jquery.min.js"
       ],
-      "environmentSource": "environments/environment.ts",
+      "environmentSource": "src/environments/environment.ts",
       "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
+        "dev": "src/environments/environment.ts",
+        "prod": "src/environments/environment.prod.ts"
       }
     }
   ],
   "e2e": {
     "protractor": {
-      "config": "./protractor.conf.js"
+      "config": "src/protractor.conf.js"
     }
   },
   "lint": [
