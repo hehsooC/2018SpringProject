@@ -41,17 +41,17 @@
     "newsapi": "^2.4.0",
     "popper.js": "^1.15.0",
     "rxjs": "^5.5.6",
-    "zone.js": "^0.8.19"
+    "zone.js": "^0.8.29"
   },
   "devDependencies": {
-    "@angular/cli": "~1.7.2",
-    "@angular/compiler-cli": "^5.2.0",
-    "@angular/language-service": "^5.2.0",
+    "@angular/cli": "^1.7.4",
+    "@angular/compiler-cli": "^5.2.11",
+    "@angular/language-service": "^5.2.11",
     "@types/jasmine": "^2.8.16",
     "@types/jasminewd2": "^2.0.6",
     "@types/jquery": "^3.3.29",
-    "@types/node": "^6.0.118",
-    "codelyzer": "^4.0.1",
+    "@types/node": "^6.14.6",
+    "codelyzer": "^4.5.0",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^2.0.5",

@@ -1,10 +1,11 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "fitness-tracker"
+    "name": "Fitness-App"
   },
   "apps": [
     {
+      "name": "app-production",
       "root": "./",
       "outDir": "dist",
       "assets": [
