@@ -6,6 +6,8 @@
 
 ###### Please read the comments which are above each function if you have any confusion on the codes.
 
+###### Currently, this project runs on localhost:8080 using npm.
+
 ###### There may be a little delay or glitch due to the refreshing the local server. So please make sure that you click the button.
 
 ###### If something is not responding, it might be that the button or the list is not clicked properly. 
