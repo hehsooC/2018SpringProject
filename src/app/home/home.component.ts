@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
   
 
   Me: User;
-  private _api = "http://localhost:8080/fit";
   images: string[] = [];
 
 
